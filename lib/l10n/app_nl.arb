@@ -1,0 +1,255 @@
+{
+  "@@locale": "nl",
+
+  "appName": "CRYPT",
+  "welcome": "Welkom",
+  "login": "Inloggen",
+  "signup": "Registreren",
+  "settings": "Instellingen",
+  "chats": "Chats",
+  "typeMessage": "Typ een bericht...",
+  "send": "Verzenden",
+
+  "p2p": "P2P",
+  "connecting": "Verbinden...",
+  "connectingP2p": "Verbinden met P2P...",
+  "p2pConnectionNotReady": "P2P niet gereed.",
+
+  "searchLanguage": "Taal zoeken...",
+  "language": "Taal",
+
+  "forceEscapeSignOutTitle": "NOOD-AFMELDING FORCEREN?",
+  "forceEscapeSignOutContent": "WAARSCHUWING: Alle apparaatgegevens worden gewist.",
+  "cancel": "Annuleren",
+  "wipeDevice": "APPARAAT WISSEN",
+
+  "accountDestructionAlertTitle": "ACCOUNTVERWIJDERING",
+  "accountDestructionWarning": "WAARSCHUWING: Apparaatgegevens en berichten op afstand worden gewist.",
+  "accountDestructionCriticalNotice": "CRUCIAAL: Verkeerde codes vergrendelen het systeem. Gebruik uw Accountwachtwoord of Nooduitgang.",
+
+  "verificationSecurityKey": "Beveiligingssleutel: {code}",
+  "@verificationSecurityKey": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+
+  "copyDigitsHint": "Kopieer de 5 cijfers",
+  "codeMismatchNotice": "Code komt niet overeen. Voer uw Masterwachtwoord in of wacht 10 minuten.",
+  "accountPasswordLabel": "Accountwachtwoord",
+  "deleteEverythingPermanently": "ALLES VERWIJDEREN",
+  "escapeAndPurgeDeviceData": "Ontsnappen & Gegevens Wissen",
+
+  "addContact": "Contact toevoegen",
+  "addContactConfirmation": "Dit contact toevoegen?",
+  "noMessagesYet": "Nog geen berichten",
+  "addNewContact": "Nieuw contact",
+  "usernameLabel": "Gebruikersnaam",
+  "nicknameOptionalLabel": "Bijnaam (optioneel)",
+  "add": "Toevoegen",
+  "usernameCannotBeEmpty": "Gebruikersnaam vereist",
+
+  "contactAlreadyExists": "Contact '{name}' bestaat al.",
+  "@contactAlreadyExists": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "userNotFoundOnRegistry": "Gebruiker '{name}' niet gevonden. Gedeeld geheim niet beschikbaar.",
+  "@userNotFoundOnRegistry": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "successfullyAddedContact": "{name} toegevoegd!",
+  "@successfullyAddedContact": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "contacts": "Contacten",
+  "noContactsYet": "Nog geen contacten",
+
+  "securityLockoutActive": "Beveiligingsvergrendeling",
+  "tooManyAttemptsFrozen": "Te veel pogingen. Vergrendeld voor {minutes} min.",
+  "@tooManyAttemptsFrozen": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+
+  "acknowledge": "Bevestigen",
+  "accessBlocked": "Toegang geblokkeerd",
+
+  "accessSuspended": "5 mislukte pogingen. Opgeschort voor {minutes} min.",
+  "@accessSuspended": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+
+  "ok": "OK",
+
+  "unlockSecureNode": "Ontgrendelen: {username}",
+  "@unlockSecureNode": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+
+  "verificationMetricsRemaining": "Pogingen over: {count}",
+  "@verificationMetricsRemaining": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+
+  "secureKeyPasscode": "Beveiligingscode",
+  "warningHardwareLockout": "WAARSCHUWING: Volgende fout vergrendelt de beveiliging.",
+  "abort": "Afbreken",
+  "authenticate": "Verifiëren",
+
+  "searchPipelinesHint": "Beveiligde verbindingen zoeken...",
+  "zeroPipelinesDiscovered": "Geen verbindingen gevonden.",
+  "processingDecryption": "Ontsleutelen...",
+  "decrypting": "Ontsleutelen...",
+  "decryptionError": "[Ontsleutelfout]",
+  "cryptContainerSecure": "CRYPT-CONTAINER BEVEILIGD",
+
+  "connectAnAccount": "Account koppelen",
+  "username": "Gebruikersnaam",
+  "password": "Wachtwoord",
+  "enterMasterSecurityPassword": "Voer uw Masterwachtwoord in",
+  "pleaseFillAllFields": "Vul alle velden in",
+  "wrongUsernameOrPassword": "Onjuiste gebruikersnaam of wachtwoord",
+
+  "loginError": "Inlogfout: {error}",
+  "@loginError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+
+  "dontHaveAnAccountSignUp": "Geen account? Registreren",
+  "myIdentity": "Mijn identiteit",
+  "scanToAddMe": "Scan om mij toe te voegen",
+  "shareProfileLink": "Profiel delen",
+
+  "addMeOnCrypt": "Voeg mij toe op CRYPT!\n\n{link}",
+  "@addMeOnCrypt": {
+    "placeholders": {
+      "link": {
+        "type": "String"
+      }
+    }
+  },
+
+  "scanQr": "QR scannen",
+  "invalidCryptQrFormat": "Ongeldige CRYPT QR-code.",
+  "userScanned": "Gebruiker gescand!",
+  "addingUser": "{username} toevoegen...",
+
+  "@addingUser": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+
+  "defaultUser": "Gebruiker",
+  "createAccount": "Account aanmaken",
+  "keepPasswordSecureHint": "Bewaar het veilig. Wachtwoord kan niet worden gewijzigd.",
+  "pleaseFillInAllFields": "Vul alle velden in",
+  "usernameExceedsLimit": "Gebruikersnaam max. 20 tekens",
+  "invalidUsernameCharacters": "Gebruik alleen letters, cijfers, _ of -.",
+  "weakPasswordNotice": "Gebruik 8+ tekens, 1 cijfer en 1 hoofdletter.",
+  "unableToGenerateUniqueUsername": "Kan geen unieke gebruikersnaam genereren.",
+
+  "accountCreated": "Account aangemaakt",
+
+  "yourUsernameIs": "Uw gebruikersnaam:\n\n{username}",
+  "@yourUsernameIs": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+
+  "usernameTakenAssignedTag": "Gebruikersnaam '{chosen}' is bezet.\n\nUw gebruikersnaam:\n\n{assigned}\n\nBewaar deze voor het inloggen.",
+  "@usernameTakenAssignedTag": {
+    "placeholders": {
+      "chosen": {
+        "type": "String"
+      },
+      "assigned": {
+        "type": "String"
+      }
+    }
+  },
+
+  "continueText": "Doorgaan",
+
+  "failedToGenerateIdentity": "Aanmaken van identiteit mislukt: {error}",
+  "@failedToGenerateIdentity": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+
+  "welcomeToCrypt": "Welkom bij CRYPT",
+  "signupDescription": "Maak een gebruikersnaam en wachtwoord aan om P2P-sleutels te genereren.",
+  "chooseAUsername": "Kies een gebruikersnaam",
+  "usernameHelperText": "Gebruik niet uw echte naam. Als deze bezet is, wordt een achtervoegsel toegevoegd.",
+  "masterAuthenticationRequired": "Master-authenticatie",
+  "verify": "Verifiëren",
+  "darkThemeMode": "Donker thema",
+  "secureConversations": "Beveiligde gesprekken",
+  "noActiveConversations": "Geen actieve chats. Start er een om vergrendelingen in te schakelen.",
+  "logout": "Uitloggen",
+  "wipeDeviceAndEscape": "APPARAAT WISSEN",
+  "falsePassword": "Verkeerd wachtwoord",
+
+  "accessSuspendedTimer": "Toegang opgeschort. Probeer het opnieuw over {time}.",
+  "@accessSuspendedTimer": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+
+  "selectSecureLockMethod": "Selecteer vergrendelingsmethode",
+  "selectSecureLockDescription": "Vergrendelen met vingerafdruk of 4-cijferige pincode?",
+  "fourDigitPin": "4-cijferige pincode",
+  "fingerprintUnlock": "Vingerafdruk 🔓",
+  "supportSoloDeveloper": "Ondersteun ontwikkelaar",
+  "maybeLater": "Misschien later",
+  "submitProof": "Bewijs indienen",
+  "couldNotOpenWallet": "Wallet kon niet worden geopend. Kopieer de onderstaande code.",
+  "proofSubmittedSnackbar": "Bewijs ingediend. Handmatige beoordeling: 24–48 uur (weekenden uitgesloten)."
+}

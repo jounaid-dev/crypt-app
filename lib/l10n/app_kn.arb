@@ -1,0 +1,253 @@
+{
+  "@@locale": "kn",
+
+  "appName": "CRYPT",
+  "welcome": "ಸ್ವಾಗತ",
+  "login": "ಲಾಗ್ ಇನ್",
+  "signup": "ಸೈನ್ ಅಪ್",
+  "settings": "ಸೆಟ್ಟಿಂಗ್‌ಗಳು",
+  "chats": "ಚಾಟ್‌ಗಳು",
+  "typeMessage": "ಸಂದೇಶವನ್ನು ಟೈಪ್ ಮಾಡಿ...",
+  "send": "ಕಳುಹಿಸಿ",
+
+  "p2p": "P2P",
+  "connecting": "ಸಂಪರ್ಕಿಸಲಾಗುತ್ತಿದೆ...",
+  "connectingP2p": "P2P ಗೆ ಸಂಪರ್ಕಿಸಲಾಗುತ್ತಿದೆ...",
+  "p2pConnectionNotReady": "P2P ಸಿದ್ಧವಾಗಿಲ್ಲ.",
+
+  "searchLanguage": "ಭಾಷೆಯನ್ನು ಹುಡುಕಿ...",
+  "language": "ಭಾಷೆ",
+
+  "forceEscapeSignOutTitle": "ಬಲವಂತವಾಗಿ ಸೈನ್ ಔಟ್ ಮಾಡಬೇಕೆ?",
+  "forceEscapeSignOutContent": "ಎಚ್ಚರಿಕೆ: ಎಲ್ಲಾ ಸಾಧನದ ಡೇಟಾವನ್ನು ಅಳಿಸಲಾಗುತ್ತದೆ.",
+  "cancel": "ರದ್ದುಮಾಡಿ",
+  "wipeDevice": "ಸಾಧನವನ್ನು ಅಳಿಸಿ",
+
+  "accountDestructionAlertTitle": "ಖಾತೆ ಅಳಿಸುವಿಕೆ",
+  "accountDestructionWarning": "ಎಚ್ಚರಿಕೆ: ಸಾಧನದ ಡೇಟಾ ಮತ್ತು ದೂರಸ್ಥ ಸಂದೇಶಗಳನ್ನು ಅಳಿಸಲಾಗುತ್ತದೆ.",
+  "accountDestructionCriticalNotice": "ನಿರ್ಣಾಯಕ: ತಪ್ಪಾದ ಕೋಡ್‌ಗಳು ಸಿಸ್ಟಮ್ ಅನ್ನು ಲಾಕ್ ಮಾಡುತ್ತವೆ. ನಿಮ್ಮ ಖಾತೆಯ ಪಾಸ್‌ವರ್ಡ್ ಅಥವಾ ತುರ್ತು ನಿರ್ಗಮನವನ್ನು ಬಳಸಿ.",
+
+  "verificationSecurityKey": "ಭದ್ರತಾ ಕೀ: {code}",
+  "@verificationSecurityKey": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+
+  "copyDigitsHint": "5 ಅಂಕೆಗಳನ್ನು ಕಾಪಿ ಮಾಡಿ",
+  "codeMismatchNotice": "ಕೋಡ್ ಹೊಂದಿಕೆಯಾಗುತ್ತಿಲ್ಲ. ನಿಮ್ಮ ಮಾಸ್ಟರ್ ಪಾಸ್‌ವರ್ಡ್ ನಮೂದಿಸಿ ಅಥವಾ 10 ನಿಮಿಷ ಕಾಯಿರಿ.",
+  "accountPasswordLabel": "ಖಾತೆಯ ಪಾಸ್‌ವರ್ಡ್",
+  "deleteEverythingPermanently": "ಎಲ್ಲವನ್ನೂ ಶಾಶ್ವತವಾಗಿ ಅಳಿಸಿ",
+  "escapeAndPurgeDeviceData": "ನಿರ್ಗಮಿಸಿ ಮತ್ತು ಡೇಟಾವನ್ನು ಅಳಿಸಿ",
+
+  "addContact": "ಸಂಪರ್ಕವನ್ನು ಸೇರಿಸಿ",
+  "addContactConfirmation": "ಈ ಸಂಪರ್ಕವನ್ನು ಸೇರಿಸಬೇಕೆ?",
+  "noMessagesYet": "ಇನ್ನೂ ಯಾವುದೇ ಸಂದೇಶಗಳಿಲ್ಲ",
+  "addNewContact": "ಹೊಸ ಸಂಪರ್ಕ",
+  "usernameLabel": "ಬಳಕೆದಾರ ಹೆಸರು",
+  "nicknameOptionalLabel": "ಅಡ್ಡಹೆಸರು (ಐಚ್ಛಿಕ)",
+  "add": "ಸೇರಿಸಿ",
+  "usernameCannotBeEmpty": "ಬಳಕೆದಾರ ಹೆಸರು ಅಗತ್ಯವಿದೆ",
+
+  "contactAlreadyExists": "ಸಂಪರ್ಕ '{name}' ಈಗಾಗಲೇ ಅಸ್ತಿತ್ವದಲ್ಲಿದೆ.",
+  "@contactAlreadyExists": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "userNotFoundOnRegistry": "ಬಳಕೆದಾರ '{name}' ಕಂಡುಬಂದಿಲ್ಲ. ಹಂಚಿಕೆಯ ರಹಸ್ಯ ಲಭ್ಯವಿಲ್ಲ.",
+  "@userNotFoundOnRegistry": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "successfullyAddedContact": "{name} ಅನ್ನು ಸೇರಿಸಲಾಗಿದೆ!",
+  "@successfullyAddedContact": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "contacts": "ಸಂಪರ್ಕಗಳು",
+  "noContactsYet": "ಇನ್ನೂ ಯಾವುದೇ ಸಂಪರ್ಕಗಳಿಲ್ಲ",
+
+  "securityLockoutActive": "ಭದ್ರತಾ ಲಾಕ್‌ಔಟ್",
+  "tooManyAttemptsFrozen": "ತುಂಬಾ ಹೆಚ್ಚು ಪ್ರಯತ್ನಗಳು. {minutes} ನಿಮಿಷಗಳ ಕಾಲ ಲಾಕ್ ಮಾಡಲಾಗಿದೆ.",
+  "@tooManyAttemptsFrozen": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+
+  "acknowledge": "ದೃಢೀಕರಿಸಿ",
+  "accessBlocked": "ಪ್ರವೇಶವನ್ನು ನಿರ್ಬಂಧಿಸಲಾಗಿದೆ",
+  "accessSuspended": "5 ಬಾರಿ ತಪ್ಪಾಗಿ ಹೊಂದಿಕೆಯಾಗಿದೆ. {minutes} ನಿಮಿಷಗಳ ಕಾಲ ಪ್ರವೇಶವನ್ನು ಸ್ಥಗಿತಗೊಳಿಸಲಾಗಿದೆ.",
+  "@accessSuspended": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+
+  "ok": "ಸರಿ",
+
+  "unlockSecureNode": "ಅನ್‌ಲಾಕ್ ಮಾಡಿ: {username}",
+  "@unlockSecureNode": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+
+  "verificationMetricsRemaining": "ಉಳಿದಿರುವ ಪ್ರಯತ್ನಗಳು: {count}",
+  "@verificationMetricsRemaining": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+
+  "secureKeyPasscode": "ಭದ್ರತಾ ಪಾಸ್‌ಕೋಡ್",
+  "warningHardwareLockout": "ಎಚ್ಚರಿಕೆ: ಮುಂದಿನ ವೈಫಲ್ಯವು ಭದ್ರತೆಯನ್ನು ಲಾಕ್ ಮಾಡುತ್ತದೆ.",
+  "abort": "ರದ್ದುಮಾಡಿ",
+  "authenticate": "ದೃಢೀಕರಿಸಿ",
+
+  "searchPipelinesHint": "ಸುರಕ್ಷಿತ ಸಂಪರ್ಕಗಳನ್ನು ಹುಡುಕಿ...",
+  "zeroPipelinesDiscovered": "ಯಾವುದೇ ಸಂಪರ್ಕಗಳು ಕಂಡುಬಂದಿಲ್ಲ.",
+  "processingDecryption": "ಡೀಕ್ರಿಪ್ಟ್ ಮಾಡಲಾಗುತ್ತಿದೆ...",
+  "decrypting": "ಡೀಕ್ರಿಪ್ಟ್ ಮಾಡಲಾಗುತ್ತಿದೆ...",
+  "decryptionError": "[ಡೀಕ್ರಿಪ್ಶನ್ ದೋಷ]",
+  "cryptContainerSecure": "CRYPT ಕಂಟೇನರ್ ಸುರಕ್ಷಿತವಾಗಿದೆ",
+
+  "connectAnAccount": "ಖಾತೆಯನ್ನು ಸಂಪರ್ಕಿಸಿ",
+  "username": "ಬಳಕೆದಾರ ಹೆಸರು",
+  "password": "ಪಾಸ್‌ವರ್ಡ್",
+  "enterMasterSecurityPassword": "ನಿಮ್ಮ ಮಾಸ್ಟರ್ ಪಾಸ್‌ವರ್ಡ್ ನಮೂದಿಸಿ",
+  "pleaseFillAllFields": "ಎಲ್ಲಾ ಕ್ಷೇತ್ರಗಳನ್ನು ಭರ್ತಿ ಮಾಡಿ",
+  "wrongUsernameOrPassword": "ತಪ್ಪಾದ ಬಳಕೆದಾರ ಹೆಸರು ಅಥವಾ ಪಾಸ್‌ವರ್ಡ್",
+
+  "loginError": "ಲಾಗಿನ್ ದೋಷ: {error}",
+  "@loginError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+
+  "dontHaveAnAccountSignUp": "ಖಾತೆ ಇಲ್ಲವೇ? ಸೈನ್ ಅಪ್ ಮಾಡಿ",
+  "myIdentity": "ನನ್ನ ಗುರುತು",
+  "scanToAddMe": "ನನ್ನನ್ನು ಸೇರಿಸಲು ಸ್ಕ್ಯಾನ್ ಮಾಡಿ",
+  "shareProfileLink": "ಪ್ರೊಫೈಲ್ ಹಂಚಿಕೊಳ್ಳಿ",
+  "addMeOnCrypt": "ನನ್ನನ್ನು CRYPT ನಲ್ಲಿ ಸೇರಿಸಿ!\n\n{link}",
+
+  "@addMeOnCrypt": {
+    "placeholders": {
+      "link": {
+        "type": "String"
+      }
+    }
+  },
+
+  "scanQr": "QR ಸ್ಕ್ಯಾನ್ ಮಾಡಿ",
+  "invalidCryptQrFormat": "ಅಮಾನ್ಯ CRYPT QR ಕೋಡ್.",
+  "userScanned": "ಬಳಕೆದಾರರನ್ನು ಸ್ಕ್ಯಾನ್ ಮಾಡಲಾಗಿದೆ!",
+  "addingUser": "{username} ಅನ್ನು ಸೇರಿಸಲಾಗುತ್ತಿದೆ...",
+
+  "@addingUser": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+
+  "defaultUser": "ಬಳಕೆದಾರ",
+  "createAccount": "ಖಾತೆಯನ್ನು ರಚಿಸಿ",
+  "keepPasswordSecureHint": "ಅದನ್ನು ಸುರಕ್ಷಿತವಾಗಿಡಿ. ಪಾಸ್‌ವರ್ಡ್ ಅನ್ನು ಬದಲಾಯಿಸಲಾಗುವುದಿಲ್ಲ.",
+  "pleaseFillInAllFields": "ಎಲ್ಲಾ ಕ್ಷೇತ್ರಗಳನ್ನು ಭರ್ತಿ ಮಾಡಿ",
+  "usernameExceedsLimit": "ಬಳಕೆದಾರ ಹೆಸರು: ಗರಿಷ್ಠ 20 ಅಕ್ಷರಗಳು",
+  "invalidUsernameCharacters": "ಅಕ್ಷರಗಳು, ಸಂಖ್ಯೆಗಳು, _ ಅಥವಾ - ಮಾತ್ರ ಬಳಸಿ.",
+  "weakPasswordNotice": "8+ ಅಕ್ಷರಗಳು, 1 ಸಂಖ್ಯೆ ಮತ್ತು 1 ದೊಡ್ಡ ಅಕ್ಷರವನ್ನು ಬಳಸಿ.",
+  "unableToGenerateUniqueUsername": "ಅನನ್ಯ ಬಳಕೆದಾರ ಹೆಸರನ್ನು ರಚಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.",
+
+  "accountCreated": "ಖಾತೆ ರಚಿಸಲಾಗಿದೆ",
+  "yourUsernameIs": "ನಿಮ್ಮ ಬಳಕೆದಾರ ಹೆಸರು:\n\n{username}",
+  "@yourUsernameIs": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+
+  "usernameTakenAssignedTag": "ಬಳಕೆದಾರ ಹೆಸರು '{chosen}' ಈಗಾಗಲೇ ಬಳಕೆಯಲ್ಲಿದೆ.\n\nನಿಮ್ಮ ಬಳಕೆದಾರ ಹೆಸರು:\n\n{assigned}\n\nಲಾಗಿನ್ ಮಾಡಲು ಇದನ್ನು ಉಳಿಸಿಕೊಳ್ಳಿ.",
+  "@usernameTakenAssignedTag": {
+    "placeholders": {
+      "chosen": {
+        "type": "String"
+      },
+      "assigned": {
+        "type": "String"
+      }
+    }
+  },
+
+  "continueText": "ಮುಂದುವರಿಸಿ",
+
+  "failedToGenerateIdentity": "ಗುರುತನ್ನು ರಚಿಸಲು ವಿಫಲವಾಗಿದೆ: {error}",
+  "@failedToGenerateIdentity": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+
+  "welcomeToCrypt": "CRYPT ಗೆ ಸ್ವಾಗತ",
+  "signupDescription": "P2P ಕೀಗಳನ್ನು ರಚಿಸಲು ಬಳಕೆದಾರ ಹೆಸರು ಮತ್ತು ಪಾಸ್‌ವರ್ಡ್ ರಚಿಸಿ.",
+  "chooseAUsername": "ಬಳಕೆದಾರ ಹೆಸರನ್ನು ಆಯ್ಕೆಮಾಡಿ",
+  "usernameHelperText": "ನಿಮ್ಮ ನಿಜವಾದ ಹೆಸರನ್ನು ಬಳಸಬೇಡಿ. ಈಗಾಗಲೇ ಬಳಕೆಯಲ್ಲಿದ್ದರೆ ಒಂದು ಪ್ರತ್ಯಯವನ್ನು ಸೇರಿಸಲಾಗುತ್ತದೆ.",
+  "masterAuthenticationRequired": "ಮಾಸ್ಟರ್ ದೃಢೀಕರಣ",
+  "verify": "ಪರಿಶೀಲಿಸಿ",
+  "darkThemeMode": "ಡಾರ್ಕ್ ಥೀಮ್",
+  "secureConversations": "ಸುರಕ್ಷಿತ ಸಂಭಾಷಣೆಗಳು",
+  "noActiveConversations": "ಯಾವುದೇ ಸಕ್ರಿಯ ಚಾಟ್‌ಗಳಿಲ್ಲ. ಲಾಕ್‌ಗಳನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಲು ಒಂದನ್ನು ಪ್ರಾರಂಭಿಸಿ.",
+  "logout": "ಲಾಗ್ ಔಟ್",
+  "wipeDeviceAndEscape": "ಸಾಧನವನ್ನು ಅಳಿಸಿ",
+  "falsePassword": "ತಪ್ಪಾದ ಪಾಸ್‌ವರ್ಡ್",
+
+  "accessSuspendedTimer": "ಪ್ರವೇಶವನ್ನು ಸ್ಥಗಿತಗೊಳಿಸಲಾಗಿದೆ. {time} ನಂತರ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
+  "@accessSuspendedTimer": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+
+  "selectSecureLockMethod": "ಲಾಕ್ ವಿಧಾನವನ್ನು ಆಯ್ಕೆಮಾಡಿ",
+  "selectSecureLockDescription": "ಫಿಂಗರ್‌ಪ್ರಿಂಟ್ ಅಥವಾ 4-ಅಂಕಿಯ PIN ನಿಂದ ಲಾಕ್ ಮಾಡಬೇಕೆ?",
+  "fourDigitPin": "4-ಅಂಕಿಯ PIN",
+  "fingerprintUnlock": "ಫಿಂಗರ್‌ಪ್ರಿಂಟ್ 🔓",
+  "supportSoloDeveloper": "ಡೆವಲಪರ್ ಅನ್ನು ಬೆಂಬಲಿಸಿ",
+  "maybeLater": "ಬಹುಶಃ ನಂತರ",
+  "submitProof": "ಪುರಾವೆಯನ್ನು ಸಲ್ಲಿಸಿ",
+  "couldNotOpenWallet": "ವಾಲೆಟ್ ತೆರೆಯಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ಕೆಳಗಿನ ಕೋಡ್ ಅನ್ನು ಕಾಪಿ ಮಾಡಿ.",
+  "proofSubmittedSnackbar": "ಪುರಾವೆ ಸಲ್ಲಿಸಲಾಗಿದೆ. ಹಸ್ತಚಾಲಿತ ಪರಿಶೀಲನೆ: 24–48 ಗಂಟೆಗಳು (ವಾರಾಂತ್ಯಗಳನ್ನು ಹೊರತುಪಡಿಸಿ)."
+}

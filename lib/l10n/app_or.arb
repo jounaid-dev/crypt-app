@@ -1,0 +1,267 @@
+{
+  "@@locale": "or",
+
+  "appName": "CRYPT",
+  "welcome": "ସ୍ୱାଗତ",
+  "login": "ଲଗ୍ ଇନ୍",
+  "signup": "ସାଇନ୍ ଅପ୍",
+  "settings": "ସେଟିଙ୍ଗସ୍",
+  "chats": "ଚାଟ୍",
+  "typeMessage": "ସନ୍ଦେଶ ଟାଇପ୍ କରନ୍ତୁ...",
+  "send": "ପଠାନ୍ତୁ",
+
+  "p2p": "P2P",
+  "connecting": "ସଂଯୋଗ ହେଉଛି...",
+  "connectingP2p": "P2P ସହିତ ସଂଯୋଗ ହେଉଛି...",
+  "p2pConnectionNotReady": "P2P ପ୍ରସ୍ତୁତ ନୁହେଁ।",
+
+  "searchLanguage": "ଭାଷା ଖୋଜନ୍ତୁ...",
+  "language": "ଭାଷା",
+
+  "forceEscapeSignOutTitle": "ଜରୁରୀକାଳୀନ ଲଗ୍ ଆଉଟ୍ ବାଧ୍ୟତାମୂଳକ କରିବେ କି?",
+  "forceEscapeSignOutContent": "ଚେତାବନୀ: ଏହା କରିବା ଦ୍ୱାରା ଏହି ଡିଭାଇସରୁ ସମସ୍ତ ଡାଟା ସମ୍ପୂର୍ଣ୍ଣ ରୂପେ ଲିଭିଯିବ।",
+  "cancel": "ବାତିଲ୍",
+  "wipeDevice": "ଡିଭାଇସ୍ ୱାଇପ୍ କରନ୍ତୁ",
+
+  "accountDestructionAlertTitle": "ଆକାଉଣ୍ଟ୍ ବିନାଶ ଚେତାବନୀ",
+  "accountDestructionWarning": "ଚେତାବନୀ: ଏହି ପଦକ୍ଷେପ ଏହି ଡିଭାଇସରୁ ଆପଣଙ୍କର ସମସ୍ତ ଡାଟା ଲିଭାଇଦିଏ। ଇଣ୍ଟରନେଟ୍ ସହିତ ସଂଯୁକ୍ତ ହେବା ପରେ, ଏହା ଏକ ରିମୋଟ୍ ସେଲ୍ଫ-ଡିଷ୍ଟ୍ରକ୍ଟ କମାଣ୍ଡ୍‌କୁ ସକ୍ରିୟ କରିବ। ଆପଣଙ୍କର ଅନନ୍ୟ ୟୁଜର୍ ଆଇଡିରୁ ପଠାଯାଇଥିବା ପ୍ରତ୍ୟେକ ସନ୍ଦେଶ ସମସ୍ତ ପିଅର୍ ମେମୋରୀରୁ ସ୍ଥାୟୀ ଭାବରେ ଲିଭିଯିବ।",
+
+  "accountDestructionCriticalNotice": "ଗୁରୁତର: ଯଦି ଆପଣ ଏହି ଯାଞ୍ଚ ସଂଖ୍ୟାଗୁଡ଼ିକୁ ଭୁଲ୍ ଟାଇପ୍ କରନ୍ତି, ତେବେ ସିଷ୍ଟମ୍ ଲକ୍ ହୋଇଯିବ। ଏହାକୁ ଅନଲକ୍ କରିବା ପାଇଁ, ଆପଣଙ୍କୁ ଆପଣଙ୍କର ମାଷ୍ଟର ଆକାଉଣ୍ଟ୍ ପାସୱାର୍ଡ ଦେବାକୁ ପଡ଼ିବ, କିମ୍ବା ଜରୁରୀକାଳୀନ ଏସ୍କେପ୍ ହ୍ୟାଚ୍ ବ୍ୟବହାର କରିବାକୁ ପଡ଼ିବ ଯାହା ତତ୍କାଳ ଏହି ଡିଭାଇସର ସମସ୍ତ ଡାଟା ଭଣ୍ଡାରକୁ ସମ୍ପୂର୍ଣ୍ଣ ସଫା କରିଦିଏ।",
+
+  "verificationSecurityKey": "ଯାଞ୍ଚ ସୁରକ୍ଷା କି: {code}",
+
+  "@verificationSecurityKey": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+
+  "copyDigitsHint": "ଉପରୋକ୍ତ 5ଟି ଅଙ୍କ କପି କରନ୍ତୁ",
+  "codeMismatchNotice": "କୋଡ୍ ମେଳ ହେଉନାହିଁ! ଓଭରରାଇଡ୍ କରିବା ପାଇଁ ମାଷ୍ଟର ପାସୱାର୍ଡ ପ୍ରବେଶ କରନ୍ତୁ କିମ୍ବା 10 ମିନିଟ୍‌ର ଲକ୍‌ର ସମ୍ମୁଖୀନ ହୁଅନ୍ତୁ:",
+  "accountPasswordLabel": "ଆକାଉଣ୍ଟ୍ ପାସୱାର୍ଡ",
+  "deleteEverythingPermanently": "ସବୁକିଛି ସ୍ଥାୟୀ ଭାବରେ ଲିଭାନ୍ତୁ",
+  "escapeAndPurgeDeviceData": "ଏସ୍କେପ୍ କରନ୍ତୁ ଏବଂ ଡିଭାଇସ୍ ଡାଟା ସଫା କରନ୍ତୁ",
+
+  "addContact": "ସମ୍ପର୍କ ଯୋଡନ୍ତୁ",
+  "addContactConfirmation": "ଆପଣ ଏହି ସମ୍ପର୍କକୁ ଯୋଡିବାକୁ ଚାହାଁନ୍ତି କି?",
+  "noMessagesYet": "ଏପର୍ଯ୍ୟନ୍ତ କୌଣସି ସନ୍ଦେଶ ନାହିଁ",
+  "addNewContact": "ନୂତନ ସମ୍ପର୍କ ଯୋଡନ୍ତୁ",
+  "usernameLabel": "ୟୁଜର୍ ନେମ୍",
+  "nicknameOptionalLabel": "ଡାକନାମ (ବୈକଳ୍ପିକ)",
+  "add": "ଯୋଡନ୍ତୁ",
+  "usernameCannotBeEmpty": "ୟୁଜର୍ ନେମ୍ ଖାଲି ରହିପାରିବ ନାହିଁ",
+
+  "contactAlreadyExists": "ସମ୍ପର୍କ '{name}' ଆପଣଙ୍କ ଆଡ୍ରେସ୍ ବୁକ୍‌ରେ ଆଗରୁ ଅଛି।",
+
+  "@contactAlreadyExists": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "userNotFoundOnRegistry": "ନେଟୱର୍କ ରେଜିଷ୍ଟ୍ରିରେ '{name}' ଉପଭୋକ୍ତା ମିଳିଲେ ନାହିଁ। ଏକ ଅଂଶୀଦାର ଗୁପ୍ତ କି ତିଆରି କରାଯାଇପାରିବ ନାହିଁ।",
+
+  "@userNotFoundOnRegistry": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "successfullyAddedContact": "{name} ସଫଳତାର ସହ ଯୋଡାଗଲା!",
+
+  "@successfullyAddedContact": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "contacts": "ସମ୍ପର୍କଗୁଡ଼ିକ",
+  "noContactsYet": "ଏପର୍ଯ୍ୟନ୍ତ କୌଣସି ସମ୍ପର୍କ ନାହିଁ",
+  "securityLockoutActive": "ସୁରକ୍ଷା ଲକଡାଉନ୍ ସକ୍ରିୟ ଅଛି",
+
+  "tooManyAttemptsFrozen": "ଅନେକ ଅବୈଧ ପ୍ରୟାସ। {minutes} ମିନିଟ୍ ପାଇଁ ଫ୍ରିଜ୍ କରାଯାଇଛି।",
+
+  "@tooManyAttemptsFrozen": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+
+  "acknowledge": "ସ୍ୱୀକାର କରନ୍ତୁ",
+  "accessBlocked": "ପ୍ରବେଶ ଅବରୋଧିତ",
+
+  "accessSuspended": "5ଟି ଭୁଲ୍ ଯାଞ୍ଚ ମେଳ। ଆଗାମୀ {minutes} ମିନିଟ୍ ପାଇଁ ପ୍ରବେଶ ସ୍ଥଗିତ ରଖାଯାଇଛି।",
+
+  "@accessSuspended": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+
+  "ok": "ଠିକ୍ ଅଛି",
+
+  "unlockSecureNode": "ସୁରକ୍ଷିତ ନୋଡ୍ ଅନଲକ୍ କରନ୍ତୁ: {username}",
+
+  "@unlockSecureNode": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+
+  "verificationMetricsRemaining": "ବାକି ଥିବା ଯାଞ୍ଚ ପ୍ରୟାସ: {count} ପ୍ରୟାସ।",
+
+  "@verificationMetricsRemaining": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+
+  "secureKeyPasscode": "ସୁରକ୍ଷିତ କି ପାସକୋଡ୍",
+  "warningHardwareLockout": "ଚେତାବନୀ: ପରବର୍ତ୍ତୀ ସିଷ୍ଟମ୍ ଅସଙ୍ଗତି ହାର୍ଡୱେର୍ ସୁରକ୍ଷା ଲକଡାଉନ୍ ପ୍ରଶମନକୁ ସକ୍ରିୟ କରିବ।",
+  "abort": "ରଦ୍ଦ କରନ୍ତୁ",
+  "authenticate": "ପ୍ରମାଣିତ କରନ୍ତୁ",
+  "searchPipelinesHint": "ସକ୍ରିୟ ସୁରକ୍ଷିତ ପାଇପଲାଇନଗୁଡିକର ଅନୁସନ୍ଧାନ କରନ୍ତୁ...",
+  "zeroPipelinesDiscovered": "ଶୂନ୍ୟ ମେଳ ହେଉଥିବା ଯୋଗାଯୋଗ ପାଇପଲାଇନ ମିଳିଲା।",
+  "processingDecryption": "ଡିକ୍ରିପ୍ସନ୍ ପ୍ରକ୍ରିୟା ଚାଲିଛି...",
+  "decrypting": "ଡିକ୍ରିପ୍ଟ ହେଉଛି...",
+  "decryptionError": "[ଡିକ୍ରିପ୍ସନ୍ ତ୍ରୁଟି]",
+  "cryptContainerSecure": "CRYPT କଣ୍ଟେନର୍ ସୁରକ୍ଷିତ ଅଛି",
+
+  "connectAnAccount": "ଏକ ଆକାଉଣ୍ଟ୍ ସଂଯୋଗ କରନ୍ତୁ",
+  "username": "ୟୁଜର୍ ନେମ୍",
+  "password": "ପାସୱାର୍ଡ",
+  "enterMasterSecurityPassword": "ଆପଣଙ୍କର ମାଷ୍ଟର ସୁରକ୍ଷା ପାସୱାର୍ଡ ପ୍ରବେଶ କରନ୍ତୁ",
+  "pleaseFillAllFields": "ଦୟାକରି ସମସ୍ତ ଫିଲ୍ଡ ପୂରଣ କରନ୍ତୁ",
+  "wrongUsernameOrPassword": "ଭୁଲ୍ ୟୁଜର୍ ନେମ୍ କିମ୍ବା ପାସୱାର୍ଡ",
+
+  "loginError": "ଲଗ୍ ଇନ୍ ତ୍ରୁଟି: {error}",
+
+  "@loginError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+
+  "dontHaveAnAccountSignUp": "ଆକାଉଣ୍ଟ୍ ନାହିଁ କି? ସାଇନ୍ ଅପ୍ କରନ୍ତୁ",
+  "myIdentity": "ମୋର ପରିଚୟ",
+  "scanToAddMe": "ମୋତେ ଯୋଡିବା ପାଇଁ ସ୍କାନ୍ କରନ୍ତୁ",
+  "shareProfileLink": "ପ୍ରୋଫାଇଲ୍ ଲିଙ୍କ୍ ସେୟାର୍ କରନ୍ତୁ",
+  "addMeOnCrypt": "ମୋତେ CRYPT ରେ ଯୋଡନ୍ତୁ!\n\n{link}",
+
+  "@addMeOnCrypt": {
+    "placeholders": {
+      "link": {
+        "type": "String"
+      }
+    }
+  },
+
+  "scanQr": "QR ସ୍କାନ୍ କରନ୍ତୁ",
+  "invalidCryptQrFormat": "ଅବୈଧ CRYPT QR କୋଡ୍ ଫର୍ମାଟ୍।",
+  "userScanned": "ଉପଭୋକ୍ତା ସ୍କାନ୍ ହୋଇଛନ୍ତି!",
+  "addingUser": "{username} ଯୋଡା ହେଉଛି...",
+
+  "@addingUser": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+
+  "defaultUser": "ଉପଭୋକ୍ତା",
+  "createAccount": "ଆକାଉଣ୍ଟ୍ ତିଆରି କରନ୍ତୁ",
+  "keepPasswordSecureHint": "ଏହାକୁ ସୁରକ୍ଷିତ ରଖନ୍ତୁ, ପାସୱାର୍ଡ ପରେ ବଦଳାଯାଇପାରିବ ନାହିଁ",
+  "pleaseFillInAllFields": "ଦୟାକରି ସମସ୍ତ ଫିଲ୍ଡରେ ସୂଚନା ପୂରଣ କରନ୍ତୁ",
+  "usernameExceedsLimit": "ୟୁଜର୍ ନେମ୍ 20ଟି ଅକ୍ଷରରୁ ଅଧିକ ହେବ ନାହିଁ",
+  "invalidUsernameCharacters": "ୟୁଜର୍ ନେମ୍‌ରେ କେବଳ ଅକ୍ଷର, ସଂଖ୍ୟା, ଅଣ୍ଡରସ୍କୋର ଏବଂ ହାଇଫେନ୍ ରହିପାରିବ",
+  "weakPasswordNotice": "ପାସୱାର୍ଡ ଅତିକମରେ 8ଟି ଅକ୍ଷର ହେବା ଉଚିତ, ଯେଉଁଥିରେ ଏକ ସଂଖ୍ୟା ଏବଂ ଏକ ବଡ଼ ଅକ୍ଷର (uppercase) ରହିବା ଆବଶ୍ୟକ",
+  "unableToGenerateUniqueUsername": "ଏକ ଅନନ୍ୟ ୟୁଜର୍ ନେମ୍ ସୃଷ୍ଟି କରିବାରେ ଅସମର୍ଥ।",
+
+  "accountCreated": "ଆକାଉଣ୍ଟ୍ ସୃଷ୍ଟି ହୋଇଛି",
+  "yourUsernameIs": "ଆପଣଙ୍କର ୟୁଜର୍ ନେମ୍ ହେଉଛି:\n\n{username}",
+
+  "@yourUsernameIs": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+
+  "usernameTakenAssignedTag": "ୟୁଜର୍ ନେମ୍ '{chosen}' ଆଗରୁ ନିଆଯାଇଛି।\n\nଆପଣଙ୍କର ନିର୍ଦ୍ଧାରିତ ୟୁଜର୍ ନେମ୍ ହେଉଛି:\n\n{assigned}\n\nଦୟାକରି ଏହାକୁ ମନେରଖନ୍ତୁ। ଲଗ୍ ଇନ୍ କରିବା ପାଇଁ ଏହା ଆପଣଙ୍କର ଆବଶ୍ୟକ ହେବ.",
+
+  "@usernameTakenAssignedTag": {
+    "placeholders": {
+      "chosen": {
+        "type": "String"
+      },
+      "assigned": {
+        "type": "String"
+      }
+    }
+  },
+
+  "continueText": "ଆଗକୁ ବଢନ୍ତୁ",
+  "failedToGenerateIdentity": "ସୁରକ୍ଷିତ ପରିଚୟ ସୃଷ୍ଟି କରିବାରେ ବିଫଳ: {error}",
+
+  "@failedToGenerateIdentity": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+
+  "welcomeToCrypt": "CRYPT କୁ ସ୍ୱାଗତ",
+  "signupDescription": "ଆପଣଙ୍କର ପିଅର୍-ଟୁ-ପିଅର୍ ଏନକ୍ରିପ୍ସନ୍ କି ଗୁଡିକୁ ଆରମ୍ଭ କରିବା ପାଇଁ ଏକ ୟୁଜର୍ ନେମ୍ ଏବଂ ପାସୱାର୍ଡ ପ୍ରବେଶ କରନ୍ତୁ।",
+  "chooseAUsername": "ଏକ ୟୁଜର୍ ନେମ୍ ଚୟନ କରନ୍ତୁ",
+  "usernameHelperText": "ଆପଣଙ୍କର ପ୍ରକୃତ ନାମ ବ୍ୟବହାର କରନ୍ତୁ ନାହିଁ। ଯଦି ୟୁଜର୍ ନେମ୍ ଆଗରୁ ନିଆଯାଇଥାଏ, ତେବେ ଆମେ ସ୍ୱୟଂଚାଳିତ ଭାବରେ ଏକ ଅନନ୍ୟ ପ୍ରତ୍ୟୟ ଯୋଡିବୁ।",
+
+  "masterAuthenticationRequired": "ମାଷ୍ଟର ପ୍ରମାଣୀକରଣ ଆବଶ୍ୟକ",
+  "verify": "ଯାଞ୍ଚ କରନ୍ତୁ",
+  "darkThemeMode": "ଡାର୍କ ଥିମ୍ ମୋଡ୍",
+  "secureConversations": "ସୁରକ୍ଷିତ କଥାବାର୍ତ୍ତା",
+  "noActiveConversations": "କୌଣସି ସକ୍ରିୟ କଥାବାର୍ତ୍ତା ମିଳିଲା ନାହିଁ। କଷ୍ଟମ୍ ସୁରକ୍ଷା ଲକ୍ ପ୍ରୟୋଗ କରିବା ପାଇଁ ପ୍ରଥମେ ଏକ କଥାବାର୍ତ୍ତା ଆରମ୍ଭ କରନ୍ତୁ।",
+  "logout": "ଲଗ୍ ଆଉଟ୍",
+  "wipeDeviceAndEscape": "ଡିଭାଇସ୍ ୱାଇପ୍ କରନ୍ତୁ ଏବଂ ଏସ୍କେପ୍ କରନ୍ତୁ",
+  "falsePassword": "ଭୁଲ୍ ପାସୱାର୍ଡ",
+
+  "accessSuspendedTimer": "ସୁରକ୍ଷା ପାଇଁ ପ୍ରବେଶ ସ୍ଥଗିତ ରଖାଯାଇଛି। {time} ରେ ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ.",
+
+  "@accessSuspendedTimer": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+
+  "selectSecureLockMethod": "ସୁରକ୍ଷିତ ଲକ୍ ପଦ୍ଧତି ଚୟନ କରନ୍ତୁ",
+  "selectSecureLockDescription": "ଆପଣ ଏହି କଥାବାର୍ତ୍ତା କୋଠରୀକୁ ଡିଭାଇସ୍ ଫିଙ୍ଗରପ୍ରିଣ୍ଟ ବାୟୋମେଟ୍ରିକ୍ସ କିମ୍ବା ମାନକ 4-ଅଙ୍କ ବିଶିଷ୍ଟ ପିନ୍ କୋଡ୍ ବ୍ୟବହାର କରି ଲକ୍ କରିବାକୁ ଚାହାଁନ୍ତି କି?",
+  "fourDigitPin": "4-ଅଙ୍କ ବିଶିଷ୍ଟ ପିନ୍",
+  "fingerprintUnlock": "ଫିଙ୍ଗରପ୍ରିଣ୍ଟ 🔓",
+  "supportSoloDeveloper": "ଏକ ସୋଲୋ ଡେଭଲପର୍‌କୁ ସମର୍ଥନ କରନ୍ତୁ",
+  "maybeLater": "ପରେ ହୋଇପାରେ",
+  "submitProof": "ପ୍ରମାଣ ସବମିଟ୍ କରନ୍ତୁ",
+  "couldNotOpenWallet": "ୱାଲେଟ୍ ସ୍ୱୟଂଚାଳିତ ଭାବରେ ଖୋଲିପାରିଲା ନାହିଁ। ଦୟାକରି ଏହା ବଦଳରେ ତଳେ ଥିବା ଟେକ୍ସଟ୍ କୋଡ୍ ଷ୍ଟ୍ରିଙ୍ଗ୍ କପି କରନ୍ତୁ।",
+  "proofSubmittedSnackbar": "ପ୍ରମାଣ ସବମିଟ୍ ହୋଇଛି! ମାନୁଆଲ୍ ସମୀକ୍ଷା ପାଇଁ 24-48 ଘଣ୍ଟା ସମୟ ଲାଗେ (ସପ୍ତାହାନ୍ତ ବ୍ୟତୀତ)। ଆପଣ ସାଧାରଣ ଭାବରେ ଆପ୍ ବ୍ୟବହାର କରିବା ଜାରି ରଖିପାରିବେ!"
+}

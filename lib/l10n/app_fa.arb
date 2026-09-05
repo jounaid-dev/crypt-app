@@ -1,0 +1,220 @@
+{
+  "@@locale": "fa",
+  "appName": "CRYPT",
+  "welcome": "خوش آمدید",
+  "login": "ورود",
+  "signup": "ثبت‌نام",
+  "settings": "تنظیمات",
+  "chats": "گفتگوها",
+  "typeMessage": "پیام بنویسید...",
+  "send": "ارسال",
+  "p2p": "P2P",
+  "connecting": "در حال اتصال...",
+  "connectingP2p": "در حال اتصال به P2P...",
+  "p2pConnectionNotReady": "P2P آماده نیست.",
+  "searchLanguage": "جستجوی زبان...",
+  "language": "زبان",
+  "forceEscapeSignOutTitle": "خروج اضطراری اجباری؟",
+  "forceEscapeSignOutContent": "هشدار: تمام داده‌های دستگاه پاک خواهند شد.",
+  "cancel": "لغو",
+  "wipeDevice": "پاک کردن دستگاه",
+  "accountDestructionAlertTitle": "حذف حساب",
+  "accountDestructionWarning": "هشدار: داده‌های دستگاه و پیام‌های راه دور حذف خواهند شد.",
+  "accountDestructionCriticalNotice": "بحرانی: کدهای اشتباه سیستم را قفل می‌کنند. از رمز عبور حساب یا خروج اضطراری استفاده کنید.",
+  "verificationSecurityKey": "کلید امنیتی: {code}",
+  "@verificationSecurityKey": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "copyDigitsHint": "۵ رقم بالا را کپی کنید",
+  "codeMismatchNotice": "کد مطابقت ندارد. رمز عبور اصلی را وارد کنید یا ۱۰ دقیقه صبر کنید.",
+  "accountPasswordLabel": "رمز عبور حساب",
+  "deleteEverythingPermanently": "حذف همه چیز",
+  "escapeAndPurgeDeviceData": "خروج و پاک کردن داده‌ها",
+  "addContact": "افزودن مخاطب",
+  "addContactConfirmation": "این مخاطب اضافه شود؟",
+  "noMessagesYet": "هنوز پیامی وجود ندارد",
+  "addNewContact": "مخاطب جدید",
+  "usernameLabel": "نام کاربری",
+  "nicknameOptionalLabel": "نام مستعار (اختیاری)",
+  "add": "افزودن",
+  "usernameCannotBeEmpty": "نام کاربری الزامی است",
+  "contactAlreadyExists": "مخاطب '{name}' از قبل وجود دارد.",
+  "@contactAlreadyExists": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "userNotFoundOnRegistry": "کاربر '{name}' پیدا نشد. امکان ایجاد راز مشترک وجود ندارد.",
+  "@userNotFoundOnRegistry": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "successfullyAddedContact": "{name} با موفقیت اضافه شد!",
+  "@successfullyAddedContact": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "contacts": "مخاطبین",
+  "noContactsYet": "هنوز مخاطبی وجود ندارد",
+  "securityLockoutActive": "قفل امنیتی فعال است",
+  "tooManyAttemptsFrozen": "تلاش‌های بیش از حد. برای {minutes} دقیقه قفل شد.",
+  "@tooManyAttemptsFrozen": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "acknowledge": "متوجه شدم",
+  "accessBlocked": "دسترسی مسدود شد",
+  "accessSuspended": "۵ تلاش ناموفق. دسترسی برای {minutes} دقیقه متوقف شد.",
+  "@accessSuspended": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "ok": "تأیید",
+  "unlockSecureNode": "باز کردن قفل: {username}",
+  "@unlockSecureNode": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+  "verificationMetricsRemaining": "تلاش‌های باقی‌مانده: {count}",
+  "@verificationMetricsRemaining": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "secureKeyPasscode": "رمز امنیتی",
+  "warningHardwareLockout": "هشدار: خطای بعدی امنیت سیستم را قفل خواهد کرد.",
+  "abort": "لغو",
+  "authenticate": "احراز هویت",
+  "searchPipelinesHint": "جستجوی اتصالات امن...",
+  "zeroPipelinesDiscovered": "هیچ اتصالی پیدا نشد.",
+  "processingDecryption": "در حال رمزگشایی...",
+  "decrypting": "در حال رمزگشایی...",
+  "decryptionError": "[خطای رمزگشایی]",
+  "cryptContainerSecure": "محفظه CRYPT امن است",
+  "connectAnAccount": "اتصال حساب",
+  "username": "نام کاربری",
+  "password": "رمز عبور",
+  "enterMasterSecurityPassword": "رمز عبور اصلی خود را وارد کنید",
+  "pleaseFillAllFields": "همه فیلدها را پر کنید",
+  "wrongUsernameOrPassword": "نام کاربری یا رمز عبور اشتباه است",
+  "loginError": "خطای ورود: {error}",
+  "@loginError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "dontHaveAnAccountSignUp": "حساب ندارید؟ ثبت‌نام کنید",
+  "myIdentity": "هویت من",
+  "scanToAddMe": "برای افزودن من اسکن کنید",
+  "shareProfileLink": "اشتراک‌گذاری پروفایل",
+  "addMeOnCrypt": "مرا در CRYPT اضافه کنید!\n\n{link}",
+  "@addMeOnCrypt": {
+    "placeholders": {
+      "link": {
+        "type": "String"
+      }
+    }
+  },
+  "scanQr": "اسکن QR",
+  "invalidCryptQrFormat": "کد QR نامعتبر CRYPT.",
+  "userScanned": "کاربر اسکن شد!",
+  "addingUser": "در حال افزودن {username}...",
+  "@addingUser": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+  "defaultUser": "کاربر",
+  "createAccount": "ایجاد حساب",
+  "keepPasswordSecureHint": "آن را امن نگه دارید. رمز عبور قابل تغییر نیست.",
+  "pleaseFillInAllFields": "همه فیلدها را پر کنید",
+  "usernameExceedsLimit": "حداکثر ۲۰ کاراکتر",
+  "invalidUsernameCharacters": "فقط از حروف، اعداد، _ یا - استفاده کنید.",
+  "weakPasswordNotice": "حداقل ۸ کاراکتر، ۱ عدد و ۱ حرف بزرگ.",
+  "unableToGenerateUniqueUsername": "امکان ایجاد نام کاربری منحصربه‌فرد وجود ندارد.",
+  "accountCreated": "حساب ایجاد شد",
+  "yourUsernameIs": "نام کاربری شما:\n\n{username}",
+  "@yourUsernameIs": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+  "usernameTakenAssignedTag": "نام کاربری '{chosen}' قبلاً گرفته شده است.\n\nنام کاربری شما:\n\n{assigned}\n\nآن را برای ورود به خاطر بسپارید.",
+  "@usernameTakenAssignedTag": {
+    "placeholders": {
+      "chosen": {
+        "type": "String"
+      },
+      "assigned": {
+        "type": "String"
+      }
+    }
+  },
+  "continueText": "ادامه",
+  "failedToGenerateIdentity": "ایجاد هویت ناموفق بود: {error}",
+  "@failedToGenerateIdentity": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "welcomeToCrypt": "به CRYPT خوش آمدید",
+  "signupDescription": "یک نام کاربری و رمز عبور ایجاد کنید تا کلیدهای P2P ساخته شوند.",
+  "chooseAUsername": "یک نام کاربری انتخاب کنید",
+  "usernameHelperText": "از نام واقعی خود استفاده نکنید. اگر نام کاربری گرفته شده باشد، یک پسوند به‌صورت خودکار اضافه می‌شود.",
+  "masterAuthenticationRequired": "احراز هویت اصلی",
+  "verify": "تأیید",
+  "darkThemeMode": "تم تاریک",
+  "secureConversations": "گفتگوهای امن",
+  "noActiveConversations": "هیچ گفتگوی فعالی وجود ندارد. برای فعال کردن قفل‌ها، یک گفتگو شروع کنید.",
+  "logout": "خروج",
+  "wipeDeviceAndEscape": "پاک کردن دستگاه",
+  "falsePassword": "رمز عبور اشتباه",
+  "accessSuspendedTimer": "دسترسی به دلایل امنیتی متوقف شده است. {time} دیگر دوباره تلاش کنید.",
+  "@accessSuspendedTimer": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "selectSecureLockMethod": "انتخاب روش قفل",
+  "selectSecureLockDescription": "با اثر انگشت یا PIN چهار رقمی قفل شود؟",
+  "fourDigitPin": "PIN چهار رقمی",
+  "fingerprintUnlock": "اثر انگشت 🔓",
+  "supportSoloDeveloper": "حمایت از توسعه‌دهنده",
+  "maybeLater": "بعداً",
+  "submitProof": "ارسال مدرک",
+  "couldNotOpenWallet": "کیف پول باز نشد. کد زیر را کپی کنید.",
+  "proofSubmittedSnackbar": "مدرک ارسال شد. بررسی دستی ۲۴ تا ۴۸ ساعت طول می‌کشد (به‌جز آخر هفته). می‌توانید به‌طور معمول از برنامه استفاده کنید."
+}

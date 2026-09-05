@@ -1,0 +1,255 @@
+{
+  "@@locale": "pt",
+
+  "appName": "CRYPT",
+  "welcome": "Bem-vindo",
+  "login": "Entrar",
+  "signup": "Cadastrar-se",
+  "settings": "Configurações",
+  "chats": "Conversas",
+  "typeMessage": "Digite uma mensagem...",
+  "send": "Enviar",
+  "p2p": "P2P",
+  "connecting": "Conectando...",
+  "connectingP2p": "Conectando ao P2P...",
+  "p2pConnectionNotReady": "P2P não está pronto.",
+  "searchLanguage": "Buscar idioma...",
+  "language": "Idioma",
+
+  "forceEscapeSignOutTitle": "FORÇAR SAÍDA DE EMERGÊNCIA?",
+  "forceEscapeSignOutContent": "AVISO: Fazer isso apagará completamente todos os dados deste dispositivo.",
+  "cancel": "Cancelar",
+  "wipeDevice": "APAGAR DISPOSITIVO",
+
+  "accountDestructionAlertTitle": "ALERTA DE DESTRUIÇÃO DE CONTA",
+  "accountDestructionWarning": "AVISO: Esta ação exclui todos os seus dados deste dispositivo. Quando conectado à Internet, isso acionará um comando de autodestruição remota. Cada mensagem enviada do seu ID de usuário exclusivo será permanentemente apagada da memória de todos os pares.",
+
+  "accountDestructionCriticalNotice": "CRÍTICO: Se você digitar esses números de validação incorretamente, o sistema será bloqueado. Para desbloqueá-lo, você deve fornecer sua Senha Mestra da Conta ou usar a saída de emergência, que limpa instantaneamente todos os dados deste dispositivo.",
+
+  "verificationSecurityKey": "Chave de Segurança de Verificação: {code}",
+  "@verificationSecurityKey": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+
+  "copyDigitsHint": "Copie os 5 dígitos acima",
+  "codeMismatchNotice": "Código incorreto. Digite a Senha Mestra para substituir a verificação ou aguarde 10 minutos.",
+  "accountPasswordLabel": "Senha da Conta",
+  "deleteEverythingPermanently": "EXCLUIR TUDO PERMANENTEMENTE",
+  "escapeAndPurgeDeviceData": "Sair e Apagar Dados do Dispositivo",
+
+  "addContact": "Adicionar Contato",
+  "addContactConfirmation": "Deseja adicionar este contato?",
+  "noMessagesYet": "Nenhuma mensagem ainda",
+  "addNewContact": "Adicionar Novo Contato",
+  "usernameLabel": "Nome de usuário",
+  "nicknameOptionalLabel": "Apelido (Opcional)",
+  "add": "Adicionar",
+  "usernameCannotBeEmpty": "O nome de usuário não pode estar vazio",
+
+  "contactAlreadyExists": "O contato '{name}' já está em sua agenda.",
+  "@contactAlreadyExists": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "userNotFoundOnRegistry": "Usuário '{name}' não encontrado no registro da rede. Não é possível formar um segredo compartilhado.",
+  "@userNotFoundOnRegistry": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "successfullyAddedContact": "{name} adicionado com sucesso!",
+  "@successfullyAddedContact": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "contacts": "Contatos",
+  "noContactsYet": "Nenhum contato ainda",
+  "securityLockoutActive": "Bloqueio de Segurança Ativo",
+
+  "tooManyAttemptsFrozen": "Muitas tentativas inválidas. Bloqueado por {minutes} min.",
+  "@tooManyAttemptsFrozen": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+
+  "acknowledge": "Ciente",
+  "accessBlocked": "Acesso Bloqueado",
+
+  "accessSuspended": "5 verificações incorretas. O acesso está suspenso pelos próximos {minutes} minutos.",
+  "@accessSuspended": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+
+  "ok": "OK",
+
+  "unlockSecureNode": "Desbloquear Nó Seguro: {username}",
+  "@unlockSecureNode": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+
+  "verificationMetricsRemaining": "Tentativas de verificação restantes: {count}",
+  "@verificationMetricsRemaining": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+
+  "secureKeyPasscode": "Senha da Chave Segura",
+  "warningHardwareLockout": "AVISO: A próxima falha acionará o bloqueio de segurança do sistema.",
+  "abort": "Abortar",
+  "authenticate": "Autenticar",
+
+  "searchPipelinesHint": "Procurando conexões seguras...",
+  "zeroPipelinesDiscovered": "Nenhuma conexão encontrada.",
+  "processingDecryption": "Descriptografando...",
+  "decrypting": "Descriptografando...",
+  "decryptionError": "[Erro de Descriptografia]",
+  "cryptContainerSecure": "CONTÊINER CRYPT SEGURO",
+
+  "connectAnAccount": "Conectar uma Conta",
+  "username": "Nome de usuário",
+  "password": "Senha",
+  "enterMasterSecurityPassword": "Digite sua Senha Mestra de Segurança",
+  "pleaseFillAllFields": "Por favor, preencha todos os campos",
+  "wrongUsernameOrPassword": "Nome de usuário ou senha incorretos",
+
+  "loginError": "Erro de login: {error}",
+  "@loginError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+
+  "dontHaveAnAccountSignUp": "Não tem uma conta? Cadastre-se",
+  "myIdentity": "Minha Identidade",
+  "scanToAddMe": "Escaneie para me adicionar",
+  "shareProfileLink": "Compartilhar Link do Perfil",
+
+  "addMeOnCrypt": "Adicione-me no CRYPT!\n\n{link}",
+  "@addMeOnCrypt": {
+    "placeholders": {
+      "link": {
+        "type": "String"
+      }
+    }
+  },
+
+  "scanQr": "Escanear QR",
+  "invalidCryptQrFormat": "Formato de QR Code do CRYPT inválido.",
+  "userScanned": "Usuário Escaneado!",
+
+  "addingUser": "Adicionando {username}...",
+  "@addingUser": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+
+  "defaultUser": "Usuário",
+  "createAccount": "Criar Conta",
+  "keepPasswordSecureHint": "Mantenha-a segura, a senha não pode ser alterada",
+  "pleaseFillInAllFields": "Por favor, preencha todos os campos",
+  "usernameExceedsLimit": "O nome de usuário não pode exceder 20 caracteres",
+  "invalidUsernameCharacters": "O nome de usuário pode conter apenas letras, números, sublinhados e hífens",
+  "weakPasswordNotice": "A senha deve ter pelo menos 8 caracteres, incluir um número e uma letra maiúscula",
+  "unableToGenerateUniqueUsername": "Não foi possível gerar um nome de usuário exclusivo.",
+
+  "accountCreated": "Conta Criada",
+
+  "yourUsernameIs": "Seu nome de usuário é:\n\n{username}",
+  "@yourUsernameIs": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+
+  "usernameTakenAssignedTag": "O nome de usuário '{chosen}' já está em uso.\n\nSeu nome de usuário atribuído é:\n\n{assigned}\n\nLembre-se dele. Você precisará dele para entrar.",
+  "@usernameTakenAssignedTag": {
+    "placeholders": {
+      "chosen": {
+        "type": "String"
+      },
+      "assigned": {
+        "type": "String"
+      }
+    }
+  },
+
+  "continueText": "Continuar",
+
+  "failedToGenerateIdentity": "Falha ao criar a identidade: {error}",
+  "@failedToGenerateIdentity": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+
+  "welcomeToCrypt": "Bem-vindo ao CRYPT",
+  "signupDescription": "Crie um nome de usuário e uma senha para gerar suas chaves P2P.",
+  "chooseAUsername": "Escolha um nome de usuário",
+  "usernameHelperText": "Não use seu nome real. Se o nome de usuário estiver ocupado, adicionaremos automaticamente um sufixo exclusivo.",
+
+  "masterAuthenticationRequired": "Autenticação Mestra Necessária",
+  "verify": "Verificar",
+  "darkThemeMode": "Modo Escuro",
+  "secureConversations": "Conversas Seguras",
+  "noActiveConversations": "Nenhuma conversa ativa. Inicie uma conversa para ativar os bloqueios.",
+  "logout": "Sair",
+  "wipeDeviceAndEscape": "APAGAR DISPOSITIVO E ESCAPAR",
+  "falsePassword": "Senha Incorreta",
+
+  "accessSuspendedTimer": "O acesso está suspenso por motivos de segurança. Tente novamente em {time}.",
+  "@accessSuspendedTimer": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+
+  "selectSecureLockMethod": "Selecionar Método de Bloqueio Seguro",
+  "selectSecureLockDescription": "Deseja bloquear esta conversa usando a biometria de impressão digital do dispositivo ou um PIN padrão de 4 dígitos?",
+  "fourDigitPin": "PIN de 4 Dígitos",
+  "fingerprintUnlock": "Impressão Digital 🔓",
+  "supportSoloDeveloper": "Apoiar um Desenvolvedor Solo",
+  "maybeLater": "Talvez Mais Tarde",
+  "submitProof": "Enviar Comprovante",
+  "couldNotOpenWallet": "Não foi possível abrir a carteira. Copie o código abaixo.",
+  "proofSubmittedSnackbar": "Comprovante enviado. A revisão manual leva de 24 a 48 horas (exceto fins de semana)."
+}

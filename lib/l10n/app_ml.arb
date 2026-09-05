@@ -1,0 +1,266 @@
+{
+  "@@locale": "ml",
+  
+  "appName": "CRYPT",
+  "welcome": "സ്വാഗതം",
+  "login": "ലോഗിൻ",
+  "signup": "സൈൻ അപ്പ്",
+  "settings": "ക്രമീകരണങ്ങൾ",
+  "chats": "ചാറ്റുകൾ",
+  "typeMessage": "സന്ദേശം ടൈപ്പ് ചെയ്യുക...",
+  "send": "അയയ്ക്കുക",
+  "p2p": "P2P",
+  "connecting": "ബന്ധിപ്പിക്കുന്നു...",
+  "connectingP2p": "P2P-യിലേക്ക് ബന്ധിപ്പിക്കുന്നു...",
+  "p2pConnectionNotReady": "P2P തയ്യാറായിട്ടില്ല.",
+  "searchLanguage": "ഭാഷ തിരയുക...",
+  "language": "ഭാഷ",
+  "forceEscapeSignOutTitle": "നിർബന്ധിതമായി സൈൻ ഔട്ട് ചെയ്യണോ?",
+  "forceEscapeSignOutContent": "മുന്നറിയിപ്പ്: ഈ ഉപകരണത്തിലെ എല്ലാ ഡാറ്റയും മായ്ക്കപ്പെടും.",
+  "cancel": "റദ്ദാക്കുക",
+  "wipeDevice": "ഉപകരണം വൈപ്പ് ചെയ്യുക",
+  "accountDestructionAlertTitle": "അക്കൗണ്ട് ഇല്ലാതാക്കൽ",
+  "accountDestructionWarning": "മുന്നറിയിപ്പ്: ഉപകരണ ഡാറ്റയും റിമോട്ട് സന്ദേശങ്ങളും മായ്ക്കപ്പെടും.",
+  "accountDestructionCriticalNotice": "നിർണ്ണായകം: തെറ്റായ കോഡുകൾ സിസ്റ്റം ലോക്ക് ചെയ്യും. നിങ്ങളുടെ അക്കൗണ്ട് പാസ്‌വേഡ് അല്ലെങ്കിൽ എമർജൻസി എസ്കേപ്പ് ഉപയോഗിക്കുക.",
+
+  "verificationSecurityKey": "സുരക്ഷാ കീ: {code}",
+
+  "@verificationSecurityKey": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+
+  "copyDigitsHint": "5 അക്കങ്ങൾ പകർത്തുക",
+  "codeMismatchNotice": "കോഡ് പൊരുത്തപ്പെടുന്നില്ല. നിങ്ങളുടെ മാസ്റ്റർ പാസ്‌വേഡ് നൽകുക അല്ലെങ്കിൽ 10 മിനിറ്റ് കാത്തിരിക്കുക.",
+  "accountPasswordLabel": "അക്കൗണ്ട് പാസ്‌വേഡ്",
+  "deleteEverythingPermanently": "എല്ലാം ശാശ്വതമായി ഇല്ലാതാക്കുക",
+  "escapeAndPurgeDeviceData": "എസ്കേപ്പ് ചെയ്ത് ഡാറ്റ മായ്ക്കുക",
+  "addContact": "കോൺടാക്റ്റ് ചേർക്കുക",
+  "addContactConfirmation": "ഈ കോൺടാക്റ്റ് ചേർക്കണോ?",
+  "noMessagesYet": "ഇതുവരെ സന്ദേശങ്ങളില്ല",
+  "addNewContact": "പുതിയ കോൺടാക്റ്റ്",
+  "usernameLabel": "ഉപയോക്തൃനാമം",
+  "nicknameOptionalLabel": "വിളിപ്പേര് (ഓപ്ഷണൽ)",
+  "add": "ചേർക്കുക",
+  "usernameCannotBeEmpty": "ഉപയോക്തൃനാമം ആവശ്യമാണ്",
+
+  "contactAlreadyExists": "'{name}' എന്ന കോൺടാക്റ്റ് ഇതിനകം നിലവിലുണ്ട്.",
+
+  "@contactAlreadyExists": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "userNotFoundOnRegistry": "ഉപയോക്താവ് '{name}' കണ്ടെത്തിയില്ല. പങ്കിട്ട രഹസ്യം ലഭ്യമല്ല.",
+
+  "@userNotFoundOnRegistry": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "successfullyAddedContact": "{name} ചേർത്തു!",
+
+  "@successfullyAddedContact": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "contacts": "കോൺടാക്റ്റുകൾ",
+
+  "noContactsYet": "ഇതുവരെ കോൺടാക്റ്റുകളില്ല",
+
+  "securityLockoutActive": "സുരക്ഷാ ലോക്കൗട്ട്",
+
+  "tooManyAttemptsFrozen": "വളരെയധികം ശ്രമങ്ങൾ. {minutes} മിനിറ്റത്തേക്ക് ലോക്ക് ചെയ്തു.",
+
+  "@tooManyAttemptsFrozen": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+
+  "acknowledge": "സ്ഥിരീകരിക്കുക",
+
+  "accessBlocked": "പ്രവേശനം തടഞ്ഞു",
+
+  "accessSuspended": "5 പരാജയപ്പെട്ട പൊരുത്തങ്ങൾ. {minutes} മിനിറ്റത്തേക്ക് പ്രവേശനം നിർത്തിവച്ചു.",
+
+  "@accessSuspended": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+
+  "ok": "ശരി",
+
+  "unlockSecureNode": "അൺലോക്ക് ചെയ്യുക: {username}",
+
+  "@unlockSecureNode": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+
+  "verificationMetricsRemaining": "ശേഷിക്കുന്ന ശ്രമങ്ങൾ: {count}",
+
+  "@verificationMetricsRemaining": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+
+  "secureKeyPasscode": "സുരക്ഷാ പാസ്‌കോഡ്",
+  "warningHardwareLockout": "മുന്നറിയിപ്പ്: അടുത്ത പരാജയം സുരക്ഷാ ലോക്ക് ചെയ്യും.",
+  "abort": "നിർത്തുക",
+  "authenticate": "പ്രാമാണീകരിക്കുക",
+  "searchPipelinesHint": "സുരക്ഷിത കണക്ഷനുകൾ തിരയുക...",
+  "zeroPipelinesDiscovered": "കണക്ഷനുകളൊന്നും കണ്ടെത്തിയില്ല.",
+  "processingDecryption": "ഡീക്രിപ്റ്റ് ചെയ്യുന്നു...",
+  "decrypting": "ഡീക്രിപ്റ്റ് ചെയ്യുന്നു...",
+  "decryptionError": "[ഡീക്രിപ്ഷൻ പിശക്]",
+  "cryptContainerSecure": "CRYPT കണ്ടെയ്നർ സുരക്ഷിതമാണ്",
+  "connectAnAccount": "അക്കൗണ്ട് ബന്ധിപ്പിക്കുക",
+  "username": "ഉപയോക്തൃനാമം",
+  "password": "പാസ്‌വേഡ്",
+  "enterMasterSecurityPassword": "നിങ്ങളുടെ മാസ്റ്റർ പാസ്‌വേഡ് നൽകുക",
+  "pleaseFillAllFields": "എല്ലാ ഫീൽഡുകളും പൂരിപ്പിക്കുക",
+  "wrongUsernameOrPassword": "ഉപയോക്തൃനാമമോ പാസ്‌വേഡോ തെറ്റാണ്",
+  "loginError": "ലോഗിൻ പിശക്: {error}",
+
+  "@loginError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+
+  "dontHaveAnAccountSignUp": "അക്കൗണ്ട് ഇല്ലേ? സൈൻ അപ്പ് ചെയ്യുക",
+  "myIdentity": "എന്റെ ഐഡന്റിറ്റി",
+  "scanToAddMe": "എന്നെ ചേർക്കാൻ സ്കാൻ ചെയ്യുക",
+  "shareProfileLink": "പ്രൊഫൈൽ പങ്കിടുക",
+  "addMeOnCrypt": "CRYPT-ൽ എന്നെ ചേർക്കൂ!\n\n{link}",
+
+  "@addMeOnCrypt": {
+    "placeholders": {
+      "link": {
+        "type": "String"
+      }
+    }
+  },
+
+  "scanQr": "QR സ്കാൻ ചെയ്യുക",
+  "invalidCryptQrFormat": "അസാധുവായ CRYPT QR കോഡ്.",
+  "userScanned": "ഉപയോക്താവിനെ സ്കാൻ ചെയ്തു!",
+
+  "addingUser": "{username} ചേർക്കുന്നു...",
+
+  "@addingUser": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+
+  "defaultUser": "ഉപയോക്താവ്",
+  "createAccount": "അക്കൗണ്ട് സൃഷ്ടിക്കുക",
+  "keepPasswordSecureHint": "സുരക്ഷിതമായി സൂക്ഷിക്കുക. പാസ്‌വേഡ് മാറ്റാൻ കഴിയില്ല.",
+  "pleaseFillInAllFields": "എല്ലാ ഫീൽഡുകളും പൂരിപ്പിക്കുക",
+  "usernameExceedsLimit": "ഉപയോക്തൃനാമം പരമാവധി 20 അക്ഷരങ്ങൾ",
+  "invalidUsernameCharacters": "അക്ഷരങ്ങൾ, അക്കങ്ങൾ, _ അല്ലെങ്കിൽ - മാത്രം ഉപയോഗിക്കുക.",
+  "weakPasswordNotice": "8+ അക്ഷരങ്ങൾ, 1 അക്കം, 1 വലിയ അക്ഷരം ഉപയോഗിക്കുക.",
+  "unableToGenerateUniqueUsername": "അദ്വിതീയ ഉപയോക്തൃനാമം സൃഷ്ടിക്കാനായില്ല.",
+  "accountCreated": "അക്കൗണ്ട് സൃഷ്ടിച്ചു",
+  "yourUsernameIs": "നിങ്ങളുടെ ഉപയോക്തൃനാമം:\n\n{username}",
+
+  "@yourUsernameIs": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+
+  "usernameTakenAssignedTag": "ഉപയോക്തൃനാമം '{chosen}' ഇതിനകം ഉപയോഗത്തിലാണ്.\n\nനിങ്ങളുടെ ഉപയോക്തൃനാമം:\n\n{assigned}\n\nഇത് ലോഗിൻ ചെയ്യാൻ ആവശ്യമായതിനാൽ സൂക്ഷിക്കുക.",
+
+  "@usernameTakenAssignedTag": {
+    "placeholders": {
+      "chosen": {
+        "type": "String"
+      },
+      "assigned": {
+        "type": "String"
+      }
+    }
+  },
+
+  "continueText": "തുടരുക",
+
+  "failedToGenerateIdentity": "ഐഡന്റിറ്റി സൃഷ്ടിക്കുന്നത് പരാജയപ്പെട്ടു: {error}",
+
+  "@failedToGenerateIdentity": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+
+  "welcomeToCrypt": "CRYPT-ലേക്ക് സ്വാഗതം",
+  "signupDescription": "P2P കീകൾ സൃഷ്ടിക്കാൻ ഒരു ഉപയോക്തൃനാമവും പാസ്‌വേഡും നൽകുക.",
+  "chooseAUsername": "ഒരു ഉപയോക്തൃനാമം തിരഞ്ഞെടുക്കുക",
+  "usernameHelperText": "നിങ്ങളുടെ യഥാർത്ഥ പേര് ഉപയോഗിക്കരുത്. പേര് എടുത്തിട്ടുണ്ടെങ്കിൽ ഒരു സഫിക്സ് ചേർക്കും.",
+  "masterAuthenticationRequired": "മാസ്റ്റർ പ്രാമാണീകരണം",
+  "verify": "സ്ഥിരീകരിക്കുക",
+  "darkThemeMode": "ഡാർക്ക് തീം",
+  "secureConversations": "സുരക്ഷിത സംഭാഷണങ്ങൾ",
+
+  "noActiveConversations": "സജീവ ചാറ്റുകളൊന്നുമില്ല. ലോക്കുകൾ പ്രവർത്തനക്ഷമമാക്കാൻ ഒന്ന് ആരംഭിക്കുക.",
+
+  "logout": "ലോഗൗട്ട്",
+  "wipeDeviceAndEscape": "ഉപകരണം വൈപ്പ് ചെയ്യുക",
+
+  "falsePassword": "തെറ്റായ പാസ്‌വേഡ്",
+
+  "accessSuspendedTimer": "പ്രവേശനം നിർത്തിവച്ചിരിക്കുന്നു. {time} കഴിഞ്ഞ് വീണ്ടും ശ്രമിക്കുക.",
+
+  "@accessSuspendedTimer": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+
+  "selectSecureLockMethod": "ലോക്ക് രീതി തിരഞ്ഞെടുക്കുക",
+  "selectSecureLockDescription": "ഫിംഗർപ്രിന്റ് അല്ലെങ്കിൽ 4 അക്ക PIN ഉപയോഗിച്ച് ലോക്ക് ചെയ്യണോ?",
+  "fourDigitPin": "4 അക്ക PIN",
+  "fingerprintUnlock": "ഫിംഗർപ്രിന്റ് 🔓",
+
+  "supportSoloDeveloper": "ഡെവലപ്പറെ പിന്തുണയ്ക്കുക",
+  "maybeLater": "പിന്നീട്",
+  "submitProof": "തെളിവ് സമർപ്പിക്കുക",
+  "couldNotOpenWallet": "വാലറ്റ് തുറക്കാനായില്ല. താഴെയുള്ള കോഡ് പകർത്തുക.",
+  "proofSubmittedSnackbar": "തെളിവ് സമർപ്പിച്ചു. മാനുവൽ പരിശോധന: 24–48 മണിക്കൂർ (വാരാന്ത്യങ്ങൾ ഒഴികെ)."
+}

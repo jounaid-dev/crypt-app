@@ -1,0 +1,259 @@
+{
+  "@@locale": "en",
+
+  "appName": "CRYPT",
+  "welcome": "Welcome",
+  "login": "Log In",
+  "signup": "Sign Up",
+  "settings": "Settings",
+  "chats": "Chats",
+  "typeMessage": "Type a message...",
+  "send": "Send",
+
+  "p2p": "P2P",
+  "connecting": "Connecting...",
+  "connectingP2p": "Connecting to P2P...",
+  "p2pConnectionNotReady": "P2P not ready.",
+
+  "searchLanguage": "Search language...",
+  "language": "Language",
+
+  "forceEscapeSignOutTitle": "FORCE SIGN OUT?",
+  "forceEscapeSignOutContent": "WARNING: All device data will be erased.",
+  "cancel": "Cancel",
+  "wipeDevice": "WIPE DEVICE",
+
+  "accountDestructionAlertTitle": "ACCOUNT DELETION",
+  "accountDestructionWarning": "WARNING: Device data and remote messages will be erased.",
+  "accountDestructionCriticalNotice": "CRITICAL: Wrong codes lock the system. Use your Account Password or Emergency Escape.",
+
+  "verificationSecurityKey": "Security Key: {code}",
+  "@verificationSecurityKey": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+
+  "copyDigitsHint": "Copy the 5 digits",
+  "codeMismatchNotice": "Code mismatch. Enter your Master Password or wait 10 minutes.",
+  "accountPasswordLabel": "Account Password",
+  "deleteEverythingPermanently": "DELETE EVERYTHING",
+  "escapeAndPurgeDeviceData": "Escape & Erase Data",
+
+  "addContact": "Add Contact",
+  "addContactConfirmation": "Add this contact?",
+  "noMessagesYet": "No messages yet",
+  "addNewContact": "New Contact",
+  "usernameLabel": "Username",
+  "nicknameOptionalLabel": "Nickname (Optional)",
+  "add": "Add",
+  "usernameCannotBeEmpty": "Username required",
+
+  "contactAlreadyExists": "Contact '{name}' already exists.",
+  "@contactAlreadyExists": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "userNotFoundOnRegistry": "User '{name}' not found. Shared secret unavailable.",
+  "@userNotFoundOnRegistry": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "successfullyAddedContact": "Added {name}!",
+  "@successfullyAddedContact": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "contacts": "Contacts",
+  "noContactsYet": "No contacts yet",
+  "securityLockoutActive": "Security Lockout",
+
+  "tooManyAttemptsFrozen": "Too many attempts. Locked for {minutes} min.",
+  "@tooManyAttemptsFrozen": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+
+  "acknowledge": "Acknowledge",
+  "accessBlocked": "Access Blocked",
+
+  "accessSuspended": "5 failed matches. Suspended for {minutes} min.",
+  "@accessSuspended": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+
+  "ok": "OK",
+
+  "unlockSecureNode": "Unlock: {username}",
+  "@unlockSecureNode": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+
+  "verificationMetricsRemaining": "Attempts left: {count}",
+  "@verificationMetricsRemaining": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+
+  "secureKeyPasscode": "Security Passcode",
+  "warningHardwareLockout": "WARNING: Next failure locks security.",
+  "abort": "Abort",
+  "authenticate": "Authenticate",
+
+  "searchPipelinesHint": "Search secure connections...",
+  "zeroPipelinesDiscovered": "No connections found.",
+  "processingDecryption": "Decrypting...",
+  "decrypting": "Decrypting...",
+  "decryptionError": "[Decryption Error]",
+  "cryptContainerSecure": "CRYPT CONTAINER SECURE",
+
+  "connectAnAccount": "Connect Account",
+  "username": "Username",
+  "password": "Password",
+  "enterMasterSecurityPassword": "Enter your Master Password",
+  "pleaseFillAllFields": "Fill all fields",
+  "wrongUsernameOrPassword": "Wrong username or password",
+
+  "loginError": "Login error: {error}",
+  "@loginError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+
+  "dontHaveAnAccountSignUp": "No account? Sign up",
+  "myIdentity": "My Identity",
+  "scanToAddMe": "Scan to add me",
+  "shareProfileLink": "Share Profile",
+  "addMeOnCrypt": "Add me on CRYPT!\n\n{link}",
+
+  "@addMeOnCrypt": {
+    "placeholders": {
+      "link": {
+        "type": "String"
+      }
+    }
+  },
+
+  "scanQr": "Scan QR",
+  "invalidCryptQrFormat": "Invalid CRYPT QR code.",
+  "userScanned": "User Scanned!",
+  "addingUser": "Adding {username}...",
+
+  "@addingUser": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+
+  "defaultUser": "User",
+  "createAccount": "Create Account",
+  "keepPasswordSecureHint": "Keep it safe. Password cannot be changed.",
+  "pleaseFillInAllFields": "Fill all fields",
+  "usernameExceedsLimit": "Username max: 20 characters",
+  "invalidUsernameCharacters": "Use letters, numbers, _ or - only.",
+  "weakPasswordNotice": "Use 8+ chars, 1 number, 1 uppercase.",
+  "unableToGenerateUniqueUsername": "Could not generate a unique username.",
+
+  "accountCreated": "Account Created",
+  "yourUsernameIs": "Your username:\n\n{username}",
+
+  "@yourUsernameIs": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+
+  "usernameTakenAssignedTag": "Username '{chosen}' is taken.\n\nYour username:\n\n{assigned}\n\nKeep it for login.",
+
+  "@usernameTakenAssignedTag": {
+    "placeholders": {
+      "chosen": {
+        "type": "String"
+      },
+      "assigned": {
+        "type": "String"
+      }
+    }
+  },
+
+  "continueText": "Continue",
+
+  "failedToGenerateIdentity": "Identity creation failed: {error}",
+  "@failedToGenerateIdentity": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+
+  "welcomeToCrypt": "Welcome to CRYPT",
+  "signupDescription": "Create a username and password to generate P2P keys.",
+  "chooseAUsername": "Choose a username",
+  "usernameHelperText": "Don't use your real name. A suffix is added if taken.",
+  "masterAuthenticationRequired": "Master Authentication",
+  "verify": "Verify",
+  "darkThemeMode": "Dark Theme",
+  "secureConversations": "Secure Conversations",
+  "noActiveConversations": "No active chats. Start one to enable locks.",
+  "logout": "Logout",
+  "wipeDeviceAndEscape": "WIPE DEVICE",
+  "falsePassword": "Wrong Password",
+
+  "accessSuspendedTimer": "Access suspended. Try again in {time}.",
+  "@accessSuspendedTimer": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+
+  "selectSecureLockMethod": "Select Lock Method",
+  "selectSecureLockDescription": "Lock with Fingerprint or 4-Digit PIN?",
+  "fourDigitPin": "4-Digit PIN",
+  "fingerprintUnlock": "Fingerprint 🔓",
+
+  "supportSoloDeveloper": "Support Developer",
+  "maybeLater": "Maybe Later",
+  "submitProof": "Submit Proof",
+
+  "couldNotOpenWallet": "Wallet couldn't open. Copy the code below.",
+
+  "proofSubmittedSnackbar": "Proof submitted. Manual review: 24–48 hours (weekends excluded)."
+}

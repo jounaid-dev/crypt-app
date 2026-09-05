@@ -1,0 +1,255 @@
+{
+  "@@locale": "ta",
+
+  "appName": "CRYPT",
+  "welcome": "வரவேற்கிறோம்",
+  "login": "உள்நுழைய",
+  "signup": "பதிவுசெய்ய",
+  "settings": "அமைப்புகள்",
+  "chats": "அரட்டைகள்",
+  "typeMessage": "செய்தியை உள்ளிடவும்...",
+  "send": "அனுப்பு",
+  "p2p": "P2P",
+  "connecting": "இணைக்கப்படுகிறது...",
+  "connectingP2p": "P2P-க்கு இணைக்கப்படுகிறது...",
+  "p2pConnectionNotReady": "P2P இணைப்பு தயாராக இல்லை.",
+  "searchLanguage": "மொழியைத் தேடுங்கள்...",
+  "language": "மொழி",
+
+  "forceEscapeSignOutTitle": "கட்டாய அவசர வெளியேற்றத்தை இயக்கவா?",
+  "forceEscapeSignOutContent": "எச்சரிக்கை: இதைச் செய்வதன் மூலம் இந்தச் சாதனத்தில் உள்ள அனைத்து தரவும் முழுமையாக நீக்கப்படும்.",
+  "cancel": "ரத்துசெய்",
+  "wipeDevice": "சாதனத்தை அழி",
+
+  "accountDestructionAlertTitle": "கணக்கு அழிப்பு எச்சரிக்கை",
+  "accountDestructionWarning": "எச்சரிக்கை: இந்தச் செயல் இந்தச் சாதனத்திலிருந்து உங்கள் தரவு அனைத்தையும் நீக்கும். இணையத்துடன் இணைக்கப்பட்டதும், இது தொலைநிலை சுயஅழிப்பு கட்டளையைச் செயல்படுத்தும். உங்கள் தனிப்பட்ட பயனர் ID-யிலிருந்து அனுப்பப்பட்ட அனைத்து செய்திகளும் அனைத்து பீயர்களின் நினைவகத்திலிருந்தும் நிரந்தரமாக நீக்கப்படும்.",
+
+  "accountDestructionCriticalNotice": "முக்கியமானது: இந்தச் சரிபார்ப்பு இலக்கங்களைத் தவறாக உள்ளிட்டால், கணினி பூட்டப்படும். அதைத் திறக்க, உங்கள் முதன்மைக் கணக்கு கடவுச்சொல்லை உள்ளிட வேண்டும் அல்லது இந்தச் சாதனத்தில் உள்ள தரவை உடனடியாக முழுமையாக அழிக்கும் அவசர வெளியேற்றத்தைப் பயன்படுத்த வேண்டும்.",
+
+  "verificationSecurityKey": "சரிபார்ப்பு பாதுகாப்பு விசை: {code}",
+  "@verificationSecurityKey": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+
+  "copyDigitsHint": "மேலே உள்ள 5 இலக்கங்களை நகலெடுக்கவும்",
+  "codeMismatchNotice": "குறியீடு பொருந்தவில்லை. பூட்டைத் தவிர்க்க முதன்மை கடவுச்சொல்லை உள்ளிடவும் அல்லது 10 நிமிடங்கள் காத்திருக்கவும்.",
+  "accountPasswordLabel": "கணக்கு கடவுச்சொல்",
+  "deleteEverythingPermanently": "அனைத்தையும் நிரந்தரமாக நீக்கு",
+  "escapeAndPurgeDeviceData": "வெளியேறி சாதனத் தரவை அழி",
+
+  "addContact": "தொடர்பைச் சேர்",
+  "addContactConfirmation": "இந்தத் தொடர்பைச் சேர்க்கவா?",
+  "noMessagesYet": "இன்னும் செய்திகள் இல்லை",
+  "addNewContact": "புதிய தொடர்பைச் சேர்",
+  "usernameLabel": "பயனர் பெயர்",
+  "nicknameOptionalLabel": "புனைப்பெயர் (விருப்பத்திற்குரியது)",
+  "add": "சேர்",
+  "usernameCannotBeEmpty": "பயனர் பெயர் காலியாக இருக்கக்கூடாது",
+
+  "contactAlreadyExists": "‘{name}’ என்ற தொடர்பு ஏற்கனவே உங்கள் முகவரிப் புத்தகத்தில் உள்ளது.",
+  "@contactAlreadyExists": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "userNotFoundOnRegistry": "‘{name}’ என்ற பயனர் பிணையப் பதிவேட்டில் காணப்படவில்லை. பகிரப்பட்ட ரகசியத்தை உருவாக்க முடியவில்லை.",
+  "@userNotFoundOnRegistry": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "successfullyAddedContact": "{name} வெற்றிகரமாகச் சேர்க்கப்பட்டார்!",
+  "@successfullyAddedContact": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "contacts": "தொடர்புகள்",
+  "noContactsYet": "இன்னும் தொடர்புகள் இல்லை",
+  "securityLockoutActive": "பாதுகாப்புப் பூட்டு செயலில் உள்ளது",
+
+  "tooManyAttemptsFrozen": "பல தவறான முயற்சிகள். அணுகல் {minutes} நிமிடங்களுக்கு முடக்கப்பட்டுள்ளது.",
+  "@tooManyAttemptsFrozen": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+
+  "acknowledge": "புரிந்தது",
+  "accessBlocked": "அணுகல் தடுக்கப்பட்டது",
+
+  "accessSuspended": "5 தவறான சரிபார்ப்புகள். அடுத்த {minutes} நிமிடங்களுக்கு அணுகல் இடைநிறுத்தப்பட்டுள்ளது.",
+  "@accessSuspended": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+
+  "ok": "சரி",
+
+  "unlockSecureNode": "பாதுகாப்பான முனையைத் திறக்கவும்: {username}",
+  "@unlockSecureNode": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+
+  "verificationMetricsRemaining": "மீதமுள்ள சரிபார்ப்பு முயற்சிகள்: {count}",
+  "@verificationMetricsRemaining": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+
+  "secureKeyPasscode": "பாதுகாப்பு விசை அணுகல் குறியீடு",
+  "warningHardwareLockout": "எச்சரிக்கை: அடுத்த தவறான சரிபார்ப்பு பாதுகாப்பு அமைப்பு பூட்டப்படுவதற்கு வழிவகுக்கும்.",
+  "abort": "ரத்துசெய்",
+  "authenticate": "அங்கீகரிக்கவும்",
+
+  "searchPipelinesHint": "செயலில் உள்ள பாதுகாப்பான இணைப்புகளைத் தேடுகிறது...",
+  "zeroPipelinesDiscovered": "பொருத்தமான இணைப்புகள் எதுவும் கண்டறியப்படவில்லை.",
+  "processingDecryption": "மறைகுறியாக்கம் செய்யப்படுகிறது...",
+  "decrypting": "மறைகுறியாக்கம் செய்யப்படுகிறது...",
+  "decryptionError": "[மறைகுறியாக்கப் பிழை]",
+  "cryptContainerSecure": "CRYPT கொள்கலன் பாதுகாப்பாக உள்ளது",
+
+  "connectAnAccount": "கணக்கை இணைக்கவும்",
+  "username": "பயனர் பெயர்",
+  "password": "கடவுச்சொல்",
+  "enterMasterSecurityPassword": "உங்கள் முதன்மை பாதுகாப்புக் கடவுச்சொல்லை உள்ளிடவும்",
+  "pleaseFillAllFields": "தயவுசெய்து அனைத்து புலங்களையும் நிரப்பவும்",
+  "wrongUsernameOrPassword": "தவறான பயனர் பெயர் அல்லது கடவுச்சொல்",
+
+  "loginError": "உள்நுழைவுப் பிழை: {error}",
+  "@loginError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+
+  "dontHaveAnAccountSignUp": "கணக்கு இல்லையா? பதிவுசெய்யவும்",
+  "myIdentity": "எனது அடையாளம்",
+  "scanToAddMe": "என்னைச் சேர்க்க ஸ்கேன் செய்யவும்",
+  "shareProfileLink": "சுயவிவர இணைப்பைப் பகிரவும்",
+
+  "addMeOnCrypt": "என்னை CRYPT-ல் சேர்க்கவும்!\n\n{link}",
+  "@addMeOnCrypt": {
+    "placeholders": {
+      "link": {
+        "type": "String"
+      }
+    }
+  },
+
+  "scanQr": "QR-ஐ ஸ்கேன் செய்யவும்",
+  "invalidCryptQrFormat": "தவறான CRYPT QR குறியீட்டு வடிவம்.",
+  "userScanned": "பயனர் ஸ்கேன் செய்யப்பட்டார்!",
+
+  "addingUser": "{username} சேர்க்கப்படுகிறது...",
+  "@addingUser": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+
+  "defaultUser": "பயனர்",
+  "createAccount": "கணக்கை உருவாக்கவும்",
+  "keepPasswordSecureHint": "இதைப் பாதுகாப்பான இடத்தில் வைத்திருங்கள். கடவுச்சொல்லை மாற்ற முடியாது.",
+  "pleaseFillInAllFields": "தயவுசெய்து அனைத்து புலங்களையும் நிரப்பவும்",
+  "usernameExceedsLimit": "பயனர் பெயர் 20 எழுத்துகளுக்கு மேல் இருக்கக்கூடாது",
+  "invalidUsernameCharacters": "பயனர் பெயரில் எழுத்துகள், எண்கள், அடிக்கோடுகள் மற்றும் ஹைபன்கள் மட்டுமே இருக்கலாம்",
+  "weakPasswordNotice": "கடவுச்சொல்லில் குறைந்தது 8 எழுத்துகள், ஒரு எண் மற்றும் ஒரு பெரிய எழுத்து இருக்க வேண்டும்",
+  "unableToGenerateUniqueUsername": "தனித்துவமான பயனர் பெயரை உருவாக்க முடியவில்லை.",
+
+  "accountCreated": "கணக்கு உருவாக்கப்பட்டது",
+
+  "yourUsernameIs": "உங்கள் பயனர் பெயர்:\n\n{username}",
+  "@yourUsernameIs": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+
+  "usernameTakenAssignedTag": "‘{chosen}’ என்ற பயனர் பெயர் ஏற்கனவே பயன்படுத்தப்படுகிறது.\n\nஉங்கள் பயனர் பெயர்:\n\n{assigned}\n\nஇதை நினைவில் வைத்துக்கொள்ளுங்கள். உள்நுழைய இது தேவைப்படும்.",
+  "@usernameTakenAssignedTag": {
+    "placeholders": {
+      "chosen": {
+        "type": "String"
+      },
+      "assigned": {
+        "type": "String"
+      }
+    }
+  },
+
+  "continueText": "தொடரவும்",
+
+  "failedToGenerateIdentity": "பாதுகாப்பான அடையாளத்தை உருவாக்க முடியவில்லை: {error}",
+  "@failedToGenerateIdentity": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+
+  "welcomeToCrypt": "CRYPT-க்கு வரவேற்கிறோம்",
+  "signupDescription": "P2P குறியாக்க விசைகளை உருவாக்க பயனர் பெயர் மற்றும் கடவுச்சொல்லை உள்ளிடவும்.",
+  "chooseAUsername": "பயனர் பெயரைத் தேர்ந்தெடுக்கவும்",
+  "usernameHelperText": "உங்கள் உண்மையான பெயரைப் பயன்படுத்த வேண்டாம். பயனர் பெயர் ஏற்கனவே பயன்படுத்தப்பட்டிருந்தால், தானாகவே தனித்துவமான பின்னொட்டு சேர்க்கப்படும்.",
+
+  "masterAuthenticationRequired": "முதன்மை அங்கீகாரம் தேவை",
+  "verify": "சரிபார்க்கவும்",
+  "darkThemeMode": "இருண்ட தீம்",
+  "secureConversations": "பாதுகாப்பான உரையாடல்கள்",
+  "noActiveConversations": "செயலில் உள்ள உரையாடல்கள் எதுவும் இல்லை. பாதுகாப்புப் பூட்டுகளை இயக்க முதலில் ஒரு உரையாடலைத் தொடங்கவும்.",
+  "logout": "வெளியேறு",
+  "wipeDeviceAndEscape": "சாதனத்தை அழித்து வெளியேறு",
+  "falsePassword": "தவறான கடவுச்சொல்",
+
+  "accessSuspendedTimer": "பாதுகாப்பு காரணங்களுக்காக அணுகல் இடைநிறுத்தப்பட்டுள்ளது. {time} கழித்து மீண்டும் முயற்சிக்கவும்.",
+  "@accessSuspendedTimer": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+
+  "selectSecureLockMethod": "பாதுகாப்பான பூட்டு முறையைத் தேர்ந்தெடுக்கவும்",
+  "selectSecureLockDescription": "இந்த உரையாடலை சாதனத்தின் கைரேகை பயோமெட்ரிக் அல்லது நிலையான 4 இலக்க PIN மூலம் பூட்ட விரும்புகிறீர்களா?",
+  "fourDigitPin": "4 இலக்க PIN",
+  "fingerprintUnlock": "கைரேகை 🔓",
+  "supportSoloDeveloper": "சுயாதீன டெவலப்பரை ஆதரிக்கவும்",
+  "maybeLater": "பின்னர் பார்க்கலாம்",
+  "submitProof": "சான்றைச் சமர்ப்பிக்கவும்",
+  "couldNotOpenWallet": "வாலட்டை தானாகத் திறக்க முடியவில்லை. அதற்கு பதிலாக கீழே உள்ள உரைக் குறியீட்டை நகலெடுக்கவும்.",
+  "proofSubmittedSnackbar": "சான்று சமர்ப்பிக்கப்பட்டது. கைமுறை மதிப்பாய்வுக்கு 24–48 மணிநேரம் ஆகும் (வார இறுதி நாட்கள் தவிர). பயன்பாட்டை வழக்கம்போல் தொடர்ந்து பயன்படுத்தலாம்."
+}

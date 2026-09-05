@@ -1,0 +1,262 @@
+{
+  "@@locale": "zh",
+
+  "appName": "CRYPT",
+  "welcome": "欢迎",
+  "login": "登录",
+  "signup": "注册",
+  "settings": "设置",
+  "chats": "聊天",
+  "typeMessage": "输入消息...",
+  "send": "发送",
+
+  "p2p": "P2P",
+  "connecting": "正在连接...",
+  "connectingP2p": "正在连接到 P2P...",
+  "p2pConnectionNotReady": "P2P 尚未就绪。",
+
+  "searchLanguage": "搜索语言...",
+  "language": "语言",
+
+  "forceEscapeSignOutTitle": "强制紧急退出？",
+  "forceEscapeSignOutContent": "警告：此操作将完全清除本设备上的所有数据。",
+  "cancel": "取消",
+  "wipeDevice": "擦除设备",
+
+  "accountDestructionAlertTitle": "账户销毁警报",
+  "accountDestructionWarning": "警告：此操作将删除您在本设备上的所有数据。连接互联网后，将触发远程自毁命令。使用您唯一用户 ID 发送的每条消息都将从所有对等设备的内存中永久删除。",
+  "accountDestructionCriticalNotice": "严重警告：如果错误输入这些验证数字，系统将被锁定。要解锁，您必须输入主账户密码，或使用紧急退出功能立即彻底清除本设备的数据存储。",
+
+  "verificationSecurityKey": "验证安全密钥：{code}",
+
+  "@verificationSecurityKey": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+
+  "copyDigitsHint": "复制上方的 5 位数字",
+  "codeMismatchNotice": "验证码不匹配！请输入主密码以解除锁定，否则系统将锁定 10 分钟：",
+  "accountPasswordLabel": "账户密码",
+  "deleteEverythingPermanently": "永久删除所有内容",
+  "escapeAndPurgeDeviceData": "紧急退出并清除设备数据",
+
+  "addContact": "添加联系人",
+  "addContactConfirmation": "确定要添加此联系人吗？",
+  "noMessagesYet": "暂无消息",
+  "addNewContact": "添加新联系人",
+  "usernameLabel": "用户名",
+  "nicknameOptionalLabel": "昵称（可选）",
+  "add": "添加",
+  "usernameCannotBeEmpty": "用户名不能为空",
+
+  "contactAlreadyExists": "联系人“{name}”已存在于您的通讯录中。",
+
+  "@contactAlreadyExists": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "userNotFoundOnRegistry": "在网络注册表中找不到用户“{name}”。无法建立共享密钥。",
+
+  "@userNotFoundOnRegistry": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "successfullyAddedContact": "已成功添加 {name}！",
+
+  "@successfullyAddedContact": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "contacts": "联系人",
+  "noContactsYet": "暂无联系人",
+
+  "securityLockoutActive": "安全锁定已启用",
+  "tooManyAttemptsFrozen": "无效尝试次数过多。已锁定 {minutes} 分钟。",
+
+  "@tooManyAttemptsFrozen": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+
+  "acknowledge": "确认",
+  "accessBlocked": "访问被阻止",
+  "accessSuspended": "验证失败 5 次。访问已暂停 {minutes} 分钟。",
+
+  "@accessSuspended": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+
+  "ok": "确定",
+  "unlockSecureNode": "解锁安全节点：{username}",
+
+  "@unlockSecureNode": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+
+  "verificationMetricsRemaining": "剩余验证尝试次数：{count} 次。",
+
+  "@verificationMetricsRemaining": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+
+  "secureKeyPasscode": "安全密钥密码",
+  "warningHardwareLockout": "警告：下一次系统验证不匹配将触发硬件安全锁定。",
+  "abort": "中止",
+  "authenticate": "身份验证",
+
+  "searchPipelinesHint": "正在查询活动的安全通信通道...",
+  "zeroPipelinesDiscovered": "未找到匹配的通信通道。",
+  "processingDecryption": "正在处理解密...",
+  "decrypting": "正在解密...",
+  "decryptionError": "[解密错误]",
+  "cryptContainerSecure": "CRYPT 容器安全",
+
+  "connectAnAccount": "连接账户",
+  "username": "用户名",
+  "password": "密码",
+  "enterMasterSecurityPassword": "输入您的主安全密码",
+  "pleaseFillAllFields": "请填写所有字段",
+  "wrongUsernameOrPassword": "用户名或密码错误",
+  "loginError": "登录错误：{error}",
+
+  "@loginError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+
+  "dontHaveAnAccountSignUp": "还没有账户？注册",
+  "myIdentity": "我的身份",
+  "scanToAddMe": "扫描以添加我",
+  "shareProfileLink": "分享个人资料链接",
+  "addMeOnCrypt": "在 CRYPT 上添加我！\n\n{link}",
+
+  "@addMeOnCrypt": {
+    "placeholders": {
+      "link": {
+        "type": "String"
+      }
+    }
+  },
+
+  "scanQr": "扫描二维码",
+  "invalidCryptQrFormat": "无效的 CRYPT 二维码格式。",
+  "userScanned": "用户已扫描！",
+  "addingUser": "正在添加 {username}...",
+
+  "@addingUser": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+
+  "defaultUser": "用户",
+  "createAccount": "创建账户",
+  "keepPasswordSecureHint": "请妥善保管。密码创建后无法更改。",
+  "pleaseFillInAllFields": "请填写所有字段",
+  "usernameExceedsLimit": "用户名不能超过 20 个字符",
+  "invalidUsernameCharacters": "用户名只能包含字母、数字、下划线和连字符",
+  "weakPasswordNotice": "密码必须至少包含 8 个字符，并包含一个数字和一个大写字母",
+  "unableToGenerateUniqueUsername": "无法生成唯一用户名。",
+  "accountCreated": "账户已创建",
+
+  "yourUsernameIs": "您的用户名是：\n\n{username}",
+
+  "@yourUsernameIs": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+
+  "usernameTakenAssignedTag": "用户名“{chosen}”已被占用。\n\n您的用户名是：\n\n{assigned}\n\n请记住此用户名。登录时需要使用它。",
+
+  "@usernameTakenAssignedTag": {
+    "placeholders": {
+      "chosen": {
+        "type": "String"
+      },
+      "assigned": {
+        "type": "String"
+      }
+    }
+  },
+
+  "continueText": "继续",
+  "failedToGenerateIdentity": "无法创建安全身份：{error}",
+
+  "@failedToGenerateIdentity": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+
+  "welcomeToCrypt": "欢迎来到 CRYPT",
+  "signupDescription": "输入用户名和密码，以初始化您的点对点（P2P）加密密钥。",
+  "chooseAUsername": "选择用户名",
+  "usernameHelperText": "请勿使用真实姓名。如果用户名已被占用，我们会自动添加唯一后缀。",
+  "masterAuthenticationRequired": "需要主身份验证",
+  "verify": "验证",
+  "darkThemeMode": "深色主题模式",
+  "secureConversations": "安全对话",
+  "noActiveConversations": "未找到活动对话。请先开始一段对话，以启用自定义安全锁。",
+  "logout": "退出登录",
+  "wipeDeviceAndEscape": "擦除设备并紧急退出",
+  "falsePassword": "错误密码",
+  "accessSuspendedTimer": "出于安全保护，访问已被暂停。请在 {time} 后重试。",
+
+  "@accessSuspendedTimer": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+
+  "selectSecureLockMethod": "选择安全锁定方式",
+  "selectSecureLockDescription": "您希望使用设备指纹生物识别，还是标准的 4 位 PIN 码来锁定此聊天？",
+  "fourDigitPin": "4 位 PIN 码",
+  "fingerprintUnlock": "指纹解锁 🔓",
+  "supportSoloDeveloper": "支持独立开发者",
+  "maybeLater": "稍后再说",
+  "submitProof": "提交证明",
+  "couldNotOpenWallet": "无法自动打开钱包。请复制下方的文本代码。",
+  "proofSubmittedSnackbar": "证明已提交！人工审核需要 24–48 小时（周末除外）。您可以继续正常使用应用！"
+}

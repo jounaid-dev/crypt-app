@@ -1,0 +1,437 @@
+{
+  "@@locale": "tr",
+
+  "appName": "CRYPT",
+
+  "welcome": "Hoş Geldiniz",
+
+  "login": "Giriş Yap",
+
+  "signup": "Kaydol",
+
+  "settings": "Ayarlar",
+
+  "chats": "Sohbetler",
+
+  "typeMessage": "Bir mesaj yazın...",
+
+  "send": "Gönder",
+
+  "p2p": "P2P",
+
+  "connecting": "Bağlanıyor...",
+
+  "connectingP2p": "P2P'ye bağlanıyor...",
+
+  "p2pConnectionNotReady": "P2P bağlantısı hazır değil.",
+
+  "searchLanguage": "Dil ara...",
+
+  "language": "Dil",
+
+  "forceEscapeSignOutTitle": "Zorunlu acil çıkış yapılsın mı?",
+
+  "forceEscapeSignOutContent": "Uyarı: Bu işlem, cihazdaki tüm verileri silecektir.",
+
+  "cancel": "İptal",
+
+  "wipeDevice": "Cihazı Sil",
+
+  "accountDestructionAlertTitle": "Hesap Silme",
+
+  "accountDestructionWarning": "Uyarı: Cihazdaki veriler ve uzak mesajlar silinecektir.",
+
+  "accountDestructionCriticalNotice": "Kritik: Yanlış kodlar sistemi kilitler. Hesap parolanızı kullanın veya acil çıkışı gerçekleştirin.",
+
+  "verificationSecurityKey": "Güvenlik Anahtarı: {code}",
+
+  "@verificationSecurityKey": {
+
+    "placeholders": {
+
+      "code": {
+
+        "type": "String"
+
+      }
+
+    }
+
+  },
+
+  "copyDigitsHint": "Yukarıdaki 5 haneyi kopyalayın",
+
+  "codeMismatchNotice": "Kod eşleşmedi. Ana parolayı girin veya 10 dakika bekleyin.",
+
+  "accountPasswordLabel": "Hesap Parolası",
+
+  "deleteEverythingPermanently": "Her Şeyi Kalıcı Olarak Sil",
+
+  "escapeAndPurgeDeviceData": "Çıkış Yap ve Verileri Sil",
+
+  "addContact": "Kişi Ekle",
+
+  "addContactConfirmation": "Bu kişiyi eklemek istiyor musunuz?",
+
+  "noMessagesYet": "Henüz mesaj yok",
+
+  "addNewContact": "Yeni Kişi",
+
+  "usernameLabel": "Kullanıcı adı",
+
+  "nicknameOptionalLabel": "Takma ad (İsteğe bağlı)",
+
+  "add": "Ekle",
+
+  "usernameCannotBeEmpty": "Kullanıcı adı gerekli",
+
+  "contactAlreadyExists": "'{name}' kişisi zaten mevcut.",
+
+  "@contactAlreadyExists": {
+
+    "placeholders": {
+
+      "name": {
+
+        "type": "String"
+
+      }
+
+    }
+
+  },
+
+  "userNotFoundOnRegistry": "'{name}' kullanıcısı bulunamadı. Paylaşılan gizli anahtar kullanılamıyor.",
+
+  "@userNotFoundOnRegistry": {
+
+    "placeholders": {
+
+      "name": {
+
+        "type": "String"
+
+      }
+
+    }
+
+  },
+
+  "successfullyAddedContact": "{name} eklendi!",
+
+  "@successfullyAddedContact": {
+
+    "placeholders": {
+
+      "name": {
+
+        "type": "String"
+
+      }
+
+    }
+
+  },
+
+  "contacts": "Kişiler",
+
+  "noContactsYet": "Henüz kişi yok",
+
+  "securityLockoutActive": "Güvenlik Kilidi",
+
+  "tooManyAttemptsFrozen": "Çok fazla deneme. {minutes} dakika boyunca kilitlendi.",
+
+  "@tooManyAttemptsFrozen": {
+
+    "placeholders": {
+
+      "minutes": {
+
+        "type": "int"
+
+      }
+
+    }
+
+  },
+
+  "acknowledge": "Anladım",
+
+  "accessBlocked": "Erişim Engellendi",
+
+  "accessSuspended": "5 başarısız deneme. Erişim {minutes} dakika süreyle askıya alındı.",
+
+  "@accessSuspended": {
+
+    "placeholders": {
+
+      "minutes": {
+
+        "type": "int"
+
+      }
+
+    }
+
+  },
+
+  "ok": "Tamam",
+
+  "unlockSecureNode": "Kilidi Aç: {username}",
+
+  "@unlockSecureNode": {
+
+    "placeholders": {
+
+      "username": {
+
+        "type": "String"
+
+      }
+
+    }
+
+  },
+
+  "verificationMetricsRemaining": "Kalan denemeler: {count}",
+
+  "@verificationMetricsRemaining": {
+
+    "placeholders": {
+
+      "count": {
+
+        "type": "int"
+
+      }
+
+    }
+
+  },
+
+  "secureKeyPasscode": "Güvenlik Kodu",
+
+  "warningHardwareLockout": "Uyarı: Bir sonraki başarısız deneme güvenlik kilidini etkinleştirecektir.",
+
+  "abort": "İptal",
+
+  "authenticate": "Kimlik Doğrula",
+
+  "searchPipelinesHint": "Güvenli bağlantılar aranıyor...",
+
+  "zeroPipelinesDiscovered": "Bağlantı bulunamadı.",
+
+  "processingDecryption": "Şifre çözülüyor...",
+
+  "decrypting": "Şifre çözülüyor...",
+
+  "decryptionError": "[Şifre Çözme Hatası]",
+
+  "cryptContainerSecure": "CRYPT Kasası Güvenli",
+
+  "connectAnAccount": "Hesap Bağla",
+
+  "username": "Kullanıcı adı",
+
+  "password": "Parola",
+
+  "enterMasterSecurityPassword": "Ana parolanızı girin",
+
+  "pleaseFillAllFields": "Tüm alanları doldurun",
+
+  "wrongUsernameOrPassword": "Kullanıcı adı veya parola yanlış",
+
+  "loginError": "Giriş hatası: {error}",
+
+  "@loginError": {
+
+    "placeholders": {
+
+      "error": {
+
+        "type": "String"
+
+      }
+
+    }
+
+  },
+
+  "dontHaveAnAccountSignUp": "Hesabınız yok mu? Kaydolun",
+
+  "myIdentity": "Kimliğim",
+
+  "scanToAddMe": "Beni eklemek için tarayın",
+
+  "shareProfileLink": "Profili Paylaş",
+
+  "addMeOnCrypt": "Beni CRYPT'a ekleyin!\n\n{link}",
+
+  "@addMeOnCrypt": {
+
+    "placeholders": {
+
+      "link": {
+
+        "type": "String"
+
+      }
+
+    }
+
+  },
+
+  "scanQr": "QR Tara",
+
+  "invalidCryptQrFormat": "Geçersiz CRYPT QR kodu.",
+
+  "userScanned": "Kullanıcı tarandı!",
+
+  "addingUser": "{username} ekleniyor...",
+
+  "@addingUser": {
+
+    "placeholders": {
+
+      "username": {
+
+        "type": "String"
+
+      }
+
+    }
+
+  },
+
+  "defaultUser": "Kullanıcı",
+
+  "createAccount": "Hesap Oluştur",
+
+  "keepPasswordSecureHint": "Güvenli bir yerde saklayın. Parola değiştirilemez.",
+
+  "pleaseFillInAllFields": "Tüm alanları doldurun",
+
+  "usernameExceedsLimit": "Kullanıcı adı en fazla 20 karakter olabilir",
+
+  "invalidUsernameCharacters": "Yalnızca harf, rakam, _ ve - kullanın.",
+
+  "weakPasswordNotice": "En az 8 karakter, bir rakam ve bir büyük harf kullanın.",
+
+  "unableToGenerateUniqueUsername": "Benzersiz kullanıcı adı oluşturulamadı.",
+
+  "accountCreated": "Hesap Oluşturuldu",
+
+  "yourUsernameIs": "Kullanıcı adınız:\n\n{username}",
+
+  "@yourUsernameIs": {
+
+    "placeholders": {
+
+      "username": {
+
+        "type": "String"
+
+      }
+
+    }
+
+  },
+
+  "usernameTakenAssignedTag": "'{chosen}' kullanıcı adı zaten kullanılıyor.\n\nKullanıcı adınız:\n\n{assigned}\n\nGiriş yapmak için bunu saklayın.",
+
+  "@usernameTakenAssignedTag": {
+
+    "placeholders": {
+
+      "chosen": {
+
+        "type": "String"
+
+      },
+
+      "assigned": {
+
+        "type": "String"
+
+      }
+
+    }
+
+  },
+
+  "continueText": "Devam Et",
+
+  "failedToGenerateIdentity": "Kimlik oluşturulamadı: {error}",
+
+  "@failedToGenerateIdentity": {
+
+    "placeholders": {
+
+      "error": {
+
+        "type": "String"
+
+      }
+
+    }
+
+  },
+
+  "welcomeToCrypt": "CRYPT'a Hoş Geldiniz",
+
+  "signupDescription": "P2P şifreleme anahtarlarınızı oluşturmak için bir kullanıcı adı ve parola belirleyin.",
+
+  "chooseAUsername": "Bir kullanıcı adı seçin",
+
+  "usernameHelperText": "Gerçek adınızı kullanmayın. Kullanıcı adı alınmışsa otomatik olarak bir son ek eklenir.",
+
+  "masterAuthenticationRequired": "Ana Kimlik Doğrulaması",
+
+  "verify": "Doğrula",
+
+  "darkThemeMode": "Karanlık Mod",
+
+  "secureConversations": "Güvenli Sohbetler",
+
+  "noActiveConversations": "Aktif sohbet yok. Kilitleri etkinleştirmek için bir sohbet başlatın.",
+
+  "logout": "Çıkış Yap",
+
+  "wipeDeviceAndEscape": "Cihazı Sil",
+
+  "falsePassword": "Yanlış Parola",
+
+  "accessSuspendedTimer": "Erişim askıya alındı. {time} sonra tekrar deneyin.",
+
+  "@accessSuspendedTimer": {
+
+    "placeholders": {
+
+      "time": {
+
+        "type": "String"
+
+      }
+
+    }
+
+  },
+
+  "selectSecureLockMethod": "Kilit Yöntemini Seç",
+
+  "selectSecureLockDescription": "Parmak izi veya 4 haneli PIN ile kilitlemek ister misiniz?",
+
+  "fourDigitPin": "4 Haneli PIN",
+
+  "fingerprintUnlock": "Parmak İzi 🔓",
+
+  "supportSoloDeveloper": "Geliştiriciyi Destekle",
+
+  "maybeLater": "Belki Daha Sonra",
+
+  "submitProof": "Kanıt Gönder",
+
+  "couldNotOpenWallet": "Cüzdan açılamadı. Aşağıdaki kodu kopyalayın.",
+
+  "proofSubmittedSnackbar": "Kanıt gönderildi. Manuel inceleme 24–48 saat sürer (hafta sonları hariç)."
+}

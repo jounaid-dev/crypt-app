@@ -1,0 +1,259 @@
+{
+  "@@locale": "uk",
+
+  "appName": "CRYPT",
+  "welcome": "Ласкаво просимо",
+  "login": "Увійти",
+  "signup": "Реєстрація",
+  "settings": "Налаштування",
+  "chats": "Чати",
+  "typeMessage": "Введіть повідомлення...",
+  "send": "Надіслати",
+
+  "p2p": "P2P",
+  "connecting": "Підключення...",
+  "connectingP2p": "Підключення до P2P...",
+  "p2pConnectionNotReady": "Pідключення P2P не готове.",
+
+  "searchLanguage": "Пошук мови...",
+  "language": "Мова",
+
+  "forceEscapeSignOutTitle": "ПРИМУСОВИЙ АВАРІЙНИЙ ВИХІД?",
+  "forceEscapeSignOutContent": "ПОПЕРЕДЖЕННЯ: Усі дані на пристрої буде стерто.",
+  "cancel": "Скасувати",
+  "wipeDevice": "Очистити пристрій",
+
+  "accountDestructionAlertTitle": "ВИДАЛЕННЯ АКАУНТА",
+  "accountDestructionWarning": "ПОПЕРЕДЖЕННЯ: Дані пристрою та віддалені повідомлення буде стерто.",
+  "accountDestructionCriticalNotice": "КРИТИЧНО: Неправильні коди заблокують систему. Використайте пароль акаунта або аварійний вихід.",
+
+  "verificationSecurityKey": "Ключ безпеки: {code}",
+  "@verificationSecurityKey": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+
+  "copyDigitsHint": "Скопіюйте 5 цифр вище",
+  "codeMismatchNotice": "Код не збігається. Введіть головний пароль або зачекайте 10 хвилин.",
+  "accountPasswordLabel": "Пароль акаунта",
+  "deleteEverythingPermanently": "ВИДАЛИТИ ВСЕ НАЗАВЖДИ",
+  "escapeAndPurgeDeviceData": "Вийти та очистити дані",
+
+  "addContact": "Додати контакт",
+  "addContactConfirmation": "Додати цей контакт?",
+  "noMessagesYet": "Повідомлень поки немає",
+  "addNewContact": "Новий контакт",
+  "usernameLabel": "Ім'я користувача",
+  "nicknameOptionalLabel": "Псевдонім (необов'язково)",
+  "add": "Додати",
+  "usernameCannotBeEmpty": "Ім'я користувача обов'язкове",
+
+  "contactAlreadyExists": "Контакт «{name}» уже існує.",
+  "@contactAlreadyExists": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "userNotFoundOnRegistry": "Користувача «{name}» не знайдено. Спільний секрет недоступний.",
+  "@userNotFoundOnRegistry": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "successfullyAddedContact": "Контакт {name} додано!",
+  "@successfullyAddedContact": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "contacts": "Контакти",
+  "noContactsYet": "Контактів поки немає",
+
+  "securityLockoutActive": "Блокування безпеки",
+  "tooManyAttemptsFrozen": "Забагато спроб. Доступ заблоковано на {minutes} хвилин.",
+  "@tooManyAttemptsFrozen": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+
+  "acknowledge": "Зрозуміло",
+  "accessBlocked": "Доступ заблоковано",
+
+  "accessSuspended": "5 невдалих спроб. Доступ призупинено на {minutes} хвилин.",
+  "@accessSuspended": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+
+  "ok": "ОК",
+
+  "unlockSecureNode": "Розблокувати: {username}",
+  "@unlockSecureNode": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+
+  "verificationMetricsRemaining": "Залишилося спроб: {count}",
+  "@verificationMetricsRemaining": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+
+  "secureKeyPasscode": "Код безпеки",
+  "warningHardwareLockout": "Увага: наступна помилка спричинить блокування безпеки.",
+  "abort": "Скасувати",
+  "authenticate": "Автентифікація",
+
+  "searchPipelinesHint": "Пошук захищених з'єднань...",
+  "zeroPipelinesDiscovered": "З'єднань не знайдено.",
+  "processingDecryption": "Розшифрування...",
+  "decrypting": "Розшифрування...",
+  "decryptionError": "[Помилка розшифрування]",
+  "cryptContainerSecure": "ЗАХИЩЕНИЙ КОНТЕЙНЕР CRYPT",
+
+  "connectAnAccount": "Підключити акаунт",
+  "username": "Ім'я користувача",
+  "password": "Пароль",
+  "enterMasterSecurityPassword": "Введіть головний пароль",
+  "pleaseFillAllFields": "Заповніть усі поля",
+  "wrongUsernameOrPassword": "Неправильне ім'я користувача або пароль",
+
+  "loginError": "Помилка входу: {error}",
+  "@loginError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+
+  "dontHaveAnAccountSignUp": "Немає акаунта? Зареєструватися",
+  "myIdentity": "Моя особа",
+  "scanToAddMe": "Скануйте, щоб додати мене",
+  "shareProfileLink": "Поділитися профілем",
+  "addMeOnCrypt": "Додайте мене в CRYPT!\n\n{link}",
+
+  "@addMeOnCrypt": {
+    "placeholders": {
+      "link": {
+        "type": "String"
+      }
+    }
+  },
+
+  "scanQr": "Сканувати QR",
+  "invalidCryptQrFormat": "Недійсний QR-код CRYPT.",
+  "userScanned": "Користувача відскановано!",
+  "addingUser": "Додавання {username}...",
+
+  "@addingUser": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+
+  "defaultUser": "Користувач",
+  "createAccount": "Створити акаунт",
+  "keepPasswordSecureHint": "Зберігайте його в безпеці. Пароль не можна змінити.",
+  "pleaseFillInAllFields": "Заповніть усі поля",
+  "usernameExceedsLimit": "Ім'я користувача: максимум 20 символів",
+  "invalidUsernameCharacters": "Використовуйте лише літери, цифри, _ або -.",
+  "weakPasswordNotice": "Використовуйте 8+ символів, одну цифру та одну велику літеру.",
+  "unableToGenerateUniqueUsername": "Не вдалося створити унікальне ім'я користувача.",
+
+  "accountCreated": "Акаунт створено",
+  "yourUsernameIs": "Ваше ім'я користувача:\n\n{username}",
+
+  "@yourUsernameIs": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+
+  "usernameTakenAssignedTag": "Ім'я користувача «{chosen}» уже зайняте.\n\nВаше ім'я користувача:\n\n{assigned}\n\nЗапам'ятайте його для входу.",
+
+  "@usernameTakenAssignedTag": {
+    "placeholders": {
+      "chosen": {
+        "type": "String"
+      },
+      "assigned": {
+        "type": "String"
+      }
+    }
+  },
+
+  "continueText": "Продовжити",
+
+  "failedToGenerateIdentity": "Не вдалося створити особу: {error}",
+  "@failedToGenerateIdentity": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+
+  "welcomeToCrypt": "Ласкаво просимо до CRYPT",
+  "signupDescription": "Створіть ім'я користувача та пароль для створення ключів P2P.",
+  "chooseAUsername": "Виберіть ім'я користувача",
+  "usernameHelperText": "Не використовуйте справжнє ім'я. Якщо ім'я зайняте, буде додано унікальний суфікс.",
+
+  "masterAuthenticationRequired": "Потрібна головна автентифікація",
+  "verify": "Перевірити",
+  "darkThemeMode": "Темний режим",
+  "secureConversations": "Захищені розмови",
+  "noActiveConversations": "Активних розмов не знайдено. Почніть розмову, щоб увімкнути блокування.",
+
+  "logout": "Вийти",
+  "wipeDeviceAndEscape": "ОЧИСТИТИ ПРИСТРІЙ",
+  "falsePassword": "Неправильний пароль",
+
+  "accessSuspendedTimer": "Доступ призупинено. Спробуйте ще раз через {time}.",
+  "@accessSuspendedTimer": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+
+  "selectSecureLockMethod": "Вибрати спосіб блокування",
+  "selectSecureLockDescription": "Заблокувати за допомогою відбитка пальця або 4-значного PIN-коду?",
+  "fourDigitPin": "4-значний PIN",
+  "fingerprintUnlock": "Відбиток пальця 🔓",
+
+  "supportSoloDeveloper": "Підтримати розробника",
+  "maybeLater": "Можливо, пізніше",
+  "submitProof": "Надіслати підтвердження",
+  "couldNotOpenWallet": "Не вдалося відкрити гаманець. Скопіюйте код нижче.",
+  "proofSubmittedSnackbar": "Підтвердження надіслано. Ручна перевірка: 24–48 годин (крім вихідних)."
+}

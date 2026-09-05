@@ -1,0 +1,253 @@
+{
+  "@@locale": "ko",
+
+  "appName": "CRYPT",
+  "welcome": "환영합니다",
+  "login": "로그인",
+  "signup": "회원가입",
+  "settings": "설정",
+  "chats": "채팅",
+  "typeMessage": "메시지를 입력하세요...",
+  "send": "전송",
+
+  "p2p": "P2P",
+  "connecting": "연결 중...",
+  "connectingP2p": "P2P에 연결 중...",
+  "p2pConnectionNotReady": "P2P가 준비되지 않았습니다.",
+
+  "searchLanguage": "언어 검색...",
+  "language": "언어",
+
+  "forceEscapeSignOutTitle": "강제 로그아웃하시겠습니까?",
+  "forceEscapeSignOutContent": "경고: 모든 기기 데이터가 삭제됩니다.",
+  "cancel": "취소",
+  "wipeDevice": "기기 초기화",
+
+  "accountDestructionAlertTitle": "계정 삭제",
+  "accountDestructionWarning": "경고: 기기 데이터와 원격 메시지가 삭제됩니다.",
+  "accountDestructionCriticalNotice": "치명적: 잘못된 코드를 입력하면 시스템이 잠깁니다. 계정 비밀번호 또는 비상 탈출을 사용하세요.",
+
+  "verificationSecurityKey": "보안 키: {code}",
+  "@verificationSecurityKey": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+
+  "copyDigitsHint": "5자리 숫자를 복사하세요",
+  "codeMismatchNotice": "코드가 일치하지 않습니다. 마스터 비밀번호를 입력하거나 10분간 기다리세요.",
+  "accountPasswordLabel": "계정 비밀번호",
+  "deleteEverythingPermanently": "모든 항목 삭제",
+  "escapeAndPurgeDeviceData": "탈출 및 데이터 삭제",
+
+  "addContact": "연락처 추가",
+  "addContactConfirmation": "이 연락처를 추가하시겠습니까?",
+  "noMessagesYet": "아직 메시지가 없습니다",
+  "addNewContact": "새 연락처",
+  "usernameLabel": "사용자 이름",
+  "nicknameOptionalLabel": "닉네임 (선택 사항)",
+  "add": "추가",
+  "usernameCannotBeEmpty": "사용자 이름은 필수입니다",
+
+  "contactAlreadyExists": "'{name}' 연락처가 이미 존재합니다.",
+  "@contactAlreadyExists": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "userNotFoundOnRegistry": "사용자 '{name}'을(를) 찾을 수 없습니다. 공유 비밀을 사용할 수 없습니다.",
+  "@userNotFoundOnRegistry": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "successfullyAddedContact": "{name} 추가 완료!",
+  "@successfullyAddedContact": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "contacts": "연락처",
+  "noContactsYet": "아직 연락처가 없습니다",
+
+  "securityLockoutActive": "보안 잠금",
+  "tooManyAttemptsFrozen": "시도 횟수가 너무 많습니다. {minutes}분 동안 잠깁니다.",
+  "@tooManyAttemptsFrozen": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+
+  "acknowledge": "확인",
+  "accessBlocked": "접근 차단됨",
+  "accessSuspended": "5회 인증 실패. {minutes}분 동안 접근이 일시 중지됩니다.",
+  "@accessSuspended": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+
+  "ok": "확인",
+
+  "unlockSecureNode": "잠금 해제: {username}",
+  "@unlockSecureNode": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+
+  "verificationMetricsRemaining": "남은 시도 횟수: {count}",
+  "@verificationMetricsRemaining": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+
+  "secureKeyPasscode": "보안 비밀번호",
+  "warningHardwareLockout": "경고: 다음 실패 시 보안이 잠깁니다.",
+  "abort": "중단",
+  "authenticate": "인증",
+
+  "searchPipelinesHint": "보안 연결 검색...",
+  "zeroPipelinesDiscovered": "연결을 찾을 수 없습니다.",
+  "processingDecryption": "복호화 중...",
+  "decrypting": "복호화 중...",
+  "decryptionError": "[복호화 오류]",
+  "cryptContainerSecure": "CRYPT 컨테이너 보안 상태",
+
+  "connectAnAccount": "계정 연결",
+  "username": "사용자 이름",
+  "password": "비밀번호",
+  "enterMasterSecurityPassword": "마스터 비밀번호를 입력하세요",
+  "pleaseFillAllFields": "모든 필드를 입력하세요",
+  "wrongUsernameOrPassword": "사용자 이름 또는 비밀번호가 잘못되었습니다",
+
+  "loginError": "로그인 오류: {error}",
+  "@loginError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+
+  "dontHaveAnAccountSignUp": "계정이 없으신가요? 회원가입",
+  "myIdentity": "내 신원",
+  "scanToAddMe": "스캔하여 나를 추가",
+  "shareProfileLink": "프로필 공유",
+  "addMeOnCrypt": "CRYPT에서 나를 추가하세요!\n\n{link}",
+
+  "@addMeOnCrypt": {
+    "placeholders": {
+      "link": {
+        "type": "String"
+      }
+    }
+  },
+
+  "scanQr": "QR 스캔",
+  "invalidCryptQrFormat": "유효하지 않은 CRYPT QR 코드입니다.",
+  "userScanned": "사용자가 스캔되었습니다!",
+  "addingUser": "{username} 추가 중...",
+
+  "@addingUser": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+
+  "defaultUser": "사용자",
+  "createAccount": "계정 생성",
+  "keepPasswordSecureHint": "안전하게 보관하세요. 비밀번호는 변경할 수 없습니다.",
+  "pleaseFillInAllFields": "모든 필드를 입력하세요",
+  "usernameExceedsLimit": "사용자 이름: 최대 20자",
+  "invalidUsernameCharacters": "영문자, 숫자, _ 또는 -만 사용하세요.",
+  "weakPasswordNotice": "8자 이상, 숫자 1개, 대문자 1개를 사용하세요.",
+  "unableToGenerateUniqueUsername": "고유한 사용자 이름을 생성할 수 없습니다.",
+
+  "accountCreated": "계정 생성 완료",
+  "yourUsernameIs": "사용자 이름:\n\n{username}",
+  "@yourUsernameIs": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+
+  "usernameTakenAssignedTag": "사용자 이름 '{chosen}'은(는) 이미 사용 중입니다.\n\n사용자 이름:\n\n{assigned}\n\n로그인할 때 필요하므로 기억해 두세요.",
+  "@usernameTakenAssignedTag": {
+    "placeholders": {
+      "chosen": {
+        "type": "String"
+      },
+      "assigned": {
+        "type": "String"
+      }
+    }
+  },
+
+  "continueText": "계속",
+
+  "failedToGenerateIdentity": "신원 생성 실패: {error}",
+  "@failedToGenerateIdentity": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+
+  "welcomeToCrypt": "CRYPT에 오신 것을 환영합니다",
+  "signupDescription": "사용자 이름과 비밀번호를 생성하여 P2P 키를 만드세요.",
+  "chooseAUsername": "사용자 이름 선택",
+  "usernameHelperText": "실명을 사용하지 마세요. 이미 사용 중이면 접미사가 추가됩니다.",
+  "masterAuthenticationRequired": "마스터 인증",
+  "verify": "확인",
+  "darkThemeMode": "다크 테마",
+  "secureConversations": "보안 대화",
+  "noActiveConversations": "활성 채팅이 없습니다. 잠금을 활성화하려면 채팅을 시작하세요.",
+  "logout": "로그아웃",
+  "wipeDeviceAndEscape": "기기 초기화",
+  "falsePassword": "잘못된 비밀번호",
+
+  "accessSuspendedTimer": "접근이 일시 중지되었습니다. {time} 후 다시 시도하세요.",
+  "@accessSuspendedTimer": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+
+  "selectSecureLockMethod": "잠금 방식 선택",
+  "selectSecureLockDescription": "지문 또는 4자리 PIN으로 잠그시겠습니까?",
+  "fourDigitPin": "4자리 PIN",
+  "fingerprintUnlock": "지문 🔓",
+  "supportSoloDeveloper": "개발자 후원",
+  "maybeLater": "나중에",
+  "submitProof": "증빙 제출",
+  "couldNotOpenWallet": "지갑을 열 수 없습니다. 아래 코드를 복사하세요.",
+  "proofSubmittedSnackbar": "증빙이 제출되었습니다. 수동 검토: 24~48시간 (주말 제외)."
+}

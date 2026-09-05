@@ -1,0 +1,265 @@
+{
+  "@@locale": "id",
+
+  "appName": "CRYPT",
+  "welcome": "Selamat Datang",
+  "login": "Masuk",
+  "signup": "Daftar",
+  "settings": "Pengaturan",
+  "chats": "Obrolan",
+  "typeMessage": "Ketik pesan...",
+  "send": "Kirim",
+
+  "p2p": "P2P",
+  "connecting": "Menghubungkan...",
+  "connectingP2p": "Menghubungkan ke P2P...",
+  "p2pConnectionNotReady": "P2P belum siap.",
+
+  "searchLanguage": "Cari bahasa...",
+  "language": "Bahasa",
+
+  "forceEscapeSignOutTitle": "KELUAR DARURAT?",
+  "forceEscapeSignOutContent": "PERINGATAN: Semua data di perangkat ini akan dihapus.",
+  "cancel": "Batal",
+  "wipeDevice": "HAPUS PERANGKAT",
+
+  "accountDestructionAlertTitle": "PERINGATAN PENGHAPUSAN AKUN",
+  "accountDestructionWarning": "PERINGATAN: Semua data di perangkat dan pesan jarak jauh akan dihapus.",
+  "accountDestructionCriticalNotice": "PENTING: Kode yang salah akan mengunci sistem. Gunakan kata sandi master atau keluar darurat.",
+
+  "verificationSecurityKey": "Kunci keamanan verifikasi: {code}",
+  "@verificationSecurityKey": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+
+  "copyDigitsHint": "Salin 5 angka di atas",
+  "codeMismatchNotice": "Kode salah. Masukkan kata sandi master untuk mengabaikan, atau tunggu 10 menit.",
+  "accountPasswordLabel": "Kata sandi akun",
+
+  "deleteEverythingPermanently": "HAPUS SEMUANYA PERMANEN",
+  "escapeAndPurgeDeviceData": "Keluar dan hapus data perangkat",
+
+  "addContact": "Tambah kontak",
+  "addContactConfirmation": "Tambah kontak ini?",
+  "noMessagesYet": "Belum ada pesan",
+  "addNewContact": "Kontak baru",
+  "usernameLabel": "Nama pengguna",
+  "nicknameOptionalLabel": "Nama panggilan (opsional)",
+  "add": "Tambah",
+  "usernameCannotBeEmpty": "Nama pengguna wajib diisi",
+
+  "contactAlreadyExists": "'{name}' sudah ada.",
+  "@contactAlreadyExists": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "userNotFoundOnRegistry": "'{name}' tidak ditemukan. Rahasia bersama tidak dapat dibuat.",
+  "@userNotFoundOnRegistry": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "successfullyAddedContact": "{name} berhasil ditambahkan!",
+  "@successfullyAddedContact": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "contacts": "Kontak",
+  "noContactsYet": "Belum ada kontak",
+
+  "securityLockoutActive": "Kunci keamanan aktif",
+  "tooManyAttemptsFrozen": "Terlalu banyak percobaan tidak valid. Dikunci selama {minutes} menit.",
+  "@tooManyAttemptsFrozen": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+
+  "acknowledge": "Mengerti",
+  "accessBlocked": "Akses diblokir",
+  "accessSuspended": "5 percobaan verifikasi salah. Akses ditangguhkan selama {minutes} menit.",
+  "@accessSuspended": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+
+  "ok": "OK",
+
+  "unlockSecureNode": "Buka kunci node aman: {username}",
+  "@unlockSecureNode": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+
+  "verificationMetricsRemaining": "Sisa percobaan verifikasi: {count}.",
+  "@verificationMetricsRemaining": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+
+  "secureKeyPasscode": "Kode keamanan",
+  "warningHardwareLockout": "PERINGATAN: Kesalahan sistem berikutnya akan memicu penguncian keamanan perangkat keras.",
+  "abort": "Batal",
+  "authenticate": "Autentikasi",
+
+  "searchPipelinesHint": "Cari koneksi aman yang aktif...",
+  "zeroPipelinesDiscovered": "Tidak ada koneksi yang cocok ditemukan.",
+
+  "processingDecryption": "Memproses dekripsi...",
+  "decrypting": "Mendekripsi...",
+  "decryptionError": "[Kesalahan dekripsi]",
+  "cryptContainerSecure": "WADAH CRYPT AMAN",
+
+  "connectAnAccount": "Hubungkan akun",
+  "username": "Nama pengguna",
+  "password": "Kata sandi",
+  "enterMasterSecurityPassword": "Masukkan kata sandi keamanan master",
+  "pleaseFillAllFields": "Silakan isi semua kolom",
+  "wrongUsernameOrPassword": "Nama pengguna atau kata sandi salah",
+
+  "loginError": "Kesalahan masuk: {error}",
+  "@loginError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+
+  "dontHaveAnAccountSignUp": "Belum punya akun? Daftar",
+
+  "myIdentity": "Identitas saya",
+  "scanToAddMe": "Pindai untuk menambahkan saya",
+  "shareProfileLink": "Bagikan tautan profil",
+  "addMeOnCrypt": "Tambahkan saya di CRYPT!\n\n{link}",
+
+  "@addMeOnCrypt": {
+    "placeholders": {
+      "link": {
+        "type": "String"
+      }
+    }
+  },
+
+  "scanQr": "Pindai QR",
+  "invalidCryptQrFormat": "Format QR CRYPT tidak valid.",
+  "userScanned": "Pengguna dipindai!",
+  "addingUser": "Menambahkan {username}...",
+
+  "@addingUser": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+
+  "defaultUser": "Pengguna",
+
+  "createAccount": "Buat akun",
+  "keepPasswordSecureHint": "Simpan dengan aman. Kata sandi tidak dapat diubah.",
+  "pleaseFillInAllFields": "Silakan isi semua kolom",
+  "usernameExceedsLimit": "Nama pengguna tidak boleh lebih dari 20 karakter",
+  "invalidUsernameCharacters": "Nama pengguna hanya boleh berisi huruf, angka, _ atau -.",
+  "weakPasswordNotice": "Kata sandi harus memiliki 8+ karakter, 1 angka, dan 1 huruf besar.",
+  "unableToGenerateUniqueUsername": "Nama pengguna unik tidak dapat dibuat.",
+
+  "accountCreated": "Akun dibuat",
+  "yourUsernameIs": "Nama pengguna Anda:\n\n{username}",
+
+  "@yourUsernameIs": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+
+  "usernameTakenAssignedTag": "'{chosen}' sudah digunakan.\n\nNama pengguna Anda:\n\n{assigned}\n\nIngat nama ini. Anda membutuhkannya untuk login.",
+
+  "@usernameTakenAssignedTag": {
+    "placeholders": {
+      "chosen": {
+        "type": "String"
+      },
+      "assigned": {
+        "type": "String"
+      }
+    }
+  },
+
+  "continueText": "Lanjutkan",
+
+  "failedToGenerateIdentity": "Gagal membuat identitas aman: {error}",
+  "@failedToGenerateIdentity": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+
+  "welcomeToCrypt": "Selamat datang di CRYPT",
+  "signupDescription": "Masukkan nama pengguna dan kata sandi untuk membuat kunci enkripsi P2P.",
+  "chooseAUsername": "Pilih nama pengguna",
+  "usernameHelperText": "Jangan gunakan nama asli. Jika nama sudah digunakan, kami akan menambahkan sufiks unik.",
+
+  "masterAuthenticationRequired": "Autentikasi master diperlukan",
+  "verify": "Verifikasi",
+  "darkThemeMode": "Mode gelap",
+  "secureConversations": "Percakapan aman",
+
+  "noActiveConversations": "Tidak ada percakapan aktif. Mulai percakapan untuk menggunakan kunci keamanan khusus.",
+
+  "logout": "Keluar",
+  "wipeDeviceAndEscape": "HAPUS PERANGKAT & KELUAR",
+  "falsePassword": "Kata sandi palsu",
+
+  "accessSuspendedTimer": "Akses ditangguhkan demi keamanan. Coba lagi dalam {time}.",
+  "@accessSuspendedTimer": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+
+  "selectSecureLockMethod": "Pilih metode kunci",
+  "selectSecureLockDescription": "Kunci ruang percakapan dengan sidik jari perangkat atau PIN 4 digit?",
+  "fourDigitPin": "PIN 4 digit",
+  "fingerprintUnlock": "Sidik jari 🔓",
+
+  "supportSoloDeveloper": "Dukung pengembang solo",
+  "maybeLater": "Mungkin nanti",
+  "submitProof": "Kirim bukti",
+
+  "couldNotOpenWallet": "Dompet tidak dapat dibuka otomatis. Salin kode teks di bawah sebagai gantinya.",
+
+  "proofSubmittedSnackbar": "Bukti terkirim! Peninjauan manual memerlukan 24–48 jam, tidak termasuk akhir pekan. Anda tetap dapat menggunakan aplikasi seperti biasa."
+}

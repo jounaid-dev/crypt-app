@@ -1,0 +1,255 @@
+{
+  "@@locale": "tl",
+
+  "appName": "CRYPT",
+  "welcome": "Maligayang Pagdating",
+  "login": "Mag-log In",
+  "signup": "Mag-sign Up",
+  "settings": "Mga Setting",
+  "chats": "Mga Chat",
+  "typeMessage": "Mag-type ng mensahe...",
+  "send": "Ipadala",
+  "p2p": "P2P",
+  "connecting": "Kumokonekta...",
+  "connectingP2p": "Kumokonekta sa P2P...",
+  "p2pConnectionNotReady": "Hindi pa handa ang P2P.",
+  "searchLanguage": "Maghanap ng wika...",
+  "language": "Wika",
+
+  "forceEscapeSignOutTitle": "IPWERSA ANG EMERGENCY SIGN OUT?",
+  "forceEscapeSignOutContent": "BABALA: Ang paggawa nito ay permanenteng magbubura ng lahat ng data sa aparatong ito.",
+  "cancel": "Kanselahin",
+  "wipeDevice": "BURAHIN ANG APARATO",
+
+  "accountDestructionAlertTitle": "ALERTO NG PAGKAWASAK NG ACCOUNT",
+  "accountDestructionWarning": "BABALA: Ang aksyong ito ay magbubura ng lahat ng iyong data sa aparatong ito. Kapag nakakonekta sa Internet, magpapadala ito ng remote self-destruct command. Ang bawat mensaheng ipinadala mula sa iyong natatanging User ID ay permanenteng mabubura sa memorya ng lahat ng peer.",
+
+  "accountDestructionCriticalNotice": "KRITIKAL: Kung maling mai-type ang mga validation number na ito, magla-lock ang system. Upang i-unlock ito, kailangan mong ilagay ang iyong master Account Password, o gamitin ang Emergency Escape hatch na agarang maglilinis sa imbakan ng data ng aparatong ito.",
+
+  "verificationSecurityKey": "Verification Security Key: {code}",
+  "@verificationSecurityKey": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+
+  "copyDigitsHint": "Kopyahin ang 5 digit sa itaas",
+  "codeMismatchNotice": "Hindi Nagtutugma ang Code! Ilagay ang Master Password para i-override o harapin ang 10-Minutong Lock:",
+  "accountPasswordLabel": "Password ng Account",
+  "deleteEverythingPermanently": "PERMANENTENG BURAHIN ANG LAHAT",
+  "escapeAndPurgeDeviceData": "Escape at Linisin ang Data ng Aparato",
+
+  "addContact": "Magdagdag ng Contact",
+  "addContactConfirmation": "Gusto mo bang idagdag ang contact na ito?",
+  "noMessagesYet": "Wala pang mga mensahe",
+  "addNewContact": "Magdagdag ng Bagong Contact",
+  "usernameLabel": "Username",
+  "nicknameOptionalLabel": "Palayaw (Opsyonal)",
+  "add": "Idagdag",
+  "usernameCannotBeEmpty": "Hindi pwedeng walang laman ang username",
+
+  "contactAlreadyExists": "Ang contact na '{name}' ay nasa iyong address book na.",
+  "@contactAlreadyExists": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "userNotFoundOnRegistry": "Hindi mahanap ang user na '{name}' sa network registry. Hindi makalikha ng shared secret.",
+  "@userNotFoundOnRegistry": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "successfullyAddedContact": "Matagumpay na naidagdag si {name}!",
+  "@successfullyAddedContact": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "contacts": "Mga Contact",
+  "noContactsYet": "Wala pang mga contact",
+  "securityLockoutActive": "Aktibo ang Security Lockout",
+
+  "tooManyAttemptsFrozen": "Masyadong maraming maling subok. Naka-freeze ng {minutes} minuto.",
+  "@tooManyAttemptsFrozen": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+
+  "acknowledge": "I-acknowledge",
+  "accessBlocked": "Harang ang Akseso",
+
+  "accessSuspended": "5 maling verification match. Suspendido ang akseso para sa susunod na {minutes} minuto.",
+  "@accessSuspended": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+
+  "ok": "OK",
+
+  "unlockSecureNode": "I-unlock ang Secure Node: {username}",
+  "@unlockSecureNode": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+
+  "verificationMetricsRemaining": "Natitirang verification attempts: {count} na pagsubok.",
+  "@verificationMetricsRemaining": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+
+  "secureKeyPasscode": "Secure Key Passcode",
+  "warningHardwareLockout": "BABALA: Ang susunod na maling pagtutugma ay mag-a-activate ng hardware security lockout mitigation.",
+  "abort": "I-abort",
+  "authenticate": "Mag-authenticate",
+
+  "searchPipelinesHint": "Sinusuri ang mga aktibong secure pipeline...",
+  "zeroPipelinesDiscovered": "Walang natagpuang katugmang communication pipeline.",
+  "processingDecryption": "Pinoproseso ang decryption...",
+  "decrypting": "Nagde-decrypt...",
+  "decryptionError": "[Mali sa Decryption]",
+  "cryptContainerSecure": "SECURE ANG CRYPT CONTAINER",
+
+  "connectAnAccount": "Ikonekta ang Isang Account",
+  "username": "Username",
+  "password": "Password",
+  "enterMasterSecurityPassword": "Ilagay ang iyong master security password",
+  "pleaseFillAllFields": "Mangyaring punan ang lahat ng field",
+  "wrongUsernameOrPassword": "Maling username o password",
+
+  "loginError": "Mali sa pag-login: {error}",
+  "@loginError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+
+  "dontHaveAnAccountSignUp": "Walang account? Mag-sign up",
+  "myIdentity": "Aking Pagkakakilanlan",
+  "scanToAddMe": "I-scan para idagdag ako",
+  "shareProfileLink": "Ibahagi ang Link ng Profile",
+
+  "addMeOnCrypt": "Idagdag ako sa CRYPT!\n\n{link}",
+  "@addMeOnCrypt": {
+    "placeholders": {
+      "link": {
+        "type": "String"
+      }
+    }
+  },
+
+  "scanQr": "I-scan ang QR",
+  "invalidCryptQrFormat": "Inbalidong format ng CRYPT QR Code.",
+  "userScanned": "Na-scan ang User!",
+
+  "addingUser": "Idinaragdag si {username}...",
+  "@addingUser": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+
+  "defaultUser": "User",
+  "createAccount": "Gumawa ng Account",
+  "keepPasswordSecureHint": "Panatilihin itong ligtas, hindi na mapapalitan ang password",
+  "pleaseFillInAllFields": "Mangyaring punan ang lahat ng field",
+  "usernameExceedsLimit": "Ang username ay hindi pwedeng lumampas sa 20 karakter",
+  "invalidUsernameCharacters": "Ang username ay maaari lamang maglaman ng mga titik, numero, underscore, at gitling",
+  "weakPasswordNotice": "Ang password ay dapat may 8+ karakter, may kasamang numero at malaking titik",
+  "unableToGenerateUniqueUsername": "Hindi makabuo ng natatanging username.",
+
+  "accountCreated": "Nalikha na ang Account",
+
+  "yourUsernameIs": "Ang iyong username ay:\n\n{username}",
+  "@yourUsernameIs": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+
+  "usernameTakenAssignedTag": "Ang username na '{chosen}' ay nakuha na.\n\nAng iyong username ay:\n\n{assigned}\n\nMangyaring tandaan ito. Kakailanganin mo ito para mag-log in.",
+  "@usernameTakenAssignedTag": {
+    "placeholders": {
+      "chosen": {
+        "type": "String"
+      },
+      "assigned": {
+        "type": "String"
+      }
+    }
+  },
+
+  "continueText": "Magpatuloy",
+
+  "failedToGenerateIdentity": "Bigo sa pagbuo ng secure identity: {error}",
+  "@failedToGenerateIdentity": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+
+  "welcomeToCrypt": "Maligayang Pagdating sa CRYPT",
+  "signupDescription": "Ilagay ang username at password para i-initialize ang iyong peer-to-peer (P2P) encryption keys.",
+  "chooseAUsername": "Pumili ng username",
+  "usernameHelperText": "Huwag gamitin ang tunay mong pangalan. Kung kuha na ang username, awtomatiko kaming magdaragdag ng natatanging suffix.",
+
+  "masterAuthenticationRequired": "Kinakailangan ng Master Authentication",
+  "verify": "I-verify",
+  "darkThemeMode": "Dark Theme Mode",
+  "secureConversations": "Mga Ligtas na Pag-uusap",
+  "noActiveConversations": "Walang nahanap na aktibong pag-uusap. Magsimula muna ng pag-uusap para magamit ang mga custom security lock.",
+  "logout": "Mag-logout",
+  "wipeDeviceAndEscape": "BURAHIN ANG APARATO & TUMAKAS",
+  "falsePassword": "Maling Password",
+
+  "accessSuspendedTimer": "Ang akseso ay suspendido para sa proteksyong panseguridad. Subukan ulit sa loob ng {time}.",
+  "@accessSuspendedTimer": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+
+  "selectSecureLockMethod": "Pumili ng Secure Lock Method",
+  "selectSecureLockDescription": "Gusto mo bang i-lock ang silid ng pag-uusap na ito gamit ang Fingerprint Biometrics ng aparato o ang karaniwang 4-Digit PIN code?",
+  "fourDigitPin": "4-Digit PIN",
+  "fingerprintUnlock": "Fingerprint 🔓",
+  "supportSoloDeveloper": "Suportahan ang isang Solo Developer",
+  "maybeLater": "Mamaya na lang",
+  "submitProof": "Isumite ang Katibayan",
+  "couldNotOpenWallet": "Hindi awtomatikong mabuksan ang wallet. Pakikopya na lang ng text code string sa ibaba.",
+  "proofSubmittedSnackbar": "Naibigay na ang katibayan! Ang manual na pagsusuri ay tumatagal ng 24-48 oras (hindi kasama ang katapusan ng linggo). Maaari mo pa ring gamitin ang app nang normal!"
+}

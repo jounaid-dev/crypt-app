@@ -1,0 +1,220 @@
+{
+  "@@locale": "bn",
+  "appName": "CRYPT",
+  "welcome": "স্বাগতম",
+  "login": "লগ ইন",
+  "signup": "সাইন আপ",
+  "settings": "সেটিংস",
+  "chats": "চ্যাট",
+  "typeMessage": "বার্তা লিখুন...",
+  "send": "পাঠান",
+  "p2p": "P2P",
+  "connecting": "সংযোগ হচ্ছে...",
+  "connectingP2p": "P2P সংযোগ হচ্ছে...",
+  "p2pConnectionNotReady": "P2P প্রস্তুত নয়।",
+  "searchLanguage": "ভাষা খুঁজুন...",
+  "language": "ভাষা",
+  "forceEscapeSignOutTitle": "জরুরি লগ আউট?",
+  "forceEscapeSignOutContent": "সতর্কতা: ডিভাইসের সব ডেটা মুছে যাবে।",
+  "cancel": "বাতিল",
+  "wipeDevice": "ডিভাইস মুছুন",
+  "accountDestructionAlertTitle": "অ্যাকাউন্ট মুছে ফেলা",
+  "accountDestructionWarning": "সতর্কতা: ডিভাইসের সব ডেটা মুছে যাবে। ইন্টারনেটে যুক্ত হলে রিমোট ডিলিট চালু হবে এবং আপনার বার্তাগুলো সব পিয়ারের মেমরি থেকে মুছে যাবে।",
+  "accountDestructionCriticalNotice": "গুরুত্বপূর্ণ: ভুল কোডে সিস্টেম লক হবে। আনলক করতে মাস্টার পাসওয়ার্ড বা জরুরি এস্কেপ ব্যবহার করুন।",
+  "verificationSecurityKey": "সিকিউরিটি কী: {code}",
+  "@verificationSecurityKey": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "copyDigitsHint": "উপরের ৫ সংখ্যা কপি করুন",
+  "codeMismatchNotice": "কোড মেলেনি। মাস্টার পাসওয়ার্ড দিন, নইলে ১০ মিনিট লক হবে।",
+  "accountPasswordLabel": "অ্যাকাউন্ট পাসওয়ার্ড",
+  "deleteEverythingPermanently": "সবকিছু স্থায়ীভাবে মুছুন",
+  "escapeAndPurgeDeviceData": "এস্কেপ ও ডিভাইস ডেটা মুছুন",
+  "addContact": "যোগাযোগ যোগ করুন",
+  "addContactConfirmation": "এই যোগাযোগ যোগ করবেন?",
+  "noMessagesYet": "এখনও কোনো বার্তা নেই",
+  "addNewContact": "নতুন যোগাযোগ যোগ করুন",
+  "usernameLabel": "ইউজারনেম",
+  "nicknameOptionalLabel": "ডাকনাম (ঐচ্ছিক)",
+  "add": "যোগ করুন",
+  "usernameCannotBeEmpty": "ইউজারনেম আবশ্যক",
+  "contactAlreadyExists": "'{name}' ইতিমধ্যে যোগাযোগে আছে.",
+  "@contactAlreadyExists": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "userNotFoundOnRegistry": "'{name}' পাওয়া যায়নি। শেয়ার্ড সিক্রেট তৈরি করা যায়নি।",
+  "@userNotFoundOnRegistry": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "successfullyAddedContact": "{name} সফলভাবে যোগ হয়েছে!",
+  "@successfullyAddedContact": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "contacts": "যোগাযোগ",
+  "noContactsYet": "এখনও কোনো যোগাযোগ নেই",
+  "securityLockoutActive": "সিকিউরিটি লক সক্রিয়",
+  "tooManyAttemptsFrozen": "অনেক ভুল চেষ্টা। {minutes} মিনিট লক।",
+  "@tooManyAttemptsFrozen": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "acknowledge": "বুঝেছি",
+  "accessBlocked": "অ্যাক্সেস বন্ধ",
+  "accessSuspended": "৫টি ভুল যাচাই। {minutes} মিনিট অ্যাক্সেস বন্ধ।",
+  "@accessSuspended": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "ok": "ঠিক আছে",
+  "unlockSecureNode": "সিকিউর নোড আনলক: {username}",
+  "@unlockSecureNode": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+  "verificationMetricsRemaining": "বাকি যাচাই চেষ্টা: {count}",
+  "@verificationMetricsRemaining": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "secureKeyPasscode": "সিকিউরিটি কোড",
+  "warningHardwareLockout": "সতর্কতা: পরের ভুলে ডিভাইস সিকিউরিটি লক হবে।",
+  "abort": "বাতিল",
+  "authenticate": "প্রমাণীকরণ",
+  "searchPipelinesHint": "সিকিউর কানেকশন খোঁজা হচ্ছে...",
+  "zeroPipelinesDiscovered": "কোনো মিলযুক্ত কানেকশন নেই।",
+  "processingDecryption": "ডিক্রিপ্ট করা হচ্ছে...",
+  "decrypting": "ডিক্রিপ্ট হচ্ছে...",
+  "decryptionError": "[ডিক্রিপশন ত্রুটি]",
+  "cryptContainerSecure": "CRYPT সুরক্ষিত",
+  "connectAnAccount": "অ্যাকাউন্ট যুক্ত করুন",
+  "username": "ইউজারনেম",
+  "password": "পাসওয়ার্ড",
+  "enterMasterSecurityPassword": "মাস্টার পাসওয়ার্ড দিন",
+  "pleaseFillAllFields": "সব ঘর পূরণ করুন",
+  "wrongUsernameOrPassword": "ইউজারনেম বা পাসওয়ার্ড ভুল",
+  "loginError": "লগইন ত্রুটি: {error}",
+  "@loginError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "dontHaveAnAccountSignUp": "অ্যাকাউন্ট নেই? সাইন আপ করুন",
+  "myIdentity": "আমার পরিচয়",
+  "scanToAddMe": "যোগ করতে স্ক্যান করুন",
+  "shareProfileLink": "প্রোফাইল লিংক শেয়ার",
+  "addMeOnCrypt": "CRYPT-এ আমাকে যোগ করুন!\n\n{link}",
+  "@addMeOnCrypt": {
+    "placeholders": {
+      "link": {
+        "type": "String"
+      }
+    }
+  },
+  "scanQr": "QR স্ক্যান",
+  "invalidCryptQrFormat": "ভুল CRYPT QR কোড।",
+  "userScanned": "ইউজার স্ক্যান হয়েছে!",
+  "addingUser": "{username} যোগ হচ্ছে...",
+  "@addingUser": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+  "defaultUser": "ইউজার",
+  "createAccount": "অ্যাকাউন্ট তৈরি",
+  "keepPasswordSecureHint": "নিরাপদে রাখুন। পাসওয়ার্ড বদলানো যাবে না।",
+  "pleaseFillInAllFields": "সব ঘর পূরণ করুন",
+  "usernameExceedsLimit": "ইউজারনেম সর্বোচ্চ ২০ অক্ষর।",
+  "invalidUsernameCharacters": "শুধু অক্ষর, সংখ্যা, _ বা - ব্যবহার করুন।",
+  "weakPasswordNotice": "৮+ অক্ষর, ১ সংখ্যা ও ১ বড় অক্ষর।",
+  "unableToGenerateUniqueUsername": "ইউনিক ইউজারনেম তৈরি করা যায়নি।",
+  "accountCreated": "অ্যাকাউন্ট তৈরি হয়েছে",
+  "yourUsernameIs": "আপনার ইউজারনেম:\n\n{username}",
+  "@yourUsernameIs": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+  "usernameTakenAssignedTag": "'{chosen}' নেওয়া হয়েছে।\n\nআপনার ইউজারনেম:\n\n{assigned}\n\nলগইনে এটি ব্যবহার করুন।",
+  "@usernameTakenAssignedTag": {
+    "placeholders": {
+      "chosen": {
+        "type": "String"
+      },
+      "assigned": {
+        "type": "String"
+      }
+    }
+  },
+  "continueText": "চালিয়ে যান",
+  "failedToGenerateIdentity": "পরিচয় তৈরি ব্যর্থ: {error}",
+  "@failedToGenerateIdentity": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "welcomeToCrypt": "CRYPT-এ স্বাগতম",
+  "signupDescription": "ইউজারনেম ও পাসওয়ার্ড দিয়ে P2P এনক্রিপশন কী তৈরি করুন।",
+  "chooseAUsername": "ইউজারনেম বাছুন",
+  "usernameHelperText": "আসল নাম ব্যবহার করবেন না। নাম নেওয়া থাকলে স্বয়ংক্রিয়ভাবে suffix যোগ হবে।",
+  "masterAuthenticationRequired": "মাস্টার প্রমাণীকরণ প্রয়োজন",
+  "verify": "যাচাই",
+  "darkThemeMode": "ডার্ক থিম",
+  "secureConversations": "সুরক্ষিত চ্যাট",
+  "noActiveConversations": "কোনো সক্রিয় চ্যাট নেই। লক চালু করতে একটি চ্যাট শুরু করুন।",
+  "logout": "লগ আউট",
+  "wipeDeviceAndEscape": "ডিভাইস মুছুন ও বের হন",
+  "falsePassword": "ভুল পাসওয়ার্ড",
+  "accessSuspendedTimer": "নিরাপত্তার জন্য অ্যাক্সেস বন্ধ। {time} পরে চেষ্টা করুন।",
+  "@accessSuspendedTimer": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "selectSecureLockMethod": "লক পদ্ধতি বাছুন",
+  "selectSecureLockDescription": "ফিঙ্গারপ্রিন্ট বা ৪-ডিজিট PIN দিয়ে চ্যাট লক করবেন?",
+  "fourDigitPin": "৪-ডিজিট PIN",
+  "fingerprintUnlock": "ফিঙ্গারপ্রিন্ট 🔓",
+  "supportSoloDeveloper": "ডেভেলপারকে সহায়তা",
+  "maybeLater": "পরে",
+  "submitProof": "প্রমাণ জমা দিন",
+  "couldNotOpenWallet": "ওয়ালেট খোলা যায়নি। নিচের কোডটি কপি করুন।",
+  "proofSubmittedSnackbar": "প্রমাণ জমা হয়েছে! ম্যানুয়াল পর্যালোচনায় ২৪–৪৮ ঘণ্টা লাগবে (সাপ্তাহিক ছুটি বাদে)। আপনি অ্যাপ স্বাভাবিকভাবে ব্যবহার করতে পারেন।"
+}
