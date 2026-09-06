@@ -20,7 +20,6 @@ dependencies:
   flutter_secure_storage: ^10.3.1
   shared_preferences: ^2.5.3
   cryptography: ^2.7.0
-  mobile_scanner: ^7.2.0
   qr_flutter: ^4.1.0
   crypto: ^3.0.3
   share_plus: ^13.2.0
@@ -34,6 +33,8 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   image_picker: ^1.1.2
+  qrscan_plus: ^1.0.8
+  mobile_scanner: ^7.4.0
 
 dev_dependencies:
   flutter_test:

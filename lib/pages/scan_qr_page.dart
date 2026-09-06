@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:crypt_messenger/l10n/app_localizations.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:qrscan_plus/qrscan_plus.dart' as qrscanner;
 
 import '../services/account_service.dart';
 import '../services/conversation_id_service.dart';
@@ -31,9 +31,6 @@ class _ScanQrPageState extends State<ScanQrPage> {
   final SignalingService _signalingService =
       SignalingService.instance;
 
-  final ImagePicker _imagePicker =
-      ImagePicker();
-
   // ============================================================
   // QR PROCESSING
   // ============================================================
@@ -48,7 +45,7 @@ class _ScanQrPageState extends State<ScanQrPage> {
       Map<String, dynamic> data;
 
       // ==========================================================
-      // EXISTING CRYPT QR FORMAT
+      // CRYPT QR FORMAT
       // ==========================================================
 
       if (value.startsWith("crypt://contact")) {
@@ -78,7 +75,7 @@ class _ScanQrPageState extends State<ScanQrPage> {
         if (!mounted) return;
 
         // ========================================================
-        // SCANNED PEER IDENTITY
+        // PEER IDENTITY
         // ========================================================
 
         final String peerUsername =
@@ -86,12 +83,10 @@ class _ScanQrPageState extends State<ScanQrPage> {
                 l10n.defaultUser;
 
         final String peerEncryptionKey =
-            data["publicEncryptionKey"]
-                .toString();
+            data["publicEncryptionKey"].toString();
 
         final String peerSigningKey =
-            data["publicSigningKey"]
-                .toString();
+            data["publicSigningKey"].toString();
 
         if (peerUsername.trim().isEmpty ||
             peerEncryptionKey.trim().isEmpty ||
@@ -102,7 +97,7 @@ class _ScanQrPageState extends State<ScanQrPage> {
         }
 
         // ========================================================
-        // ONE-TIME QR PROOF
+        // QR PROOF
         // ========================================================
 
         final String? qrProof =
@@ -152,7 +147,7 @@ class _ScanQrPageState extends State<ScanQrPage> {
         }
 
         // ========================================================
-        // PREVENT ADDING OURSELVES
+        // PREVENT SELF
         // ========================================================
 
         if (myUsername == peerUsername ||
@@ -163,7 +158,7 @@ class _ScanQrPageState extends State<ScanQrPage> {
         }
 
         // ========================================================
-        // DETERMINISTIC CONVERSATION ID
+        // CONVERSATION ID
         // ========================================================
 
         final String conversationId =
@@ -225,18 +220,12 @@ class _ScanQrPageState extends State<ScanQrPage> {
               payload: {
                 "conversationId":
                     conversationId,
-
-                // Exact proof from scanned QR.
                 "qrProof":
                     qrProof,
-
-                // OUR identity.
                 "username":
                     myUsername,
-
                 "publicEncryptionKey":
                     myEncryptionKey,
-
                 "publicSigningKey":
                     mySigningKey,
               },
@@ -244,13 +233,11 @@ class _ScanQrPageState extends State<ScanQrPage> {
 
             debugPrint(
               "[QR] Conversation request sent "
-              "from $myUsername to $peerUsername "
-              "with QR proof.",
+              "from $myUsername to $peerUsername.",
             );
           } else {
             debugPrint(
-              "[QR] Signaling server is not connected. "
-              "Conversation request could not be sent.",
+              "[QR] Signaling server is not connected.",
             );
           }
 
@@ -311,28 +298,14 @@ class _ScanQrPageState extends State<ScanQrPage> {
               .sendConversationRequest(
             target: peerUsername,
             payload: {
-              // Deterministic ID generated from
-              // BOTH encryption keys.
               "conversationId":
                   conversationId,
-
-              // Exact proof contained in
-              // the scanned QR.
               "qrProof":
                   qrProof,
-
-              // ==================================================
-              // OUR IDENTITY
-              // ==================================================
-              //
-              // This is A's identity.
-              //
               "username":
                   myUsername,
-
               "publicEncryptionKey":
                   myEncryptionKey,
-
               "publicSigningKey":
                   mySigningKey,
             },
@@ -340,13 +313,11 @@ class _ScanQrPageState extends State<ScanQrPage> {
 
           debugPrint(
             "[QR] Conversation request sent "
-            "from $myUsername to $peerUsername "
-            "with QR proof.",
+            "from $myUsername to $peerUsername.",
           );
         } else {
           debugPrint(
-            "[QR] Signaling server is not connected. "
-            "Conversation request could not be sent.",
+            "[QR] Signaling server is not connected.",
           );
         }
 
@@ -401,7 +372,7 @@ class _ScanQrPageState extends State<ScanQrPage> {
   }
 
   // ============================================================
-  // CAMERA
+  // LIVE CAMERA
   // ============================================================
 
   Future<void> handleCameraScan(
@@ -414,21 +385,21 @@ class _ScanQrPageState extends State<ScanQrPage> {
       return;
     }
 
-    final barcode =
-        capture.barcodes.first;
+    for (final barcode
+        in capture.barcodes) {
+      final String? value =
+          barcode.rawValue;
 
-    final value =
-        barcode.rawValue;
+      if (value != null &&
+          value.isNotEmpty) {
+        await processQrValue(
+          value,
+          l10n,
+        );
 
-    if (value == null ||
-        value.isEmpty) {
-      return;
+        return;
+      }
     }
-
-    await processQrValue(
-      value,
-      l10n,
-    );
   }
 
   // ============================================================
@@ -441,25 +412,14 @@ class _ScanQrPageState extends State<ScanQrPage> {
     if (scanned) return;
 
     try {
-      final XFile? image =
-          await _imagePicker.pickImage(
-        source: ImageSource.gallery,
-      );
+      // ==========================================================
+      // USE A DEDICATED GALLERY QR DECODER
+      // ==========================================================
 
-      if (image == null) return;
+      final String result =
+          await qrscanner.scanPhoto();
 
-      final controller =
-          MobileScannerController();
-
-      final BarcodeCapture? result =
-          await controller.analyzeImage(
-        image.path,
-      );
-
-      await controller.dispose();
-
-      if (result == null ||
-          result.barcodes.isEmpty) {
+      if (result.trim().isEmpty) {
         if (!mounted) return;
 
         ScaffoldMessenger.of(context)
@@ -474,38 +434,23 @@ class _ScanQrPageState extends State<ScanQrPage> {
         return;
       }
 
-      String? value;
+      debugPrint(
+        "[QR] Gallery QR detected.",
+      );
 
-      for (final barcode
-          in result.barcodes) {
-        if (barcode.rawValue != null &&
-            barcode.rawValue!.isNotEmpty) {
-          value =
-              barcode.rawValue;
-          break;
-        }
-      }
-
-      if (value == null) {
-        if (!mounted) return;
-
-        ScaffoldMessenger.of(context)
-            .showSnackBar(
-          const SnackBar(
-            content: Text(
-              "No readable QR code found.",
-            ),
-          ),
-        );
-
-        return;
-      }
+      // ==========================================================
+      // SAME CRYPT PROCESSING AS CAMERA
+      // ==========================================================
 
       await processQrValue(
-        value,
+        result,
         l10n,
       );
     } catch (e) {
+      debugPrint(
+        "[QR] Gallery scan error: $e",
+      );
+
       if (!mounted) return;
 
       ScaffoldMessenger.of(context)
@@ -538,10 +483,6 @@ class _ScanQrPageState extends State<ScanQrPage> {
       backgroundColor:
           theme.scaffoldBackgroundColor,
 
-      // ==========================================================
-      // APP BAR
-      // ==========================================================
-
       appBar: AppBar(
         elevation: 0,
         titleSpacing: 20,
@@ -564,8 +505,7 @@ class _ScanQrPageState extends State<ScanQrPage> {
                       l10n,
                     ),
             icon: const Icon(
-              Icons
-                  .photo_library_outlined,
+              Icons.photo_library_outlined,
             ),
           ),
           const SizedBox(width: 8),
@@ -576,7 +516,7 @@ class _ScanQrPageState extends State<ScanQrPage> {
         child: Stack(
           children: [
             // ====================================================
-            // CAMERA
+            // LIVE CAMERA
             // ====================================================
 
             MobileScanner(
@@ -588,7 +528,7 @@ class _ScanQrPageState extends State<ScanQrPage> {
             ),
 
             // ====================================================
-            // DARK CAMERA OVERLAY
+            // CAMERA OVERLAY
             // ====================================================
 
             IgnorePointer(
@@ -635,8 +575,7 @@ class _ScanQrPageState extends State<ScanQrPage> {
               child: Center(
                 child: Container(
                   padding:
-                      const EdgeInsets
-                          .symmetric(
+                      const EdgeInsets.symmetric(
                     horizontal: 16,
                     vertical: 9,
                   ),
@@ -645,10 +584,7 @@ class _ScanQrPageState extends State<ScanQrPage> {
                     color: Colors.black
                         .withAlpha(210),
                     borderRadius:
-                        BorderRadius
-                            .circular(
-                      6,
-                    ),
+                        BorderRadius.circular(6),
                     border: Border.all(
                       color:
                           Colors.white24,
@@ -756,17 +692,13 @@ class _ScanQrPageState extends State<ScanQrPage> {
                     decoration:
                         BoxDecoration(
                       color:
-                          colorScheme
-                              .surface,
+                          colorScheme.surface,
                       borderRadius:
                           BorderRadius
-                              .circular(
-                        10,
-                      ),
+                              .circular(10),
                       border: Border.all(
                         color:
-                            colorScheme
-                                .outline,
+                            colorScheme.outline,
                         width: 2,
                       ),
                     ),
@@ -780,11 +712,9 @@ class _ScanQrPageState extends State<ScanQrPage> {
                           decoration:
                               BoxDecoration(
                             color:
-                                colorScheme
-                                    .primary,
+                                colorScheme.primary,
                             shape:
-                                BoxShape
-                                    .circle,
+                                BoxShape.circle,
                           ),
                           child: Icon(
                             Icons.check,
@@ -802,19 +732,15 @@ class _ScanQrPageState extends State<ScanQrPage> {
                         Text(
                           l10n.userScanned,
                           textAlign:
-                              TextAlign
-                                  .center,
-                          style:
-                              TextStyle(
+                              TextAlign.center,
+                          style: TextStyle(
                             color:
                                 colorScheme
                                     .onSurface,
                             fontSize: 21,
                             fontWeight:
-                                FontWeight
-                                    .w700,
-                            letterSpacing:
-                                0.2,
+                                FontWeight.w700,
+                            letterSpacing: 0.2,
                           ),
                         ),
 
@@ -839,17 +765,14 @@ class _ScanQrPageState extends State<ScanQrPage> {
                             scannedUsername,
                           ),
                           textAlign:
-                              TextAlign
-                                  .center,
-                          style:
-                              TextStyle(
+                              TextAlign.center,
+                          style: TextStyle(
                             color:
                                 colorScheme
                                     .onSurfaceVariant,
                             fontSize: 15,
                             fontWeight:
-                                FontWeight
-                                    .w500,
+                                FontWeight.w500,
                           ),
                         ),
                       ],
