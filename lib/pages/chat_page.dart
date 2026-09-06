@@ -82,13 +82,13 @@ class _ChatPageState extends State<ChatPage> {
 
   final Set<String> _decryptingMessageIds = {};
 
-/*
- * Messages that have been sent but have NOT yet received
- * a delivery ACK.
- *
- * They are persisted locally as pending so they survive
- * connection loss or app restart.
- */
+  /*
+   * Messages that have been sent but have NOT yet received
+   * a verified delivery ACK.
+   *
+   * They are persisted locally as pending so they survive
+   * connection loss or app restart.
+   */
   final Map<String, Message> _pendingMessages = {};
 
   bool _isLoading = true;
@@ -97,8 +97,18 @@ class _ChatPageState extends State<ChatPage> {
 
   Timer? _connectionRetryTimer;
 
+  /*
+   * Periodic outbox retry timer.
+   *
+   * Pending messages remain pending until a valid signed ACK
+   * is received and successfully persisted.
+   */
+  Timer? _pendingRetryTimer;
+
+  bool _isPendingRetryRunning = false;
+
   bool _isConnectionAttemptRunning = false;
-  
+
   static const int _pageSize = 20;
 
   int _loadedMessageCount = 0;
@@ -109,23 +119,26 @@ class _ChatPageState extends State<ChatPage> {
 
   static const int _initialBatchSize = 20;
 
+  static const Duration _pendingRetryInterval =
+      Duration(seconds: 5);
+
   bool _disposed = false;
 
   // ============================================================
   // INIT
   // ============================================================
 
-@override
-void initState() {
-  super.initState();
+  @override
+  void initState() {
+    super.initState();
 
-  _scrollController.addListener(
-    _handleScroll,
-  );
+    _scrollController.addListener(
+      _handleScroll,
+    );
 
-  _loadMessages();
-  _connect();
-}
+    _loadMessages();
+    _connect();
+  }
 
   // ============================================================
   // LOCAL MESSAGES
@@ -140,7 +153,24 @@ void initState() {
         offset: 0,
       );
 
+      /*
+       * Restore the OUTBOX from ALL locally stored messages.
+       *
+       * The UI only loads 20 messages initially, but pending
+       * messages can be much older than those 20.
+       */
+      final pendingMessages =
+          await _messageService.getPendingOutgoingMessages(
+        widget.conversation.id,
+      );
+
       if (!mounted || _disposed) return;
+
+      _pendingMessages.clear();
+
+      for (final message in pendingMessages) {
+        _pendingMessages[message.id] = message;
+      }
 
       /*
        * Newest -> oldest.
@@ -149,20 +179,12 @@ void initState() {
         (a, b) => b.timestamp.compareTo(a.timestamp),
       );
 
-setState(() {
-  _messages = messages;
-  _loadedMessageCount = messages.length;
-  _hasMoreMessages = messages.length == _pageSize;
-  _isLoading = false;
-});
-
-// Restore pending messages from local storage.
-for (final message in messages) {
-  if (message.outgoing &&
-      message.status == MessageStatus.pending) {
-    _pendingMessages[message.id] = message;
-  }
-}
+      setState(() {
+        _messages = messages;
+        _loadedMessageCount = messages.length;
+        _hasMoreMessages = messages.length == _pageSize;
+        _isLoading = false;
+      });
 
       if (messages.isEmpty) {
         return;
@@ -260,21 +282,21 @@ for (final message in messages) {
   // BACKGROUND DECRYPTION
   // ============================================================
 
-void _startBackgroundDecryption(
-  List<Message> remainingMessages,
-) {
-  if (remainingMessages.isEmpty ||
-      _disposed ||
-      !mounted) {
-    return;
-  }
+  void _startBackgroundDecryption(
+    List<Message> remainingMessages,
+  ) {
+    if (remainingMessages.isEmpty ||
+        _disposed ||
+        !mounted) {
+      return;
+    }
 
-  unawaited(
-    _decryptRemainingMessages(
-      remainingMessages,
-    ),
-  );
-}
+    unawaited(
+      _decryptRemainingMessages(
+        remainingMessages,
+      ),
+    );
+  }
 
   Future<void> _decryptRemainingMessages(
     List<Message> messages,
@@ -397,20 +419,22 @@ void _startBackgroundDecryption(
   // ============================================================
 
   Future<bool> _sendPayload(
-    Map<String, dynamic> payload,
-  ) async {
+    Map<String, dynamic> payload, {
+    bool showConnectionError = true,
+  }) async {
     if (!_isP2PActive) {
       debugPrint(
         "[Transport] P2P channel is not open.",
       );
 
-      if (mounted) {
+      if (showConnectionError && mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-SnackBar(
-  content: Text(
-    AppLocalizations.of(context)!.p2pConnectionNotReady,
-  ),
-)
+          SnackBar(
+            content: Text(
+              AppLocalizations.of(context)!
+                  .p2pConnectionNotReady,
+            ),
+          ),
         );
       }
 
@@ -437,8 +461,13 @@ SnackBar(
   // ============================================================
 
   Future<void> _connect() async {
-    
-    
+    if (_isConnectionAttemptRunning ||
+        _disposed ||
+        !mounted) {
+      return;
+    }
+
+    _isConnectionAttemptRunning = true;
 
     try {
       _currentUsername =
@@ -469,13 +498,12 @@ SnackBar(
       await _webrtc.initialize();
 
       _webrtc.onConnectionFailed = () {
-  debugPrint(
-    "=== ChatPage: WebRTC connection failed ===",
-  );
+        debugPrint(
+          "=== ChatPage: WebRTC connection failed ===",
+        );
 
-  _scheduleConnectionRetry();
-};
-
+        _scheduleConnectionRetry();
+      };
 
       if (!mounted || _disposed) return;
 
@@ -498,30 +526,45 @@ SnackBar(
               RTCDataChannelState.RTCDataChannelOpen;
         });
 
-if (state ==
-    RTCDataChannelState.RTCDataChannelOpen) {
-  debugPrint(
-    "======================================",
-  );
+        if (state ==
+            RTCDataChannelState.RTCDataChannelOpen) {
+          debugPrint(
+            "======================================",
+          );
 
-  debugPrint(
-    "       P2P CONNECTION ESTABLISHED",
-  );
+          debugPrint(
+            "       P2P CONNECTION ESTABLISHED",
+          );
 
-  debugPrint(
-    "======================================",
-  );
+          debugPrint(
+            "======================================",
+          );
 
-  unawaited(
-    _syncGossipBlacklist(),
-  );
+          // ----------------------------------------------------
+          // BLACKLIST
+          // ----------------------------------------------------
 
-  // Retry messages that were saved locally
-  // but never received a delivery ACK.
-  unawaited(
-    _retryPendingMessages(),
-  );
-}
+          unawaited(
+            _syncGossipBlacklist(),
+          );
+
+          // ----------------------------------------------------
+          // OUTBOX
+          // ----------------------------------------------------
+
+          /*
+           * Start the continuous retry timer.
+           *
+           * It remains active until this ChatPage is disposed.
+           * Each cycle only sends when the P2P channel is open.
+           */
+          _startPendingRetryTimer();
+
+          // Immediately retry instead of waiting 5 seconds.
+          unawaited(
+            _retryPendingMessages(),
+          );
+        }
       };
 
       // --------------------------------------------------------
@@ -587,66 +630,196 @@ if (state ==
         "[ChatPage] Connection error: "
         "$e\n$stack",
       );
+
+      _scheduleConnectionRetry();
+    } finally {
+      _isConnectionAttemptRunning = false;
     }
   }
 
-
-    // ============================================================
-  // CONNECTION RETRY
+  // ============================================================
+  // OUTBOX RETRY TIMER
   // ============================================================
 
-Future<void> _retryPendingMessages() async {
-  if (_disposed || !mounted || !_isP2PActive) {
-    return;
-  }
-
-  if (_pendingMessages.isEmpty) {
-    debugPrint("[Retry] No pending messages.");
-    return;
-  }
-
-  debugPrint(
-    "[Retry] Retrying ${_pendingMessages.length} pending messages...",
-  );
-
-  final pendingMessages =
-      List<Message>.from(_pendingMessages.values);
-
-  for (final message in pendingMessages) {
-    if (_disposed || !mounted || !_isP2PActive) {
+  void _startPendingRetryTimer() {
+    if (_disposed || !mounted) {
       return;
     }
 
-    try {
-      final sent = await _sendPayload({
-        "id": message.id,
-        "conversationId": message.conversationId,
-        "sender": message.sender,
-        "receiver": message.receiver,
-        "text": message.encryptedText,
-        "signature": message.signature,
-        "senderSigningPublicKey":
-            message.senderSigningPublicKey,
-        "timestamp":
-            message.timestamp.millisecondsSinceEpoch,
-      });
+    if (_pendingRetryTimer?.isActive ?? false) {
+      return;
+    }
 
-      if (sent) {
-        debugPrint(
-          "[Retry] ${message.id} resent. Waiting for ACK...",
+    debugPrint(
+      "[Retry] Starting persistent outbox retry timer.",
+    );
+
+    _pendingRetryTimer =
+        Timer.periodic(
+      _pendingRetryInterval,
+      (_) {
+        if (_disposed || !mounted) {
+          return;
+        }
+
+        if (!_isP2PActive) {
+          return;
+        }
+
+        unawaited(
+          _retryPendingMessages(),
         );
-      } else {
-        debugPrint(
-          "[Retry] ${message.id} could not be resent.",
-        );
-      }
-    } catch (e) {
-      debugPrint(
-        "[Retry] Failed to resend ${message.id}: $e",
+      },
+    );
+  }
+
+  // ============================================================
+  // RETRY PENDING MESSAGES
+  // ============================================================
+
+  Future<void> _retryPendingMessages() async {
+    if (_disposed ||
+        !mounted ||
+        !_isP2PActive) {
+      return;
+    }
+
+    /*
+     * Prevent two retry cycles from running at the same time.
+     */
+    if (_isPendingRetryRunning) {
+      return;
+    }
+
+    _isPendingRetryRunning = true;
+
+    try {
+      /*
+       * Refresh the outbox directly from persistent storage.
+       *
+       * This guarantees that an old pending message that is
+       * outside the UI's loaded 20 messages is still retried.
+       */
+      final persistedPending =
+          await _messageService
+              .getPendingOutgoingMessages(
+        widget.conversation.id,
       );
+
+      if (_disposed ||
+          !mounted ||
+          !_isP2PActive) {
+        return;
+      }
+
+      /*
+       * Merge persistent pending messages into memory.
+       */
+      for (final message in persistedPending) {
+        _pendingMessages[message.id] = message;
+      }
+
+      if (_pendingMessages.isEmpty) {
+        debugPrint(
+          "[Retry] No pending messages.",
+        );
+        return;
+      }
+
+      debugPrint(
+        "[Retry] Retrying "
+        "${_pendingMessages.length} pending messages...",
+      );
+
+      /*
+       * Snapshot the map so ACK handling can safely remove
+       * entries while this loop is running.
+       */
+      final pendingMessages =
+          List<Message>.from(
+        _pendingMessages.values,
+      );
+
+      for (final message in pendingMessages) {
+        if (_disposed ||
+            !mounted ||
+            !_isP2PActive) {
+          return;
+        }
+
+        /*
+         * The message may have received an ACK while we were
+         * processing another message.
+         */
+        if (!_pendingMessages.containsKey(
+          message.id,
+        )) {
+          continue;
+        }
+
+        try {
+          /*
+           * IMPORTANT:
+           *
+           * These are the ORIGINAL values.
+           *
+           * We do NOT:
+           * - generate a new ID
+           * - re-encrypt the plaintext
+           * - generate a new timestamp
+           * - create a new signature
+           *
+           * Therefore every retry represents the exact same
+           * authenticated message.
+           */
+          final sent =
+              await _sendPayload(
+            {
+              "id": message.id,
+              "conversationId":
+                  message.conversationId,
+              "sender": message.sender,
+              "receiver": message.receiver,
+              "text": message.encryptedText,
+              "signature": message.signature,
+              "senderSigningPublicKey":
+                  message.senderSigningPublicKey,
+              "timestamp": message.timestamp
+                  .millisecondsSinceEpoch,
+            },
+            showConnectionError: false,
+          );
+
+          if (sent) {
+            debugPrint(
+              "[Retry] ${message.id} resent. "
+              "Waiting for ACK...",
+            );
+          } else {
+            debugPrint(
+              "[Retry] ${message.id} could not be resent.",
+            );
+          }
+        } catch (e) {
+          debugPrint(
+            "[Retry] Failed to resend "
+            "${message.id}: $e",
+          );
+        }
+      }
+    } catch (e, stack) {
+      debugPrint(
+        "[Retry] Outbox retry error: "
+        "$e\n$stack",
+      );
+    } finally {
+      _isPendingRetryRunning = false;
     }
   }
-}
+
+  // ============================================================
+  // CONNECTION RETRY
+  // ============================================================
 
   void _scheduleConnectionRetry() {
     if (_disposed || !mounted) return;
@@ -672,8 +845,6 @@ Future<void> _retryPendingMessages() async {
       },
     );
   }
-
-
 
   // ============================================================
   // SIGNALING
@@ -881,139 +1052,127 @@ Future<void> _retryPendingMessages() async {
       // ACK
       // --------------------------------------------------------
 
-if (type == "ack") {
-  final messageId =
-      payload["messageId"] as String?;
+      if (type == "ack") {
+        final messageId =
+            payload["messageId"] as String?;
 
-  final status =
-      payload["status"] as String?;
+        final status =
+            payload["status"] as String?;
 
-  final sender =
-      payload["sender"] as String?;
+        final sender =
+            payload["sender"] as String?;
 
-  final receiver =
-      payload["receiver"] as String?;
+        final receiver =
+            payload["receiver"] as String?;
 
-  final conversationId =
-      payload["conversationId"]?.toString();
+        final conversationId =
+            payload["conversationId"]?.toString();
 
-  final signature =
-      payload["signature"]?.toString() ?? "";
+        final signature =
+            payload["signature"]?.toString() ?? "";
 
-  final signingPublicKey =
-      payload["senderSigningPublicKey"]
-          ?.toString() ?? "";
+        final signingPublicKey =
+            payload["senderSigningPublicKey"]
+                    ?.toString() ??
+                "";
 
-if (messageId == null ||
-    status == null ||
-    sender == null ||
-    receiver == null ||
-    conversationId == null ||
-    signature.isEmpty ||
-    signingPublicKey.isEmpty) {
-    debugPrint(
-      "[Security] Invalid ACK.",
-    );
-    return;
-  }
+        if (messageId == null ||
+            status == null ||
+            sender == null ||
+            receiver == null ||
+            conversationId == null ||
+            signature.isEmpty ||
+            signingPublicKey.isEmpty) {
+          debugPrint(
+            "[Security] Invalid ACK.",
+          );
+          return;
+        }
 
-  // ACK must come from the person we are talking to.
-  if (sender !=
-      widget.conversation.username) {
-    debugPrint(
-      "[Security] ACK from unexpected sender.",
-    );
-    return;
-  }
+        // ACK must come from the person we are talking to.
+        if (sender !=
+            widget.conversation.username) {
+          debugPrint(
+            "[Security] ACK from unexpected sender.",
+          );
+          return;
+        }
 
-  // ACK must be addressed to us.
-  if (receiver != _currentUsername) {
-    debugPrint(
-      "[Security] ACK is not addressed to us.",
-    );
-    return;
-  }
+        // ACK must be addressed to us.
+        if (receiver != _currentUsername) {
+          debugPrint(
+            "[Security] ACK is not addressed to us.",
+          );
+          return;
+        }
 
-  // The signing key must be the trusted key
-  // already stored in the conversation.
-  if (signingPublicKey !=
-      widget.conversation.publicSigningKey) {
-    debugPrint(
-      "[Security] ACK signing key mismatch.",
-    );
-    return;
-  }
+        // The signing key must be trusted.
+        if (signingPublicKey !=
+            widget.conversation.publicSigningKey) {
+          debugPrint(
+            "[Security] ACK signing key mismatch.",
+          );
+          return;
+        }
 
-  // Only accept an ACK for a message that
-  // we actually have pending.
-  final pending =
-      _pendingMessages[messageId];
+        final verificationPayload =
+            <String, dynamic>{
+          "type": "ack",
+          "messageId": messageId,
+          "conversationId": conversationId,
+          "sender": sender,
+          "receiver": receiver,
+          "status": status,
+        };
 
-  if (pending == null) {
-    debugPrint(
-      "[ACK] No pending message for $messageId",
-    );
-    return;
-  }
+        bool isSignatureValid = false;
 
+        try {
+          final publicKeyBytes =
+              base64Decode(
+            signingPublicKey,
+          );
 
-  final verificationPayload =
-      <String, dynamic>{
-    "type": "ack",
-    "messageId": messageId,
-    "conversationId": conversationId,
-    "sender": sender,
-    "receiver": receiver,
-    "status": status,
-  };
+          final senderPublicKey =
+              SimplePublicKey(
+            publicKeyBytes,
+            type: KeyPairType.ed25519,
+          );
 
-  bool isSignatureValid = false;
+          isSignatureValid =
+              await _signatureService.verifyMessage(
+            base64Signature: signature,
+            payloadData: verificationPayload,
+            senderPublicKey: senderPublicKey,
+          );
+        } catch (e) {
+          debugPrint(
+            "[Security] ACK verification error: $e",
+          );
 
-  try {
-    final publicKeyBytes =
-        base64Decode(
-      signingPublicKey,
-    );
+          isSignatureValid = false;
+        }
 
-    final senderPublicKey =
-        SimplePublicKey(
-      publicKeyBytes,
-      type: KeyPairType.ed25519,
-    );
+        if (!isSignatureValid) {
+          debugPrint(
+            "[Security] Rejected forged ACK.",
+          );
+          return;
+        }
 
-    isSignatureValid =
-        await _signatureService.verifyMessage(
-      base64Signature: signature,
-      payloadData: verificationPayload,
-      senderPublicKey: senderPublicKey,
-    );
-  } catch (e) {
-    debugPrint(
-      "[Security] ACK verification error: $e",
-    );
+        debugPrint(
+          "[ACK] Valid signed ACK received "
+          "for $messageId",
+        );
 
-    isSignatureValid = false;
-  }
+        await _handleIncomingAck(
+          messageId,
+          status,
+          payload,
+        );
 
-  if (!isSignatureValid) {
-    debugPrint(
-      "[Security] Rejected forged ACK.",
-    );
-    return;
-  }
-
-  debugPrint(
-    "[ACK] Valid signed ACK received for $messageId",
-  );
-
-await _handleIncomingAck(
-  messageId,
-  status,
-  payload,
-);
-
-return;
-}
+        return;
+      }
 
       // --------------------------------------------------------
       // MESSAGE
@@ -1026,16 +1185,6 @@ return;
         debugPrint(
           "[Security] P2P packet has no message ID.",
         );
-        return;
-      }
-
-      if (_messages.any(
-        (message) => message.id == messageId,
-      )) {
-        return;
-      }
-
-      if (_pendingMessages.containsKey(messageId)) {
         return;
       }
 
@@ -1135,6 +1284,19 @@ return;
       }
 
       // --------------------------------------------------------
+      // BASIC FIELD CHECKS
+      // --------------------------------------------------------
+
+      if (incomingEncryptedText.isEmpty ||
+          incomingSignature.isEmpty ||
+          incomingPubKeyBase64.isEmpty) {
+        debugPrint(
+          "[Security] Message is missing required fields.",
+        );
+        return;
+      }
+
+      // --------------------------------------------------------
       // TRUSTED SIGNING KEY CHECK
       // --------------------------------------------------------
 
@@ -1229,6 +1391,79 @@ return;
         return;
       }
 
+      // ========================================================
+      // AUTHENTICATED DUPLICATE HANDLING
+      // ========================================================
+      //
+      // IMPORTANT:
+      //
+      // We only reach this point after:
+      // - sender validation
+      // - receiver validation
+      // - conversation validation
+      // - trusted public-key validation
+      // - signature validation
+      //
+      // Therefore a duplicate here is an authenticated copy
+      // of a message that we already accepted.
+      //
+      // The sender may be retrying because our previous ACK
+      // was lost. Re-ACK it instead of silently dropping it.
+      // ========================================================
+
+      final alreadyExists =
+          _messages.any(
+        (message) => message.id == messageId,
+      );
+
+      final pendingExists =
+          _pendingMessages.containsKey(
+        messageId,
+      );
+
+      bool persistedDuplicate = false;
+
+      if (!alreadyExists && !pendingExists) {
+        /*
+         * The message might not be loaded into the current
+         * UI page because it is older than the latest 20.
+         *
+         * Check persistent storage before deciding it is new.
+         */
+        final storedMessages =
+            await _messageService.getMessages(
+          widget.conversation.id,
+        );
+
+        persistedDuplicate =
+            storedMessages.any(
+          (message) =>
+              message.id == messageId,
+        );
+      }
+
+      if (alreadyExists ||
+          pendingExists ||
+          persistedDuplicate) {
+        debugPrint(
+          "[P2P] Authenticated duplicate "
+          "$messageId received.",
+        );
+
+        /*
+         * The receiver already has the message.
+         *
+         * Send the ACK again so the sender can finally
+         * transition its pending outbox entry to delivered.
+         */
+        await _sendAck(
+          messageId,
+          "delivered",
+        );
+
+        return;
+      }
+
       // --------------------------------------------------------
       // CREATE MESSAGE
       // --------------------------------------------------------
@@ -1320,13 +1555,10 @@ return;
   // ============================================================
 
   Future<void> _sendMessage() async {
-    final l10n = AppLocalizations.of(context)!;
-
     final text =
         _messageController.text.trim();
 
     if (text.isEmpty) return;
-
 
     _messageController.clear();
 
@@ -1438,25 +1670,28 @@ return;
         status: MessageStatus.pending,
       );
 
-// --------------------------------------------------------
-// SAVE PENDING MESSAGE IMMEDIATELY
-// --------------------------------------------------------
+      // --------------------------------------------------------
+      // SAVE PENDING MESSAGE IMMEDIATELY
+      // --------------------------------------------------------
+      //
+      // This happens BEFORE P2P.
+      //
+      // If the connection is unavailable or the app closes,
+      // the exact same message can be retried later.
+      // --------------------------------------------------------
 
-_pendingMessages[messageId] = newMessage;
+      _pendingMessages[messageId] =
+          newMessage;
 
-_decryptedTexts[messageId] = text;
+      _decryptedTexts[messageId] =
+          text;
 
-// IMPORTANT:
-// Persist BEFORE attempting P2P.
-// If P2P is disconnected, or the app closes,
-// the message remains pending and can be retried later.
-await _messageService.addMessage(
-  newMessage,
-);
+      await _messageService.addMessage(
+        newMessage,
+      );
 
       // --------------------------------------------------------
       // SHOW MESSAGE IMMEDIATELY
-      //
       // --------------------------------------------------------
 
       if (mounted && !_disposed) {
@@ -1473,31 +1708,33 @@ await _messageService.addMessage(
       // --------------------------------------------------------
 
       final sendSucceeded =
-          await _sendPayload({
-        "id": messageId,
-        "conversationId":
-            widget.conversation.id,
-        "sender": senderId,
-        "receiver": receiverId,
-        "text": encrypted,
-        "signature": signature,
-        "senderSigningPublicKey":
-            senderPubKeyBase64,
-        "timestamp": timestampMs,
-      });
+          await _sendPayload(
+        {
+          "id": messageId,
+          "conversationId":
+              widget.conversation.id,
+          "sender": senderId,
+          "receiver": receiverId,
+          "text": encrypted,
+          "signature": signature,
+          "senderSigningPublicKey":
+              senderPubKeyBase64,
+          "timestamp": timestampMs,
+        },
+      );
 
       // --------------------------------------------------------
       // SEND FAILED
       // --------------------------------------------------------
 
-if (!sendSucceeded) {
-  debugPrint(
-    "[Message] $messageId not sent. "
-    "Keeping it as pending.",
-  );
+      if (!sendSucceeded) {
+        debugPrint(
+          "[Message] $messageId not sent. "
+          "Keeping it as pending.",
+        );
 
-  return;
-}
+        return;
+      }
 
       debugPrint(
         "[Message] $messageId sent. "
@@ -1512,249 +1749,304 @@ if (!sendSucceeded) {
   }
 
   // ============================================================
-  // ACK
+  // SEND ACK
   // ============================================================
 
-Future<void> _sendAck(
-  String messageId,
-  String status,
-) async {
-  try {
-    final password =
-        SessionService.instance.password;
+  Future<void> _sendAck(
+    String messageId,
+    String status,
+  ) async {
+    try {
+      final password =
+          SessionService.instance.password;
 
-    if (password == null) {
+      if (password == null) {
+        debugPrint(
+          "[ACK] Cannot sign ACK: identity locked.",
+        );
+        return;
+      }
+
+      final signingKeyPair =
+          await _accountService.getSigningKeyPair(
+        password,
+      );
+
+      final senderPublicKey =
+          await signingKeyPair.extractPublicKey();
+
+      final senderPubKeyBase64 =
+          base64Encode(senderPublicKey.bytes);
+
+      // EXACT payload that gets signed.
+      final payloadToSign =
+          <String, dynamic>{
+        "type": "ack",
+        "messageId": messageId,
+        "conversationId":
+            widget.conversation.id,
+        "sender": _currentUsername,
+        "receiver":
+            widget.conversation.username,
+        "status": status,
+      };
+
+      final signature =
+          await _signatureService.signMessage(
+        privateKey: signingKeyPair,
+        payloadData: payloadToSign,
+      );
+
+      final sent =
+          await _sendPayload(
+        {
+          "type": "ack",
+          "messageId": messageId,
+          "conversationId":
+              widget.conversation.id,
+          "sender": _currentUsername,
+          "receiver":
+              widget.conversation.username,
+          "status": status,
+          "senderSigningPublicKey":
+              senderPubKeyBase64,
+          "signature": signature,
+        },
+        showConnectionError: false,
+      );
+
+      if (sent) {
+        debugPrint(
+          "[ACK] Sent ACK for $messageId",
+        );
+      } else {
+        debugPrint(
+          "[ACK] Could not send ACK for $messageId.",
+        );
+      }
+    } catch (e, stack) {
       debugPrint(
-        "[ACK] Cannot sign ACK: identity locked.",
+        "[ACK] Failed to create/send ACK: "
+        "$e\n$stack",
+      );
+    }
+  }
+
+  // ============================================================
+  // HANDLE INCOMING ACK
+  // ============================================================
+
+  Future<void> _handleIncomingAck(
+    String messageId,
+    String statusStr,
+    Map<String, dynamic> payload,
+  ) async {
+    // We only accept delivered ACKs.
+    if (statusStr != "delivered") {
+      debugPrint(
+        "[ACK] Ignoring unsupported ACK status: "
+        "$statusStr",
       );
       return;
     }
 
-    final signingKeyPair =
-        await _accountService.getSigningKeyPair(
-      password,
-    );
+    final pending =
+        _pendingMessages[messageId];
 
-    final senderPublicKey =
-        await signingKeyPair.extractPublicKey();
+    if (pending == null) {
+      debugPrint(
+        "[ACK] No pending message for $messageId",
+      );
+      return;
+    }
 
-    final senderPubKeyBase64 =
-        base64Encode(senderPublicKey.bytes);
+    final conversationId =
+        payload["conversationId"]?.toString();
 
-    // EXACT payload that gets signed.
-    final payloadToSign =
+    final sender =
+        payload["sender"]?.toString();
+
+    final receiver =
+        payload["receiver"]?.toString();
+
+    final signature =
+        payload["signature"]?.toString() ?? "";
+
+    final signingPublicKey =
+        payload["senderSigningPublicKey"]
+                ?.toString() ??
+            "";
+
+    // ------------------------------------------------------------
+    // BASIC ACK VALIDATION
+    // ------------------------------------------------------------
+
+    if (conversationId !=
+        widget.conversation.id) {
+      debugPrint(
+        "[Security] ACK has wrong conversation ID.",
+      );
+      return;
+    }
+
+    // The ACK sender must be the person we sent the message to.
+    if (sender !=
+        widget.conversation.username) {
+      debugPrint(
+        "[Security] ACK came from unexpected sender.",
+      );
+      return;
+    }
+
+    // The ACK receiver must be us.
+    if (receiver != _currentUsername) {
+      debugPrint(
+        "[Security] ACK is not addressed to us.",
+      );
+      return;
+    }
+
+    if (signature.isEmpty ||
+        signingPublicKey.isEmpty) {
+      debugPrint(
+        "[Security] ACK is missing signature/key.",
+      );
+      return;
+    }
+
+    // ------------------------------------------------------------
+    // TRUSTED SIGNING KEY CHECK
+    // ------------------------------------------------------------
+
+    if (signingPublicKey !=
+        widget.conversation.publicSigningKey) {
+      debugPrint(
+        "[Security] ACK signing key mismatch.",
+      );
+      return;
+    }
+
+    // ------------------------------------------------------------
+    // VERIFY ACK SIGNATURE
+    // ------------------------------------------------------------
+
+    final verificationPayload =
         <String, dynamic>{
       "type": "ack",
       "messageId": messageId,
-      "conversationId": widget.conversation.id,
-      "sender": _currentUsername,
-      "receiver": widget.conversation.username,
-      "status": status,
+      "conversationId": conversationId,
+      "sender": sender,
+      "receiver": receiver,
+      "status": statusStr,
     };
 
-    final signature =
-        await _signatureService.signMessage(
-      privateKey: signingKeyPair,
-      payloadData: payloadToSign,
-    );
+    bool isSignatureValid = false;
 
-    await _sendPayload({
-      "type": "ack",
-      "messageId": messageId,
-      "conversationId": widget.conversation.id,
-      "sender": _currentUsername,
-      "receiver": widget.conversation.username,
-      "status": status,
-      "senderSigningPublicKey":
-          senderPubKeyBase64,
-      "signature": signature,
-    });
-  } catch (e, stack) {
-    debugPrint(
-      "[ACK] Failed to create/send ACK: "
-      "$e\n$stack",
-    );
-  }
-}
+    try {
+      final publicKeyBytes =
+          base64Decode(
+        widget.conversation.publicSigningKey,
+      );
 
-  Future<void> _handleIncomingAck(
-  String messageId,
-  String statusStr,
-  Map<String, dynamic> payload,
-) async {
-  // We only accept delivered ACKs.
-  if (statusStr != "delivered") {
-    debugPrint(
-      "[ACK] Ignoring unsupported ACK status: $statusStr",
-    );
-    return;
-  }
+      final senderPublicKey =
+          SimplePublicKey(
+        publicKeyBytes,
+        type: KeyPairType.ed25519,
+      );
 
-  final pending =
-      _pendingMessages[messageId];
+      isSignatureValid =
+          await _signatureService.verifyMessage(
+        base64Signature: signature,
+        payloadData:
+            verificationPayload,
+        senderPublicKey:
+            senderPublicKey,
+      );
+    } catch (e) {
+      debugPrint(
+        "[Security] ACK signature verification error: "
+        "$e",
+      );
 
-  if (pending == null) {
-    debugPrint(
-      "[ACK] No pending message for $messageId",
-    );
-    return;
-  }
-
-  final conversationId =
-      payload["conversationId"]?.toString();
-
-  final sender =
-      payload["sender"]?.toString();
-
-  final receiver =
-      payload["receiver"]?.toString();
-
-  final signature =
-      payload["signature"]?.toString() ?? "";
-
-  final signingPublicKey =
-      payload["senderSigningPublicKey"]
-          ?.toString() ?? "";
-
-  // ------------------------------------------------------------
-  // BASIC ACK VALIDATION
-  // ------------------------------------------------------------
-
-  if (conversationId != widget.conversation.id) {
-    debugPrint(
-      "[Security] ACK has wrong conversation ID.",
-    );
-    return;
-  }
-
-  // The ACK sender must be the person we sent the message to.
-  if (sender != widget.conversation.username) {
-    debugPrint(
-      "[Security] ACK came from unexpected sender.",
-    );
-    return;
-  }
-
-  // The ACK receiver must be us.
-  if (receiver != _currentUsername) {
-    debugPrint(
-      "[Security] ACK is not addressed to us.",
-    );
-    return;
-  }
-
-  if (signature.isEmpty ||
-      signingPublicKey.isEmpty) {
-    debugPrint(
-      "[Security] ACK is missing signature/key.",
-    );
-    return;
-  }
-
-  // ------------------------------------------------------------
-  // TRUSTED SIGNING KEY CHECK
-  // ------------------------------------------------------------
-
-  if (signingPublicKey !=
-      widget.conversation.publicSigningKey) {
-    debugPrint(
-      "[Security] ACK signing key mismatch.",
-    );
-    return;
-  }
-
-  // ------------------------------------------------------------
-  // VERIFY ACK SIGNATURE
-  // ------------------------------------------------------------
-
-  final verificationPayload =
-      <String, dynamic>{
-    "type": "ack",
-    "messageId": messageId,
-    "conversationId": conversationId,
-    "sender": sender,
-    "receiver": receiver,
-    "status": statusStr,
-  };
-
-  bool isSignatureValid = false;
-
-  try {
-    final publicKeyBytes =
-        base64Decode(
-      widget.conversation.publicSigningKey,
-    );
-
-    final senderPublicKey =
-        SimplePublicKey(
-      publicKeyBytes,
-      type: KeyPairType.ed25519,
-    );
-
-    isSignatureValid =
-        await _signatureService.verifyMessage(
-      base64Signature: signature,
-      payloadData: verificationPayload,
-      senderPublicKey: senderPublicKey,
-    );
-  } catch (e) {
-    debugPrint(
-      "[Security] ACK signature verification error: $e",
-    );
-
-    isSignatureValid = false;
-  }
-
-  if (!isSignatureValid) {
-    debugPrint(
-      "[Security] Rejected forged ACK.",
-    );
-    return;
-  }
-
-  // ------------------------------------------------------------
-  // PERSIST ONLY AFTER VALID SIGNED ACK
-  // ------------------------------------------------------------
-
-  final updatedMessage =
-      pending.copyWith(
-    status: MessageStatus.delivered,
-  );
-
-  try {
-    await _messageService.addMessage(
-      updatedMessage,
-    );
-
-    _pendingMessages.remove(
-      messageId,
-    );
-
-    if (!mounted || _disposed) return;
-
-    final index =
-        _messages.indexWhere(
-      (message) => message.id == messageId,
-    );
-
-    if (index != -1) {
-      setState(() {
-        _messages[index] =
-            updatedMessage;
-      });
+      isSignatureValid = false;
     }
 
+    if (!isSignatureValid) {
+      debugPrint(
+        "[Security] Rejected forged ACK.",
+      );
+      return;
+    }
+
+    // ------------------------------------------------------------
+    // VALID SIGNED ACK
+    // ------------------------------------------------------------
+
     debugPrint(
-      "[ACK] Valid signed delivery ACK. "
-      "Message $messageId persisted.",
+      "[ACK] Valid signed delivery ACK "
+      "for $messageId.",
     );
-  } catch (e, stack) {
-    debugPrint(
-      "[ACK] Failed to persist message "
-      "$messageId: $e\n$stack",
+
+    // ------------------------------------------------------------
+    // UPDATE PERSISTED MESSAGE
+    // ------------------------------------------------------------
+    //
+    // IMPORTANT:
+    //
+    // Do NOT use addMessage() here.
+    //
+    // The message already exists in storage as pending.
+    // updateMessage() changes that exact message to delivered.
+    // ------------------------------------------------------------
+
+    final updatedMessage =
+        pending.copyWith(
+      status: MessageStatus.delivered,
     );
+
+    try {
+      await _messageService.updateMessage(
+        updatedMessage,
+      );
+
+      /*
+       * Only remove it from the in-memory outbox AFTER the
+       * persistent update succeeded.
+       */
+      _pendingMessages.remove(
+        messageId,
+      );
+
+      if (!mounted || _disposed) return;
+
+      final index =
+          _messages.indexWhere(
+        (message) =>
+            message.id == messageId,
+      );
+
+      if (index != -1) {
+        setState(() {
+          _messages[index] =
+              updatedMessage;
+        });
+      }
+
+      debugPrint(
+        "[ACK] Message $messageId is now delivered.",
+      );
+    } catch (e, stack) {
+      /*
+       * Keep the message in _pendingMessages if persistence
+       * failed. The retry system will continue treating it
+       * as pending.
+       */
+      debugPrint(
+        "[ACK] Failed to persist delivered status "
+        "for $messageId: $e\n$stack",
+      );
+    }
   }
-}
 
   // ============================================================
   // GOSSIP BLACKLIST
@@ -1767,10 +2059,13 @@ Future<void> _sendAck(
 
       if (blacklist.isEmpty) return;
 
-      await _sendPayload({
-        "type": "gossip_blacklist",
-        "blacklist": blacklist,
-      });
+      await _sendPayload(
+        {
+          "type": "gossip_blacklist",
+          "blacklist": blacklist,
+        },
+        showConnectionError: false,
+      );
     } catch (e) {
       debugPrint(
         "[Gossip] Sync failed: $e",
@@ -1803,8 +2098,6 @@ Future<void> _sendAck(
 
     _decryptedTexts.clear();
 
- 
-
     if (mounted && !_disposed) {
       setState(() {
         _isLoading = true;
@@ -1814,82 +2107,116 @@ Future<void> _sendAck(
 
     await _loadMessages();
   }
-  
+
   // ============================================================
-// LOAD OLDER MESSAGES
-// ============================================================
+  // LOAD OLDER MESSAGES
+  // ============================================================
 
-void _handleScroll() {
-  if (!_scrollController.hasClients) {
-    return;
-  }
-
-  // Because the ListView is reversed, position 0 is the newest
-  // message and maxScrollExtent is the oldest.
-  if (_scrollController.position.pixels >=
-      _scrollController.position.maxScrollExtent - 200) {
-    unawaited(_loadOlderMessages());
-  }
-}
-
-Future<void> _loadOlderMessages() async {
-  if (_isLoadingOlderMessages ||
-      !_hasMoreMessages ||
-      _disposed ||
-      !mounted) {
-    return;
-  }
-
-  _isLoadingOlderMessages = true;
-
-  try {
-    final olderMessages =
-        await _messageService.getMessagesPage(
-      widget.conversation.id,
-      limit: _pageSize,
-      offset: _loadedMessageCount,
-    );
-
-    if (_disposed || !mounted) {
+  void _handleScroll() {
+    if (!_scrollController.hasClients) {
       return;
     }
 
-    olderMessages.sort(
-      (a, b) => b.timestamp.compareTo(a.timestamp),
-    );
+    // Because the ListView is reversed, position 0 is the newest
+    // message and maxScrollExtent is the oldest.
+    if (_scrollController.position.pixels >=
+        _scrollController.position.maxScrollExtent -
+            200) {
+      unawaited(
+        _loadOlderMessages(),
+      );
+    }
+  }
 
-    if (olderMessages.isEmpty) {
-      _hasMoreMessages = false;
+  Future<void> _loadOlderMessages() async {
+    if (_isLoadingOlderMessages ||
+        !_hasMoreMessages ||
+        _disposed ||
+        !mounted) {
       return;
     }
 
-    final existingIds =
-        _messages.map((message) => message.id).toSet();
+    _isLoadingOlderMessages = true;
 
-    final newMessages = olderMessages
-        .where((message) => !existingIds.contains(message.id))
-        .toList();
+    try {
+      final olderMessages =
+          await _messageService.getMessagesPage(
+        widget.conversation.id,
+        limit: _pageSize,
+        offset: _loadedMessageCount,
+      );
 
-    setState(() {
-      _messages.addAll(newMessages);
+      if (_disposed || !mounted) {
+        return;
+      }
 
-      _loadedMessageCount += olderMessages.length;
+      olderMessages.sort(
+        (a, b) =>
+            b.timestamp.compareTo(a.timestamp),
+      );
 
-      _hasMoreMessages =
-          olderMessages.length == _pageSize;
-    });
+      if (olderMessages.isEmpty) {
+        _hasMoreMessages = false;
+        return;
+      }
 
-    // Decrypt the newly loaded messages in the background.
-    _startBackgroundDecryption(newMessages);
-  } catch (e, stack) {
-    debugPrint(
-      "[Messages] Loading older messages failed: "
-      "$e\n$stack",
-    );
-  } finally {
-    _isLoadingOlderMessages = false;
+      final existingIds =
+          _messages
+              .map(
+                (message) => message.id,
+              )
+              .toSet();
+
+      final newMessages =
+          olderMessages
+              .where(
+                (message) =>
+                    !existingIds.contains(
+                  message.id,
+                ),
+              )
+              .toList();
+
+      /*
+       * Also restore any pending messages discovered
+       * while loading older pages.
+       */
+      for (final message
+          in olderMessages) {
+        if (message.outgoing &&
+            message.status ==
+                MessageStatus.pending) {
+          _pendingMessages[message.id] =
+              message;
+        }
+      }
+
+      setState(() {
+        _messages.addAll(
+          newMessages,
+        );
+
+        _loadedMessageCount +=
+            olderMessages.length;
+
+        _hasMoreMessages =
+            olderMessages.length ==
+                _pageSize;
+      });
+
+      // Decrypt newly loaded messages in background.
+      _startBackgroundDecryption(
+        newMessages,
+      );
+    } catch (e, stack) {
+      debugPrint(
+        "[Messages] Loading older messages failed: "
+        "$e\n$stack",
+      );
+    } finally {
+      _isLoadingOlderMessages = false;
+    }
   }
-}
 
   // ============================================================
   // SCROLL
@@ -1912,7 +2239,7 @@ Future<void> _loadOlderMessages() async {
   // DISPOSE
   // ============================================================
 
-    @override
+  @override
   void dispose() {
     _disposed = true;
 
@@ -1920,6 +2247,11 @@ Future<void> _loadOlderMessages() async {
 
     _connectionRetryTimer?.cancel();
     _connectionRetryTimer = null;
+
+    _pendingRetryTimer?.cancel();
+    _pendingRetryTimer = null;
+
+    _isPendingRetryRunning = false;
 
     _webrtc.onMessage = null;
 
@@ -1933,6 +2265,12 @@ Future<void> _loadOlderMessages() async {
 
     _decryptingMessageIds.clear();
 
+    /*
+     * This only clears the in-memory copy.
+     *
+     * Pending messages themselves remain safely persisted
+     * inside MessageService/Hive.
+     */
     _pendingMessages.clear();
 
     _cachedSharedKey = null;

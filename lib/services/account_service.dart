@@ -7,6 +7,7 @@ import 'password_service.dart';
 import 'cloud_identity_service.dart';
 import 'key_storage_service.dart';
 import 'identity_service.dart';
+import 'signaling_service.dart';
 
 class AccountService {
   static const String _usernameKey = "account_username";
@@ -16,6 +17,8 @@ class AccountService {
   static const String _publicKeyKey = "account_public_key";
   static const String _publicSigningKeyKey =
       "account_public_signing_key";
+  static const String _publicIdKey =
+      "account_public_id";
 
   static const String _createdKey = "account_created";
 
@@ -25,8 +28,9 @@ class AccountService {
   final CloudIdentityService _cloud = CloudIdentityService();
   final KeyStorageService _keyStorage = KeyStorageService();
   final IdentityService _identityService = IdentityService();
-  
-  final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
+
+  final FlutterSecureStorage _secureStorage =
+      const FlutterSecureStorage();
 
   Future<void> createAccount({
     required String username,
@@ -106,6 +110,14 @@ class AccountService {
     await prefs.setString(
       _publicSigningKeyKey,
       publicSigningKey,
+    );
+
+    // Save the stable public ID locally so it can be
+    // sent to the signaling server when the account
+    // is permanently deleted.
+    await prefs.setString(
+      _publicIdKey,
+      publicId,
     );
 
     await prefs.setBool(
@@ -267,6 +279,12 @@ class AccountService {
       user["public_signing_key"]?.toString() ?? "",
     );
 
+    // Restore the stable public ID.
+    await prefs.setString(
+      _publicIdKey,
+      user["public_id"]?.toString() ?? "",
+    );
+
     await prefs.setBool(
       _createdKey,
       true,
@@ -296,16 +314,22 @@ class AccountService {
     return prefs.getString(_usernameKey);
   }
 
-Future<String?> getPublicEncryptionKey() async {
-  final prefs = await SharedPreferences.getInstance();
+  Future<String?> getPublicEncryptionKey() async {
+    final prefs = await SharedPreferences.getInstance();
 
-  return prefs.getString(_publicKeyKey);
-}
+    return prefs.getString(_publicKeyKey);
+  }
 
   Future<String?> getPublicSigningKey() async {
     final prefs = await SharedPreferences.getInstance();
 
     return prefs.getString(_publicSigningKeyKey);
+  }
+
+  Future<String?> getPublicId() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    return prefs.getString(_publicIdKey);
   }
 
   Future getSigningKeyPair(
@@ -342,6 +366,7 @@ Future<String?> getPublicEncryptionKey() async {
     await prefs.remove(_passwordSaltKey);
     await prefs.remove(_publicKeyKey);
     await prefs.remove(_publicSigningKeyKey);
+    await prefs.remove(_publicIdKey);
     await prefs.remove(_createdKey);
 
     await _keyStorage.deleteIdentity();
@@ -363,32 +388,48 @@ Future<String?> getPublicEncryptionKey() async {
     );
   }
 
-Future<void> deleteAccount() async {
-  final username = await getUsername();
+  Future<void> deleteAccount() async {
+    final username = await getUsername();
+    final publicId = await getPublicId();
 
-  if (username == null || username.trim().isEmpty) {
-    throw Exception("No local account found.");
+    if (username == null || username.trim().isEmpty) {
+      throw Exception("No local account found.");
+    }
+
+    if (publicId == null || publicId.trim().isEmpty) {
+      throw Exception("Account public ID is missing.");
+    }
+
+    // 1. Delete account from Supabase first.
+    await _cloud.deleteUser(username);
+
+    // 2. Tell the signaling server that this account
+    //    has been permanently deleted.
+    //
+    // The server will add this identity to the blacklist
+    // and broadcast the updated blacklist to connected users.
+    SignalingService.instance.sendAccountDeleted(
+      username: username,
+      publicId: publicId,
+    );
+
+    // 3. Delete all local account data and encryption material.
+    await logout();
+
+    // 4. Delete settings/security data that logout()
+    //    doesn't own.
+    final prefs = await SharedPreferences.getInstance();
+
+    await prefs.remove('failed_settings_attempts');
+    await prefs.remove('locked_conversation_ids');
+    await prefs.remove('active_conversations_list');
+    await prefs.remove('account_is_premium');
+    await prefs.remove('premium_user_support_comment');
+
+    await _secureStorage.delete(
+      key: 'settings_lockout_expiry',
+    );
   }
-
-  // 1. Delete account from Supabase first.
-  await _cloud.deleteUser(username);
-
-  // 2. Delete all local account data and encryption material.
-  await logout();
-
-  // 3. Delete settings/security data that logout() doesn't own.
-  final prefs = await SharedPreferences.getInstance();
-
-  await prefs.remove('failed_settings_attempts');
-  await prefs.remove('locked_conversation_ids');
-  await prefs.remove('active_conversations_list');
-  await prefs.remove('account_is_premium');
-  await prefs.remove('premium_user_support_comment');
-
-  await _secureStorage.delete(
-    key: 'settings_lockout_expiry',
-  );
-}
 
   String exportAccount(
     Map<String, String> account,

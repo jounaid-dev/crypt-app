@@ -3,10 +3,12 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:crypt_messenger/l10n/app_localizations.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../services/account_service.dart';
+import '../services/conversation_id_service.dart';
 import '../services/conversation_service.dart';
+import '../services/signaling_service.dart';
 import '../models/conversation.dart';
 
 class ScanQrPage extends StatefulWidget {
@@ -20,10 +22,17 @@ class _ScanQrPageState extends State<ScanQrPage> {
   bool scanned = false;
   String scannedUsername = "";
 
+  final AccountService _accountService =
+      AccountService();
+
   final ConversationService _conversationService =
       ConversationService();
 
-  final ImagePicker _imagePicker = ImagePicker();
+  final SignalingService _signalingService =
+      SignalingService.instance;
+
+  final ImagePicker _imagePicker =
+      ImagePicker();
 
   // ============================================================
   // QR PROCESSING
@@ -68,10 +77,106 @@ class _ScanQrPageState extends State<ScanQrPage> {
           data.containsKey("publicSigningKey")) {
         if (!mounted) return;
 
+        // ========================================================
+        // SCANNED PEER IDENTITY
+        // ========================================================
+
+        final String peerUsername =
+            data["username"]?.toString() ??
+                l10n.defaultUser;
+
+        final String peerEncryptionKey =
+            data["publicEncryptionKey"]
+                .toString();
+
+        final String peerSigningKey =
+            data["publicSigningKey"]
+                .toString();
+
+        if (peerUsername.trim().isEmpty ||
+            peerEncryptionKey.trim().isEmpty ||
+            peerSigningKey.trim().isEmpty) {
+          throw Exception(
+            "Incomplete CRYPT identity.",
+          );
+        }
+
+        // ========================================================
+        // ONE-TIME QR PROOF
+        // ========================================================
+
+        final String? qrProof =
+            data["qrProof"]?.toString();
+
+        if (qrProof == null ||
+            qrProof.isEmpty) {
+          throw Exception(
+            "QR code does not contain a proof.",
+          );
+        }
+
+        // ========================================================
+        // LOAD MY IDENTITY
+        // ========================================================
+
+        final String? myUsername =
+            await _accountService.getUsername();
+
+        final String? myEncryptionKey =
+            await _accountService
+                .getPublicEncryptionKey();
+
+        final String? mySigningKey =
+            await _accountService
+                .getPublicSigningKey();
+
+        if (myUsername == null ||
+            myUsername.trim().isEmpty) {
+          throw Exception(
+            "Local username is missing.",
+          );
+        }
+
+        if (myEncryptionKey == null ||
+            myEncryptionKey.trim().isEmpty) {
+          throw Exception(
+            "Local encryption key is missing.",
+          );
+        }
+
+        if (mySigningKey == null ||
+            mySigningKey.trim().isEmpty) {
+          throw Exception(
+            "Local signing key is missing.",
+          );
+        }
+
+        // ========================================================
+        // PREVENT ADDING OURSELVES
+        // ========================================================
+
+        if (myUsername == peerUsername ||
+            myEncryptionKey == peerEncryptionKey) {
+          throw Exception(
+            "Cannot add yourself.",
+          );
+        }
+
+        // ========================================================
+        // DETERMINISTIC CONVERSATION ID
+        // ========================================================
+
+        final String conversationId =
+            ConversationIdService.generate(
+          myPublicEncryptionKey:
+              myEncryptionKey,
+          peerPublicEncryptionKey:
+              peerEncryptionKey,
+        );
+
         setState(() {
           scanned = true;
-          scannedUsername =
-              data["username"] ?? l10n.defaultUser;
+          scannedUsername = peerUsername;
         });
 
         // ========================================================
@@ -81,23 +186,17 @@ class _ScanQrPageState extends State<ScanQrPage> {
         final Conversation? existingConversation =
             await _conversationService
                 .findConversationByPublicKey(
-          data["publicEncryptionKey"],
+          peerEncryptionKey,
         );
 
         if (existingConversation != null) {
           final updatedConversation =
               Conversation(
-            id: existingConversation.id,
-            username:
-                data["username"]?.toString() ??
-                    existingConversation.username,
-            publicSigningKey:
-                data["publicSigningKey"]?.toString() ??
-                    "",
+            id: conversationId,
+            username: peerUsername,
+            publicSigningKey: peerSigningKey,
             publicEncryptionKey:
-                data["publicEncryptionKey"]?.toString() ??
-                    existingConversation
-                        .publicEncryptionKey,
+                peerEncryptionKey,
             createdAt:
                 existingConversation.createdAt,
             lastMessageAt:
@@ -111,9 +210,49 @@ class _ScanQrPageState extends State<ScanQrPage> {
           );
 
           await _conversationService
-              .addConversation(
+              .updateConversation(
             updatedConversation,
           );
+
+          // ======================================================
+          // SEND REQUEST
+          // ======================================================
+
+          if (_signalingService.isConnected) {
+            _signalingService
+                .sendConversationRequest(
+              target: peerUsername,
+              payload: {
+                "conversationId":
+                    conversationId,
+
+                // Exact proof from scanned QR.
+                "qrProof":
+                    qrProof,
+
+                // OUR identity.
+                "username":
+                    myUsername,
+
+                "publicEncryptionKey":
+                    myEncryptionKey,
+
+                "publicSigningKey":
+                    mySigningKey,
+              },
+            );
+
+            debugPrint(
+              "[QR] Conversation request sent "
+              "from $myUsername to $peerUsername "
+              "with QR proof.",
+            );
+          } else {
+            debugPrint(
+              "[QR] Signaling server is not connected. "
+              "Conversation request could not be sent.",
+            );
+          }
 
           await Future.delayed(
             const Duration(
@@ -129,6 +268,7 @@ class _ScanQrPageState extends State<ScanQrPage> {
               "alreadyExists": true,
               "conversation":
                   updatedConversation,
+              "qrData": data,
             },
           );
 
@@ -136,119 +276,77 @@ class _ScanQrPageState extends State<ScanQrPage> {
         }
 
         // ========================================================
-        // EXISTING BLACKLIST LOGIC
+        // CREATE LOCAL CONVERSATION
         // ========================================================
 
-        try {
-          final prefs =
-              await SharedPreferences
-                  .getInstance();
+        final DateTime now =
+            DateTime.now();
 
-          const String blacklistKey =
-              "destruction_blacklist";
+        final Conversation conversation =
+            Conversation(
+          id: conversationId,
+          username: peerUsername,
+          publicSigningKey:
+              peerSigningKey,
+          publicEncryptionKey:
+              peerEncryptionKey,
+          createdAt: now,
+          lastMessageAt: now,
+          lastMessage: "",
+          unreadCount: 0,
+          verified: false,
+        );
 
-          List<String> myLocalBlacklist =
-              prefs.getStringList(
-                    blacklistKey,
-                  ) ??
-                  [];
+        await _conversationService
+            .addConversation(
+          conversation,
+        );
 
-          List<String>
-              incomingPeerBlacklist = [];
+        // ========================================================
+        // SEND CONVERSATION REQUEST
+        // ========================================================
 
-          if (data.containsKey(
-                "destruction_blacklist",
-              ) &&
-              data["destruction_blacklist"]
-                  is List) {
-            incomingPeerBlacklist =
-                List<String>.from(
-              data["destruction_blacklist"]
-                  .map(
-                (e) => e
-                    .toString()
-                    .toLowerCase(),
-              ),
-            );
-          }
+        if (_signalingService.isConnected) {
+          _signalingService
+              .sendConversationRequest(
+            target: peerUsername,
+            payload: {
+              // Deterministic ID generated from
+              // BOTH encryption keys.
+              "conversationId":
+                  conversationId,
 
-          bool databaseUpdated = false;
+              // Exact proof contained in
+              // the scanned QR.
+              "qrProof":
+                  qrProof,
 
-          for (String blockedUser
-              in incomingPeerBlacklist) {
-            if (!myLocalBlacklist
-                .contains(blockedUser)) {
-              myLocalBlacklist.add(
-                blockedUser,
-              );
+              // ==================================================
+              // OUR IDENTITY
+              // ==================================================
+              //
+              // This is A's identity.
+              //
+              "username":
+                  myUsername,
 
-              databaseUpdated = true;
-            }
-          }
+              "publicEncryptionKey":
+                  myEncryptionKey,
 
-          if (databaseUpdated) {
-            await prefs.setStringList(
-              blacklistKey,
-              myLocalBlacklist,
-            );
+              "publicSigningKey":
+                  mySigningKey,
+            },
+          );
 
-            final Set<String> allKeys =
-                prefs.getKeys();
-
-            final List<String>
-                messageStorageKeys =
-                allKeys
-                    .where(
-                      (k) => k.startsWith(
-                        "messages_",
-                      ),
-                    )
-                    .toList();
-
-            for (String key
-                in messageStorageKeys) {
-              final List<String> dataList =
-                  prefs.getStringList(key) ??
-                      [];
-
-              if (dataList.isEmpty) {
-                continue;
-              }
-
-              final int originalCount =
-                  dataList.length;
-
-              dataList.removeWhere(
-                (item) {
-                  final String
-                      lowercaseItem =
-                      item.toLowerCase();
-
-                  return myLocalBlacklist.any(
-                    (blockedUser) =>
-                        lowercaseItem.contains(
-                      '"sender":"$blockedUser"',
-                    ),
-                  );
-                },
-              );
-
-              if (dataList.length !=
-                  originalCount) {
-                if (dataList.isEmpty) {
-                  await prefs.remove(key);
-                } else {
-                  await prefs.setStringList(
-                    key,
-                    dataList,
-                  );
-                }
-              }
-            }
-          }
-        } catch (e) {
-          print(
-            "QR Scan P2P gossip handshake exception: $e",
+          debugPrint(
+            "[QR] Conversation request sent "
+            "from $myUsername to $peerUsername "
+            "with QR proof.",
+          );
+        } else {
+          debugPrint(
+            "[QR] Signaling server is not connected. "
+            "Conversation request could not be sent.",
           );
         }
 
@@ -266,14 +364,23 @@ class _ScanQrPageState extends State<ScanQrPage> {
 
         Navigator.pop(
           context,
-          data,
+          {
+            "alreadyExists": false,
+            "conversation":
+                conversation,
+            "qrData": data,
+          },
         );
       } else {
         throw Exception(
           "Not a valid CRYPT profile payload.",
         );
       }
-    } catch (_) {
+    } catch (e) {
+      debugPrint(
+        "[QR] Processing error: $e",
+      );
+
       if (!mounted) return;
 
       setState(() {
@@ -373,7 +480,8 @@ class _ScanQrPageState extends State<ScanQrPage> {
           in result.barcodes) {
         if (barcode.rawValue != null &&
             barcode.rawValue!.isNotEmpty) {
-          value = barcode.rawValue;
+          value =
+              barcode.rawValue;
           break;
         }
       }
@@ -436,29 +544,30 @@ class _ScanQrPageState extends State<ScanQrPage> {
 
       appBar: AppBar(
         elevation: 0,
-
         titleSpacing: 20,
-
         title: Text(
           l10n.scanQr,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 19,
-            fontWeight: FontWeight.w600,
+            fontWeight:
+                FontWeight.w600,
             letterSpacing: 0.3,
           ),
         ),
-
         actions: [
           IconButton(
             tooltip: "Gallery",
             onPressed: scanned
                 ? null
-                : () => scanFromGallery(l10n),
+                : () =>
+                    scanFromGallery(
+                      l10n,
+                    ),
             icon: const Icon(
-              Icons.photo_library_outlined,
+              Icons
+                  .photo_library_outlined,
             ),
           ),
-
           const SizedBox(width: 8),
         ],
       ),
@@ -466,7 +575,6 @@ class _ScanQrPageState extends State<ScanQrPage> {
       body: SafeArea(
         child: Stack(
           children: [
-
             // ====================================================
             // CAMERA
             // ====================================================
@@ -486,7 +594,6 @@ class _ScanQrPageState extends State<ScanQrPage> {
             IgnorePointer(
               child: Column(
                 children: [
-
                   Expanded(
                     child: Container(
                       color: Colors.black
@@ -497,13 +604,15 @@ class _ScanQrPageState extends State<ScanQrPage> {
                           height: 265,
                           decoration:
                               BoxDecoration(
-                            border: Border.all(
+                            border:
+                                Border.all(
                               color:
                                   Colors.white,
                               width: 2,
                             ),
                             borderRadius:
-                                BorderRadius.circular(
+                                BorderRadius
+                                    .circular(
                               18,
                             ),
                           ),
@@ -526,7 +635,8 @@ class _ScanQrPageState extends State<ScanQrPage> {
               child: Center(
                 child: Container(
                   padding:
-                      const EdgeInsets.symmetric(
+                      const EdgeInsets
+                          .symmetric(
                     horizontal: 16,
                     vertical: 9,
                   ),
@@ -535,17 +645,20 @@ class _ScanQrPageState extends State<ScanQrPage> {
                     color: Colors.black
                         .withAlpha(210),
                     borderRadius:
-                        BorderRadius.circular(
+                        BorderRadius
+                            .circular(
                       6,
                     ),
                     border: Border.all(
-                      color: Colors.white24,
+                      color:
+                          Colors.white24,
                     ),
                   ),
                   child: const Text(
                     "ALIGN QR CODE",
                     style: TextStyle(
-                      color: Colors.white,
+                      color:
+                          Colors.white,
                       fontSize: 12,
                       fontWeight:
                           FontWeight.w600,
@@ -566,28 +679,35 @@ class _ScanQrPageState extends State<ScanQrPage> {
               bottom: 24,
               child: SizedBox(
                 height: 54,
-                child: OutlinedButton.icon(
+                child:
+                    OutlinedButton.icon(
                   onPressed: scanned
                       ? null
-                      : () => scanFromGallery(
+                      : () =>
+                          scanFromGallery(
                             l10n,
                           ),
                   style:
-                      OutlinedButton.styleFrom(
+                      OutlinedButton
+                          .styleFrom(
                     foregroundColor:
                         Colors.white,
                     backgroundColor:
                         Colors.black
-                            .withAlpha(225),
+                            .withAlpha(
+                      225,
+                    ),
                     side:
                         const BorderSide(
-                      color: Colors.white,
+                      color:
+                          Colors.white,
                       width: 1,
                     ),
                     shape:
                         RoundedRectangleBorder(
                       borderRadius:
-                          BorderRadius.circular(
+                          BorderRadius
+                              .circular(
                         8,
                       ),
                     ),
@@ -618,7 +738,6 @@ class _ScanQrPageState extends State<ScanQrPage> {
               Container(
                 color: Colors.black
                     .withAlpha(235),
-
                 child: Center(
                   child: Container(
                     margin:
@@ -637,41 +756,41 @@ class _ScanQrPageState extends State<ScanQrPage> {
                     decoration:
                         BoxDecoration(
                       color:
-                          colorScheme.surface,
+                          colorScheme
+                              .surface,
                       borderRadius:
-                          BorderRadius.circular(
+                          BorderRadius
+                              .circular(
                         10,
                       ),
                       border: Border.all(
                         color:
-                            colorScheme.outline,
+                            colorScheme
+                                .outline,
                         width: 2,
                       ),
                     ),
-
                     child: Column(
                       mainAxisSize:
                           MainAxisSize.min,
                       children: [
-
-                        // ==============================
-                        // CHECK
-                        // ==============================
-
                         Container(
                           width: 64,
                           height: 64,
                           decoration:
                               BoxDecoration(
                             color:
-                                colorScheme.primary,
+                                colorScheme
+                                    .primary,
                             shape:
-                                BoxShape.circle,
+                                BoxShape
+                                    .circle,
                           ),
                           child: Icon(
                             Icons.check,
                             color:
-                                colorScheme.onPrimary,
+                                colorScheme
+                                    .onPrimary,
                             size: 36,
                           ),
                         ),
@@ -683,7 +802,8 @@ class _ScanQrPageState extends State<ScanQrPage> {
                         Text(
                           l10n.userScanned,
                           textAlign:
-                              TextAlign.center,
+                              TextAlign
+                                  .center,
                           style:
                               TextStyle(
                             color:
@@ -691,7 +811,8 @@ class _ScanQrPageState extends State<ScanQrPage> {
                                     .onSurface,
                             fontSize: 21,
                             fontWeight:
-                                FontWeight.w700,
+                                FontWeight
+                                    .w700,
                             letterSpacing:
                                 0.2,
                           ),
@@ -718,7 +839,8 @@ class _ScanQrPageState extends State<ScanQrPage> {
                             scannedUsername,
                           ),
                           textAlign:
-                              TextAlign.center,
+                              TextAlign
+                                  .center,
                           style:
                               TextStyle(
                             color:
@@ -726,7 +848,8 @@ class _ScanQrPageState extends State<ScanQrPage> {
                                     .onSurfaceVariant,
                             fontSize: 15,
                             fontWeight:
-                                FontWeight.w500,
+                                FontWeight
+                                    .w500,
                           ),
                         ),
                       ],

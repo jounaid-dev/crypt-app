@@ -47,10 +47,6 @@ class MessageService {
         } catch (e) {
           // Ignore one corrupted message instead of
           // destroying the entire conversation.
-          //
-          // This is intentionally silent because a single
-          // corrupted record should not prevent the rest
-          // of the conversation from loading.
         }
       }
 
@@ -85,6 +81,36 @@ class MessageService {
     String conversationId,
   ) async {
     return _readMessages(conversationId);
+  }
+
+  // ============================================================
+  // GET PENDING OUTBOX MESSAGES
+  // ============================================================
+  //
+  // Returns ALL outgoing messages that are still waiting
+  // for a valid signed delivery ACK.
+  //
+  // This is intentionally not paginated.
+  //
+  // The ChatPage UI only loads a page of messages, but the
+  // outbox must be able to restore old pending messages too.
+  //
+  // ============================================================
+
+  Future<List<Message>> getPendingOutgoingMessages(
+    String conversationId,
+  ) async {
+    final messages = await _readMessages(
+      conversationId,
+    );
+
+    return messages
+        .where(
+          (message) =>
+              message.outgoing &&
+              message.status == MessageStatus.pending,
+        )
+        .toList();
   }
 
   // ============================================================
