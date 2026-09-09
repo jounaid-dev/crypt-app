@@ -21,10 +21,7 @@ import '../services/signature_service.dart';
 class ChatPage extends StatefulWidget {
   final Conversation conversation;
 
-  const ChatPage({
-    super.key,
-    required this.conversation,
-  });
+  const ChatPage({super.key, required this.conversation});
 
   @override
   State<ChatPage> createState() => _ChatPageState();
@@ -33,44 +30,35 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> {
   final MessageService _messageService = MessageService();
 
-  final TextEditingController _messageController =
-      TextEditingController();
+  final TextEditingController _messageController = TextEditingController();
 
-  final ScrollController _scrollController =
-      ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
   final Uuid _uuid = const Uuid();
 
-  final SignalingService _signaling =
-      SignalingService.instance;
+  final SignalingService _signaling = SignalingService.instance;
 
-  final AccountService _accountService =
-      AccountService();
+  final AccountService _accountService = AccountService();
 
-  final WebRTCService _webrtc =
-      WebRTCService.instance;
+  final WebRTCService _webrtc = WebRTCService.instance;
 
-  final KeyExchangeService _keyExchangeService =
-      KeyExchangeService();
+  final KeyExchangeService _keyExchangeService = KeyExchangeService();
 
-  final EncryptionService _encryptionService =
-      EncryptionService();
+  final EncryptionService _encryptionService = EncryptionService();
 
-  final SignatureService _signatureService =
-      SignatureService();
+  final SignatureService _signatureService = SignatureService();
 
-  RTCDataChannelState _channelState =
-      RTCDataChannelState.RTCDataChannelClosed;
+  RTCDataChannelState _channelState = RTCDataChannelState.RTCDataChannelClosed;
 
   bool get _isP2PActive =>
-      _channelState ==
-      RTCDataChannelState.RTCDataChannelOpen;
+      _channelState == RTCDataChannelState.RTCDataChannelOpen;
 
   StreamSubscription? _signalingSubscription;
 
   String? _currentUsername;
 
   SecretKey? _cachedSharedKey;
+  Future<SecretKey>? _sharedKeyDerivation;
 
   // ============================================================
   // MESSAGE STATE
@@ -94,8 +82,9 @@ class _ChatPageState extends State<ChatPage> {
   bool _isLoading = true;
 
   bool _isConnecting = true;
+  bool _connectionFailed = false;
 
-  Timer? _connectionRetryTimer;
+  Timer? _connectionTimeoutTimer;
 
   /*
    * Periodic outbox retry timer.
@@ -119,8 +108,9 @@ class _ChatPageState extends State<ChatPage> {
 
   static const int _initialBatchSize = 20;
 
-  static const Duration _pendingRetryInterval =
-      Duration(seconds: 5);
+  static const Duration _pendingRetryInterval = Duration(seconds: 5);
+
+  static const Duration _connectionTimeout = Duration(seconds: 20);
 
   bool _disposed = false;
 
@@ -132,9 +122,7 @@ class _ChatPageState extends State<ChatPage> {
   void initState() {
     super.initState();
 
-    _scrollController.addListener(
-      _handleScroll,
-    );
+    _scrollController.addListener(_handleScroll);
 
     _loadMessages();
     _connect();
@@ -146,12 +134,11 @@ class _ChatPageState extends State<ChatPage> {
 
   Future<void> _loadMessages() async {
     try {
-      final messages =
-          await _messageService.getMessagesPage(
+      final allMessages = await _messageService.getMessages(
         widget.conversation.id,
-        limit: _pageSize,
-        offset: 0,
       );
+
+      final messages = allMessages.reversed.take(_pageSize).toList();
 
       /*
        * Restore the OUTBOX from ALL locally stored messages.
@@ -159,10 +146,12 @@ class _ChatPageState extends State<ChatPage> {
        * The UI only loads 20 messages initially, but pending
        * messages can be much older than those 20.
        */
-      final pendingMessages =
-          await _messageService.getPendingOutgoingMessages(
-        widget.conversation.id,
-      );
+      final pendingMessages = allMessages
+          .where(
+            (message) =>
+                message.outgoing && message.status == MessageStatus.pending,
+          )
+          .toList();
 
       if (!mounted || _disposed) return;
 
@@ -175,9 +164,7 @@ class _ChatPageState extends State<ChatPage> {
       /*
        * Newest -> oldest.
        */
-      messages.sort(
-        (a, b) => b.timestamp.compareTo(a.timestamp),
-      );
+      messages.sort((a, b) => b.timestamp.compareTo(a.timestamp));
 
       setState(() {
         _messages = messages;
@@ -194,13 +181,11 @@ class _ChatPageState extends State<ChatPage> {
       // INITIAL 20
       // --------------------------------------------------------
 
-      final initialCount =
-          messages.length < _initialBatchSize
-              ? messages.length
-              : _initialBatchSize;
+      final initialCount = messages.length < _initialBatchSize
+          ? messages.length
+          : _initialBatchSize;
 
-      final firstBatch =
-          messages.take(initialCount).toList();
+      final firstBatch = messages.take(initialCount).toList();
 
       await _decryptInitialBatch(firstBatch);
 
@@ -210,13 +195,9 @@ class _ChatPageState extends State<ChatPage> {
       // BACKGROUND
       // --------------------------------------------------------
 
-      _startBackgroundDecryption(
-        messages.skip(initialCount).toList(),
-      );
+      _startBackgroundDecryption(messages.skip(initialCount).toList());
     } catch (e, stack) {
-      debugPrint(
-        "[Messages] Loading failed: $e\n$stack",
-      );
+      debugPrint("[Messages] Loading failed: $e\n$stack");
 
       if (!mounted || _disposed) return;
 
@@ -230,9 +211,7 @@ class _ChatPageState extends State<ChatPage> {
   // INITIAL DECRYPTION
   // ============================================================
 
-  Future<void> _decryptInitialBatch(
-    List<Message> messages,
-  ) async {
+  Future<void> _decryptInitialBatch(List<Message> messages) async {
     if (messages.isEmpty) return;
 
     debugPrint(
@@ -241,17 +220,10 @@ class _ChatPageState extends State<ChatPage> {
     );
 
     try {
-      final sharedKey =
-          await _getOrDeriveSharedKey();
+      final sharedKey = await _getOrDeriveSharedKey();
 
-      final results =
-          await Future.wait(
-        messages.map(
-          (message) => _decryptWithKey(
-            message,
-            sharedKey,
-          ),
-        ),
+      final results = await Future.wait(
+        messages.map((message) => _decryptWithKey(message, sharedKey)),
       );
 
       if (!mounted || _disposed) return;
@@ -282,32 +254,21 @@ class _ChatPageState extends State<ChatPage> {
   // BACKGROUND DECRYPTION
   // ============================================================
 
-  void _startBackgroundDecryption(
-    List<Message> remainingMessages,
-  ) {
-    if (remainingMessages.isEmpty ||
-        _disposed ||
-        !mounted) {
+  void _startBackgroundDecryption(List<Message> remainingMessages) {
+    if (remainingMessages.isEmpty || _disposed || !mounted) {
       return;
     }
 
-    unawaited(
-      _decryptRemainingMessages(
-        remainingMessages,
-      ),
-    );
+    unawaited(_decryptRemainingMessages(remainingMessages));
   }
 
-  Future<void> _decryptRemainingMessages(
-    List<Message> messages,
-  ) async {
+  Future<void> _decryptRemainingMessages(List<Message> messages) async {
     if (messages.isEmpty) {
       return;
     }
 
     try {
-      final sharedKey =
-          await _getOrDeriveSharedKey();
+      final sharedKey = await _getOrDeriveSharedKey();
 
       for (final message in messages) {
         if (_disposed || !mounted) {
@@ -325,15 +286,9 @@ class _ChatPageState extends State<ChatPage> {
         _decryptingMessageIds.add(message.id);
 
         try {
-          final text =
-              await _decryptWithKey(
-            message,
-            sharedKey,
-          );
+          final text = await _decryptWithKey(message, sharedKey);
 
-          if (text != null &&
-              !_disposed &&
-              mounted) {
+          if (text != null && !_disposed && mounted) {
             _decryptedTexts[message.id] = text;
 
             setState(() {});
@@ -344,19 +299,13 @@ class _ChatPageState extends State<ChatPage> {
             "for ${message.id}: $e",
           );
         } finally {
-          _decryptingMessageIds.remove(
-            message.id,
-          );
+          _decryptingMessageIds.remove(message.id);
         }
 
-        await Future<void>.delayed(
-          Duration.zero,
-        );
+        await Future<void>.delayed(Duration.zero);
       }
 
-      debugPrint(
-        "[Messages] Background decryption finished.",
-      );
+      debugPrint("[Messages] Background decryption finished.");
     } catch (e, stack) {
       debugPrint(
         "[Messages] Background decryption error: "
@@ -369,10 +318,7 @@ class _ChatPageState extends State<ChatPage> {
   // DECRYPT ONE MESSAGE
   // ============================================================
 
-  Future<String?> _decryptWithKey(
-    Message message,
-    SecretKey sharedKey,
-  ) async {
+  Future<String?> _decryptWithKey(Message message, SecretKey sharedKey) async {
     try {
       return await _encryptionService.decryptMessage(
         encryptedMessage: message.encryptedText,
@@ -397,21 +343,33 @@ class _ChatPageState extends State<ChatPage> {
       return _cachedSharedKey!;
     }
 
-    final password =
-        SessionService.instance.password;
+    final derivationInProgress = _sharedKeyDerivation;
+    if (derivationInProgress != null) {
+      return derivationInProgress;
+    }
+
+    final password = SessionService.instance.password;
 
     if (password == null) {
       throw Exception("Identity locked.");
     }
 
-    _cachedSharedKey =
-        await _keyExchangeService.deriveSharedKey(
+    final derivation = _keyExchangeService.deriveSharedKey(
       password: password,
-      peerPublicKey:
-          widget.conversation.publicEncryptionKey,
+      peerPublicKey: widget.conversation.publicEncryptionKey,
     );
 
-    return _cachedSharedKey!;
+    _sharedKeyDerivation = derivation;
+
+    try {
+      final sharedKey = await derivation;
+      _cachedSharedKey = sharedKey;
+      return sharedKey;
+    } finally {
+      if (identical(_sharedKeyDerivation, derivation)) {
+        _sharedKeyDerivation = null;
+      }
+    }
   }
 
   // ============================================================
@@ -423,17 +381,12 @@ class _ChatPageState extends State<ChatPage> {
     bool showConnectionError = true,
   }) async {
     if (!_isP2PActive) {
-      debugPrint(
-        "[Transport] P2P channel is not open.",
-      );
+      debugPrint("[Transport] P2P channel is not open.");
 
       if (showConnectionError && mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(
-              AppLocalizations.of(context)!
-                  .p2pConnectionNotReady,
-            ),
+            content: Text(AppLocalizations.of(context)!.p2pConnectionNotReady),
           ),
         );
       }
@@ -448,9 +401,7 @@ class _ChatPageState extends State<ChatPage> {
 
       return true;
     } catch (e) {
-      debugPrint(
-        "[Transport] P2P send failed: $e",
-      );
+      debugPrint("[Transport] P2P send failed: $e");
 
       return false;
     }
@@ -461,21 +412,23 @@ class _ChatPageState extends State<ChatPage> {
   // ============================================================
 
   Future<void> _connect() async {
-    if (_isConnectionAttemptRunning ||
-        _disposed ||
-        !mounted) {
+    if (_isConnectionAttemptRunning || _disposed || !mounted) {
       return;
     }
 
     _isConnectionAttemptRunning = true;
 
-    try {
-      _currentUsername =
-          await _accountService.getUsername();
+    if (mounted && !_disposed) {
+      setState(() {
+        _isConnecting = true;
+        _connectionFailed = false;
+      });
+    }
 
-      if (_currentUsername == null ||
-          !mounted ||
-          _disposed) {
+    try {
+      _currentUsername = await _accountService.getUsername();
+
+      if (_currentUsername == null || !mounted || _disposed) {
         return;
       }
 
@@ -486,9 +439,7 @@ class _ChatPageState extends State<ChatPage> {
       // --------------------------------------------------------
 
       if (!_signaling.isConnected) {
-        await _signaling.connect(
-          _currentUsername!,
-        );
+        await _signaling.connect(_currentUsername!);
       }
 
       // --------------------------------------------------------
@@ -498,11 +449,9 @@ class _ChatPageState extends State<ChatPage> {
       await _webrtc.initialize();
 
       _webrtc.onConnectionFailed = () {
-        debugPrint(
-          "=== ChatPage: WebRTC connection failed ===",
-        );
+        debugPrint("=== ChatPage: WebRTC connection failed ===");
 
-        _scheduleConnectionRetry();
+        _markConnectionFailed();
       };
 
       if (!mounted || _disposed) return;
@@ -512,9 +461,7 @@ class _ChatPageState extends State<ChatPage> {
       // --------------------------------------------------------
 
       _webrtc.onDataChannelState = (state) {
-        debugPrint(
-          "[WebRTC] DataChannel state: $state",
-        );
+        debugPrint("[WebRTC] DataChannel state: $state");
 
         if (!mounted || _disposed) return;
 
@@ -522,31 +469,28 @@ class _ChatPageState extends State<ChatPage> {
           _channelState = state;
 
           _isConnecting =
-              state !=
-              RTCDataChannelState.RTCDataChannelOpen;
+              !_connectionFailed &&
+              state != RTCDataChannelState.RTCDataChannelOpen;
+
+          if (state == RTCDataChannelState.RTCDataChannelOpen) {
+            _connectionFailed = false;
+          }
         });
 
-        if (state ==
-            RTCDataChannelState.RTCDataChannelOpen) {
-          debugPrint(
-            "======================================",
-          );
+        if (state == RTCDataChannelState.RTCDataChannelOpen) {
+          _connectionTimeoutTimer?.cancel();
+          _connectionTimeoutTimer = null;
+          debugPrint("======================================");
 
-          debugPrint(
-            "       P2P CONNECTION ESTABLISHED",
-          );
+          debugPrint("       P2P CONNECTION ESTABLISHED");
 
-          debugPrint(
-            "======================================",
-          );
+          debugPrint("======================================");
 
           // ----------------------------------------------------
           // BLACKLIST
           // ----------------------------------------------------
 
-          unawaited(
-            _syncGossipBlacklist(),
-          );
+          unawaited(_syncGossipBlacklist());
 
           // ----------------------------------------------------
           // OUTBOX
@@ -561,9 +505,7 @@ class _ChatPageState extends State<ChatPage> {
           _startPendingRetryTimer();
 
           // Immediately retry instead of waiting 5 seconds.
-          unawaited(
-            _retryPendingMessages(),
-          );
+          unawaited(_retryPendingMessages());
         }
       };
 
@@ -590,29 +532,23 @@ class _ChatPageState extends State<ChatPage> {
       // SIGNALING
       // --------------------------------------------------------
 
-      _signalingSubscription =
-          _signaling.stream.listen(
-        (event) async {
-          await _handleSignalingEvent(event);
-        },
-      );
+      await _signalingSubscription?.cancel();
+      _signalingSubscription = _signaling.stream.listen((event) async {
+        await _handleSignalingEvent(event);
+      });
 
       // --------------------------------------------------------
       // OFFERER SELECTION
       // --------------------------------------------------------
 
-      if (_currentUsername!.compareTo(
-            widget.conversation.username,
-          ) >
-          0) {
-        await Future.delayed(
-          const Duration(milliseconds: 600),
-        );
+      if (_currentUsername!.compareTo(widget.conversation.username) > 0) {
+        _startConnectionTimeout();
+
+        await Future.delayed(const Duration(milliseconds: 600));
 
         if (!mounted || _disposed) return;
 
-        final offer =
-            await _webrtc.createOffer();
+        final offer = await _webrtc.createOffer();
 
         if (!mounted || _disposed) return;
 
@@ -621,9 +557,9 @@ class _ChatPageState extends State<ChatPage> {
           offer: offer,
         );
 
-        debugPrint(
-          "[WebRTC] Offer sent.",
-        );
+        debugPrint("[WebRTC] Offer sent.");
+      } else {
+        _startConnectionTimeout();
       }
     } catch (e, stack) {
       debugPrint(
@@ -631,7 +567,7 @@ class _ChatPageState extends State<ChatPage> {
         "$e\n$stack",
       );
 
-      _scheduleConnectionRetry();
+      _markConnectionFailed();
     } finally {
       _isConnectionAttemptRunning = false;
     }
@@ -650,27 +586,19 @@ class _ChatPageState extends State<ChatPage> {
       return;
     }
 
-    debugPrint(
-      "[Retry] Starting persistent outbox retry timer.",
-    );
+    debugPrint("[Retry] Starting persistent outbox retry timer.");
 
-    _pendingRetryTimer =
-        Timer.periodic(
-      _pendingRetryInterval,
-      (_) {
-        if (_disposed || !mounted) {
-          return;
-        }
+    _pendingRetryTimer = Timer.periodic(_pendingRetryInterval, (_) {
+      if (_disposed || !mounted) {
+        return;
+      }
 
-        if (!_isP2PActive) {
-          return;
-        }
+      if (!_isP2PActive) {
+        return;
+      }
 
-        unawaited(
-          _retryPendingMessages(),
-        );
-      },
-    );
+      unawaited(_retryPendingMessages());
+    });
   }
 
   // ============================================================
@@ -678,9 +606,7 @@ class _ChatPageState extends State<ChatPage> {
   // ============================================================
 
   Future<void> _retryPendingMessages() async {
-    if (_disposed ||
-        !mounted ||
-        !_isP2PActive) {
+    if (_disposed || !mounted || !_isP2PActive) {
       return;
     }
 
@@ -700,15 +626,11 @@ class _ChatPageState extends State<ChatPage> {
        * This guarantees that an old pending message that is
        * outside the UI's loaded 20 messages is still retried.
        */
-      final persistedPending =
-          await _messageService
-              .getPendingOutgoingMessages(
+      final persistedPending = await _messageService.getPendingOutgoingMessages(
         widget.conversation.id,
       );
 
-      if (_disposed ||
-          !mounted ||
-          !_isP2PActive) {
+      if (_disposed || !mounted || !_isP2PActive) {
         return;
       }
 
@@ -720,9 +642,7 @@ class _ChatPageState extends State<ChatPage> {
       }
 
       if (_pendingMessages.isEmpty) {
-        debugPrint(
-          "[Retry] No pending messages.",
-        );
+        debugPrint("[Retry] No pending messages.");
         return;
       }
 
@@ -735,15 +655,10 @@ class _ChatPageState extends State<ChatPage> {
        * Snapshot the map so ACK handling can safely remove
        * entries while this loop is running.
        */
-      final pendingMessages =
-          List<Message>.from(
-        _pendingMessages.values,
-      );
+      final pendingMessages = List<Message>.from(_pendingMessages.values);
 
       for (final message in pendingMessages) {
-        if (_disposed ||
-            !mounted ||
-            !_isP2PActive) {
+        if (_disposed || !mounted || !_isP2PActive) {
           return;
         }
 
@@ -751,9 +666,7 @@ class _ChatPageState extends State<ChatPage> {
          * The message may have received an ACK while we were
          * processing another message.
          */
-        if (!_pendingMessages.containsKey(
-          message.id,
-        )) {
+        if (!_pendingMessages.containsKey(message.id)) {
           continue;
         }
 
@@ -772,23 +685,16 @@ class _ChatPageState extends State<ChatPage> {
            * Therefore every retry represents the exact same
            * authenticated message.
            */
-          final sent =
-              await _sendPayload(
-            {
-              "id": message.id,
-              "conversationId":
-                  message.conversationId,
-              "sender": message.sender,
-              "receiver": message.receiver,
-              "text": message.encryptedText,
-              "signature": message.signature,
-              "senderSigningPublicKey":
-                  message.senderSigningPublicKey,
-              "timestamp": message.timestamp
-                  .millisecondsSinceEpoch,
-            },
-            showConnectionError: false,
-          );
+          final sent = await _sendPayload({
+            "id": message.id,
+            "conversationId": message.conversationId,
+            "sender": message.sender,
+            "receiver": message.receiver,
+            "text": message.encryptedText,
+            "signature": message.signature,
+            "senderSigningPublicKey": message.senderSigningPublicKey,
+            "timestamp": message.timestamp.millisecondsSinceEpoch,
+          }, showConnectionError: false);
 
           if (sent) {
             debugPrint(
@@ -796,9 +702,7 @@ class _ChatPageState extends State<ChatPage> {
               "Waiting for ACK...",
             );
           } else {
-            debugPrint(
-              "[Retry] ${message.id} could not be resent.",
-            );
+            debugPrint("[Retry] ${message.id} could not be resent.");
           }
         } catch (e) {
           debugPrint(
@@ -818,60 +722,59 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   // ============================================================
-  // CONNECTION RETRY
+  // CONNECTION FAILURE / RETRY
   // ============================================================
 
-  void _scheduleConnectionRetry() {
+  void _startConnectionTimeout() {
     if (_disposed || !mounted) return;
 
-    if (_connectionRetryTimer?.isActive ?? false) {
-      return;
-    }
+    _connectionTimeoutTimer?.cancel();
 
-    debugPrint(
-      "=== WebRTC retry scheduled in 5 seconds ===",
-    );
+    debugPrint("=== WebRTC connection timeout started ===");
 
-    _connectionRetryTimer = Timer(
-      const Duration(seconds: 5),
-      () async {
-        if (_disposed || !mounted) return;
+    _connectionTimeoutTimer = Timer(_connectionTimeout, _markConnectionFailed);
+  }
 
-        debugPrint(
-          "=== WebRTC retrying connection ===",
-        );
+  void _markConnectionFailed() {
+    if (_disposed || !mounted || _isP2PActive) return;
 
-        await _connect();
-      },
-    );
+    _connectionTimeoutTimer?.cancel();
+    _connectionTimeoutTimer = null;
+
+    setState(() {
+      _isConnecting = false;
+      _connectionFailed = true;
+    });
+  }
+
+  void _retryConnection() {
+    if (_isConnectionAttemptRunning || _disposed || !mounted) return;
+
+    _connectionTimeoutTimer?.cancel();
+    _connectionTimeoutTimer = null;
+
+    unawaited(_connect());
   }
 
   // ============================================================
   // SIGNALING
   // ============================================================
 
-  Future<void> _handleSignalingEvent(
-    dynamic event,
-  ) async {
+  Future<void> _handleSignalingEvent(dynamic event) async {
     try {
       if (event is! Map) return;
 
-      final data =
-          Map<String, dynamic>.from(event);
+      final data = Map<String, dynamic>.from(event);
 
-      final type =
-          data["type"] as String?;
+      final type = data["type"] as String?;
 
-      final sender =
-          data["sender"] as String?;
+      final sender = data["sender"] as String?;
 
-      if (sender != null &&
-          sender != widget.conversation.username) {
+      if (sender != null && sender != widget.conversation.username) {
         return;
       }
 
-      final payload =
-          _parsePayload(data["payload"]);
+      final payload = _parsePayload(data["payload"]);
 
       switch (type) {
         case "offer":
@@ -887,9 +790,7 @@ class _ChatPageState extends State<ChatPage> {
           break;
 
         case "signal":
-          debugPrint(
-            "[Security] Ignoring legacy signal message.",
-          );
+          debugPrint("[Security] Ignoring legacy signal message.");
           break;
       }
     } catch (e, stack) {
@@ -900,92 +801,53 @@ class _ChatPageState extends State<ChatPage> {
     }
   }
 
-  Future<void> _handleOffer(
-    Map<String, dynamic> payload,
-  ) async {
-    final sdp =
-        payload["sdp"] as String?;
+  Future<void> _handleOffer(Map<String, dynamic> payload) async {
+    final sdp = payload["sdp"] as String?;
 
-    final offerType =
-        payload["type"] as String?;
+    final offerType = payload["type"] as String?;
 
-    if (sdp == null ||
-        sdp.isEmpty ||
-        offerType == null) {
+    if (sdp == null || sdp.isEmpty || offerType == null) {
       return;
     }
 
-    debugPrint(
-      "[WebRTC] Received offer.",
-    );
+    debugPrint("[WebRTC] Received offer.");
 
-    await _webrtc.setRemoteOffer(
-      RTCSessionDescription(
-        sdp,
-        offerType,
-      ),
-    );
+    await _webrtc.setRemoteOffer(RTCSessionDescription(sdp, offerType));
 
     if (!mounted || _disposed) return;
 
-    final answer =
-        await _webrtc.createAnswer();
+    final answer = await _webrtc.createAnswer();
 
     if (!mounted || _disposed) return;
 
-    _signaling.sendAnswer(
-      target: widget.conversation.username,
-      answer: answer,
-    );
+    _signaling.sendAnswer(target: widget.conversation.username, answer: answer);
 
-    debugPrint(
-      "[WebRTC] Answer sent.",
-    );
+    debugPrint("[WebRTC] Answer sent.");
   }
 
-  Future<void> _handleAnswer(
-    Map<String, dynamic> payload,
-  ) async {
-    final sdp =
-        payload["sdp"] as String?;
+  Future<void> _handleAnswer(Map<String, dynamic> payload) async {
+    final sdp = payload["sdp"] as String?;
 
-    final answerType =
-        payload["type"] as String?;
+    final answerType = payload["type"] as String?;
 
-    if (sdp == null ||
-        sdp.isEmpty ||
-        answerType == null) {
+    if (sdp == null || sdp.isEmpty || answerType == null) {
       return;
     }
 
-    debugPrint(
-      "[WebRTC] Received answer.",
-    );
+    debugPrint("[WebRTC] Received answer.");
 
-    await _webrtc.setRemoteAnswer(
-      RTCSessionDescription(
-        sdp,
-        answerType,
-      ),
-    );
+    await _webrtc.setRemoteAnswer(RTCSessionDescription(sdp, answerType));
   }
 
-  Future<void> _handleCandidate(
-    Map<String, dynamic> payload,
-  ) async {
-    final candidate =
-        payload["candidate"];
+  Future<void> _handleCandidate(Map<String, dynamic> payload) async {
+    final candidate = payload["candidate"];
 
     if (candidate == null) {
       return;
     }
 
     await _webrtc.addCandidate(
-      RTCIceCandidate(
-        candidate,
-        payload["sdpMid"],
-        payload["sdpMLineIndex"],
-      ),
+      RTCIceCandidate(candidate, payload["sdpMid"], payload["sdpMLineIndex"]),
     );
   }
 
@@ -993,13 +855,10 @@ class _ChatPageState extends State<ChatPage> {
   // PAYLOAD PARSER
   // ============================================================
 
-  Map<String, dynamic> _parsePayload(
-    dynamic rawPayload,
-  ) {
+  Map<String, dynamic> _parsePayload(dynamic rawPayload) {
     if (rawPayload is String) {
       try {
-        final decoded =
-            jsonDecode(rawPayload);
+        final decoded = jsonDecode(rawPayload);
 
         return _parsePayload(decoded);
       } catch (_) {
@@ -1008,9 +867,7 @@ class _ChatPageState extends State<ChatPage> {
     }
 
     if (rawPayload is Map) {
-      return Map<String, dynamic>.from(
-        rawPayload,
-      );
+      return Map<String, dynamic>.from(rawPayload);
     }
 
     return {};
@@ -1020,31 +877,23 @@ class _ChatPageState extends State<ChatPage> {
   // P2P RECEIVER
   // ============================================================
 
-  Future<void> _handleP2PPacket(
-    String packet,
-  ) async {
+  Future<void> _handleP2PPacket(String packet) async {
     try {
-      final payload =
-          _parsePayload(packet);
+      final payload = _parsePayload(packet);
 
       if (payload.isEmpty) {
-        debugPrint(
-          "[P2P] Invalid packet.",
-        );
+        debugPrint("[P2P] Invalid packet.");
         return;
       }
 
-      final type =
-          payload["type"]?.toString();
+      final type = payload["type"]?.toString();
 
       // --------------------------------------------------------
       // GOSSIP BLACKLIST
       // --------------------------------------------------------
 
       if (type == "gossip_blacklist") {
-        await _handleIncomingGossip(
-          payload["blacklist"],
-        );
+        await _handleIncomingGossip(payload["blacklist"]);
         return;
       }
 
@@ -1053,28 +902,20 @@ class _ChatPageState extends State<ChatPage> {
       // --------------------------------------------------------
 
       if (type == "ack") {
-        final messageId =
-            payload["messageId"] as String?;
+        final messageId = payload["messageId"] as String?;
 
-        final status =
-            payload["status"] as String?;
+        final status = payload["status"] as String?;
 
-        final sender =
-            payload["sender"] as String?;
+        final sender = payload["sender"] as String?;
 
-        final receiver =
-            payload["receiver"] as String?;
+        final receiver = payload["receiver"] as String?;
 
-        final conversationId =
-            payload["conversationId"]?.toString();
+        final conversationId = payload["conversationId"]?.toString();
 
-        final signature =
-            payload["signature"]?.toString() ?? "";
+        final signature = payload["signature"]?.toString() ?? "";
 
         final signingPublicKey =
-            payload["senderSigningPublicKey"]
-                    ?.toString() ??
-                "";
+            payload["senderSigningPublicKey"]?.toString() ?? "";
 
         if (messageId == null ||
             status == null ||
@@ -1083,40 +924,29 @@ class _ChatPageState extends State<ChatPage> {
             conversationId == null ||
             signature.isEmpty ||
             signingPublicKey.isEmpty) {
-          debugPrint(
-            "[Security] Invalid ACK.",
-          );
+          debugPrint("[Security] Invalid ACK.");
           return;
         }
 
         // ACK must come from the person we are talking to.
-        if (sender !=
-            widget.conversation.username) {
-          debugPrint(
-            "[Security] ACK from unexpected sender.",
-          );
+        if (sender != widget.conversation.username) {
+          debugPrint("[Security] ACK from unexpected sender.");
           return;
         }
 
         // ACK must be addressed to us.
         if (receiver != _currentUsername) {
-          debugPrint(
-            "[Security] ACK is not addressed to us.",
-          );
+          debugPrint("[Security] ACK is not addressed to us.");
           return;
         }
 
         // The signing key must be trusted.
-        if (signingPublicKey !=
-            widget.conversation.publicSigningKey) {
-          debugPrint(
-            "[Security] ACK signing key mismatch.",
-          );
+        if (signingPublicKey != widget.conversation.publicSigningKey) {
+          debugPrint("[Security] ACK signing key mismatch.");
           return;
         }
 
-        final verificationPayload =
-            <String, dynamic>{
+        final verificationPayload = <String, dynamic>{
           "type": "ack",
           "messageId": messageId,
           "conversationId": conversationId,
@@ -1128,35 +958,26 @@ class _ChatPageState extends State<ChatPage> {
         bool isSignatureValid = false;
 
         try {
-          final publicKeyBytes =
-              base64Decode(
-            signingPublicKey,
-          );
+          final publicKeyBytes = base64Decode(signingPublicKey);
 
-          final senderPublicKey =
-              SimplePublicKey(
+          final senderPublicKey = SimplePublicKey(
             publicKeyBytes,
             type: KeyPairType.ed25519,
           );
 
-          isSignatureValid =
-              await _signatureService.verifyMessage(
+          isSignatureValid = await _signatureService.verifyMessage(
             base64Signature: signature,
             payloadData: verificationPayload,
             senderPublicKey: senderPublicKey,
           );
         } catch (e) {
-          debugPrint(
-            "[Security] ACK verification error: $e",
-          );
+          debugPrint("[Security] ACK verification error: $e");
 
           isSignatureValid = false;
         }
 
         if (!isSignatureValid) {
-          debugPrint(
-            "[Security] Rejected forged ACK.",
-          );
+          debugPrint("[Security] Rejected forged ACK.");
           return;
         }
 
@@ -1165,11 +986,7 @@ class _ChatPageState extends State<ChatPage> {
           "for $messageId",
         );
 
-        await _handleIncomingAck(
-          messageId,
-          status,
-          payload,
-        );
+        await _handleIncomingAck(messageId, status, payload);
 
         return;
       }
@@ -1178,72 +995,47 @@ class _ChatPageState extends State<ChatPage> {
       // MESSAGE
       // --------------------------------------------------------
 
-      final messageId =
-          payload["id"] as String?;
+      final messageId = payload["id"] as String?;
 
       if (messageId == null) {
-        debugPrint(
-          "[Security] P2P packet has no message ID.",
-        );
+        debugPrint("[Security] P2P packet has no message ID.");
         return;
       }
 
-      final incomingEncryptedText =
-          payload["text"]?.toString() ?? "";
+      final incomingEncryptedText = payload["text"]?.toString() ?? "";
 
-      final incomingSignature =
-          payload["signature"]?.toString() ?? "";
+      final incomingSignature = payload["signature"]?.toString() ?? "";
 
       final incomingPubKeyBase64 =
-          payload["senderSigningPublicKey"]
-                  ?.toString() ??
-              "";
+          payload["senderSigningPublicKey"]?.toString() ?? "";
 
-      final timestampMs =
-          payload["timestamp"];
+      final timestampMs = payload["timestamp"];
 
       if (timestampMs is! int) {
-        debugPrint(
-          "[Security] Message has invalid timestamp.",
-        );
+        debugPrint("[Security] Message has invalid timestamp.");
         return;
       }
 
-      final timestamp =
-          DateTime.fromMillisecondsSinceEpoch(
-        timestampMs,
-      );
+      final timestamp = DateTime.fromMillisecondsSinceEpoch(timestampMs);
 
-      final conversationId =
-          payload["conversationId"]?.toString();
+      final conversationId = payload["conversationId"]?.toString();
 
-      if (conversationId == null ||
-          conversationId.isEmpty) {
-        debugPrint(
-          "[Security] Message has no conversation ID.",
-        );
+      if (conversationId == null || conversationId.isEmpty) {
+        debugPrint("[Security] Message has no conversation ID.");
         return;
       }
 
-      final sender =
-          payload["sender"]?.toString();
+      final sender = payload["sender"]?.toString();
 
-      final receiver =
-          payload["receiver"]?.toString();
+      final receiver = payload["receiver"]?.toString();
 
-      if (sender == null ||
-          sender.isEmpty) {
-        debugPrint(
-          "[Security] Message has no sender.",
-        );
+      if (sender == null || sender.isEmpty) {
+        debugPrint("[Security] Message has no sender.");
         return;
       }
 
-      if (receiver == null ||
-          receiver.isEmpty) {
-        debugPrint(
-          "[Security] Message has no receiver.",
-        );
+      if (receiver == null || receiver.isEmpty) {
+        debugPrint("[Security] Message has no receiver.");
         return;
       }
 
@@ -1251,11 +1043,8 @@ class _ChatPageState extends State<ChatPage> {
       // SENDER CHECK
       // --------------------------------------------------------
 
-      if (sender !=
-          widget.conversation.username) {
-        debugPrint(
-          "[Security] Unexpected P2P sender: $sender",
-        );
+      if (sender != widget.conversation.username) {
+        debugPrint("[Security] Unexpected P2P sender: $sender");
         return;
       }
 
@@ -1263,11 +1052,8 @@ class _ChatPageState extends State<ChatPage> {
       // RECEIVER CHECK
       // --------------------------------------------------------
 
-      if (receiver !=
-          _currentUsername) {
-        debugPrint(
-          "[Security] Message is not addressed to us.",
-        );
+      if (receiver != _currentUsername) {
+        debugPrint("[Security] Message is not addressed to us.");
         return;
       }
 
@@ -1275,11 +1061,8 @@ class _ChatPageState extends State<ChatPage> {
       // CONVERSATION CHECK
       // --------------------------------------------------------
 
-      if (conversationId !=
-          widget.conversation.id) {
-        debugPrint(
-          "[Security] Wrong conversation ID.",
-        );
+      if (conversationId != widget.conversation.id) {
+        debugPrint("[Security] Wrong conversation ID.");
         return;
       }
 
@@ -1290,9 +1073,7 @@ class _ChatPageState extends State<ChatPage> {
       if (incomingEncryptedText.isEmpty ||
           incomingSignature.isEmpty ||
           incomingPubKeyBase64.isEmpty) {
-        debugPrint(
-          "[Security] Message is missing required fields.",
-        );
+        debugPrint("[Security] Message is missing required fields.");
         return;
       }
 
@@ -1300,27 +1081,16 @@ class _ChatPageState extends State<ChatPage> {
       // TRUSTED SIGNING KEY CHECK
       // --------------------------------------------------------
 
-      if (incomingPubKeyBase64 !=
-          widget.conversation.publicSigningKey) {
-        debugPrint(
-          "========== SIGNING KEY MISMATCH ==========",
-        );
+      if (incomingPubKeyBase64 != widget.conversation.publicSigningKey) {
+        debugPrint("========== SIGNING KEY MISMATCH ==========");
 
-        debugPrint(
-          "Incoming key:",
-        );
+        debugPrint("Incoming key:");
 
-        debugPrint(
-          incomingPubKeyBase64,
-        );
+        debugPrint(incomingPubKeyBase64);
 
-        debugPrint(
-          "Trusted conversation key:",
-        );
+        debugPrint("Trusted conversation key:");
 
-        debugPrint(
-          widget.conversation.publicSigningKey,
-        );
+        debugPrint(widget.conversation.publicSigningKey);
 
         debugPrint(
           "Incoming length: "
@@ -1332,9 +1102,7 @@ class _ChatPageState extends State<ChatPage> {
           "${widget.conversation.publicSigningKey.length}",
         );
 
-        debugPrint(
-          "===========================================",
-        );
+        debugPrint("===========================================");
 
         return;
       }
@@ -1343,8 +1111,7 @@ class _ChatPageState extends State<ChatPage> {
       // SIGNATURE VERIFICATION
       // --------------------------------------------------------
 
-      final verificationPayload =
-          <String, dynamic>{
+      final verificationPayload = <String, dynamic>{
         "messageId": messageId,
         "conversationId": conversationId,
         "sender": sender,
@@ -1356,38 +1123,28 @@ class _ChatPageState extends State<ChatPage> {
       bool isSignatureValid = false;
 
       try {
-        final publicKeyBytes =
-            base64Decode(
+        final publicKeyBytes = base64Decode(
           widget.conversation.publicSigningKey,
         );
 
-        final senderPublicKey =
-            SimplePublicKey(
+        final senderPublicKey = SimplePublicKey(
           publicKeyBytes,
           type: KeyPairType.ed25519,
         );
 
-        isSignatureValid =
-            await _signatureService.verifyMessage(
-          base64Signature:
-              incomingSignature,
-          payloadData:
-              verificationPayload,
-          senderPublicKey:
-              senderPublicKey,
+        isSignatureValid = await _signatureService.verifyMessage(
+          base64Signature: incomingSignature,
+          payloadData: verificationPayload,
+          senderPublicKey: senderPublicKey,
         );
       } catch (e) {
-        debugPrint(
-          "[Security] Signature verification error: $e",
-        );
+        debugPrint("[Security] Signature verification error: $e");
 
         isSignatureValid = false;
       }
 
       if (!isSignatureValid) {
-        debugPrint(
-          "[Security] Rejected forged/tampered message.",
-        );
+        debugPrint("[Security] Rejected forged/tampered message.");
         return;
       }
 
@@ -1411,15 +1168,9 @@ class _ChatPageState extends State<ChatPage> {
       // was lost. Re-ACK it instead of silently dropping it.
       // ========================================================
 
-      final alreadyExists =
-          _messages.any(
-        (message) => message.id == messageId,
-      );
+      final alreadyExists = _messages.any((message) => message.id == messageId);
 
-      final pendingExists =
-          _pendingMessages.containsKey(
-        messageId,
-      );
+      final pendingExists = _pendingMessages.containsKey(messageId);
 
       bool persistedDuplicate = false;
 
@@ -1430,21 +1181,16 @@ class _ChatPageState extends State<ChatPage> {
          *
          * Check persistent storage before deciding it is new.
          */
-        final storedMessages =
-            await _messageService.getMessages(
+        final storedMessages = await _messageService.getMessages(
           widget.conversation.id,
         );
 
-        persistedDuplicate =
-            storedMessages.any(
-          (message) =>
-              message.id == messageId,
+        persistedDuplicate = storedMessages.any(
+          (message) => message.id == messageId,
         );
       }
 
-      if (alreadyExists ||
-          pendingExists ||
-          persistedDuplicate) {
+      if (alreadyExists || pendingExists || persistedDuplicate) {
         debugPrint(
           "[P2P] Authenticated duplicate "
           "$messageId received.",
@@ -1456,10 +1202,7 @@ class _ChatPageState extends State<ChatPage> {
          * Send the ACK again so the sender can finally
          * transition its pending outbox entry to delivered.
          */
-        await _sendAck(
-          messageId,
-          "delivered",
-        );
+        await _sendAck(messageId, "delivered");
 
         return;
       }
@@ -1475,8 +1218,7 @@ class _ChatPageState extends State<ChatPage> {
         receiver: receiver,
         encryptedText: incomingEncryptedText,
         signature: incomingSignature,
-        senderSigningPublicKey:
-            incomingPubKeyBase64,
+        senderSigningPublicKey: incomingPubKeyBase64,
         timestamp: timestamp,
         outgoing: false,
         type: MessageType.text,
@@ -1487,33 +1229,22 @@ class _ChatPageState extends State<ChatPage> {
       // PERSIST INCOMING MESSAGE
       // --------------------------------------------------------
 
-      await _messageService.addMessage(
-        message,
-      );
+      await _messageService.addMessage(message);
 
       // --------------------------------------------------------
       // DECRYPT
       // --------------------------------------------------------
 
       try {
-        final sharedKey =
-            await _getOrDeriveSharedKey();
+        final sharedKey = await _getOrDeriveSharedKey();
 
-        final text =
-            await _decryptWithKey(
-          message,
-          sharedKey,
-        );
+        final text = await _decryptWithKey(message, sharedKey);
 
-        if (text != null &&
-            mounted &&
-            !_disposed) {
+        if (text != null && mounted && !_disposed) {
           _decryptedTexts[message.id] = text;
         }
       } catch (e) {
-        debugPrint(
-          "[Crypto] Incoming decryption failed: $e",
-        );
+        debugPrint("[Crypto] Incoming decryption failed: $e");
       }
 
       if (!mounted || _disposed) return;
@@ -1523,23 +1254,16 @@ class _ChatPageState extends State<ChatPage> {
       // --------------------------------------------------------
 
       setState(() {
-        _messages.insert(
-          0,
-          message,
-        );
+        _messages.insert(0, message);
       });
 
       // --------------------------------------------------------
       // DELIVERY ACK
       // --------------------------------------------------------
 
-      await _sendAck(
-        message.id,
-        "delivered",
-      );
+      await _sendAck(message.id, "delivered");
 
-      WidgetsBinding.instance
-          .addPostFrameCallback((_) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
         _scrollToBottom();
       });
     } catch (e, stack) {
@@ -1555,8 +1279,7 @@ class _ChatPageState extends State<ChatPage> {
   // ============================================================
 
   Future<void> _sendMessage() async {
-    final text =
-        _messageController.text.trim();
+    final text = _messageController.text.trim();
 
     if (text.isEmpty) return;
 
@@ -1567,81 +1290,59 @@ class _ChatPageState extends State<ChatPage> {
       // SHARED KEY
       // --------------------------------------------------------
 
-      final sharedKey =
-          await _getOrDeriveSharedKey();
+      final sharedKey = await _getOrDeriveSharedKey();
 
       // --------------------------------------------------------
       // ENCRYPT
       // --------------------------------------------------------
 
-      final encrypted =
-          await _encryptionService.encryptMessage(
+      final encrypted = await _encryptionService.encryptMessage(
         message: text,
         key: sharedKey,
       );
 
-      final messageId =
-          _uuid.v4();
+      final messageId = _uuid.v4();
 
-      final timestampMs =
-          DateTime.now()
-              .millisecondsSinceEpoch;
+      final timestampMs = DateTime.now().millisecondsSinceEpoch;
 
-      final senderId =
-          _currentUsername ?? "";
+      final senderId = _currentUsername ?? "";
 
-      final receiverId =
-          widget.conversation.username;
+      final receiverId = widget.conversation.username;
 
       if (senderId.isEmpty) {
-        throw Exception(
-          "Current username is unavailable.",
-        );
+        throw Exception("Current username is unavailable.");
       }
 
       // --------------------------------------------------------
       // SIGNING KEY
       // --------------------------------------------------------
 
-      final password =
-          SessionService.instance.password;
+      final password = SessionService.instance.password;
 
       if (password == null) {
-        throw Exception(
-          "Identity locked.",
-        );
+        throw Exception("Identity locked.");
       }
 
-      final signingKeyPair =
-          await _accountService
-              .getSigningKeyPair(password);
+      final signingKeyPair = await _accountService.getSigningKeyPair(password);
 
-      final senderPublicKey =
-          await signingKeyPair
-              .extractPublicKey();
+      final senderPublicKey = await signingKeyPair.extractPublicKey();
 
-      final senderPubKeyBase64 =
-          base64Encode(
-        senderPublicKey.bytes,
-      );
+      final senderPubKeyBase64 = base64Encode(senderPublicKey.bytes);
 
       // --------------------------------------------------------
       // EXACT SIGNED PAYLOAD
       // --------------------------------------------------------
 
-      final payloadToSign =
-          <String, dynamic>{
+      final payloadToSign = <String, dynamic>{
         "messageId": messageId,
-        "conversationId":
-            widget.conversation.id,
+        "conversationId": widget.conversation.id,
         "sender": senderId,
         "receiver": receiverId,
         "timestamp": timestampMs,
         "content": encrypted,
       };
 
-      final signature =
-          await _signatureService.signMessage(
+      final signature = await _signatureService.signMessage(
         privateKey: signingKeyPair,
         payloadData: payloadToSign,
       );
@@ -1650,21 +1351,15 @@ class _ChatPageState extends State<ChatPage> {
       // LOCAL MESSAGE
       // --------------------------------------------------------
 
-      final newMessage =
-          Message(
+      final newMessage = Message(
         id: messageId,
-        conversationId:
-            widget.conversation.id,
+        conversationId: widget.conversation.id,
         sender: senderId,
         receiver: receiverId,
         encryptedText: encrypted,
         signature: signature,
-        senderSigningPublicKey:
-            senderPubKeyBase64,
-        timestamp:
-            DateTime.fromMillisecondsSinceEpoch(
-          timestampMs,
-        ),
+        senderSigningPublicKey: senderPubKeyBase64,
+        timestamp: DateTime.fromMillisecondsSinceEpoch(timestampMs),
         outgoing: true,
         type: MessageType.text,
         status: MessageStatus.pending,
@@ -1680,15 +1375,11 @@ class _ChatPageState extends State<ChatPage> {
       // the exact same message can be retried later.
       // --------------------------------------------------------
 
-      _pendingMessages[messageId] =
-          newMessage;
+      _pendingMessages[messageId] = newMessage;
 
-      _decryptedTexts[messageId] =
-          text;
+      _decryptedTexts[messageId] = text;
 
-      await _messageService.addMessage(
-        newMessage,
-      );
+      await _messageService.addMessage(newMessage);
 
       // --------------------------------------------------------
       // SHOW MESSAGE IMMEDIATELY
@@ -1696,10 +1387,7 @@ class _ChatPageState extends State<ChatPage> {
 
       if (mounted && !_disposed) {
         setState(() {
-          _messages.insert(
-            0,
-            newMessage,
-          );
+          _messages.insert(0, newMessage);
         });
       }
 
@@ -1707,21 +1395,16 @@ class _ChatPageState extends State<ChatPage> {
       // SEND
       // --------------------------------------------------------
 
-      final sendSucceeded =
-          await _sendPayload(
-        {
-          "id": messageId,
-          "conversationId":
-              widget.conversation.id,
-          "sender": senderId,
-          "receiver": receiverId,
-          "text": encrypted,
-          "signature": signature,
-          "senderSigningPublicKey":
-              senderPubKeyBase64,
-          "timestamp": timestampMs,
-        },
-      );
+      final sendSucceeded = await _sendPayload({
+        "id": messageId,
+        "conversationId": widget.conversation.id,
+        "sender": senderId,
+        "receiver": receiverId,
+        "text": encrypted,
+        "signature": signature,
+        "senderSigningPublicKey": senderPubKeyBase64,
+        "timestamp": timestampMs,
+      });
 
       // --------------------------------------------------------
       // SEND FAILED
@@ -1752,77 +1435,51 @@ class _ChatPageState extends State<ChatPage> {
   // SEND ACK
   // ============================================================
 
-  Future<void> _sendAck(
-    String messageId,
-    String status,
-  ) async {
+  Future<void> _sendAck(String messageId, String status) async {
     try {
-      final password =
-          SessionService.instance.password;
+      final password = SessionService.instance.password;
 
       if (password == null) {
-        debugPrint(
-          "[ACK] Cannot sign ACK: identity locked.",
-        );
+        debugPrint("[ACK] Cannot sign ACK: identity locked.");
         return;
       }
 
-      final signingKeyPair =
-          await _accountService.getSigningKeyPair(
-        password,
-      );
+      final signingKeyPair = await _accountService.getSigningKeyPair(password);
 
-      final senderPublicKey =
-          await signingKeyPair.extractPublicKey();
+      final senderPublicKey = await signingKeyPair.extractPublicKey();
 
-      final senderPubKeyBase64 =
-          base64Encode(senderPublicKey.bytes);
+      final senderPubKeyBase64 = base64Encode(senderPublicKey.bytes);
 
       // EXACT payload that gets signed.
-      final payloadToSign =
-          <String, dynamic>{
+      final payloadToSign = <String, dynamic>{
         "type": "ack",
         "messageId": messageId,
-        "conversationId":
-            widget.conversation.id,
+        "conversationId": widget.conversation.id,
         "sender": _currentUsername,
-        "receiver":
-            widget.conversation.username,
+        "receiver": widget.conversation.username,
         "status": status,
       };
 
-      final signature =
-          await _signatureService.signMessage(
+      final signature = await _signatureService.signMessage(
         privateKey: signingKeyPair,
         payloadData: payloadToSign,
       );
 
-      final sent =
-          await _sendPayload(
-        {
-          "type": "ack",
-          "messageId": messageId,
-          "conversationId":
-              widget.conversation.id,
-          "sender": _currentUsername,
-          "receiver":
-              widget.conversation.username,
-          "status": status,
-          "senderSigningPublicKey":
-              senderPubKeyBase64,
-          "signature": signature,
-        },
-        showConnectionError: false,
-      );
+      final sent = await _sendPayload({
+        "type": "ack",
+        "messageId": messageId,
+        "conversationId": widget.conversation.id,
+        "sender": _currentUsername,
+        "receiver": widget.conversation.username,
+        "status": status,
+        "senderSigningPublicKey": senderPubKeyBase64,
+        "signature": signature,
+      }, showConnectionError: false);
 
       if (sent) {
-        debugPrint(
-          "[ACK] Sent ACK for $messageId",
-        );
+        debugPrint("[ACK] Sent ACK for $messageId");
       } else {
-        debugPrint(
-          "[ACK] Could not send ACK for $messageId.",
-        );
+        debugPrint("[ACK] Could not send ACK for $messageId.");
       }
     } catch (e, stack) {
       debugPrint(
@@ -1850,67 +1507,47 @@ class _ChatPageState extends State<ChatPage> {
       return;
     }
 
-    final pending =
-        _pendingMessages[messageId];
+    final pending = _pendingMessages[messageId];
 
     if (pending == null) {
-      debugPrint(
-        "[ACK] No pending message for $messageId",
-      );
+      debugPrint("[ACK] No pending message for $messageId");
       return;
     }
 
-    final conversationId =
-        payload["conversationId"]?.toString();
+    final conversationId = payload["conversationId"]?.toString();
 
-    final sender =
-        payload["sender"]?.toString();
+    final sender = payload["sender"]?.toString();
 
-    final receiver =
-        payload["receiver"]?.toString();
+    final receiver = payload["receiver"]?.toString();
 
-    final signature =
-        payload["signature"]?.toString() ?? "";
+    final signature = payload["signature"]?.toString() ?? "";
 
     final signingPublicKey =
-        payload["senderSigningPublicKey"]
-                ?.toString() ??
-            "";
+        payload["senderSigningPublicKey"]?.toString() ?? "";
 
     // ------------------------------------------------------------
     // BASIC ACK VALIDATION
     // ------------------------------------------------------------
 
-    if (conversationId !=
-        widget.conversation.id) {
-      debugPrint(
-        "[Security] ACK has wrong conversation ID.",
-      );
+    if (conversationId != widget.conversation.id) {
+      debugPrint("[Security] ACK has wrong conversation ID.");
       return;
     }
 
     // The ACK sender must be the person we sent the message to.
-    if (sender !=
-        widget.conversation.username) {
-      debugPrint(
-        "[Security] ACK came from unexpected sender.",
-      );
+    if (sender != widget.conversation.username) {
+      debugPrint("[Security] ACK came from unexpected sender.");
       return;
     }
 
     // The ACK receiver must be us.
     if (receiver != _currentUsername) {
-      debugPrint(
-        "[Security] ACK is not addressed to us.",
-      );
+      debugPrint("[Security] ACK is not addressed to us.");
       return;
     }
 
-    if (signature.isEmpty ||
-        signingPublicKey.isEmpty) {
-      debugPrint(
-        "[Security] ACK is missing signature/key.",
-      );
+    if (signature.isEmpty || signingPublicKey.isEmpty) {
+      debugPrint("[Security] ACK is missing signature/key.");
       return;
     }
 
@@ -1918,11 +1555,8 @@ class _ChatPageState extends State<ChatPage> {
     // TRUSTED SIGNING KEY CHECK
     // ------------------------------------------------------------
 
-    if (signingPublicKey !=
-        widget.conversation.publicSigningKey) {
-      debugPrint(
-        "[Security] ACK signing key mismatch.",
-      );
+    if (signingPublicKey != widget.conversation.publicSigningKey) {
+      debugPrint("[Security] ACK signing key mismatch.");
       return;
     }
 
@@ -1930,8 +1564,7 @@ class _ChatPageState extends State<ChatPage> {
     // VERIFY ACK SIGNATURE
     // ------------------------------------------------------------
 
-    final verificationPayload =
-        <String, dynamic>{
+    final verificationPayload = <String, dynamic>{
       "type": "ack",
       "messageId": messageId,
       "conversationId": conversationId,
@@ -1943,24 +1576,17 @@ class _ChatPageState extends State<ChatPage> {
     bool isSignatureValid = false;
 
     try {
-      final publicKeyBytes =
-          base64Decode(
-        widget.conversation.publicSigningKey,
-      );
+      final publicKeyBytes = base64Decode(widget.conversation.publicSigningKey);
 
-      final senderPublicKey =
-          SimplePublicKey(
+      final senderPublicKey = SimplePublicKey(
         publicKeyBytes,
         type: KeyPairType.ed25519,
       );
 
-      isSignatureValid =
-          await _signatureService.verifyMessage(
+      isSignatureValid = await _signatureService.verifyMessage(
         base64Signature: signature,
-        payloadData:
-            verificationPayload,
-        senderPublicKey:
-            senderPublicKey,
+        payloadData: verificationPayload,
+        senderPublicKey: senderPublicKey,
       );
     } catch (e) {
       debugPrint(
@@ -1972,9 +1598,7 @@ class _ChatPageState extends State<ChatPage> {
     }
 
     if (!isSignatureValid) {
-      debugPrint(
-        "[Security] Rejected forged ACK.",
-      );
+      debugPrint("[Security] Rejected forged ACK.");
       return;
     }
 
@@ -1999,42 +1623,28 @@ class _ChatPageState extends State<ChatPage> {
     // updateMessage() changes that exact message to delivered.
     // ------------------------------------------------------------
 
-    final updatedMessage =
-        pending.copyWith(
-      status: MessageStatus.delivered,
-    );
+    final updatedMessage = pending.copyWith(status: MessageStatus.delivered);
 
     try {
-      await _messageService.updateMessage(
-        updatedMessage,
-      );
+      await _messageService.updateMessage(updatedMessage);
 
       /*
        * Only remove it from the in-memory outbox AFTER the
        * persistent update succeeded.
        */
-      _pendingMessages.remove(
-        messageId,
-      );
+      _pendingMessages.remove(messageId);
 
       if (!mounted || _disposed) return;
 
-      final index =
-          _messages.indexWhere(
-        (message) =>
-            message.id == messageId,
-      );
+      final index = _messages.indexWhere((message) => message.id == messageId);
 
       if (index != -1) {
         setState(() {
-          _messages[index] =
-              updatedMessage;
+          _messages[index] = updatedMessage;
         });
       }
 
-      debugPrint(
-        "[ACK] Message $messageId is now delivered.",
-      );
+      debugPrint("[ACK] Message $messageId is now delivered.");
     } catch (e, stack) {
       /*
        * Keep the message in _pendingMessages if persistence
@@ -2054,46 +1664,30 @@ class _ChatPageState extends State<ChatPage> {
 
   Future<void> _syncGossipBlacklist() async {
     try {
-      final blacklist =
-          await _messageService.getBlacklist();
+      final blacklist = await _messageService.getBlacklist();
 
       if (blacklist.isEmpty) return;
 
-      await _sendPayload(
-        {
-          "type": "gossip_blacklist",
-          "blacklist": blacklist,
-        },
-        showConnectionError: false,
-      );
+      await _sendPayload({
+        "type": "gossip_blacklist",
+        "blacklist": blacklist,
+      }, showConnectionError: false);
     } catch (e) {
-      debugPrint(
-        "[Gossip] Sync failed: $e",
-      );
+      debugPrint("[Gossip] Sync failed: $e");
     }
   }
 
-  Future<void> _handleIncomingGossip(
-    dynamic incomingData,
-  ) async {
+  Future<void> _handleIncomingGossip(dynamic incomingData) async {
     if (incomingData is! List) {
       return;
     }
 
-    final incomingBlacklist =
-        incomingData
-            .map(
-              (e) =>
-                  e.toString().toLowerCase(),
-            )
-            .toList();
+    final incomingBlacklist = incomingData
+        .map((e) => e.toString().toLowerCase())
+        .toList();
 
-    for (final blockedUserId
-        in incomingBlacklist) {
-      await _messageService
-          .deleteMessagesFromSender(
-        blockedUserId,
-      );
+    for (final blockedUserId in incomingBlacklist) {
+      await _messageService.deleteMessagesFromSender(blockedUserId);
     }
 
     _decryptedTexts.clear();
@@ -2120,27 +1714,20 @@ class _ChatPageState extends State<ChatPage> {
     // Because the ListView is reversed, position 0 is the newest
     // message and maxScrollExtent is the oldest.
     if (_scrollController.position.pixels >=
-        _scrollController.position.maxScrollExtent -
-            200) {
-      unawaited(
-        _loadOlderMessages(),
-      );
+        _scrollController.position.maxScrollExtent - 200) {
+      unawaited(_loadOlderMessages());
     }
   }
 
   Future<void> _loadOlderMessages() async {
-    if (_isLoadingOlderMessages ||
-        !_hasMoreMessages ||
-        _disposed ||
-        !mounted) {
+    if (_isLoadingOlderMessages || !_hasMoreMessages || _disposed || !mounted) {
       return;
     }
 
     _isLoadingOlderMessages = true;
 
     try {
-      final olderMessages =
-          await _messageService.getMessagesPage(
+      final olderMessages = await _messageService.getMessagesPage(
         widget.conversation.id,
         limit: _pageSize,
         offset: _loadedMessageCount,
@@ -2150,64 +1737,39 @@ class _ChatPageState extends State<ChatPage> {
         return;
       }
 
-      olderMessages.sort(
-        (a, b) =>
-            b.timestamp.compareTo(a.timestamp),
-      );
+      olderMessages.sort((a, b) => b.timestamp.compareTo(a.timestamp));
 
       if (olderMessages.isEmpty) {
         _hasMoreMessages = false;
         return;
       }
 
-      final existingIds =
-          _messages
-              .map(
-                (message) => message.id,
-              )
-              .toSet();
+      final existingIds = _messages.map((message) => message.id).toSet();
 
-      final newMessages =
-          olderMessages
-              .where(
-                (message) =>
-                    !existingIds.contains(
-                  message.id,
-                ),
-              )
-              .toList();
+      final newMessages = olderMessages
+          .where((message) => !existingIds.contains(message.id))
+          .toList();
 
       /*
        * Also restore any pending messages discovered
        * while loading older pages.
        */
-      for (final message
-          in olderMessages) {
-        if (message.outgoing &&
-            message.status ==
-                MessageStatus.pending) {
-          _pendingMessages[message.id] =
-              message;
+      for (final message in olderMessages) {
+        if (message.outgoing && message.status == MessageStatus.pending) {
+          _pendingMessages[message.id] = message;
         }
       }
 
       setState(() {
-        _messages.addAll(
-          newMessages,
-        );
+        _messages.addAll(newMessages);
 
-        _loadedMessageCount +=
-            olderMessages.length;
+        _loadedMessageCount += olderMessages.length;
 
-        _hasMoreMessages =
-            olderMessages.length ==
-                _pageSize;
+        _hasMoreMessages = olderMessages.length == _pageSize;
       });
 
       // Decrypt newly loaded messages in background.
-      _startBackgroundDecryption(
-        newMessages,
-      );
+      _startBackgroundDecryption(newMessages);
     } catch (e, stack) {
       debugPrint(
         "[Messages] Loading older messages failed: "
@@ -2229,8 +1791,7 @@ class _ChatPageState extends State<ChatPage> {
 
     _scrollController.animateTo(
       0,
-      duration:
-          const Duration(milliseconds: 250),
+      duration: const Duration(milliseconds: 250),
       curve: Curves.easeOut,
     );
   }
@@ -2245,8 +1806,8 @@ class _ChatPageState extends State<ChatPage> {
 
     _signalingSubscription?.cancel();
 
-    _connectionRetryTimer?.cancel();
-    _connectionRetryTimer = null;
+    _connectionTimeoutTimer?.cancel();
+    _connectionTimeoutTimer = null;
 
     _pendingRetryTimer?.cancel();
     _pendingRetryTimer = null;
@@ -2257,6 +1818,7 @@ class _ChatPageState extends State<ChatPage> {
 
     _webrtc.onIceCandidate = null;
     _webrtc.onDataChannelState = null;
+    _webrtc.onConnectionFailed = null;
 
     /*
      * Remove plaintext from memory.
@@ -2274,6 +1836,7 @@ class _ChatPageState extends State<ChatPage> {
     _pendingMessages.clear();
 
     _cachedSharedKey = null;
+    _sharedKeyDerivation = null;
 
     _scrollController.dispose();
 
@@ -2288,45 +1851,35 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n =
-        AppLocalizations.of(context)!;
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          widget.conversation.username,
-        ),
+        title: Text(widget.conversation.username),
         actions: [
           Padding(
-            padding:
-                const EdgeInsets.only(
-              right: 12,
-            ),
+            padding: const EdgeInsets.only(right: 12),
             child: Center(
               child: Row(
-                mainAxisSize:
-                    MainAxisSize.min,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(
-                    _isP2PActive
-                        ? Icons.lock
-                        : Icons.lock_outline,
+                    _isP2PActive ? Icons.lock : Icons.lock_outline,
                     size: 16,
                     color: _isP2PActive
                         ? Colors.green
+                        : _connectionFailed
+                        ? Colors.red
                         : Colors.orange,
                   ),
-                  const SizedBox(
-                    width: 5,
-                  ),
+                  const SizedBox(width: 5),
                   Text(
                     _isP2PActive
                         ? l10n.p2p
+                        : _connectionFailed
+                        ? 'Connection failed'
                         : l10n.connecting,
-                    style:
-                        const TextStyle(
-                      fontSize: 12,
-                    ),
+                    style: const TextStyle(fontSize: 12),
                   ),
                 ],
               ),
@@ -2339,218 +1892,142 @@ class _ChatPageState extends State<ChatPage> {
           // ====================================================
           // CONNECTION STATUS
           // ====================================================
-
-          if (_isConnecting)
+          if (_isConnecting || _connectionFailed)
             Container(
               width: double.infinity,
-              padding:
-                  const EdgeInsets.symmetric(
-                vertical: 6,
-              ),
-              color:
-                  Colors.orange.withOpacity(
-                0.15,
-              ),
+              padding: const EdgeInsets.symmetric(vertical: 6),
+              color: (_connectionFailed ? Colors.red : Colors.orange)
+                  .withOpacity(0.15),
               child: Center(
-                child: Text(
-                  l10n.connectingP2p,
-                  style: const TextStyle(
-                    fontSize: 12,
-                  ),
-                ),
+                child: _connectionFailed
+                    ? Column(
+                        children: [
+                          const Text(
+                            'Connection failed. Both devices must be online with CRYPT open to connect.',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 12),
+                          ),
+                          TextButton(
+                            onPressed: _retryConnection,
+                            child: const Text('Retry'),
+                          ),
+                        ],
+                      )
+                    : Text(
+                        l10n.connectingP2p,
+                        style: const TextStyle(fontSize: 12),
+                      ),
               ),
             ),
 
           // ====================================================
           // MESSAGES
           // ====================================================
-
           Expanded(
             child: _isLoading
-                ? const Center(
-                    child:
-                        CircularProgressIndicator(),
-                  )
+                ? const Center(child: CircularProgressIndicator())
                 : _messages.isEmpty
-                    ? Center(
-                        child: Text(
-                          l10n.noMessagesYet,
-                        ),
-                      )
-                    : ListView.builder(
-                        controller:
-                            _scrollController,
-                        reverse: true,
-                        padding:
-                            const EdgeInsets.all(
-                          12,
-                        ),
-                        itemCount:
-                            _messages.length,
-                        itemBuilder:
-                            (context, index) {
-                          final message =
-                              _messages[index];
+                ? Center(child: Text(l10n.noMessagesYet))
+                : ListView.builder(
+                    controller: _scrollController,
+                    reverse: true,
+                    padding: const EdgeInsets.all(12),
+                    itemCount: _messages.length,
+                    itemBuilder: (context, index) {
+                      final message = _messages[index];
 
-                          final decryptedText =
-                              _decryptedTexts[
-                                  message.id];
+                      final decryptedText = _decryptedTexts[message.id];
 
-                          return Align(
-                            alignment:
-                                message.outgoing
-                                    ? Alignment
-                                        .centerRight
-                                    : Alignment
-                                        .centerLeft,
-                            child: Container(
-                              margin:
-                                  const EdgeInsets
-                                      .symmetric(
-                                vertical: 4,
-                              ),
-                              padding:
-                                  const EdgeInsets
-                                      .symmetric(
-                                horizontal: 14,
-                                vertical: 10,
-                              ),
-                              decoration:
-                                  BoxDecoration(
-                                color: message
-                                        .outgoing
-                                    ? Colors
-                                        .blueAccent
-                                    : Colors
-                                        .grey
-                                        .shade800,
-                                borderRadius:
-                                    BorderRadius
-                                        .circular(
-                                  16,
+                      return Align(
+                        alignment: message.outgoing
+                            ? Alignment.centerRight
+                            : Alignment.centerLeft,
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(vertical: 4),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 14,
+                            vertical: 10,
+                          ),
+                          decoration: BoxDecoration(
+                            color: message.outgoing
+                                ? Colors.blueAccent
+                                : Colors.grey.shade800,
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              // ------------------------------------------
+                              // TEXT
+                              // ------------------------------------------
+                              if (decryptedText != null)
+                                Text(
+                                  decryptedText,
+                                  style: const TextStyle(color: Colors.white),
+                                )
+                              else
+                                const SizedBox(
+                                  width: 16,
+                                  height: 16,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                    color: Colors.white,
+                                  ),
                                 ),
-                              ),
-                              child: Column(
-                                crossAxisAlignment:
-                                    CrossAxisAlignment
-                                        .end,
-                                mainAxisSize:
-                                    MainAxisSize.min,
-                                children: [
-                                  // ------------------------------------------
-                                  // TEXT
-                                  // ------------------------------------------
 
-                                  if (decryptedText !=
-                                      null)
-                                    Text(
-                                      decryptedText,
-                                      style:
-                                          const TextStyle(
-                                        color:
-                                            Colors.white,
-                                      ),
-                                    )
-                                  else
-                                    const SizedBox(
-                                      width: 16,
-                                      height: 16,
-                                      child:
-                                          CircularProgressIndicator(
-                                        strokeWidth:
-                                            2,
-                                        color:
-                                            Colors.white,
-                                      ),
-                                    ),
-
-                                  // ------------------------------------------
-                                  // STATUS
-                                  // ------------------------------------------
-
-                                  if (message
-                                      .outgoing)
-                                    ...[
-                                      const SizedBox(
-                                        height: 2,
-                                      ),
-                                      Icon(
-                                        message.status ==
-                                                MessageStatus
-                                                    .read
-                                            ? Icons
-                                                .done_all
-                                            : message.status ==
-                                                    MessageStatus
-                                                        .delivered
-                                                ? Icons
-                                                    .done_all
-                                                : Icons
-                                                    .done,
-                                        size: 14,
-                                        color: message
-                                                    .status ==
-                                                MessageStatus
-                                                    .read
-                                            ? Colors
-                                                .lightBlueAccent
-                                            : Colors
-                                                .white70,
-                                      ),
-                                    ],
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      ),
+                              // ------------------------------------------
+                              // STATUS
+                              // ------------------------------------------
+                              if (message.outgoing) ...[
+                                const SizedBox(height: 2),
+                                Icon(
+                                  message.status == MessageStatus.read
+                                      ? Icons.done_all
+                                      : message.status ==
+                                            MessageStatus.delivered
+                                      ? Icons.done_all
+                                      : Icons.done,
+                                  size: 14,
+                                  color: message.status == MessageStatus.read
+                                      ? Colors.lightBlueAccent
+                                      : Colors.white70,
+                                ),
+                              ],
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
           ),
 
           // ====================================================
           // INPUT
           // ====================================================
-
           SafeArea(
             top: false,
             child: Padding(
-              padding:
-                  const EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
               child: Row(
                 children: [
                   Expanded(
                     child: TextField(
-                      controller:
-                          _messageController,
-                      textCapitalization:
-                          TextCapitalization
-                              .sentences,
-                      decoration:
-                          InputDecoration(
-                        hintText:
-                            l10n.typeMessage,
-                        border:
-                            OutlineInputBorder(
-                          borderRadius:
-                              BorderRadius
-                                  .circular(
-                            24,
-                          ),
+                      controller: _messageController,
+                      textCapitalization: TextCapitalization.sentences,
+                      decoration: InputDecoration(
+                        hintText: l10n.typeMessage,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(24),
                         ),
                       ),
-                      onSubmitted: (_) =>
-                          _sendMessage(),
+                      onSubmitted: (_) => _sendMessage(),
                     ),
                   ),
-                  const SizedBox(
-                    width: 8,
-                  ),
+                  const SizedBox(width: 8),
                   IconButton(
-                    icon:
-                        const Icon(Icons.send),
-                    onPressed:
-                        _isP2PActive
-                            ? _sendMessage
-                            : null,
+                    icon: const Icon(Icons.send),
+                    onPressed: _isP2PActive ? _sendMessage : null,
                   ),
                 ],
               ),
