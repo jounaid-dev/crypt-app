@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:crypt_messenger/l10n/app_localizations.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-import 'package:qrscan_plus/qrscan_plus.dart' as qrscanner;
 
 import '../services/account_service.dart';
 import '../services/conversation_id_service.dart';
@@ -28,6 +28,11 @@ class _ScanQrPageState extends State<ScanQrPage> {
 
   final SignalingService _signalingService = SignalingService.instance;
 
+  final MobileScannerController _scannerController =
+      MobileScannerController();
+
+  final ImagePicker _imagePicker = ImagePicker();
+
   bool _isValidBase64Key(String value, int expectedLength) {
     try {
       final decoded = base64Decode(value);
@@ -38,12 +43,14 @@ class _ScanQrPageState extends State<ScanQrPage> {
   }
 
   bool _isValidQrProof(String value) {
-    if (value.length != 43 || !RegExp(r'^[A-Za-z0-9_-]+$').hasMatch(value)) {
+    if (value.length != 43 ||
+        !RegExp(r'^[A-Za-z0-9_-]+$').hasMatch(value)) {
       return false;
     }
 
     try {
       final decoded = base64Url.decode(value);
+
       return decoded.length == 32 &&
           base64UrlEncode(decoded).replaceAll('=', '') == value;
     } on FormatException {
@@ -80,205 +87,167 @@ class _ScanQrPageState extends State<ScanQrPage> {
   // QR PROCESSING
   // ============================================================
 
-  Future<void> processQrValue(String value, AppLocalizations l10n) async {
+  Future<void> processQrValue(
+    String value,
+    AppLocalizations l10n,
+  ) async {
+    value = value.trim();
+
     if (scanned) return;
 
     try {
       Map<String, dynamic> data;
 
       // ==========================================================
-      // CRYPT QR FORMAT
+      // EXACT CRYPT QR FORMAT
+      // crypt://contact?data=<encoded JSON>
       // ==========================================================
 
-      if (value.startsWith("crypt://contact")) {
-        final uri = Uri.parse(value);
-
-        if (uri.scheme != 'crypt' ||
-            uri.host != 'contact' ||
-            uri.path.isNotEmpty) {
-          throw Exception("Invalid CRYPT QR");
-        }
-
-        final encoded = uri.queryParameters["data"];
-
-        if (encoded == null) {
-          throw Exception("Missing data");
-        }
-
-        final decoded = jsonDecode(encoded);
-
-        if (decoded is! Map) {
-          throw Exception("Invalid CRYPT QR");
-        }
-
-        data = Map<String, dynamic>.from(decoded);
-      } else {
+      if (!value.startsWith("crypt://contact?data=")) {
         throw Exception("Invalid CRYPT QR");
       }
+
+      final uri = Uri.parse(value);
+
+      if (uri.scheme != 'crypt' ||
+          uri.host != 'contact' ||
+          uri.path.isNotEmpty ||
+          !uri.queryParameters.containsKey('data')) {
+        throw Exception("Invalid CRYPT QR");
+      }
+
+      final encoded = uri.queryParameters['data'];
+
+      if (encoded == null || encoded.isEmpty) {
+        throw Exception("Missing data");
+      }
+
+      final decoded = jsonDecode(encoded);
+
+      if (decoded is! Map) {
+        throw Exception("Invalid CRYPT QR");
+      }
+
+      data = Map<String, dynamic>.from(decoded);
 
       // ==========================================================
       // STRICT CRYPT IDENTITY VALIDATION
       // ==========================================================
 
-      if (_isValidCryptPayload(data)) {
-        if (!mounted) return;
+      if (!_isValidCryptPayload(data)) {
+        throw Exception("Not a valid CRYPT profile payload.");
+      }
 
-        // ========================================================
-        // PEER IDENTITY
-        // ========================================================
+      if (!mounted) return;
 
-        final String peerUsername =
-            data["username"]?.toString() ?? l10n.defaultUser;
+      // ========================================================
+      // PEER IDENTITY
+      // ========================================================
 
-        final String peerEncryptionKey = data["publicEncryptionKey"] as String;
+      final String peerUsername =
+          data["username"]?.toString() ?? l10n.defaultUser;
 
-        final String peerSigningKey = data["publicSigningKey"] as String;
+      final String peerEncryptionKey =
+          data["publicEncryptionKey"] as String;
 
-        if (peerUsername.trim().isEmpty ||
-            peerEncryptionKey.trim().isEmpty ||
-            peerSigningKey.trim().isEmpty) {
-          throw Exception("Incomplete CRYPT identity.");
-        }
+      final String peerSigningKey =
+          data["publicSigningKey"] as String;
 
-        // ========================================================
-        // QR PROOF
-        // ========================================================
+      if (peerUsername.trim().isEmpty ||
+          peerEncryptionKey.trim().isEmpty ||
+          peerSigningKey.trim().isEmpty) {
+        throw Exception("Incomplete CRYPT identity.");
+      }
 
-        final String? qrProof = data["qrProof"] as String?;
+      // ========================================================
+      // QR PROOF
+      // ========================================================
 
-        if (qrProof == null || qrProof.isEmpty) {
-          throw Exception("QR code does not contain a proof.");
-        }
+      final String? qrProof = data["qrProof"] as String?;
 
-        // ========================================================
-        // LOAD MY IDENTITY
-        // ========================================================
+      if (qrProof == null || qrProof.isEmpty) {
+        throw Exception("QR code does not contain a proof.");
+      }
 
-        final String? myUsername = await _accountService.getUsername();
+      // ========================================================
+      // LOAD MY IDENTITY
+      // ========================================================
 
-        final String? myEncryptionKey = await _accountService
-            .getPublicEncryptionKey();
+      final String? myUsername =
+          await _accountService.getUsername();
 
-        final String? mySigningKey = await _accountService
-            .getPublicSigningKey();
+      final String? myEncryptionKey =
+          await _accountService.getPublicEncryptionKey();
 
-        if (myUsername == null || myUsername.trim().isEmpty) {
-          throw Exception("Local username is missing.");
-        }
+      final String? mySigningKey =
+          await _accountService.getPublicSigningKey();
 
-        if (myEncryptionKey == null || myEncryptionKey.trim().isEmpty) {
-          throw Exception(l10n.localEncryptionKeyMissing);
-        }
+      if (myUsername == null || myUsername.trim().isEmpty) {
+        throw Exception("Local username is missing.");
+      }
 
-        if (mySigningKey == null || mySigningKey.trim().isEmpty) {
-          throw Exception("Local signing key is missing.");
-        }
+      if (myEncryptionKey == null ||
+          myEncryptionKey.trim().isEmpty) {
+        throw Exception(l10n.localEncryptionKeyMissing);
+      }
 
-        // ========================================================
-        // PREVENT SELF
-        // ========================================================
+      if (mySigningKey == null ||
+          mySigningKey.trim().isEmpty) {
+        throw Exception("Local signing key is missing.");
+      }
 
-        if (myUsername == peerUsername ||
-            myEncryptionKey == peerEncryptionKey) {
-          throw Exception("Cannot add yourself.");
-        }
+      // ========================================================
+      // PREVENT SELF
+      // ========================================================
 
-        // ========================================================
-        // CONVERSATION ID
-        // ========================================================
+      if (myUsername == peerUsername ||
+          myEncryptionKey == peerEncryptionKey) {
+        throw Exception("Cannot add yourself.");
+      }
 
-        final String conversationId = ConversationIdService.generate(
-          myPublicEncryptionKey: myEncryptionKey,
-          peerPublicEncryptionKey: peerEncryptionKey,
-        );
+      // ========================================================
+      // CONVERSATION ID
+      // ========================================================
 
-        setState(() {
-          scanned = true;
-          scannedUsername = peerUsername;
-        });
+      final String conversationId =
+          ConversationIdService.generate(
+        myPublicEncryptionKey: myEncryptionKey,
+        peerPublicEncryptionKey: peerEncryptionKey,
+      );
 
-        // ========================================================
-        // CHECK EXISTING CONTACT
-        // ========================================================
+      setState(() {
+        scanned = true;
+        scannedUsername = peerUsername;
+      });
 
-        final Conversation? existingConversation = await _conversationService
-            .findConversationByPublicKey(peerEncryptionKey);
+      // ========================================================
+      // CHECK EXISTING CONTACT
+      // ========================================================
 
-        if (existingConversation != null) {
-          final updatedConversation = Conversation(
-            id: conversationId,
-            username: peerUsername,
-            publicSigningKey: peerSigningKey,
-            publicEncryptionKey: peerEncryptionKey,
-            createdAt: existingConversation.createdAt,
-            lastMessageAt: existingConversation.lastMessageAt,
-            lastMessage: existingConversation.lastMessage,
-            unreadCount: existingConversation.unreadCount,
-            verified: existingConversation.verified,
-          );
+      final Conversation? existingConversation =
+          await _conversationService
+              .findConversationByPublicKey(peerEncryptionKey);
 
-          await _conversationService.updateConversation(updatedConversation);
-
-          // ======================================================
-          // SEND REQUEST
-          // ======================================================
-
-          if (_signalingService.isConnected) {
-            _signalingService.sendConversationRequest(
-              target: peerUsername,
-              payload: {
-                "conversationId": conversationId,
-                "qrProof": qrProof,
-                "username": myUsername,
-                "publicEncryptionKey": myEncryptionKey,
-                "publicSigningKey": mySigningKey,
-              },
-            );
-
-            debugPrint(
-              "[QR] Conversation request sent "
-              "from $myUsername to $peerUsername.",
-            );
-          } else {
-            debugPrint("[QR] Signaling server is not connected.");
-          }
-
-          await Future.delayed(const Duration(milliseconds: 800));
-
-          if (!mounted) return;
-
-          Navigator.pop(context, {
-            "alreadyExists": true,
-            "conversation": updatedConversation,
-            "qrData": data,
-          });
-
-          return;
-        }
-
-        // ========================================================
-        // CREATE LOCAL CONVERSATION
-        // ========================================================
-
-        final DateTime now = DateTime.now();
-
-        final Conversation conversation = Conversation(
+      if (existingConversation != null) {
+        final updatedConversation = Conversation(
           id: conversationId,
           username: peerUsername,
           publicSigningKey: peerSigningKey,
           publicEncryptionKey: peerEncryptionKey,
-          createdAt: now,
-          lastMessageAt: now,
-          lastMessage: "",
-          unreadCount: 0,
-          verified: false,
+          createdAt: existingConversation.createdAt,
+          lastMessageAt: existingConversation.lastMessageAt,
+          lastMessage: existingConversation.lastMessage,
+          unreadCount: existingConversation.unreadCount,
+          verified: existingConversation.verified,
         );
 
-        await _conversationService.addConversation(conversation);
+        await _conversationService.updateConversation(
+          updatedConversation,
+        );
 
-        // ========================================================
-        // SEND CONVERSATION REQUEST
-        // ========================================================
+        // ======================================================
+        // SEND REQUEST
+        // ======================================================
 
         if (_signalingService.isConnected) {
           _signalingService.sendConversationRequest(
@@ -291,34 +260,78 @@ class _ScanQrPageState extends State<ScanQrPage> {
               "publicSigningKey": mySigningKey,
             },
           );
-
-          debugPrint(
-            "[QR] Conversation request sent "
-            "from $myUsername to $peerUsername.",
-          );
-        } else {
-          debugPrint("[QR] Signaling server is not connected.");
         }
 
-        // ========================================================
-        // SUCCESS
-        // ========================================================
-
-        await Future.delayed(const Duration(milliseconds: 1500));
+        await Future.delayed(
+          const Duration(milliseconds: 800),
+        );
 
         if (!mounted) return;
 
         Navigator.pop(context, {
-          "alreadyExists": false,
-          "conversation": conversation,
+          "alreadyExists": true,
+          "conversation": updatedConversation,
           "qrData": data,
         });
-      } else {
-        throw Exception("Not a valid CRYPT profile payload.");
-      }
-    } catch (e) {
-      debugPrint("[QR] Processing error: $e");
 
+        return;
+      }
+
+      // ========================================================
+      // CREATE LOCAL CONVERSATION
+      // ========================================================
+
+      final DateTime now = DateTime.now();
+
+      final Conversation conversation = Conversation(
+        id: conversationId,
+        username: peerUsername,
+        publicSigningKey: peerSigningKey,
+        publicEncryptionKey: peerEncryptionKey,
+        createdAt: now,
+        lastMessageAt: now,
+        lastMessage: "",
+        unreadCount: 0,
+        verified: false,
+      );
+
+      await _conversationService.addConversation(
+        conversation,
+      );
+
+      // ========================================================
+      // SEND CONVERSATION REQUEST
+      // ========================================================
+
+      if (_signalingService.isConnected) {
+        _signalingService.sendConversationRequest(
+          target: peerUsername,
+          payload: {
+            "conversationId": conversationId,
+            "qrProof": qrProof,
+            "username": myUsername,
+            "publicEncryptionKey": myEncryptionKey,
+            "publicSigningKey": mySigningKey,
+          },
+        );
+      }
+
+      // ========================================================
+      // SUCCESS
+      // ========================================================
+
+      await Future.delayed(
+        const Duration(milliseconds: 1500),
+      );
+
+      if (!mounted) return;
+
+      Navigator.pop(context, {
+        "alreadyExists": false,
+        "conversation": conversation,
+        "qrData": data,
+      });
+    } catch (_) {
       if (!mounted) return;
 
       setState(() {
@@ -328,7 +341,9 @@ class _ScanQrPageState extends State<ScanQrPage> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           behavior: SnackBarBehavior.floating,
-          content: Text(l10n.invalidCryptQrFormat),
+          content: Text(
+            l10n.invalidCryptQrFormat,
+          ),
         ),
       );
     }
@@ -353,7 +368,6 @@ class _ScanQrPageState extends State<ScanQrPage> {
 
       if (value != null && value.isNotEmpty) {
         await processQrValue(value, l10n);
-
         return;
       }
     }
@@ -363,42 +377,73 @@ class _ScanQrPageState extends State<ScanQrPage> {
   // GALLERY
   // ============================================================
 
-  Future<void> scanFromGallery(AppLocalizations l10n) async {
+  Future<void> scanFromGallery(
+    AppLocalizations l10n,
+  ) async {
     if (scanned) return;
 
     try {
-      // ==========================================================
-      // USE A DEDICATED GALLERY QR DECODER
-      // ==========================================================
+      final XFile? image = await _imagePicker.pickImage(
+        source: ImageSource.gallery,
+      );
 
-      final String result = await qrscanner.scanPhoto();
+      if (image == null) {
+        return;
+      }
 
-      if (result.trim().isEmpty) {
+      final BarcodeCapture? capture =
+          await _scannerController.analyzeImage(
+        image.path,
+      );
+
+      if (capture == null ||
+          capture.barcodes.isEmpty) {
         if (!mounted) return;
 
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text(l10n.noQrCodeFound)));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(l10n.noQrCodeFound),
+          ),
+        );
 
         return;
       }
 
-      debugPrint("[QR] Gallery QR detected.");
+      for (final barcode in capture.barcodes) {
+        final String? value = barcode.rawValue;
 
-      // ==========================================================
-      // SAME CRYPT PROCESSING AS CAMERA
-      // ==========================================================
-
-      await processQrValue(result, l10n);
-    } catch (e) {
-      debugPrint("[QR] Gallery scan error: $e");
+        if (value != null && value.isNotEmpty) {
+          await processQrValue(value, l10n);
+          return;
+        }
+      }
 
       if (!mounted) return;
 
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(l10n.couldNotScanImage)));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(l10n.noQrCodeFound),
+        ),
+      );
+    } catch (_) {
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(l10n.couldNotScanImage),
+        ),
+      );
     }
+  }
+
+  // ============================================================
+  // DISPOSE
+  // ============================================================
+
+  @override
+  void dispose() {
+    _scannerController.dispose();
+    super.dispose();
   }
 
   // ============================================================
@@ -410,7 +455,6 @@ class _ScanQrPageState extends State<ScanQrPage> {
     final l10n = AppLocalizations.of(context)!;
 
     final theme = Theme.of(context);
-
     final colorScheme = theme.colorScheme;
 
     return Scaffold(
@@ -430,8 +474,12 @@ class _ScanQrPageState extends State<ScanQrPage> {
         actions: [
           IconButton(
             tooltip: l10n.gallery,
-            onPressed: scanned ? null : () => scanFromGallery(l10n),
-            icon: const Icon(Icons.photo_library_outlined),
+            onPressed: scanned
+                ? null
+                : () => scanFromGallery(l10n),
+            icon: const Icon(
+              Icons.photo_library_outlined,
+            ),
           ),
           const SizedBox(width: 8),
         ],
@@ -440,16 +488,20 @@ class _ScanQrPageState extends State<ScanQrPage> {
       body: SafeArea(
         child: Stack(
           children: [
-            // ====================================================
+            // ==================================================
             // LIVE CAMERA
-            // ====================================================
+            // ==================================================
+
             MobileScanner(
-              onDetect: (capture) => handleCameraScan(capture, l10n),
+              controller: _scannerController,
+              onDetect: (capture) =>
+                  handleCameraScan(capture, l10n),
             ),
 
-            // ====================================================
+            // ==================================================
             // CAMERA OVERLAY
-            // ====================================================
+            // ==================================================
+
             IgnorePointer(
               child: Column(
                 children: [
@@ -461,8 +513,12 @@ class _ScanQrPageState extends State<ScanQrPage> {
                           width: 265,
                           height: 265,
                           decoration: BoxDecoration(
-                            border: Border.all(color: Colors.white, width: 2),
-                            borderRadius: BorderRadius.circular(18),
+                            border: Border.all(
+                              color: Colors.white,
+                              width: 2,
+                            ),
+                            borderRadius:
+                                BorderRadius.circular(18),
                           ),
                         ),
                       ),
@@ -472,9 +528,10 @@ class _ScanQrPageState extends State<ScanQrPage> {
               ),
             ),
 
-            // ====================================================
+            // ==================================================
             // TOP INSTRUCTION
-            // ====================================================
+            // ==================================================
+
             Positioned(
               top: 24,
               left: 24,
@@ -488,11 +545,13 @@ class _ScanQrPageState extends State<ScanQrPage> {
                   decoration: BoxDecoration(
                     color: Colors.black.withAlpha(210),
                     borderRadius: BorderRadius.circular(6),
-                    border: Border.all(color: Colors.white24),
+                    border: Border.all(
+                      color: Colors.white24,
+                    ),
                   ),
                   child: Text(
                     l10n.alignQrCode,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
@@ -503,28 +562,38 @@ class _ScanQrPageState extends State<ScanQrPage> {
               ),
             ),
 
-            // ====================================================
+            // ==================================================
             // GALLERY BUTTON
-            // ====================================================
+            // ==================================================
+
             Positioned(
               left: 24,
               right: 24,
               bottom: 24,
               child: OutlinedButton.icon(
-                onPressed: scanned ? null : () => scanFromGallery(l10n),
+                onPressed: scanned
+                    ? null
+                    : () => scanFromGallery(l10n),
                 style: OutlinedButton.styleFrom(
                   foregroundColor: Colors.white,
-                  backgroundColor: Colors.black.withAlpha(225),
-                  side: const BorderSide(color: Colors.white, width: 1),
+                  backgroundColor:
+                      Colors.black.withAlpha(225),
+                  side: const BorderSide(
+                    color: Colors.white,
+                    width: 1,
+                  ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-                icon: const Icon(Icons.photo_library_outlined, size: 21),
+                icon: const Icon(
+                  Icons.photo_library_outlined,
+                  size: 21,
+                ),
                 label: Text(
                   l10n.scanFromGallery,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w600,
                     letterSpacing: 1.2,
@@ -533,20 +602,31 @@ class _ScanQrPageState extends State<ScanQrPage> {
               ),
             ),
 
-            // ====================================================
+            // ==================================================
             // SUCCESS SCREEN
-            // ====================================================
+            // ==================================================
+
             if (scanned)
               Container(
                 color: Colors.black.withAlpha(235),
                 child: Center(
                   child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 28),
-                    padding: const EdgeInsets.fromLTRB(28, 30, 28, 28),
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 28,
+                    ),
+                    padding: const EdgeInsets.fromLTRB(
+                      28,
+                      30,
+                      28,
+                      28,
+                    ),
                     decoration: BoxDecoration(
                       color: colorScheme.surface,
                       borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: colorScheme.outline, width: 2),
+                      border: Border.all(
+                        color: colorScheme.outline,
+                        width: 2,
+                      ),
                     ),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
