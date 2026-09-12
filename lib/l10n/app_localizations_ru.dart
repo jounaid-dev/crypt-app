@@ -12,6 +12,119 @@ class AppLocalizationsRu extends AppLocalizations {
   String get appName => 'CRYPT';
 
   @override
+  String get termsAndConditions => 'Условия';
+
+  @override
+  String get settingsTermsAndConditions => 'Условия';
+
+  @override
+  String get termsIntro =>
+      'CRYPT - это приложение на ранней стадии для подключения людей непосредственно к разговорам. Вы несете ответственность за надлежащее использование приложения и обеспечение безопасности учетных данных.';
+
+  @override
+  String get termsConnectivity =>
+      'CRYPT использует онлайн-сервисы, чтобы помочь устройствам находить и устанавливать соединения. Доступность и поведение подключения могут меняться по мере развития приложения. Пожалуйста, не полагайтесь на КРИПТУ как на единственное средство связи.';
+
+  @override
+  String get termsAgreement =>
+      'Продолжая, вы подтверждаете, что прочитали и согласны использовать CRYPT в соответствии с настоящими условиями.';
+
+  @override
+  String get agreeTerms => 'Я принимаю условия пользовательского соглашения';
+
+  @override
+  String get agreeAndContinue => 'Согласиться и продолжить';
+
+  @override
+  String get beforeYouStart => 'Перед началом:';
+
+  @override
+  String get connected => 'Подключено';
+
+  @override
+  String get connectFirstThenChat =>
+      'Сначала подключитесь, а затем пообщайтесь';
+
+  @override
+  String get betaIntro =>
+      'CRYPT - это ранняя бета-версия, поэтому опыт может улучшиться в будущих версиях.';
+
+  @override
+  String get walkieTalkieExplanation =>
+      'CRYPT работает как рация: оба человека должны быть онлайн и иметь КРИПТУ, открытую одновременно, чтобы установить соединение.';
+
+  @override
+  String get howToUseCrypt =>
+      'Как использовать CRYPT:\n1. Отсканируйте QR-код КРИПТЫ другого человека.\n2. Оба человека нуждаются в КРИПТЕ, открытой и онлайн.\n3. Подождите, пока CRYPT установит P2P-соединение.\n4. Дождитесь исчезновения состояния «Подключение...» и установления соединения.\n5. После подключения вы можете начать чат.';
+
+  @override
+  String get messageStorageExplanation =>
+      'Ваши сообщения предназначены для передачи непосредственно между подключенными устройствами. CRYPT не хранит ваши сообщения в чате на наших серверах. Сервер в настоящее время помогает с подключением и сигнализацией, а история чата не хранится на сервере. Если другой человек не в сети, текущее P2P-соединение не может быть установлено.';
+
+  @override
+  String get settingsAndSupportExplanation =>
+      'Откройте «Настройки», чтобы настроить опыт работы с КРИПТОЙ. В ближайшее время появятся дополнительные варианты настройки.\n\nХотите поддержать CRYPT? Вариант пожертвования можно найти в Настройках.';
+
+  @override
+  String get saving => 'Сохранение...';
+
+  @override
+  String get continueToCrypt => 'Продолжить криптографию';
+
+  @override
+  String get showSplashScreen => 'Отображать экран заставки';
+
+  @override
+  String get retry => 'Повторить попытку';
+
+  @override
+  String get connectionFailed => 'Подключение не выполнено';
+
+  @override
+  String get connectionFailedDetails =>
+      'Не удалось подключиться. Для подключения оба устройства должны быть подключены к сети с открытой КРИПТОЙ.';
+
+  @override
+  String get gallery => 'Галерея';
+
+  @override
+  String get alignQrCode => 'ВЫРОВНЯТЬ QR-КОД';
+
+  @override
+  String get scanFromGallery => 'из галереи';
+
+  @override
+  String get couldNotScanImage => 'Не удалось отсканировать изображение.';
+
+  @override
+  String couldNotShareQrCode(String error) {
+    return 'Не удалось поделиться QR-кодом: $error';
+  }
+
+  @override
+  String newContact(String username) {
+    return 'Новый контакт: $username';
+  }
+
+  @override
+  String get publicEncryptionKeyMissing =>
+      'Отсутствует открытый ключ шифрования.';
+
+  @override
+  String get contactEncryptionKeyMissing =>
+      'Отсутствует ключ шифрования контактов.';
+
+  @override
+  String get localEncryptionKeyMissing =>
+      'Отсутствует локальный ключ шифрования.';
+
+  @override
+  String get noQrCodeFound => 'На этом изображении нет QR-кода.';
+
+  @override
+  String get shareQrCode => 'Поделиться с помощью QR-кода';
+
+  @override
   String get welcome => 'Добро пожаловать';
 
   @override
@@ -368,6 +481,78 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get supportSoloDeveloper => 'Поддержать независимого разработчика';
+
+  @override
+  String get supportIntro =>
+      'Привет! 👋 Я индивидуальный разработчик, усердно работающий над CRYPT. У меня нет ни бюджета, ни корпоративного финансирования. Я полностью полагаюсь на вашу честность и сочувствие, чтобы продолжать улучшать приложение и гарантировать отсутствие рекламы НАВСЕГДА.';
+
+  @override
+  String get chooseSupportAmount => 'Выберите свою цену (Слайд для поддержки):';
+
+  @override
+  String get poorGang => 'Я бедная банда 🥀✌️';
+
+  @override
+  String get launchOfferMinimum => 'Минимум стартового предложения 🚀';
+
+  @override
+  String get buyMeCoffee => 'Купи мне кофе ☕';
+
+  @override
+  String get superSupporter => 'Супер сторонник 🔥';
+
+  @override
+  String get feature => 'Особенность';
+
+  @override
+  String get freeTier => 'Уровень бесплатного пользования';
+
+  @override
+  String get premium => 'Премиум';
+
+  @override
+  String get chatLocks => 'Блокировки чата';
+
+  @override
+  String get maxOneRoom => 'Макс. 1 комната';
+
+  @override
+  String get unlimited => 'Безлимитный';
+
+  @override
+  String get biometrics => 'Биометрия';
+
+  @override
+  String get disabled => '🚫 Инвалид';
+
+  @override
+  String supportWithSats(String amount) {
+    return 'Поддержка с помощью спутников: $amount (Феникс)';
+  }
+
+  @override
+  String get boltOffer =>
+      '⚡ Предложение по оплате BOLT12 • Нажмите, чтобы скопировать';
+
+  @override
+  String get boltOfferCopied => 'Предложение по оплате BOLT12 скопировано.';
+
+  @override
+  String get tapToCopyBoltOffer =>
+      'Нажмите, чтобы скопировать предложение оплаты BOLT12';
+
+  @override
+  String get simpleInstructionsToUnlock =>
+      '📬 Простые инструкции по разблокировке:';
+
+  @override
+  String unlockInstructions(String username) {
+    return '1. Оплатите с помощью Phoenix Wallet на Android (минимум 7500 для разблокировки — всегда ценится больше).\n2. Сделайте снимок экрана подтверждения успешной транзакции.\n3. Отправьте этот снимок экрана по адресу jounaidnadirmed@gmail.com и сообщите мне свое уникальное имя пользователя учетной записи: «$username», чтобы я знал, кто заплатил.\n4. Введите что-нибудь в поле ниже, чтобы сохранить запрос на этом устройстве:';
+  }
+
+  @override
+  String get supportRequestHint =>
+      'Введите здесь свое имя или информацию о транзакции...';
 
   @override
   String get maybeLater => 'Возможно, позже';

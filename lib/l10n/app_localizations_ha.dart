@@ -12,6 +12,115 @@ class AppLocalizationsHa extends AppLocalizations {
   String get appName => 'CRYPT';
 
   @override
+  String get termsAndConditions => 'Sharuɗɗa & Sharuɗɗa';
+
+  @override
+  String get settingsTermsAndConditions => 'Sharuɗɗa & Sharuɗɗa';
+
+  @override
+  String get termsIntro =>
+      'CRYPT aikace-aikacen farko ne don haɗa mutane kai tsaye don tattaunawa. Kai ne ke da alhakin amfani da aikace-aikacen yadda ya kamata da kuma kiyaye amincin bayanan asusun ku.';
+
+  @override
+  String get termsConnectivity =>
+      'CRYPT tana amfani da sabis na kan layi don taimakawa na\'urori ganowa da kafa haɗin gwiwa. Kasancewa da halayen haɗin kai na iya canzawa yayin da aikace-aikacen ke haɓaka. Da fatan kar a dogara da CRYPT a matsayin hanyar sadarwar ku kawai.';
+
+  @override
+  String get termsAgreement =>
+      'Ta ci gaba, kun tabbatar da cewa kun karanta kuma kun yarda kuyi amfani da CRYPT a ƙarƙashin waɗannan sharuɗɗan.';
+
+  @override
+  String get agreeTerms => 'Na yarda da Sharuɗɗa & Sharuɗɗa';
+
+  @override
+  String get agreeAndContinue => 'Yarda da ci gaba';
+
+  @override
+  String get beforeYouStart => 'Kafin Ka Fara';
+
+  @override
+  String get connected => 'An haɗa';
+
+  @override
+  String get connectFirstThenChat => 'Haɗa farko, sannan hira';
+
+  @override
+  String get betaIntro =>
+      'CRYPT sigar beta ce ta farko, don haka ƙwarewar na iya haɓakawa a sigar gaba.';
+
+  @override
+  String get walkieTalkieExplanation =>
+      'CRYPT tana aiki kamar walkie-talkie: duka mutane biyu suna buƙatar kasancewa akan layi kuma a buɗe CRYPT a lokaci guda don kafa haɗin.';
+
+  @override
+  String get howToUseCrypt =>
+      'Yadda ake amfani da CRYPT:\n1. Duba lambar CRYPT QR na wani.\n2. Duk mutanen biyu suna buƙatar CRYPT a buɗe kuma a kan layi.\n3. Jira yayin da CRYPT ke kafa haɗin P2P.\n4. Jira har sai an kafa haɗin.\n5. Da zarar an haɗa, za ku iya fara hira.';
+
+  @override
+  String get messageStorageExplanation =>
+      'An tsara saƙonninku don tafiya kai tsaye tsakanin na\'urorin da aka haɗa. CRYPT ba ya adana saƙonnin taɗi a kan sabar mu. Sabar a halin yanzu tana taimakawa tare da haɗi da sigina, kuma ba a adana tarihin taɗi akan sabar. Idan ɗayan yana layi, ba za a iya kafa haɗin P2P na yanzu ba.';
+
+  @override
+  String get settingsAndSupportExplanation =>
+      'Ziyarci Saituna don keɓance ƙwarewar CRYPT ɗin ku. Ƙarin zaɓuɓɓukan gyare-gyare suna zuwa nan ba da jimawa ba.\n\nKuna son tallafawa CRYPT? Kuna iya nemo zaɓin gudummawa a cikin Saituna.';
+
+  @override
+  String get saving => 'Ana ajiyewa...';
+
+  @override
+  String get continueToCrypt => 'Ci gaba zuwa CRYPT';
+
+  @override
+  String get showSplashScreen => 'Nuna allon fantsama';
+
+  @override
+  String get retry => 'Sake gwadawa';
+
+  @override
+  String get connectionFailed => 'Haɗin ya gaza';
+
+  @override
+  String get connectionFailedDetails =>
+      'Haɗin ya gaza. Duk na\'urorin dole ne su kasance kan layi tare da buɗe CRYPT don haɗawa.';
+
+  @override
+  String get gallery => 'Hoton zane';
+
+  @override
+  String get alignQrCode => 'DORA CODE QR';
+
+  @override
+  String get scanFromGallery => 'Duba daga kundin hotuna';
+
+  @override
+  String get couldNotScanImage => 'An kasa duba hoto.';
+
+  @override
+  String couldNotShareQrCode(String error) {
+    return 'An kasa raba lambar QR: $error';
+  }
+
+  @override
+  String newContact(String username) {
+    return 'Sabuwar lamba: $username';
+  }
+
+  @override
+  String get publicEncryptionKeyMissing => 'Maɓallin ɓoyewar jama\'a ya ɓace.';
+
+  @override
+  String get contactEncryptionKeyMissing => 'Maɓallin ɓoyayyen lamba ya ɓace.';
+
+  @override
+  String get localEncryptionKeyMissing => 'Maɓallin ɓoye na gida ya ɓace.';
+
+  @override
+  String get noQrCodeFound => 'Ba a sami lambar QR a wannan hoton ba.';
+
+  @override
+  String get shareQrCode => 'Raba lambar QR';
+
+  @override
   String get welcome => 'Barka da Zuwa';
 
   @override
@@ -373,6 +482,75 @@ class AppLocalizationsHa extends AppLocalizations {
 
   @override
   String get supportSoloDeveloper => 'Taimaka wa Mai Haɓaka Shirye-shirye Solo';
+
+  @override
+  String get supportIntro =>
+      'Kai! 👋 Ni mai haɓakawa ne kawai wanda ke aiki tuƙuru akan CRYPT. Ba ni da kasafin kuɗi ko kuɗin kamfani. Na dogara gaba ɗaya ga gaskiyar ku da jin daɗin ku don ci gaba da haɓaka app ɗin kuma in ba da garantin BABU ADS HAR ABADA.';
+
+  @override
+  String get chooseSupportAmount =>
+      'Zaɓi Farashin ku (Maɗaukaki don tallafawa):';
+
+  @override
+  String get poorGang => 'Ni talaka ne 🥀✌️';
+
+  @override
+  String get launchOfferMinimum => 'Ƙaddamar da Mafi ƙarancin 🚀';
+
+  @override
+  String get buyMeCoffee => 'Sayi Min Kofi ☕';
+
+  @override
+  String get superSupporter => 'Babban mai tallafi 🔥';
+
+  @override
+  String get feature => 'Siffar';
+
+  @override
+  String get freeTier => 'Matakin Kyauta';
+
+  @override
+  String get premium => 'Na musamman';
+
+  @override
+  String get chatLocks => 'Makullan Taɗi';
+
+  @override
+  String get maxOneRoom => 'Max 1 Daki';
+
+  @override
+  String get unlimited => 'Babu iyaka';
+
+  @override
+  String get biometrics => 'Kwayoyin halitta';
+
+  @override
+  String get disabled => '🚫 Nakasa';
+
+  @override
+  String supportWithSats(String amount) {
+    return 'Tallafa da sats $amount (Phoenix)';
+  }
+
+  @override
+  String get boltOffer => '⚡ tayin biyan BOLT12 • Matsa don kwafi';
+
+  @override
+  String get boltOfferCopied => 'An kwafi tayin biyan kuɗi na BOLT12';
+
+  @override
+  String get tapToCopyBoltOffer => 'Matsa don kwafe tayin biyan kuɗi na BOLT12';
+
+  @override
+  String get simpleInstructionsToUnlock => '📬 Sauƙaƙan Umarni don Buɗe:';
+
+  @override
+  String unlockInstructions(String username) {
+    return '1. Biya ta amfani da Phoenix Wallet akan Android (ƙananan 7,500 don buɗewa - ƙarin ana godiya koyaushe).\n2. Ɗauki hoton allo na nasarar tabbatar da ciniki.\n3. Email that screenshot zuwa jounaidnadirmed@gmail.com kuma gaya mani sunan mai amfani na asusunka na musamman: \'$username\' don sanin wanda ya biya.\n4. Rubuta wani abu a cikin akwatin da ke ƙasa don adana buƙatarku akan wannan na\'urar:';
+  }
+
+  @override
+  String get supportRequestHint => 'Buga sunan ku ko bayanin ciniki a nan...';
 
   @override
   String get maybeLater => 'Wataƙila Daga Baya';

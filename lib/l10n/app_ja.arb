@@ -1,253 +1,301 @@
 {
-  "@@locale": "ja",
-
-  "appName": "CRYPT",
-  "welcome": "ようこそ",
-  "login": "ログイン",
-  "signup": "サインアップ",
-  "settings": "設定",
-  "chats": "チャット",
-  "typeMessage": "メッセージを入力...",
-  "send": "送信",
-
-  "p2p": "P2P",
-  "connecting": "接続中...",
-  "connectingP2p": "P2Pに接続中...",
-  "p2pConnectionNotReady": "P2Pの準備ができていません。",
-
-  "searchLanguage": "言語を検索...",
-  "language": "言語",
-
-  "forceEscapeSignOutTitle": "強制サインアウトしますか？",
-  "forceEscapeSignOutContent": "警告：すべてのデバイスデータが消去されます。",
-  "cancel": "キャンセル",
-  "wipeDevice": "デバイスを消去",
-
-  "accountDestructionAlertTitle": "アカウント削除",
-  "accountDestructionWarning": "警告：デバイスデータとリモートメッセージが消去されます。",
-  "accountDestructionCriticalNotice": "重要：間違ったコードを入力するとシステムがロックされます。アカウントパスワードまたは緊急エスケープを使用してください。",
-
-  "verificationSecurityKey": "セキュリティキー：{code}",
-  "@verificationSecurityKey": {
-    "placeholders": {
-      "code": {
-        "type": "String"
-      }
+    "@@locale": "ja",
+    "appName": "CRYPT",
+    "welcome": "ようこそ",
+    "login": "ログイン",
+    "signup": "サインアップ",
+    "settings": "設定",
+    "chats": "チャット",
+    "typeMessage": "メッセージを入力...",
+    "send": "送信",
+    "p2p": "P2P",
+    "connecting": "接続中...",
+    "connectingP2p": "P2Pに接続中...",
+    "p2pConnectionNotReady": "P2Pの準備ができていません。",
+    "searchLanguage": "言語を検索...",
+    "language": "言語",
+    "forceEscapeSignOutTitle": "強制サインアウトしますか？",
+    "forceEscapeSignOutContent": "警告：すべてのデバイスデータが消去されます。",
+    "cancel": "キャンセル",
+    "wipeDevice": "デバイスを消去",
+    "accountDestructionAlertTitle": "アカウント削除",
+    "accountDestructionWarning": "警告：デバイスデータとリモートメッセージが消去されます。",
+    "accountDestructionCriticalNotice": "重要：間違ったコードを入力するとシステムがロックされます。アカウントパスワードまたは緊急エスケープを使用してください。",
+    "verificationSecurityKey": "セキュリティキー：{code}",
+    "@verificationSecurityKey": {
+        "placeholders": {
+            "code": {
+                "type": "String"
+            }
+        }
+    },
+    "copyDigitsHint": "5桁の数字をコピー",
+    "codeMismatchNotice": "コードが一致しません。マスターパスワードを入力するか、10分間待ってください。",
+    "accountPasswordLabel": "アカウントパスワード",
+    "deleteEverythingPermanently": "すべてを完全に削除",
+    "escapeAndPurgeDeviceData": "エスケープしてデータを消去",
+    "addContact": "連絡先を追加",
+    "addContactConfirmation": "この連絡先を追加しますか？",
+    "noMessagesYet": "まだメッセージはありません",
+    "addNewContact": "新しい連絡先",
+    "usernameLabel": "ユーザー名",
+    "nicknameOptionalLabel": "ニックネーム（任意）",
+    "add": "追加",
+    "usernameCannotBeEmpty": "ユーザー名は必須です",
+    "contactAlreadyExists": "連絡先「{name}」はすでに存在します。",
+    "@contactAlreadyExists": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "userNotFoundOnRegistry": "ユーザー「{name}」が見つかりません。共有シークレットを利用できません。",
+    "@userNotFoundOnRegistry": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "successfullyAddedContact": "{name}を追加しました！",
+    "@successfullyAddedContact": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "contacts": "連絡先",
+    "noContactsYet": "まだ連絡先はありません",
+    "securityLockoutActive": "セキュリティロック",
+    "tooManyAttemptsFrozen": "試行回数が多すぎます。{minutes}分間ロックされます。",
+    "@tooManyAttemptsFrozen": {
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "acknowledge": "確認",
+    "accessBlocked": "アクセスがブロックされました",
+    "accessSuspended": "5回の検証失敗。{minutes}分間アクセスが停止されます。",
+    "@accessSuspended": {
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "ok": "OK",
+    "unlockSecureNode": "ロック解除：{username}",
+    "@unlockSecureNode": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "verificationMetricsRemaining": "残りの試行回数：{count}",
+    "@verificationMetricsRemaining": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "secureKeyPasscode": "セキュリティパスコード",
+    "warningHardwareLockout": "警告：次の失敗でセキュリティがロックされます。",
+    "abort": "中止",
+    "authenticate": "認証",
+    "searchPipelinesHint": "安全な接続を検索...",
+    "zeroPipelinesDiscovered": "接続が見つかりません。",
+    "processingDecryption": "復号中...",
+    "decrypting": "復号中...",
+    "decryptionError": "[復号エラー]",
+    "cryptContainerSecure": "CRYPTコンテナは安全です",
+    "connectAnAccount": "アカウントを接続",
+    "username": "ユーザー名",
+    "password": "パスワード",
+    "enterMasterSecurityPassword": "マスターパスワードを入力してください",
+    "pleaseFillAllFields": "すべての項目を入力してください",
+    "wrongUsernameOrPassword": "ユーザー名またはパスワードが間違っています",
+    "loginError": "ログインエラー：{error}",
+    "@loginError": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "dontHaveAnAccountSignUp": "アカウントをお持ちでないですか？サインアップ",
+    "myIdentity": "自分のID",
+    "scanToAddMe": "スキャンして追加",
+    "shareProfileLink": "プロフィールを共有",
+    "addMeOnCrypt": "CRYPTで追加してください！\n\n{link}",
+    "@addMeOnCrypt": {
+        "placeholders": {
+            "link": {
+                "type": "String"
+            }
+        }
+    },
+    "scanQr": "QRをスキャン",
+    "invalidCryptQrFormat": "無効なCRYPT QRコードです。",
+    "userScanned": "ユーザーをスキャンしました！",
+    "addingUser": "{username}を追加中...",
+    "@addingUser": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "defaultUser": "ユーザー",
+    "createAccount": "アカウントを作成",
+    "keepPasswordSecureHint": "安全に保管してください。パスワードは変更できません。",
+    "pleaseFillInAllFields": "すべての項目を入力してください",
+    "usernameExceedsLimit": "ユーザー名は最大20文字です",
+    "invalidUsernameCharacters": "英字、数字、_、-のみ使用してください。",
+    "weakPasswordNotice": "8文字以上、数字1つ、大文字1つを使用してください。",
+    "unableToGenerateUniqueUsername": "一意のユーザー名を生成できませんでした。",
+    "accountCreated": "アカウントを作成しました",
+    "yourUsernameIs": "あなたのユーザー名：\n\n{username}",
+    "@yourUsernameIs": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "usernameTakenAssignedTag": "ユーザー名「{chosen}」はすでに使用されています。\n\nあなたのユーザー名：\n\n{assigned}\n\nログインに必要なので保存しておいてください。",
+    "@usernameTakenAssignedTag": {
+        "placeholders": {
+            "chosen": {
+                "type": "String"
+            },
+            "assigned": {
+                "type": "String"
+            }
+        }
+    },
+    "continueText": "続行",
+    "failedToGenerateIdentity": "IDの作成に失敗しました：{error}",
+    "@failedToGenerateIdentity": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "welcomeToCrypt": "CRYPTへようこそ",
+    "signupDescription": "ユーザー名とパスワードを作成して、P2Pキーを生成します。",
+    "chooseAUsername": "ユーザー名を選択",
+    "usernameHelperText": "本名は使用しないでください。使用済みの場合はサフィックスが追加されます。",
+    "masterAuthenticationRequired": "マスター認証",
+    "verify": "確認",
+    "darkThemeMode": "ダークテーマ",
+    "secureConversations": "安全な会話",
+    "noActiveConversations": "アクティブなチャットはありません。開始するとロックが有効になります。",
+    "logout": "ログアウト",
+    "wipeDeviceAndEscape": "デバイスを消去",
+    "falsePassword": "間違ったパスワード",
+    "accessSuspendedTimer": "アクセスが停止されています。{time}後に再試行してください。",
+    "@accessSuspendedTimer": {
+        "placeholders": {
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "selectSecureLockMethod": "ロック方法を選択",
+    "selectSecureLockDescription": "指紋または4桁のPINでロックしますか？",
+    "fourDigitPin": "4桁のPIN",
+    "fingerprintUnlock": "指紋 🔓",
+    "supportSoloDeveloper": "開発者を支援",
+    "maybeLater": "後で",
+    "submitProof": "証明を送信",
+    "couldNotOpenWallet": "ウォレットを開けませんでした。以下のコードをコピーしてください。",
+    "proofSubmittedSnackbar": "証明を送信しました。手動審査：24～48時間（週末を除く）。",
+    "termsAndConditions": "利用規約",
+    "settingsTermsAndConditions": "利用規約",
+    "termsIntro": "CRYPT は、人々を直接接続して会話を行うための初期段階のアプリケーションです。あなたには、アプリケーションを適切に使用し、アカウントの資格情報を安全に保つ責任があります。",
+    "termsConnectivity": "CRYPT はオンライン サービスを使用して、デバイスが接続を検出して確立できるようにします。可用性と接続の動作は、アプリケーションの開発に応じて変更される可能性があります。 CRYPT を唯一の通信手段として依存しないでください。",
+    "termsAgreement": "続行すると、これらの規約を読み、それに基づいて CRYPT を使用することに同意したことになります。",
+    "agreeTerms": "利用規約に同意します",
+    "agreeAndContinue": "同意して続行",
+    "beforeYouStart": "始める前に",
+    "connected": "接続済み",
+    "connectFirstThenChat": "まず接続してからチャットする",
+    "betaIntro": "CRYPT は初期のベータ版であるため、将来のバージョンではエクスペリエンスが向上する可能性があります。",
+    "walkieTalkieExplanation": "CRYPT はトランシーバーのように機能します。接続を確立するには、両方の人がオンラインになり、同時に CRYPT を開いている必要があります。",
+    "howToUseCrypt": "クリプトの使用方法:\n1. 相手の CRYPT QR コードをスキャンします。\n2. 両方の人が CRYPT をオープンかつオンラインにする必要があります。\n3. CRYPT が P2P 接続を確立するまで待ちます。\n4. 「接続中...」状態が消え、接続が確立されるまで待ちます。\n5. 接続したら、チャットを開始できます。",
+    "messageStorageExplanation": "メッセージは、接続されたデバイス間で直接送信されるように設計されています。 CRYPT はチャット メッセージをサーバーに保存しません。現在、サーバーは接続とシグナリングを支援しており、チャット履歴はサーバーに保存されません。相手がオフラインの場合、現在の P2P 接続は確立できません。",
+    "settingsAndSupportExplanation": "CRYPT エクスペリエンスをカスタマイズするには、[設定] にアクセスしてください。さらに多くのカスタマイズ オプションが近日公開される予定です。\n\nCRYPTをサポートしたいですか?寄付オプションは「設定」にあります。",
+    "saving": "保存中...",
+    "continueToCrypt": "クリプトに進む",
+    "showSplashScreen": "スプラッシュ画面を表示する",
+    "retry": "リトライ",
+    "connectionFailed": "接続に失敗しました",
+    "connectionFailedDetails": "接続に失敗しました。接続するには、両方のデバイスがオンラインで、CRYPT が開いている必要があります。",
+    "gallery": "ギャラリー",
+    "alignQrCode": "QRコードを揃える",
+    "scanFromGallery": "ギャラリーからスキャン",
+    "couldNotScanImage": "画像をスキャンできませんでした。",
+    "couldNotShareQrCode": "QR コードを共有できませんでした: {error}",
+    "newContact": "新しい連絡先: {username}",
+    "publicEncryptionKeyMissing": "公開暗号化キーがありません。",
+    "contactEncryptionKeyMissing": "連絡先の暗号化キーがありません。",
+    "localEncryptionKeyMissing": "ローカル暗号化キーがありません。",
+    "noQrCodeFound": "この画像には QR コードが見つかりません。",
+    "shareQrCode": "QRコードを共有する",
+    "@couldNotShareQrCode": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "@newContact": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "supportIntro": "おい！ 👋 私は CRYPT に熱心に取り組んでいるソロ開発者です。予算も企業資金もありません。アプリを改善し続け、広告が永久に表示されないことを保証するために、私はあなたの正直さと共感に全面的に依存しています。",
+    "chooseSupportAmount": "価格を選択してください (サポートにスライド):",
+    "poorGang": "私は可哀想なギャングです🥀✌️",
+    "launchOfferMinimum": "ローンチオファーの最低価格 🚀",
+    "buyMeCoffee": "コーヒー買ってきて ☕",
+    "superSupporter": "スーパーサポーター🔥",
+    "feature": "特徴",
+    "freeTier": "無料利用枠",
+    "premium": "プレミアム",
+    "chatLocks": "チャットロック",
+    "maxOneRoom": "最大1部屋",
+    "unlimited": "無制限",
+    "biometrics": "生体認証",
+    "disabled": "🚫 無効",
+    "supportWithSats": "{amount} の衛星によるサポート (フェニックス)",
+    "boltOffer": "⚡ BOLT12 支払い特典 • タップしてコピー",
+    "boltOfferCopied": "BOLT12 支払いオファーがコピーされました",
+    "tapToCopyBoltOffer": "タップして BOLT12 支払いオファーをコピーします",
+    "simpleInstructionsToUnlock": "📬 ロックを解除するための簡単な手順:",
+    "unlockInstructions": "1. Android で Phoenix Wallet を使用して支払います (ロック解除するには最低 7,500 が必要です。それ以上の場合は常に感謝されます)。\n2. 成功した取引確認画面のスクリーンショットを撮ります。\n3. そのスクリーンショットを jounaidnadirmed@gmail.com に電子メールで送信し、誰が支払ったのかがわかるように、自分の一意のアカウントのユーザー名「{username}」を教えてください。\n4. 以下のボックスに何かを入力して、このデバイスにリクエストを保存します。",
+    "supportRequestHint": "ここに名前または取引情報を入力してください...",
+    "@supportWithSats": {
+        "placeholders": {
+            "amount": {
+                "type": "String"
+            }
+        }
+    },
+    "@unlockInstructions": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
     }
-  },
-
-  "copyDigitsHint": "5桁の数字をコピー",
-  "codeMismatchNotice": "コードが一致しません。マスターパスワードを入力するか、10分間待ってください。",
-  "accountPasswordLabel": "アカウントパスワード",
-  "deleteEverythingPermanently": "すべてを完全に削除",
-  "escapeAndPurgeDeviceData": "エスケープしてデータを消去",
-
-  "addContact": "連絡先を追加",
-  "addContactConfirmation": "この連絡先を追加しますか？",
-  "noMessagesYet": "まだメッセージはありません",
-  "addNewContact": "新しい連絡先",
-  "usernameLabel": "ユーザー名",
-  "nicknameOptionalLabel": "ニックネーム（任意）",
-  "add": "追加",
-  "usernameCannotBeEmpty": "ユーザー名は必須です",
-
-  "contactAlreadyExists": "連絡先「{name}」はすでに存在します。",
-  "@contactAlreadyExists": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "userNotFoundOnRegistry": "ユーザー「{name}」が見つかりません。共有シークレットを利用できません。",
-  "@userNotFoundOnRegistry": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "successfullyAddedContact": "{name}を追加しました！",
-  "@successfullyAddedContact": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "contacts": "連絡先",
-  "noContactsYet": "まだ連絡先はありません",
-
-  "securityLockoutActive": "セキュリティロック",
-  "tooManyAttemptsFrozen": "試行回数が多すぎます。{minutes}分間ロックされます。",
-  "@tooManyAttemptsFrozen": {
-    "placeholders": {
-      "minutes": {
-        "type": "int"
-      }
-    }
-  },
-
-  "acknowledge": "確認",
-  "accessBlocked": "アクセスがブロックされました",
-  "accessSuspended": "5回の検証失敗。{minutes}分間アクセスが停止されます。",
-  "@accessSuspended": {
-    "placeholders": {
-      "minutes": {
-        "type": "int"
-      }
-    }
-  },
-
-  "ok": "OK",
-
-  "unlockSecureNode": "ロック解除：{username}",
-  "@unlockSecureNode": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "verificationMetricsRemaining": "残りの試行回数：{count}",
-  "@verificationMetricsRemaining": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
-
-  "secureKeyPasscode": "セキュリティパスコード",
-  "warningHardwareLockout": "警告：次の失敗でセキュリティがロックされます。",
-  "abort": "中止",
-  "authenticate": "認証",
-
-  "searchPipelinesHint": "安全な接続を検索...",
-  "zeroPipelinesDiscovered": "接続が見つかりません。",
-  "processingDecryption": "復号中...",
-  "decrypting": "復号中...",
-  "decryptionError": "[復号エラー]",
-  "cryptContainerSecure": "CRYPTコンテナは安全です",
-
-  "connectAnAccount": "アカウントを接続",
-  "username": "ユーザー名",
-  "password": "パスワード",
-  "enterMasterSecurityPassword": "マスターパスワードを入力してください",
-  "pleaseFillAllFields": "すべての項目を入力してください",
-  "wrongUsernameOrPassword": "ユーザー名またはパスワードが間違っています",
-
-  "loginError": "ログインエラー：{error}",
-  "@loginError": {
-    "placeholders": {
-      "error": {
-        "type": "String"
-      }
-    }
-  },
-
-  "dontHaveAnAccountSignUp": "アカウントをお持ちでないですか？サインアップ",
-  "myIdentity": "自分のID",
-  "scanToAddMe": "スキャンして追加",
-  "shareProfileLink": "プロフィールを共有",
-  "addMeOnCrypt": "CRYPTで追加してください！\n\n{link}",
-
-  "@addMeOnCrypt": {
-    "placeholders": {
-      "link": {
-        "type": "String"
-      }
-    }
-  },
-
-  "scanQr": "QRをスキャン",
-  "invalidCryptQrFormat": "無効なCRYPT QRコードです。",
-  "userScanned": "ユーザーをスキャンしました！",
-  "addingUser": "{username}を追加中...",
-
-  "@addingUser": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "defaultUser": "ユーザー",
-  "createAccount": "アカウントを作成",
-  "keepPasswordSecureHint": "安全に保管してください。パスワードは変更できません。",
-  "pleaseFillInAllFields": "すべての項目を入力してください",
-  "usernameExceedsLimit": "ユーザー名は最大20文字です",
-  "invalidUsernameCharacters": "英字、数字、_、-のみ使用してください。",
-  "weakPasswordNotice": "8文字以上、数字1つ、大文字1つを使用してください。",
-  "unableToGenerateUniqueUsername": "一意のユーザー名を生成できませんでした。",
-
-  "accountCreated": "アカウントを作成しました",
-  "yourUsernameIs": "あなたのユーザー名：\n\n{username}",
-  "@yourUsernameIs": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "usernameTakenAssignedTag": "ユーザー名「{chosen}」はすでに使用されています。\n\nあなたのユーザー名：\n\n{assigned}\n\nログインに必要なので保存しておいてください。",
-  "@usernameTakenAssignedTag": {
-    "placeholders": {
-      "chosen": {
-        "type": "String"
-      },
-      "assigned": {
-        "type": "String"
-      }
-    }
-  },
-
-  "continueText": "続行",
-
-  "failedToGenerateIdentity": "IDの作成に失敗しました：{error}",
-  "@failedToGenerateIdentity": {
-    "placeholders": {
-      "error": {
-        "type": "String"
-      }
-    }
-  },
-
-  "welcomeToCrypt": "CRYPTへようこそ",
-  "signupDescription": "ユーザー名とパスワードを作成して、P2Pキーを生成します。",
-  "chooseAUsername": "ユーザー名を選択",
-  "usernameHelperText": "本名は使用しないでください。使用済みの場合はサフィックスが追加されます。",
-  "masterAuthenticationRequired": "マスター認証",
-  "verify": "確認",
-  "darkThemeMode": "ダークテーマ",
-  "secureConversations": "安全な会話",
-  "noActiveConversations": "アクティブなチャットはありません。開始するとロックが有効になります。",
-  "logout": "ログアウト",
-  "wipeDeviceAndEscape": "デバイスを消去",
-  "falsePassword": "間違ったパスワード",
-
-  "accessSuspendedTimer": "アクセスが停止されています。{time}後に再試行してください。",
-  "@accessSuspendedTimer": {
-    "placeholders": {
-      "time": {
-        "type": "String"
-      }
-    }
-  },
-
-  "selectSecureLockMethod": "ロック方法を選択",
-  "selectSecureLockDescription": "指紋または4桁のPINでロックしますか？",
-  "fourDigitPin": "4桁のPIN",
-  "fingerprintUnlock": "指紋 🔓",
-  "supportSoloDeveloper": "開発者を支援",
-  "maybeLater": "後で",
-  "submitProof": "証明を送信",
-  "couldNotOpenWallet": "ウォレットを開けませんでした。以下のコードをコピーしてください。",
-  "proofSubmittedSnackbar": "証明を送信しました。手動審査：24～48時間（週末を除く）。"
 }

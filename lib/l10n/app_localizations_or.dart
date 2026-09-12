@@ -12,6 +12,117 @@ class AppLocalizationsOr extends AppLocalizations {
   String get appName => 'CRYPT';
 
   @override
+  String get termsAndConditions => 'ସର୍ତ୍ତାବଳୀ';
+
+  @override
+  String get settingsTermsAndConditions => 'ସର୍ତ୍ତାବଳୀ';
+
+  @override
+  String get termsIntro =>
+      'ଲୋକଙ୍କୁ ସିଧାସଳଖ ବାର୍ତ୍ତାଳାପ ପାଇଁ ସଂଯୋଗ କରିବା ପାଇଁ CRYPT ହେଉଛି ଏକ ପ୍ରାରମ୍ଭିକ ପର୍ଯ୍ୟାୟ ପ୍ରୟୋଗ | ଅନୁପ୍ରୟୋଗକୁ ଉପଯୁକ୍ତ ଭାବରେ ବ୍ୟବହାର କରିବା ଏବଂ ଆପଣଙ୍କର ଖାତା ପ୍ରମାଣପତ୍ରକୁ ସୁରକ୍ଷିତ ରଖିବା ପାଇଁ ଆପଣ ଦାୟୀ ଅଟନ୍ତି |';
+
+  @override
+  String get termsConnectivity =>
+      'ଡିଭାଇସ୍ ସଂଯୋଗ ଆବିଷ୍କାର ଏବଂ ପ୍ରତିଷ୍ଠା କରିବାରେ CRYPT ଅନଲାଇନ୍ ସେବା ବ୍ୟବହାର କରେ | ପ୍ରୟୋଗର ବିକାଶ ହେତୁ ଉପଲବ୍ଧତା ଏବଂ ସଂଯୋଗ ଆଚରଣ ବଦଳିପାରେ | ଆପଣଙ୍କର ଯୋଗାଯୋଗର ଏକମାତ୍ର ମାଧ୍ୟମ ଭାବରେ ଦୟାକରି CRYPT ଉପରେ ନିର୍ଭର କରନ୍ତୁ ନାହିଁ |';
+
+  @override
+  String get termsAgreement =>
+      'ଜାରି ରଖିବା ଦ୍, ାରା, ଆପଣ ନିଶ୍ଚିତ କରନ୍ତି ଯେ ଆପଣ ଏହି ସର୍ତ୍ତାବଳୀରେ CRYPT ବ୍ୟବହାର କରିବାକୁ ପ read ିଛନ୍ତି ଏବଂ ରାଜି ହୋଇଛନ୍ତି |';
+
+  @override
+  String get agreeTerms => 'ମୁଁ ସର୍ତ୍ତ ଏବଂ ସର୍ତ୍ତଗୁଡିକରେ ରାଜି ଅଛି |';
+
+  @override
+  String get agreeAndContinue => 'ରାଜି ହୁଅନ୍ତୁ ଏବଂ ଜାରି ରଖନ୍ତୁ |';
+
+  @override
+  String get beforeYouStart => 'ଆପଣ ଆରମ୍ଭ କରିବା ପୂର୍ବରୁ';
+
+  @override
+  String get connected => 'ସଂଯୋଗ ହୋଇଛି |';
+
+  @override
+  String get connectFirstThenChat => 'ପ୍ରଥମେ ସଂଯୋଗ କରନ୍ତୁ, ତାପରେ ଚାଟ୍ କରନ୍ତୁ |';
+
+  @override
+  String get betaIntro =>
+      'CRYPT ଏକ ପ୍ରାରମ୍ଭିକ ବିଟା ସଂସ୍କରଣ, ତେଣୁ ଭବିଷ୍ୟତ ସଂସ୍କରଣରେ ଅଭିଜ୍ଞତା ଉନ୍ନତ ହୋଇପାରେ |';
+
+  @override
+  String get walkieTalkieExplanation =>
+      'CRYPT ଏକ ୱାକି-ଟକି ପରି କାମ କରେ: ସଂଯୋଗ ସ୍ଥାପନ ପାଇଁ ଉଭୟ ଲୋକ ଅନଲାଇନ୍ ହେବା ଆବଶ୍ୟକ ଏବଂ CRYPT ଏକ ସମୟରେ ଖୋଲା ରହିବା ଆବଶ୍ୟକ |';
+
+  @override
+  String get howToUseCrypt =>
+      'CRYPT କିପରି ବ୍ୟବହାର କରିବେ:\n1. ଅନ୍ୟ ବ୍ୟକ୍ତିଙ୍କର CRYPT QR କୋଡ୍ ସ୍କାନ୍ କରନ୍ତୁ।\n2. ଉଭୟ ବ୍ୟକ୍ତିଙ୍କ ଡିଭାଇସରେ CRYPT ଖୋଲା ଏବଂ ଅନଲାଇନ୍ ଥିବା ଆବଶ୍ୟକ।\n3. CRYPT P2P ସଂଯୋଗ ସ୍ଥାପନ କରିବା ପର୍ଯ୍ୟନ୍ତ ଅପେକ୍ଷା କରନ୍ତୁ।\n4. ସଂଯୋଗ ସ୍ଥାପିତ ହେବା ପର୍ଯ୍ୟନ୍ତ ଅପେକ୍ଷା କରନ୍ତୁ।\n5. ସଂଯୋଗ ହେଲେ ଚାଟ୍ ଆରମ୍ଭ କରନ୍ତୁ।';
+
+  @override
+  String get messageStorageExplanation =>
+      'ତୁମର ସନ୍ଦେଶଗୁଡ଼ିକ ସଂଯୁକ୍ତ ଉପକରଣଗୁଡ଼ିକ ମଧ୍ୟରେ ସିଧାସଳଖ ଭ୍ରମଣ କରିବାକୁ ଡିଜାଇନ୍ ହୋଇଛି | CRYPT ଆପଣଙ୍କର ସର୍ଭରରେ ଆପଣଙ୍କର ଚାଟ୍ ବାର୍ତ୍ତା ଗଚ୍ଛିତ କରେ ନାହିଁ | ସର୍ଭର ବର୍ତ୍ତମାନ ସଂଯୋଗ ଏବଂ ସିଗନାଲିଂରେ ସାହାଯ୍ୟ କରେ, ଏବଂ ଚାଟ୍ ଇତିହାସ ସର୍ଭରରେ ଗଚ୍ଛିତ ନୁହେଁ | ଯଦି ଅନ୍ୟ ବ୍ୟକ୍ତି ଅଫଲାଇନରେ ଅଛନ୍ତି, ସାମ୍ପ୍ରତିକ P2P ସଂଯୋଗ ସ୍ଥାପିତ ହୋଇପାରିବ ନାହିଁ |';
+
+  @override
+  String get settingsAndSupportExplanation =>
+      'ଆପଣଙ୍କର CRYPT ଅଭିଜ୍ଞତାକୁ କଷ୍ଟୋମାଇଜ୍ କରିବାକୁ ସେଟିଂସମୂହ ପରିଦର୍ଶନ କରନ୍ତୁ | ଅଧିକ କଷ୍ଟମାଇଜେସନ୍ ବିକଳ୍ପ ଶୀଘ୍ର ଆସିବ |\n\nCRYPT କୁ ସମର୍ଥନ କରିବାକୁ ଚାହୁଁଛନ୍ତି କି? ଆପଣ ସେଟିଂସମୂହରେ ଦାନ ବିକଳ୍ପ ପାଇପାରିବେ |';
+
+  @override
+  String get saving => 'ସଞ୍ଚୟ ...';
+
+  @override
+  String get continueToCrypt => 'CRYPT କୁ ଜାରି ରଖ |';
+
+  @override
+  String get showSplashScreen => 'ସ୍ପ୍ଲାସ୍ ସ୍କ୍ରିନ୍ ଦେଖାନ୍ତୁ |';
+
+  @override
+  String get retry => 'ପୁନ ry ଚେଷ୍ଟା କରନ୍ତୁ |';
+
+  @override
+  String get connectionFailed => 'ସଂଯୋଗ ବିଫଳ ହେଲା |';
+
+  @override
+  String get connectionFailedDetails =>
+      'ସଂଯୋଗ ବିଫଳ ହେଲା | ସଂଯୋଗ କରିବାକୁ CRYPT ଖୋଲା ସହିତ ଉଭୟ ଡିଭାଇସ୍ ଅନଲାଇନ୍ ହେବା ଜରୁରୀ |';
+
+  @override
+  String get gallery => 'ଗ୍ୟାଲେରୀ';
+
+  @override
+  String get alignQrCode => 'ALIGN QR କୋଡ୍ |';
+
+  @override
+  String get scanFromGallery => 'ଗ୍ୟାଲେରୀରୁ ସ୍କାନ୍ କରନ୍ତୁ |';
+
+  @override
+  String get couldNotScanImage => 'ପ୍ରତିଛବି ସ୍କାନ୍ କରିପାରିଲା ନାହିଁ |';
+
+  @override
+  String couldNotShareQrCode(String error) {
+    return 'QR କୋଡ୍ ଅଂଶୀଦାର କରିପାରିଲା ନାହିଁ: $error |';
+  }
+
+  @override
+  String newContact(String username) {
+    return 'ନୂତନ ଯୋଗାଯୋଗ: $username';
+  }
+
+  @override
+  String get publicEncryptionKeyMissing =>
+      'ଆପଣଙ୍କର ସାର୍ବଜନୀନ ଏନକ୍ରିପସନ୍ ଚାବି ହଜିଯାଇଛି |';
+
+  @override
+  String get contactEncryptionKeyMissing =>
+      'ଯୋଗାଯୋଗ ଏନକ୍ରିପସନ୍ ଚାବି ହଜିଯାଇଛି |';
+
+  @override
+  String get localEncryptionKeyMissing => 'ସ୍ଥାନୀୟ ଏନକ୍ରିପସନ୍ ଚାବି ହଜିଯାଇଛି |';
+
+  @override
+  String get noQrCodeFound => 'ଏହି ପ୍ରତିଛବିରେ କ Q ଣସି QR କୋଡ୍ ମିଳିଲା ନାହିଁ |';
+
+  @override
+  String get shareQrCode => 'QR କୋଡ୍ ଅଂଶୀଦାର କରନ୍ତୁ |';
+
+  @override
   String get welcome => 'ସ୍ୱାଗତ';
 
   @override
@@ -371,6 +482,76 @@ class AppLocalizationsOr extends AppLocalizations {
 
   @override
   String get supportSoloDeveloper => 'ଏକ ସୋଲୋ ଡେଭଲପର୍‌କୁ ସମର୍ଥନ କରନ୍ତୁ';
+
+  @override
+  String get supportIntro =>
+      'ହେ! CR ମୁଁ CRYPT ରେ କଠିନ ପରିଶ୍ରମ କରୁଥିବା ଏକକ ବିକାଶକାରୀ | ମୋର ବଜେଟ୍ କିମ୍ବା କର୍ପୋରେଟ୍ ପାଣ୍ଠି ନାହିଁ | ଆପର ଉନ୍ନତି ଜାରି ରଖିବା ଏବଂ କ AD ଣସି ADS ଚିରଦିନ ପାଇଁ ଗ୍ୟାରେଣ୍ଟି ଦେବା ପାଇଁ ମୁଁ ତୁମର ସଚ୍ଚୋଟତା ଏବଂ ସହାନୁଭୂତି ଉପରେ ସମ୍ପୂର୍ଣ୍ଣ ନିର୍ଭର କରେ |';
+
+  @override
+  String get chooseSupportAmount =>
+      'ଆପଣଙ୍କର ମୂଲ୍ୟ ବାଛନ୍ତୁ (ସମର୍ଥନ କରିବାକୁ ସ୍ଲାଇଡ୍):';
+
+  @override
+  String get poorGang => 'ମୁଁ ଗରିବ ଗ୍ୟାଙ୍ଗ 🥀✌️';
+
+  @override
+  String get launchOfferMinimum => 'ସର୍ବନିମ୍ନ ଅଫର୍ ଲଞ୍ଚ କରନ୍ତୁ |';
+
+  @override
+  String get buyMeCoffee => 'ମୋତେ ଏକ କଫି କିଣ |';
+
+  @override
+  String get superSupporter => 'ସୁପର ସମର୍ଥକ 🔥';
+
+  @override
+  String get feature => 'ବ .ଶିଷ୍ଟ୍ୟ';
+
+  @override
+  String get freeTier => 'ମାଗଣା ସ୍ତର |';
+
+  @override
+  String get premium => 'ପ୍ରିମିୟମ୍';
+
+  @override
+  String get chatLocks => 'ଚାଟ୍ ଲକ୍ |';
+
+  @override
+  String get maxOneRoom => 'ସର୍ବାଧିକ 1 ରୁମ୍ |';
+
+  @override
+  String get unlimited => 'ଅସୀମିତ |';
+
+  @override
+  String get biometrics => 'ବାୟୋମେଟ୍ରିକ୍ସ |';
+
+  @override
+  String get disabled => '🚫 ଅକ୍ଷମ';
+
+  @override
+  String supportWithSats(String amount) {
+    return '$amount ସାଟ୍ (ଫିନିକ୍ସ) ସହିତ ସମର୍ଥନ |';
+  }
+
+  @override
+  String get boltOffer => '⚡ BOLT12 ଦେୟ ଅଫର • କପି କରିବାକୁ ଟ୍ୟାପ୍ କରନ୍ତୁ |';
+
+  @override
+  String get boltOfferCopied => 'BOLT12 ଦେୟ ଅଫର କପି ହୋଇଛି |';
+
+  @override
+  String get tapToCopyBoltOffer => 'BOLT12 ଦେୟ ଅଫର କପି କରିବାକୁ ଟ୍ୟାପ୍ କରନ୍ତୁ |';
+
+  @override
+  String get simpleInstructionsToUnlock => 'Un ଅନଲକ୍ କରିବାକୁ ସରଳ ନିର୍ଦ୍ଦେଶ:';
+
+  @override
+  String unlockInstructions(String username) {
+    return 'ଆଣ୍ଡ୍ରଏଡରେ ଫିନିକ୍ସ ୱାଲେଟ୍ ବ୍ୟବହାର କରି ଦେୟ ଦିଅନ୍ତୁ (ଅନଲକ୍ କରିବାକୁ ସର୍ବନିମ୍ନ 7,500 - ଅଧିକ ସର୍ବଦା ପ୍ରଶଂସନୀୟ) |\n2। ଆପଣଙ୍କର ସଫଳ କାରବାର ନିଶ୍ଚିତକରଣ ସ୍କ୍ରିନର ଏକ ସ୍କ୍ରିନସଟ୍ ନିଅନ୍ତୁ |\n3। ସେହି ସ୍କ୍ରିନସଟ୍କୁ jounaidnadirmed@gmail.com କୁ ଇମେଲ୍ କରନ୍ତୁ ଏବଂ ମୋତେ ଆପଣଙ୍କର ଅନନ୍ୟ ଆକାଉଣ୍ଟ୍ ଉପଯୋଗକର୍ତ୍ତା ନାମ କୁହନ୍ତୁ: \'$username\' ତେଣୁ ମୁଁ ଜାଣେ କିଏ ଦେୟ ଦେଇଛି |\nଏହି ଡିଭାଇସରେ ଆପଣଙ୍କର ଅନୁରୋଧ ସଞ୍ଚୟ କରିବାକୁ ନିମ୍ନରେ ଥିବା ବାକ୍ସରେ କିଛି ଟାଇପ୍ କରନ୍ତୁ:';
+  }
+
+  @override
+  String get supportRequestHint =>
+      'ଏଠାରେ ଆପଣଙ୍କର ନାମ କିମ୍ବା କାରବାର ସୂଚନା ଟାଇପ୍ କରନ୍ତୁ ...';
 
   @override
   String get maybeLater => 'ପରେ ହୋଇପାରେ';

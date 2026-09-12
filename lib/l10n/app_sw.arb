@@ -1,255 +1,301 @@
 {
-  "@@locale": "sw",
-
-  "appName": "CRYPT",
-  "welcome": "Karibu",
-  "login": "Ingia",
-  "signup": "Jisajili",
-  "settings": "Mipangilio",
-  "chats": "Mazungumzo",
-  "typeMessage": "Andika ujumbe...",
-  "send": "Tuma",
-  "p2p": "P2P",
-  "connecting": "Inaunganisha...",
-  "connectingP2p": "Inaunganisha kwenye P2P...",
-  "p2pConnectionNotReady": "P2P haiko tayari.",
-  "searchLanguage": "Tafuta lugha...",
-  "language": "Lugha",
-
-  "forceEscapeSignOutTitle": "LAZIMISHA KUJIONDOA KWA DHARURA?",
-  "forceEscapeSignOutContent": "ONYO: Kitendo hiki kitafuta kabisa data zote kutoka kwenye kifaa hiki.",
-  "cancel": "Ghairi",
-  "wipeDevice": "FUTA KIFAA",
-
-  "accountDestructionAlertTitle": "TAHADHARI YA KUFUTA AKAUNTI",
-  "accountDestructionWarning": "ONYO: Kitendo hiki kitafuta data zako zote kutoka kwenye kifaa hiki. Baada ya kuunganishwa kwenye Intaneti, amri ya mbali ya kujiharibu itaamilishwa. Ujumbe wote uliotumwa kutoka kwa kitambulisho chako cha kipekee cha mtumiaji utafutwa kabisa kutoka kwenye kumbukumbu za vifaa vyote vya mawasiliano.",
-
-  "accountDestructionCriticalNotice": "MUHIMU SANA: Ukiingiza nambari hizi za uthibitishaji kimakosa, mfumo utafunga kifaa. Ili kukifungua, lazima uweke Nenosiri Kuu la Akaunti au utumie njia ya dharura ya kutoroka, ambayo itafuta kabisa data kwenye kifaa hiki mara moja.",
-
-  "verificationSecurityKey": "Ufunguo wa Usalama wa Uthibitishaji: {code}",
-  "@verificationSecurityKey": {
-    "placeholders": {
-      "code": {
-        "type": "String"
-      }
+    "@@locale": "sw",
+    "appName": "CRYPT",
+    "welcome": "Karibu",
+    "login": "Ingia",
+    "signup": "Jisajili",
+    "settings": "Mipangilio",
+    "chats": "Mazungumzo",
+    "typeMessage": "Andika ujumbe...",
+    "send": "Tuma",
+    "p2p": "P2P",
+    "connecting": "Inaunganisha...",
+    "connectingP2p": "Inaunganisha kwenye P2P...",
+    "p2pConnectionNotReady": "P2P haiko tayari.",
+    "searchLanguage": "Tafuta lugha...",
+    "language": "Lugha",
+    "forceEscapeSignOutTitle": "LAZIMISHA KUJIONDOA KWA DHARURA?",
+    "forceEscapeSignOutContent": "ONYO: Kitendo hiki kitafuta kabisa data zote kutoka kwenye kifaa hiki.",
+    "cancel": "Ghairi",
+    "wipeDevice": "FUTA KIFAA",
+    "accountDestructionAlertTitle": "TAHADHARI YA KUFUTA AKAUNTI",
+    "accountDestructionWarning": "ONYO: Kitendo hiki kitafuta data zako zote kutoka kwenye kifaa hiki. Baada ya kuunganishwa kwenye Intaneti, amri ya mbali ya kujiharibu itaamilishwa. Ujumbe wote uliotumwa kutoka kwa kitambulisho chako cha kipekee cha mtumiaji utafutwa kabisa kutoka kwenye kumbukumbu za vifaa vyote vya mawasiliano.",
+    "accountDestructionCriticalNotice": "MUHIMU SANA: Ukiingiza nambari hizi za uthibitishaji kimakosa, mfumo utafunga kifaa. Ili kukifungua, lazima uweke Nenosiri Kuu la Akaunti au utumie njia ya dharura ya kutoroka, ambayo itafuta kabisa data kwenye kifaa hiki mara moja.",
+    "verificationSecurityKey": "Ufunguo wa Usalama wa Uthibitishaji: {code}",
+    "@verificationSecurityKey": {
+        "placeholders": {
+            "code": {
+                "type": "String"
+            }
+        }
+    },
+    "copyDigitsHint": "Nakili tarakimu 5 zilizo hapo juu",
+    "codeMismatchNotice": "Msimbo haulingani. Weka Nenosiri Kuu ili kupita ulinzi au subiri dakika 10.",
+    "accountPasswordLabel": "Nenosiri la Akaunti",
+    "deleteEverythingPermanently": "FUTA KILA KITU KABISA",
+    "escapeAndPurgeDeviceData": "Toka na ufute data ya kifaa",
+    "addContact": "Ongeza anwani",
+    "addContactConfirmation": "Ongeza anwani hii?",
+    "noMessagesYet": "Bado hakuna ujumbe",
+    "addNewContact": "Ongeza anwani mpya",
+    "usernameLabel": "Jina la mtumiaji",
+    "nicknameOptionalLabel": "Jina la utani (si lazima)",
+    "add": "Ongeza",
+    "usernameCannotBeEmpty": "Jina la mtumiaji haliwezi kuwa tupu",
+    "contactAlreadyExists": "Anwani «{name}» tayari ipo kwenye kitabu chako cha anwani.",
+    "@contactAlreadyExists": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "userNotFoundOnRegistry": "Mtumiaji «{name}» hakupatikana kwenye sajili ya mtandao. Haiwezekani kuunda siri ya pamoja.",
+    "@userNotFoundOnRegistry": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "successfullyAddedContact": "Anwani {name} imeongezwa kwa mafanikio!",
+    "@successfullyAddedContact": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "contacts": "Anwani",
+    "noContactsYet": "Bado hakuna anwani",
+    "securityLockoutActive": "Kufungiwa kwa usalama kumewashwa",
+    "tooManyAttemptsFrozen": "Majaribio mengi yasiyo sahihi. Ufikiaji umefungwa kwa dakika {minutes}.",
+    "@tooManyAttemptsFrozen": {
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "acknowledge": "Nimeelewa",
+    "accessBlocked": "Ufikiaji umezuiwa",
+    "accessSuspended": "Majaribio 5 ya uthibitishaji hayakufaulu. Ufikiaji umesimamishwa kwa dakika {minutes} zijazo.",
+    "@accessSuspended": {
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "ok": "Sawa",
+    "unlockSecureNode": "Fungua nodi salama: {username}",
+    "@unlockSecureNode": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "verificationMetricsRemaining": "Majaribio ya uthibitishaji yaliyosalia: {count}",
+    "@verificationMetricsRemaining": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "secureKeyPasscode": "Msimbo wa ufunguo wa usalama",
+    "warningHardwareLockout": "ONYO: Hitilafu nyingine itasababisha mfumo wa usalama kufunga kifaa.",
+    "abort": "Ghairi",
+    "authenticate": "Thibitisha",
+    "searchPipelinesHint": "Inatafuta miunganisho salama inayotumika...",
+    "zeroPipelinesDiscovered": "Hakuna miunganisho inayolingana iliyopatikana.",
+    "processingDecryption": "Inasimbua...",
+    "decrypting": "Inasimbua...",
+    "decryptionError": "[Hitilafu ya usimbuaji]",
+    "cryptContainerSecure": "KONTEINA YA CRYPT IMELINDWA",
+    "connectAnAccount": "Unganisha akaunti",
+    "username": "Jina la mtumiaji",
+    "password": "Nenosiri",
+    "enterMasterSecurityPassword": "Weka Nenosiri Kuu la Usalama",
+    "pleaseFillAllFields": "Tafadhali jaza sehemu zote",
+    "wrongUsernameOrPassword": "Jina la mtumiaji au nenosiri si sahihi",
+    "loginError": "Hitilafu ya kuingia: {error}",
+    "@loginError": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "dontHaveAnAccountSignUp": "Huna akaunti? Jisajili",
+    "myIdentity": "Utambulisho wangu",
+    "scanToAddMe": "Changanua ili kuniongeza",
+    "shareProfileLink": "Shiriki kiungo cha wasifu",
+    "addMeOnCrypt": "Niongeze kwenye CRYPT!\n\n{link}",
+    "@addMeOnCrypt": {
+        "placeholders": {
+            "link": {
+                "type": "String"
+            }
+        }
+    },
+    "scanQr": "Changanua QR",
+    "invalidCryptQrFormat": "Muundo wa msimbo wa QR wa CRYPT si sahihi.",
+    "userScanned": "Mtumiaji amechanganuliwa!",
+    "addingUser": "Inaongeza {username}...",
+    "@addingUser": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "defaultUser": "Mtumiaji",
+    "createAccount": "Unda akaunti",
+    "keepPasswordSecureHint": "Hifadhi nenosiri lako mahali salama. Huwezi kulibadilisha.",
+    "pleaseFillInAllFields": "Tafadhali jaza sehemu zote",
+    "usernameExceedsLimit": "Jina la mtumiaji haliwezi kuwa na zaidi ya herufi 20",
+    "invalidUsernameCharacters": "Jina la mtumiaji linaweza kuwa na herufi, nambari, alama ya chini (_) na vistari (-) pekee",
+    "weakPasswordNotice": "Nenosiri lazima liwe na angalau herufi 8, liwe na nambari na herufi kubwa",
+    "unableToGenerateUniqueUsername": "Imeshindwa kuunda jina la mtumiaji la kipekee.",
+    "accountCreated": "Akaunti imeundwa",
+    "yourUsernameIs": "Jina lako la mtumiaji ni:\n\n{username}",
+    "@yourUsernameIs": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "usernameTakenAssignedTag": "Jina la mtumiaji «{chosen}» tayari limechukuliwa.\n\nJina lako la mtumiaji ni:\n\n{assigned}\n\nLikumbuke. Utalihitaji ili kuingia.",
+    "@usernameTakenAssignedTag": {
+        "placeholders": {
+            "chosen": {
+                "type": "String"
+            },
+            "assigned": {
+                "type": "String"
+            }
+        }
+    },
+    "continueText": "Endelea",
+    "failedToGenerateIdentity": "Imeshindwa kuunda utambulisho salama: {error}",
+    "@failedToGenerateIdentity": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "welcomeToCrypt": "Karibu kwenye CRYPT",
+    "signupDescription": "Unda jina la mtumiaji na nenosiri ili kuzalisha funguo zako za usimbaji fiche wa P2P.",
+    "chooseAUsername": "Chagua jina la mtumiaji",
+    "usernameHelperText": "Usitumie jina lako halisi. Ikiwa jina la mtumiaji tayari limechukuliwa, tutaongeza kiambishi tamati cha kipekee kiotomatiki.",
+    "masterAuthenticationRequired": "Uthibitishaji mkuu unahitajika",
+    "verify": "Thibitisha",
+    "darkThemeMode": "Mandhari meusi",
+    "secureConversations": "Mazungumzo salama",
+    "noActiveConversations": "Hakuna mazungumzo yanayotumika. Anzisha mazungumzo ili kuwezesha kufuli za usalama.",
+    "logout": "Ondoka",
+    "wipeDeviceAndEscape": "FUTA KIFAA NA TOKA",
+    "falsePassword": "Nenosiri lisilo sahihi",
+    "accessSuspendedTimer": "Ufikiaji umesimamishwa kwa sababu za usalama. Jaribu tena baada ya {time}.",
+    "@accessSuspendedTimer": {
+        "placeholders": {
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "selectSecureLockMethod": "Chagua njia ya kufuli salama",
+    "selectSecureLockDescription": "Je, ungependa kufunga mazungumzo haya kwa kutumia alama ya kidole ya kifaa au PIN ya kawaida ya tarakimu 4?",
+    "fourDigitPin": "PIN ya tarakimu 4",
+    "fingerprintUnlock": "Alama ya kidole 🔓",
+    "supportSoloDeveloper": "Msaidie msanidi programu huru",
+    "maybeLater": "Labda baadaye",
+    "submitProof": "Wasilisha uthibitisho",
+    "couldNotOpenWallet": "Imeshindwa kufungua pochi kiotomatiki. Nakili msimbo wa maandishi hapa chini.",
+    "proofSubmittedSnackbar": "Uthibitisho umetumwa. Ukaguzi wa mwongozo huchukua saa 24–48 (bila kujumuisha wikendi). Unaweza kuendelea kutumia programu kama kawaida.",
+    "termsAndConditions": "Vigezo &amp; Masharti",
+    "settingsTermsAndConditions": "Vigezo &amp; Masharti",
+    "termsIntro": "CRYPT ni programu ya hatua za mwanzo kwa ajili ya kuunganisha watu moja kwa moja kwa ajili ya mazungumzo. Una jukumu la kutumia programu ipasavyo na kuweka vitambulisho vya akaunti yako salama.",
+    "termsConnectivity": "CRYPT hutumia huduma za mtandaoni kusaidia vifaa kugundua na kuanzisha muunganisho. Upatikanaji na mwenendo wa muunganisho unaweza kubadilika kadiri programu inavyoendelea. Tafadhali usitegemee CRYPT kama njia yako pekee ya mawasiliano.",
+    "termsAgreement": "Kwa kuendelea, unathibitisha kwamba umesoma na unakubali kutumia fumbo chini YA masharti haya.",
+    "agreeTerms": "Ninakubali vigezo na masharti",
+    "agreeAndContinue": "Kubali na uendelee",
+    "beforeYouStart": "Vidokezo kabla ya kuanza ",
+    "connected": "Imeunganishwa",
+    "connectFirstThenChat": "Unganisha kwanza, kisha gumzo",
+    "betaIntro": "CRYPT ni toleo la awali la beta, kwa hivyo tukio linaweza kuboreshwa katika matoleo ya baadaye.",
+    "walkieTalkieExplanation": "CRYPT inafanya kazi kama walkie-talkie: watu wote wawili wanahitaji kuwa mtandaoni na kuwa na CRYPT wazi wakati huo huo ili kuanzisha muunganisho.",
+    "howToUseCrypt": "Jinsi ya kutumia FUMBO:\n1. Changanua msimbo wa siri wa QR WA mtu mwingine.\n2. Watu wote wawili wanahitaji FUMBO wazi na mtandaoni.\n3. Subiri wakati FUMBO linaanzisha muunganisho wa P2P.\n4. Subiri hali ya \"Kuunganisha...\" ipotee na muunganisho uanzishwe.\n5. Mara baada ya kuunganishwa, unaweza kuanza kuzungumza.",
+    "messageStorageExplanation": "Ujumbe wako umeundwa kusafiri moja kwa moja kati ya vifaa vilivyounganishwa. CRYPT haihifadhi ujumbe wako wa gumzo kwenye seva zetu. Seva kwa sasa husaidia na muunganisho na ishara, na historia ya gumzo haijahifadhiwa kwenye seva. Ikiwa mtu mwingine yuko nje ya mtandao, muunganisho wa sasa wa P2P hauwezi kuanzishwa.",
+    "settingsAndSupportExplanation": "Tembelea Mipangilio ili kufanya tukio lako la KISIRI liwe mahususi. Machaguo zaidi ya marekebisho yanakuja hivi karibuni.\n\nUngependa kuunga mkono USIMBUAJI? Unaweza kupata chaguo la mchango katika Mipangilio.",
+    "saving": "Akiba",
+    "continueToCrypt": "Endelea kupiga KELELE",
+    "showSplashScreen": "Onyesha skrini ya kupeperusha",
+    "retry": "Jaribu tena",
+    "connectionFailed": "Muunganisho umeshindwa",
+    "connectionFailedDetails": "Muunganisho umeshindikana. Vifaa vyote viwili lazima viwe mtandaoni na FUMBO limefunguliwa ili kuunganishwa.",
+    "gallery": "Kihifadhi",
+    "alignQrCode": "PANGILIA MSIMBO WA QR",
+    "scanFromGallery": "CHANGANUA KUTOKA KWENYE NYUMBA YA SANAA",
+    "couldNotScanImage": "Haikuweza kuchanganua picha.",
+    "couldNotShareQrCode": "Haikuweza kushiriki msimbo wa QR: {error}",
+    "newContact": "Anwani mpya: {username}",
+    "publicEncryptionKeyMissing": "Ufunguo wako wa usimbaji fiche wa umma haupo.",
+    "contactEncryptionKeyMissing": "Ufunguo wa usimbaji fiche wa mawasiliano haupo.",
+    "localEncryptionKeyMissing": "Ufunguo wa usimbaji fiche wa eneo husika haupo.",
+    "noQrCodeFound": "Hakuna msimbo wa QR unaopatikana kwenye picha hii.",
+    "shareQrCode": "Shiriki Msimbo wa QR",
+    "@couldNotShareQrCode": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "@newContact": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "supportIntro": "Habari! 👋 Mimi ni msanidi wa solo ninafanya kazi kwa bidii kwenye CRYPT. Sina bajeti au ufadhili wa shirika. Ninategemea kabisa uaminifu wako na huruma yako ili kuendelea kuboresha programu na kukuhakikishia HAKUNA MATANGAZO MILELE.",
+    "chooseSupportAmount": "Chagua Bei Yako (Slaidi ili kuauni):",
+    "poorGang": "Mimi ni genge masikini 🥀✌️",
+    "launchOfferMinimum": "Zindua Kima cha Chini cha Ofa 🚀",
+    "buyMeCoffee": "Ninunulie Kahawa ☕",
+    "superSupporter": "Msaidizi Mkuu 🔥",
+    "feature": "Kipengele",
+    "freeTier": "Kiwango cha Bure",
+    "premium": "Ya kipekee",
+    "chatLocks": "Kufuli za Gumzo",
+    "maxOneRoom": "Upeo wa Chumba 1",
+    "unlimited": "Bila kikomo",
+    "biometrics": "Biometriska",
+    "disabled": "🚫 Walemavu",
+    "supportWithSats": "Usaidizi wa sati {amount} (Phoenix)",
+    "boltOffer": "⚡ Ofa ya malipo ya BOLT12 • Gusa ili unakili",
+    "boltOfferCopied": "Ofa ya malipo ya BOLT12 imenakiliwa",
+    "tapToCopyBoltOffer": "Gusa ili unakili toleo la malipo la BOLT12",
+    "simpleInstructionsToUnlock": "📬 Maagizo Rahisi ya Kufungua:",
+    "unlockInstructions": "1. Lipa kwa kutumia Phoenix Wallet kwenye Android (7,500 kima cha chini zaidi ili ufungue — mengi zaidi yanathaminiwa kila wakati).\n2. Piga picha ya skrini ya skrini iliyofanikiwa ya uthibitishaji wa muamala.\n3. Tuma barua pepe hiyo picha ya skrini kwa jounaidnadirmed@gmail.com na uniambie jina lako la mtumiaji la kipekee la akaunti: '{username}' ili nijue ni nani aliyelipa.\n4. Andika chochote katika kisanduku kilicho hapa chini ili kuhifadhi ombi lako kwenye kifaa hiki:",
+    "supportRequestHint": "Andika jina lako au maelezo ya muamala hapa...",
+    "@supportWithSats": {
+        "placeholders": {
+            "amount": {
+                "type": "String"
+            }
+        }
+    },
+    "@unlockInstructions": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
     }
-  },
-
-  "copyDigitsHint": "Nakili tarakimu 5 zilizo hapo juu",
-  "codeMismatchNotice": "Msimbo haulingani. Weka Nenosiri Kuu ili kupita ulinzi au subiri dakika 10.",
-  "accountPasswordLabel": "Nenosiri la Akaunti",
-  "deleteEverythingPermanently": "FUTA KILA KITU KABISA",
-  "escapeAndPurgeDeviceData": "Toka na ufute data ya kifaa",
-
-  "addContact": "Ongeza anwani",
-  "addContactConfirmation": "Ongeza anwani hii?",
-  "noMessagesYet": "Bado hakuna ujumbe",
-  "addNewContact": "Ongeza anwani mpya",
-  "usernameLabel": "Jina la mtumiaji",
-  "nicknameOptionalLabel": "Jina la utani (si lazima)",
-  "add": "Ongeza",
-  "usernameCannotBeEmpty": "Jina la mtumiaji haliwezi kuwa tupu",
-
-  "contactAlreadyExists": "Anwani «{name}» tayari ipo kwenye kitabu chako cha anwani.",
-  "@contactAlreadyExists": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "userNotFoundOnRegistry": "Mtumiaji «{name}» hakupatikana kwenye sajili ya mtandao. Haiwezekani kuunda siri ya pamoja.",
-  "@userNotFoundOnRegistry": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "successfullyAddedContact": "Anwani {name} imeongezwa kwa mafanikio!",
-  "@successfullyAddedContact": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "contacts": "Anwani",
-  "noContactsYet": "Bado hakuna anwani",
-  "securityLockoutActive": "Kufungiwa kwa usalama kumewashwa",
-
-  "tooManyAttemptsFrozen": "Majaribio mengi yasiyo sahihi. Ufikiaji umefungwa kwa dakika {minutes}.",
-  "@tooManyAttemptsFrozen": {
-    "placeholders": {
-      "minutes": {
-        "type": "int"
-      }
-    }
-  },
-
-  "acknowledge": "Nimeelewa",
-  "accessBlocked": "Ufikiaji umezuiwa",
-
-  "accessSuspended": "Majaribio 5 ya uthibitishaji hayakufaulu. Ufikiaji umesimamishwa kwa dakika {minutes} zijazo.",
-  "@accessSuspended": {
-    "placeholders": {
-      "minutes": {
-        "type": "int"
-      }
-    }
-  },
-
-  "ok": "Sawa",
-
-  "unlockSecureNode": "Fungua nodi salama: {username}",
-  "@unlockSecureNode": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "verificationMetricsRemaining": "Majaribio ya uthibitishaji yaliyosalia: {count}",
-  "@verificationMetricsRemaining": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
-
-  "secureKeyPasscode": "Msimbo wa ufunguo wa usalama",
-  "warningHardwareLockout": "ONYO: Hitilafu nyingine itasababisha mfumo wa usalama kufunga kifaa.",
-  "abort": "Ghairi",
-  "authenticate": "Thibitisha",
-
-  "searchPipelinesHint": "Inatafuta miunganisho salama inayotumika...",
-  "zeroPipelinesDiscovered": "Hakuna miunganisho inayolingana iliyopatikana.",
-  "processingDecryption": "Inasimbua...",
-  "decrypting": "Inasimbua...",
-  "decryptionError": "[Hitilafu ya usimbuaji]",
-  "cryptContainerSecure": "KONTEINA YA CRYPT IMELINDWA",
-
-  "connectAnAccount": "Unganisha akaunti",
-  "username": "Jina la mtumiaji",
-  "password": "Nenosiri",
-  "enterMasterSecurityPassword": "Weka Nenosiri Kuu la Usalama",
-  "pleaseFillAllFields": "Tafadhali jaza sehemu zote",
-  "wrongUsernameOrPassword": "Jina la mtumiaji au nenosiri si sahihi",
-
-  "loginError": "Hitilafu ya kuingia: {error}",
-  "@loginError": {
-    "placeholders": {
-      "error": {
-        "type": "String"
-      }
-    }
-  },
-
-  "dontHaveAnAccountSignUp": "Huna akaunti? Jisajili",
-  "myIdentity": "Utambulisho wangu",
-  "scanToAddMe": "Changanua ili kuniongeza",
-  "shareProfileLink": "Shiriki kiungo cha wasifu",
-
-  "addMeOnCrypt": "Niongeze kwenye CRYPT!\n\n{link}",
-  "@addMeOnCrypt": {
-    "placeholders": {
-      "link": {
-        "type": "String"
-      }
-    }
-  },
-
-  "scanQr": "Changanua QR",
-  "invalidCryptQrFormat": "Muundo wa msimbo wa QR wa CRYPT si sahihi.",
-  "userScanned": "Mtumiaji amechanganuliwa!",
-
-  "addingUser": "Inaongeza {username}...",
-  "@addingUser": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "defaultUser": "Mtumiaji",
-  "createAccount": "Unda akaunti",
-  "keepPasswordSecureHint": "Hifadhi nenosiri lako mahali salama. Huwezi kulibadilisha.",
-  "pleaseFillInAllFields": "Tafadhali jaza sehemu zote",
-  "usernameExceedsLimit": "Jina la mtumiaji haliwezi kuwa na zaidi ya herufi 20",
-  "invalidUsernameCharacters": "Jina la mtumiaji linaweza kuwa na herufi, nambari, alama ya chini (_) na vistari (-) pekee",
-  "weakPasswordNotice": "Nenosiri lazima liwe na angalau herufi 8, liwe na nambari na herufi kubwa",
-  "unableToGenerateUniqueUsername": "Imeshindwa kuunda jina la mtumiaji la kipekee.",
-
-  "accountCreated": "Akaunti imeundwa",
-
-  "yourUsernameIs": "Jina lako la mtumiaji ni:\n\n{username}",
-  "@yourUsernameIs": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "usernameTakenAssignedTag": "Jina la mtumiaji «{chosen}» tayari limechukuliwa.\n\nJina lako la mtumiaji ni:\n\n{assigned}\n\nLikumbuke. Utalihitaji ili kuingia.",
-  "@usernameTakenAssignedTag": {
-    "placeholders": {
-      "chosen": {
-        "type": "String"
-      },
-      "assigned": {
-        "type": "String"
-      }
-    }
-  },
-
-  "continueText": "Endelea",
-
-  "failedToGenerateIdentity": "Imeshindwa kuunda utambulisho salama: {error}",
-  "@failedToGenerateIdentity": {
-    "placeholders": {
-      "error": {
-        "type": "String"
-      }
-    }
-  },
-
-  "welcomeToCrypt": "Karibu kwenye CRYPT",
-  "signupDescription": "Unda jina la mtumiaji na nenosiri ili kuzalisha funguo zako za usimbaji fiche wa P2P.",
-  "chooseAUsername": "Chagua jina la mtumiaji",
-  "usernameHelperText": "Usitumie jina lako halisi. Ikiwa jina la mtumiaji tayari limechukuliwa, tutaongeza kiambishi tamati cha kipekee kiotomatiki.",
-
-  "masterAuthenticationRequired": "Uthibitishaji mkuu unahitajika",
-  "verify": "Thibitisha",
-  "darkThemeMode": "Mandhari meusi",
-  "secureConversations": "Mazungumzo salama",
-  "noActiveConversations": "Hakuna mazungumzo yanayotumika. Anzisha mazungumzo ili kuwezesha kufuli za usalama.",
-  "logout": "Ondoka",
-  "wipeDeviceAndEscape": "FUTA KIFAA NA TOKA",
-  "falsePassword": "Nenosiri lisilo sahihi",
-
-  "accessSuspendedTimer": "Ufikiaji umesimamishwa kwa sababu za usalama. Jaribu tena baada ya {time}.",
-  "@accessSuspendedTimer": {
-    "placeholders": {
-      "time": {
-        "type": "String"
-      }
-    }
-  },
-
-  "selectSecureLockMethod": "Chagua njia ya kufuli salama",
-  "selectSecureLockDescription": "Je, ungependa kufunga mazungumzo haya kwa kutumia alama ya kidole ya kifaa au PIN ya kawaida ya tarakimu 4?",
-  "fourDigitPin": "PIN ya tarakimu 4",
-  "fingerprintUnlock": "Alama ya kidole 🔓",
-  "supportSoloDeveloper": "Msaidie msanidi programu huru",
-  "maybeLater": "Labda baadaye",
-  "submitProof": "Wasilisha uthibitisho",
-  "couldNotOpenWallet": "Imeshindwa kufungua pochi kiotomatiki. Nakili msimbo wa maandishi hapa chini.",
-  "proofSubmittedSnackbar": "Uthibitisho umetumwa. Ukaguzi wa mwongozo huchukua saa 24–48 (bila kujumuisha wikendi). Unaweza kuendelea kutumia programu kama kawaida."
 }

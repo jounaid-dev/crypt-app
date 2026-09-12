@@ -1,344 +1,301 @@
 {
-  "@@locale": "pa",
-
-  "appName": "CRYPT",
-
-  "welcome": "ਜੀ ਆਇਆਂ ਨੂੰ",
-
-  "login": "ਲੌਗ ਇਨ",
-
-  "signup": "ਸਾਈਨ ਅੱਪ",
-
-  "settings": "ਸੈਟਿੰਗਾਂ",
-
-  "chats": "ਚੈਟਸ",
-
-  "typeMessage": "ਸੁਨੇਹਾ ਟਾਈਪ ਕਰੋ...",
-
-  "send": "ਭੇਜੋ",
-
-  "p2p": "P2P",
-
-  "connecting": "ਕਨੈਕਟ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ...",
-
-  "connectingP2p": "P2P ਨਾਲ ਕਨੈਕਟ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ...",
-
-  "p2pConnectionNotReady": "P2P ਤਿਆਰ ਨਹੀਂ ਹੈ।",
-
-  "searchLanguage": "ਭਾਸ਼ਾ ਖੋਜੋ...",
-
-  "language": "ਭਾਸ਼ਾ",
-
-  "forceEscapeSignOutTitle": "ਐਮਰਜੈਂਸੀ ਲੌਗ ਆਊਟ ਲਈ ਮਜਬੂਰ ਕਰਨਾ ਹੈ?",
-
-  "forceEscapeSignOutContent": "ਚੇਤਾਵਨੀ: ਅਜਿਹਾ ਕਰਨ ਨਾਲ ਇਸ ਡਿਵਾਈਸ ਤੋਂ ਸਾਰਾ ਡਾਟਾ ਪੂਰੀ ਤਰ੍ਹਾਂ ਮਿਟ ਜਾਵੇਗਾ।",
-
-  "cancel": "ਰੱਦ ਕਰੋ",
-
-  "wipeDevice": "ਡਿਵਾਈਸ ਵਾਈਪ ਕਰੋ",
-
-  "accountDestructionAlertTitle": "ਖਾਤਾ ਨਸ਼ਟ ਕਰਨ ਦੀ ਚੇਤਾਵਨੀ",
-
-  "accountDestructionWarning": "ਚੇਤਾਵਨੀ: ਇਹ ਕਾਰਵਾਈ ਇਸ ਡਿਵਾਈਸ ਤੋਂ ਤੁਹਾਡਾ ਸਾਰਾ ਡਾਟਾ ਮਿਟਾ ਦਿੰਦੀ ਹੈ। ਇੰਟਰਨੈਟ ਨਾਲ ਕਨੈਕਟ ਹੋਣ 'ਤੇ, ਇਹ ਇੱਕ ਰਿਮੋਟ ਸੈਲਫ-ਡਿਸਟ੍ਰਕਟ ਕਮਾਂਡ ਨੂੰ ਟ੍ਰਿਗਰ ਕਰੇਗਾ। ਤੁਹਾਡੀ ਵਿਲੱਖਣ ਯੂਜ਼ਰ ਆਈਡੀ ਤੋਂ ਭੇਜਿਆ ਗਿਆ ਹਰ ਸੁਨੇਹਾ ਸਾਰੇ ਪੀਅਰਸ ਦੀ ਮੈਮੋਰੀ ਤੋਂ ਪੱਕੇ ਤੌਰ 'ਤੇ ਮਿਟਾ ਦਿੱਤਾ ਜਾਵੇਗਾ।",
-
-  "accountDestructionCriticalNotice": "ਨਾਜ਼ੁਕ: ਜੇਕਰ ਤੁਸੀਂ ਇਹ ਪੁਸ਼ਟੀਕਰਨ ਨੰਬਰ ਗਲਤ ਟਾਈਪ ਕਰਦੇ ਹੋ, ਤਾਂ ਸਿਸਟਮ ਲਾਕ ਹੋ ਜਾਵੇਗਾ। ਇਸਨੂੰ ਅਨਲਾਕ ਕਰਨ ਲਈ, ਤੁਹਾਨੂੰ ਆਪਣਾ ਮਾਸਟਰ ਅਕਾਊਂਟ ਪਾਸਵਰਡ ਦੇਣਾ ਪਵੇਗਾ, ਜਾਂ ਐਮਰਜੈਂਸੀ ਐਸਕੇਪ ਹੈਚ ਦੀ ਵਰਤੋਂ ਕਰਨੀ ਪਵੇਗੀ ਜੋ ਇਸ ਡਿਵਾਈਸ ਦੇ ਡਾਟਾ ਭੰਡਾਰ ਨੂੰ ਤੁਰੰਤ ਪੂਰੀ ਤਰ੍ਹਾਂ ਸਾਫ਼ ਕਰ ਦਿੰਦੀ ਹੈ।",
-
-  "verificationSecurityKey": "ਪੁਸ਼ਟੀਕਰਨ ਸੁਰੱਖਿਆ ਕੁੰਜੀ: {code}",
-
-  "@verificationSecurityKey": {
-    "placeholders": {
-      "code": {
-        "type": "String"
-      }
+    "@@locale": "pa",
+    "appName": "CRYPT",
+    "welcome": "ਜੀ ਆਇਆਂ ਨੂੰ",
+    "login": "ਲੌਗ ਇਨ",
+    "signup": "ਸਾਈਨ ਅੱਪ",
+    "settings": "ਸੈਟਿੰਗਾਂ",
+    "chats": "ਚੈਟਸ",
+    "typeMessage": "ਸੁਨੇਹਾ ਟਾਈਪ ਕਰੋ...",
+    "send": "ਭੇਜੋ",
+    "p2p": "P2P",
+    "connecting": "ਕਨੈਕਟ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ...",
+    "connectingP2p": "P2P ਨਾਲ ਕਨੈਕਟ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ...",
+    "p2pConnectionNotReady": "P2P ਤਿਆਰ ਨਹੀਂ ਹੈ।",
+    "searchLanguage": "ਭਾਸ਼ਾ ਖੋਜੋ...",
+    "language": "ਭਾਸ਼ਾ",
+    "forceEscapeSignOutTitle": "ਐਮਰਜੈਂਸੀ ਲੌਗ ਆਊਟ ਲਈ ਮਜਬੂਰ ਕਰਨਾ ਹੈ?",
+    "forceEscapeSignOutContent": "ਚੇਤਾਵਨੀ: ਅਜਿਹਾ ਕਰਨ ਨਾਲ ਇਸ ਡਿਵਾਈਸ ਤੋਂ ਸਾਰਾ ਡਾਟਾ ਪੂਰੀ ਤਰ੍ਹਾਂ ਮਿਟ ਜਾਵੇਗਾ।",
+    "cancel": "ਰੱਦ ਕਰੋ",
+    "wipeDevice": "ਡਿਵਾਈਸ ਵਾਈਪ ਕਰੋ",
+    "accountDestructionAlertTitle": "ਖਾਤਾ ਨਸ਼ਟ ਕਰਨ ਦੀ ਚੇਤਾਵਨੀ",
+    "accountDestructionWarning": "ਚੇਤਾਵਨੀ: ਇਹ ਕਾਰਵਾਈ ਇਸ ਡਿਵਾਈਸ ਤੋਂ ਤੁਹਾਡਾ ਸਾਰਾ ਡਾਟਾ ਮਿਟਾ ਦਿੰਦੀ ਹੈ। ਇੰਟਰਨੈਟ ਨਾਲ ਕਨੈਕਟ ਹੋਣ 'ਤੇ, ਇਹ ਇੱਕ ਰਿਮੋਟ ਸੈਲਫ-ਡਿਸਟ੍ਰਕਟ ਕਮਾਂਡ ਨੂੰ ਟ੍ਰਿਗਰ ਕਰੇਗਾ। ਤੁਹਾਡੀ ਵਿਲੱਖਣ ਯੂਜ਼ਰ ਆਈਡੀ ਤੋਂ ਭੇਜਿਆ ਗਿਆ ਹਰ ਸੁਨੇਹਾ ਸਾਰੇ ਪੀਅਰਸ ਦੀ ਮੈਮੋਰੀ ਤੋਂ ਪੱਕੇ ਤੌਰ 'ਤੇ ਮਿਟਾ ਦਿੱਤਾ ਜਾਵੇਗਾ।",
+    "accountDestructionCriticalNotice": "ਨਾਜ਼ੁਕ: ਜੇਕਰ ਤੁਸੀਂ ਇਹ ਪੁਸ਼ਟੀਕਰਨ ਨੰਬਰ ਗਲਤ ਟਾਈਪ ਕਰਦੇ ਹੋ, ਤਾਂ ਸਿਸਟਮ ਲਾਕ ਹੋ ਜਾਵੇਗਾ। ਇਸਨੂੰ ਅਨਲਾਕ ਕਰਨ ਲਈ, ਤੁਹਾਨੂੰ ਆਪਣਾ ਮਾਸਟਰ ਅਕਾਊਂਟ ਪਾਸਵਰਡ ਦੇਣਾ ਪਵੇਗਾ, ਜਾਂ ਐਮਰਜੈਂਸੀ ਐਸਕੇਪ ਹੈਚ ਦੀ ਵਰਤੋਂ ਕਰਨੀ ਪਵੇਗੀ ਜੋ ਇਸ ਡਿਵਾਈਸ ਦੇ ਡਾਟਾ ਭੰਡਾਰ ਨੂੰ ਤੁਰੰਤ ਪੂਰੀ ਤਰ੍ਹਾਂ ਸਾਫ਼ ਕਰ ਦਿੰਦੀ ਹੈ।",
+    "verificationSecurityKey": "ਪੁਸ਼ਟੀਕਰਨ ਸੁਰੱਖਿਆ ਕੁੰਜੀ: {code}",
+    "@verificationSecurityKey": {
+        "placeholders": {
+            "code": {
+                "type": "String"
+            }
+        }
+    },
+    "copyDigitsHint": "ਉੱਪਰ ਦਿੱਤੇ 5 ਅੰਕਾਂ ਨੂੰ ਕਾਪੀ ਕਰੋ",
+    "codeMismatchNotice": "ਕੋਡ ਦਾ ਮੇਲ ਨਹੀਂ ਹੋਇਆ! ਓਵਰਰਾਈਡ ਕਰਨ ਲਈ ਮਾਸਟਰ ਪਾਸਵਰਡ ਦਰਜ ਕਰੋ ਜਾਂ 10 ਮਿੰਟ ਦੇ ਲਾਕ ਦਾ ਸਾਹਮਣਾ ਕਰੋ:",
+    "accountPasswordLabel": "ਖਾਤਾ ਪਾਸਵਰਡ",
+    "deleteEverythingPermanently": "ਸਭ ਕੁਝ ਪੱਕੇ ਤੌਰ 'ਤੇ ਮਿਟਾਓ",
+    "escapeAndPurgeDeviceData": "ਐਸਕੇਪ ਕਰੋ ਅਤੇ ਡਿਵਾਈਸ ਡਾਟਾ ਸਾਫ਼ ਕਰੋ",
+    "addContact": "ਸੰਪਰਕ ਜੋੜੋ",
+    "addContactConfirmation": "ਕੀ ਤੁਸੀਂ ਇਹ ਸੰਪਰਕ ਜੋੜਨਾ ਚਾਹੁੰਦੇ ਹੋ?",
+    "noMessagesYet": "ਅਜੇ ਕੋਈ ਸੁਨੇਹਾ ਨਹੀਂ",
+    "addNewContact": "ਨਵਾਂ ਸੰਪਰਕ ਜੋੜੋ",
+    "usernameLabel": "ਯੂਜ਼ਰਨੇਮ",
+    "nicknameOptionalLabel": "ਨਿਕਨੇਮ (ਵੈਕਲਪਿਕ)",
+    "add": "ਜੋੜੋ",
+    "usernameCannotBeEmpty": "ਯੂਜ਼ਰਨੇਮ ਖਾਲੀ ਨਹੀਂ ਹੋ ਸਕਦਾ",
+    "contactAlreadyExists": "ਸੰਪਰਕ '{name}' ਪਹਿਲਾਂ ਹੀ ਤੁਹਾਡੀ ਐਡਰੈੱਸ ਬੁੱਕ ਵਿੱਚ ਹੈ।",
+    "@contactAlreadyExists": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "userNotFoundOnRegistry": "ਨੈੱਟਵਰਕ ਰਜਿਸਟਰੀ 'ਤੇ ਉਪਭੋਗਤਾ '{name}' ਨਹੀਂ ਮਿਲਿਆ। ਇੱਕ ਸਾਂਝਾ ਭੇਦ (shared secret) ਨਹੀਂ ਬਣਾਇਆ ਜਾ ਸਕਦਾ।",
+    "@userNotFoundOnRegistry": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "successfullyAddedContact": "ਸਫਲਤਾਪੂਰਵਕ {name} ਨੂੰ ਜੋੜਿਆ ਗਿਆ!",
+    "@successfullyAddedContact": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "contacts": "ਸੰਪਰਕ",
+    "noContactsYet": "ਅਜੇ ਕੋਈ ਸੰਪਰਕ ਨਹੀਂ ਹੈ",
+    "securityLockoutActive": "ਸੁਰੱਖਿਆ ਲਾਕਡਾਊਨ ਸਰਗਰਮ ਹੈ",
+    "tooManyAttemptsFrozen": "ਬਹੁਤ ਸਾਰੀਆਂ ਅਵੈਧ ਕੋਸ਼ਿਸ਼ਾਂ। {minutes} ਮਿੰਟਾਂ ਲਈ ਫ੍ਰੀਜ਼ ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ।",
+    "@tooManyAttemptsFrozen": {
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "acknowledge": "ਸਵੀਕਾਰ ਕਰੋ",
+    "accessBlocked": "ਪਹੁੰਚ ਬਲੌਕ ਕੀਤੀ ਗਈ",
+    "accessSuspended": "5 ਗਲਤ ਪੁਸ਼ਟੀਕਰਨ ਮੇਲ। ਅਗਲੇ {minutes} ਮਿੰਟਾਂ ਲਈ ਪਹੁੰਚ ਮੁਅੱਤਲ ਕਰ ਦਿੱਤੀ ਗਈ ਹੈ।",
+    "@accessSuspended": {
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "ok": "ਠੀਕ ਹੈ",
+    "unlockSecureNode": "ਸੁਰੱਖਿਅਤ ਨੋਡ ਅਨਲਾਕ ਕਰੋ: {username}",
+    "@unlockSecureNode": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "verificationMetricsRemaining": "ਬਾਕੀ ਪੁਸ਼ਟੀਕਰਨ ਕੋਸ਼ਿਸ਼ਾਂ: {count} ਕੋਸ਼ਿਸ਼ਾਂ।",
+    "@verificationMetricsRemaining": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "secureKeyPasscode": "ਸੁਰੱਖਿਅਤ ਕੁੰਜੀ ਪਾਸਕੋਡ",
+    "warningHardwareLockout": "ਚੇਤਾਵਨੀ: ਅਗਲਾ ਸਿਸਟਮ ਬੇਮੇਲ ਹੋਣ 'ਤੇ ਹਾਰਡਵੇਅਰ ਸੁਰੱਖਿਆ ਲਾਕਡਾਊਨ ਮਿਟੀਗੇਸ਼ਨ ਟ੍ਰਿਗਰ ਹੋ ਜਾਵੇਗੀ।",
+    "abort": "ਰੱਦ ਕਰੋ",
+    "authenticate": "ਪ੍ਰਮਾਣਿਤ ਕਰੋ",
+    "searchPipelinesHint": "ਸਰਗਰਮ ਸੁਰੱਖਿਅਤ ਪਾਈਪਲਾਈਨਾਂ ਦੀ ਪੁੱਛਗਿੱਛ ਕਰੋ...",
+    "zeroPipelinesDiscovered": "ਜ਼ੀਰੋ ਮੇਲ ਖਾਂਦੀਆਂ ਸੰਚਾਰ ਪਾਈਪਲਾਈਨਾਂ ਮਿਲੀਆਂ।",
+    "processingDecryption": "ਡਿਕ੍ਰਿਪਸ਼ਨ ਦੀ ਪ੍ਰਕਿਰਿਆ ਚੱਲ ਰਹੀ ਹੈ...",
+    "decrypting": "ਡਿਕ੍ਰਿਪਟ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ...",
+    "decryptionError": "[ਡਿਕ੍ਰਿਪਸ਼ਨ ਤਰੁਟੀ]",
+    "cryptContainerSecure": "CRYPT ਕੰਟੇਨਰ ਸੁਰੱਖਿਅਤ ਹੈ",
+    "connectAnAccount": "ਇੱਕ ਖਾਤਾ ਕਨੈਕਟ ਕਰੋ",
+    "username": "ਯੂਜ਼ਰਨੇਮ",
+    "password": "ਪਾਸਵਰਡ",
+    "enterMasterSecurityPassword": "ਆਪਣਾ ਮਾਸਟਰ ਸੁਰੱਖਿਆ ਪਾਸਵਰਡ ਦਰਜ ਕਰੋ",
+    "pleaseFillAllFields": "ਕਿਰਪਾ ਕਰਕੇ ਸਾਰੇ ਖੇਤਰ ਭਰੋ",
+    "wrongUsernameOrPassword": "ਗਲਤ ਯੂਜ਼ਰਨੇਮ ਜਾਂ ਪਾਸਵਰਡ",
+    "loginError": "ਲੌਗਇਨ ਤਰੁਟੀ: {error}",
+    "@loginError": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "dontHaveAnAccountSignUp": "ਖਾਤਾ ਨਹੀਂ ਹੈ? ਸਾਈਨ ਅੱਪ ਕਰੋ",
+    "myIdentity": "ਮੇਰੀ ਪਛਾਣ",
+    "scanToAddMe": "ਮੈਨੂੰ ਜੋੜਨ ਲਈ ਸਕੈਨ ਕਰੋ",
+    "shareProfileLink": "ਪ੍ਰੋਫਾਈਲ ਲਿੰਕ ਸਾਂਝਾ ਕਰੋ",
+    "addMeOnCrypt": "ਮੈਨੂੰ CRYPT 'ਤੇ ਜੋੜੋ!\n\n{link}",
+    "@addMeOnCrypt": {
+        "placeholders": {
+            "link": {
+                "type": "String"
+            }
+        }
+    },
+    "scanQr": "QR ਸਕੈਨ ਕਰੋ",
+    "invalidCryptQrFormat": "ਅਮਾਨਵ CRYPT QR ਕੋਡ ਫਾਰਮੈਟ।",
+    "userScanned": "ਉਪਭੋਗਤਾ ਸਕੈਨ ਕੀਤਾ ਗਿਆ!",
+    "addingUser": "{username} ਨੂੰ ਜੋੜਿਆ ਜਾ ਰਿਹਾ ਹੈ...",
+    "@addingUser": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "defaultUser": "ਉਪਭੋਗਤਾ",
+    "createAccount": "ਖਾਤਾ ਬਣਾਓ",
+    "keepPasswordSecureHint": "ਇਸਨੂੰ ਸੁਰੱਖਿਅਤ ਰੱਖੋ, ਪਾਸਵਰਡ ਬਾਅਦ ਵਿੱਚ ਬਦਲਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ",
+    "pleaseFillInAllFields": "ਕਿਰਪਾ ਕਰਕੇ ਸਾਰੇ ਖੇਤਰਾਂ ਵਿੱਚ ਜਾਣਕਾਰੀ ਭਰੋ",
+    "usernameExceedsLimit": "ਯੂਜ਼ਰਨੇਮ 20 ਅੱਖਰਾਂ ਤੋਂ ਵੱਧ ਨਹੀਂ ਹੋ ਸਕਦਾ",
+    "invalidUsernameCharacters": "ਯੂਜ਼ਰਨੇਮ ਵਿੱਚ ਸਿਰਫ਼ ਅੱਖਰ, ਸੰਖਿਆਵਾਂ, ਅੰਡਰਸਕੋਰ ਅਤੇ ਹਾਈਫਨ ਹੋ ਸਕਦੇ ਹਨ",
+    "weakPasswordNotice": "ਪਾਸਵਰਡ 8+ ਅੱਖਰਾਂ ਦਾ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ, ਜਿਸ ਵਿੱਚ ਇੱਕ ਸੰਖਿਆ ਅਤੇ ਇੱਕ ਵੱਡਾ ਅੱਖਰ (uppercase) ਸ਼ਾਮਲ ਹੋਵੇ",
+    "unableToGenerateUniqueUsername": "ਇੱਕ ਵਿਲੱਖਣ ਯੂਜ਼ਰਨੇਮ ਬਣਾਉਣ ਵਿੱਚ ਅਸਮਰੱਥ।",
+    "accountCreated": "ਖਾਤਾ ਬਣ ਗਿਆ",
+    "yourUsernameIs": "ਤੁਹਾਡਾ ਯੂਜ਼ਰਨੇਮ ਹੈ:\n\n{username}",
+    "@yourUsernameIs": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "usernameTakenAssignedTag": "ਯੂਜ਼ਰਨੇਮ '{chosen}' ਪਹਿਲਾਂ ਹੀ ਲਿਆ ਜਾ ਚੁੱਕਾ ਸੀ।\n\nਤੁਹਾਡਾ ਯੂਜ਼ਰਨੇਮ ਹੈ:\n\n{assigned}\n\nਕਿਰਪਾ ਕਰਕੇ ਇਸਨੂੰ ਯਾਦ ਰੱਖੋ। ਲੌਗ ਇਨ ਕਰਨ ਲਈ ਤੁਹਾਨੂੰ ਇਸਦੀ ਲੋੜ ਪਵੇਗੀ।",
+    "@usernameTakenAssignedTag": {
+        "placeholders": {
+            "chosen": {
+                "type": "String"
+            },
+            "assigned": {
+                "type": "String"
+            }
+        }
+    },
+    "continueText": "ਜਾਰੀ ਰੱਖੋ",
+    "failedToGenerateIdentity": "ਸੁਰੱਖਿਅਤ ਪਛਾਣ ਬਣਾਉਣ ਵਿੱਚ ਅਸਫਲ: {error}",
+    "@failedToGenerateIdentity": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "welcomeToCrypt": "CRYPT ਵਿੱਚ ਤੁਹਾਡਾ ਸੁਆਗਤ ਹੈ",
+    "signupDescription": "ਆਪਣੀਆਂ ਪੀਅਰ-ਟੂ-ਪੀਅਰ ਐਨਕ੍ਰਿਪਸ਼ਨ ਕੁੰਜੀਆਂ ਨੂੰ ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਇੱਕ ਯੂਜ਼ਰਨੇਮ ਅਤੇ ਪਾਸਵਰਡ ਦਰਜ ਕਰੋ।",
+    "chooseAUsername": "ਇੱਕ ਯੂਜ਼ਰਨੇਮ ਚੁਣੋ",
+    "usernameHelperText": "ਆਪਣੇ ਅਸਲੀ ਨਾਮ ਦੀ ਵਰਤੋਂ ਨਾ ਕਰੋ। ਜੇਕਰ ਯੂਜ਼ਰਨੇਮ ਪਹਿਲਾਂ ਹੀ ਲਿਆ ਗਿਆ ਹੈ, ਤਾਂ ਅਸੀਂ ਆਪਣੇ ਆਪ ਇੱਕ ਵਿਲੱਖਣ ਪਿਛੇਤਰ ਜੋੜ ਦੇਵਾਂਗੇ।",
+    "masterAuthenticationRequired": "ਮਾਸਟਰ ਪ੍ਰਮਾਣਿਕਤਾ ਦੀ ਲੋੜ ਹੈ",
+    "verify": "ਪੁਸ਼ਟੀ ਕਰੋ",
+    "darkThemeMode": "ਡਾਰਕ ਥੀਮ ਮੋਡ",
+    "secureConversations": "ਸੁਰੱਖਿਅਤ ਗੱਲਬਾਤ",
+    "noActiveConversations": "ਕੋਈ ਸਰਗਰਮ ਗੱਲਬਾਤ ਨਹੀਂ ਮਿਲੀ। ਕਸਟਮ ਸੁਰੱਖਿਆ ਲਾਕ ਲਾਗੂ ਕਰਨ ਲਈ ਪਹਿਲਾਂ ਇੱਕ ਗੱਲਬਾਤ ਸ਼ੁਰੂ ਕਰੋ।",
+    "logout": "ਲੌਗਆਊਟ",
+    "wipeDeviceAndEscape": "ਡਿਵਾਈਸ ਵਾਈਪ ਕਰੋ ਅਤੇ ਬਾਹਰ ਨਿਕਲੋ",
+    "falsePassword": "ਗਲਤ ਪਾਸਵਰਡ",
+    "accessSuspendedTimer": "ਸੁਰੱਖਿਆ ਕਾਰਨਾਂ ਕਰਕੇ ਪਹੁੰਚ ਮੁਅੱਤਲ ਕਰ ਦਿੱਤੀ ਗਈ ਹੈ। {time} ਵਿੱਚ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।",
+    "@accessSuspendedTimer": {
+        "placeholders": {
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "selectSecureLockMethod": "ਸੁਰੱਖਿਅਤ ਲਾਕ ਵਿਧੀ ਚੁਣੋ",
+    "selectSecureLockDescription": "ਕੀ ਤੁਸੀਂ ਇਸ ਗੱਲਬਾਤ ਰੂਮ ਨੂੰ ਡਿਵਾਈਸ ਫਿੰਗਰਪ੍ਰਿੰਟ ਬਾਇਓਮੈਟ੍ਰਿਕਸ ਜਾਂ ਇੱਕ ਮਿਆਰੀ 4-ਅੰਕੀ ਪਿਨ ਕੋਡ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਲਾਕ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?",
+    "fourDigitPin": "4-ਅੰਕੀ ਪਿਨ",
+    "fingerprintUnlock": "ਫਿੰਗਰਪ੍ਰਿੰਟ 🔓",
+    "supportSoloDeveloper": "ਇੱਕ ਸੋਲੋ ਡਿਵੈਲਪਰ ਦਾ ਸਮਰਥਨ ਕਰੋ",
+    "maybeLater": "ਸ਼ਾਇਦ ਬਾਅਦ ਵਿੱਚ",
+    "submitProof": "ਸਬੂਤ ਜਮ੍ਹਾਂ ਕਰੋ",
+    "couldNotOpenWallet": "ਵਾਲਿਟ ਆਪਣੇ ਆਪ ਨਹੀਂ ਖੋਲ੍ਹਿਆ ਜਾ ਸਕਿਆ। ਕਿਰਪਾ ਕਰਕੇ ਇਸਦੀ ਬਜਾਏ ਹੇਠਾਂ ਦਿੱਤੇ ਟੈਕਸਟ ਕੋਡ ਸਟ੍ਰਿੰਗ ਨੂੰ ਕਾਪੀ ਕਰੋ।",
+    "proofSubmittedSnackbar": "ਸਬੂਤ ਜਮ੍ਹਾਂ ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ! ਮੈਨੂਅਲ ਸਮੀਖਿਆ ਵਿੱਚ 24-48 ਘੰਟੇ ਲੱਗਦੇ ਹਨ (ਹਫਤੇ ਦੇ ਅੰਤ ਨੂੰ ਛੱਡ ਕੇ)। ਤੁਸੀਂ ਐਪ ਦੀ ਆਮ ਤੌਰ 'ਤੇ ਵਰਤੋਂ ਜਾਰੀ ਰੱਖ ਸਕਦੇ ਹੋ!",
+    "termsAndConditions": "ਨਿਯਮ ਅਤੇ ਹਾਲਾਤ",
+    "settingsTermsAndConditions": "ਨਿਯਮ ਅਤੇ ਹਾਲਾਤ",
+    "termsIntro": "ਕ੍ਰਿਪਟ ਲੋਕਾਂ ਨੂੰ ਗੱਲਬਾਤ ਲਈ ਸਿੱਧਾ ਜੋੜਨ ਲਈ ਸ਼ੁਰੂਆਤੀ ਪੜਾਅ ਦੀ ਐਪਲੀਕੇਸ਼ਨ ਹੈ. ਤੁਸੀਂ ਐਪਲੀਕੇਸ਼ਨ ਦੀ ਸਹੀ ਵਰਤੋਂ ਕਰਨ ਅਤੇ ਆਪਣੇ ਖਾਤੇ ਦੇ ਪ੍ਰਮਾਣ ਪੱਤਰਾਂ ਨੂੰ ਸੁਰੱਖਿਅਤ ਰੱਖਣ ਲਈ ਜ਼ਿੰਮੇਵਾਰ ਹੋ.",
+    "termsConnectivity": "ਕ੍ਰਿਪਟ ਡਿਵਾਈਸਾਂ ਨੂੰ ਲੱਭਣ ਅਤੇ ਕਨੈਕਸ਼ਨ ਸਥਾਪਤ ਕਰਨ ਵਿੱਚ ਸਹਾਇਤਾ ਲਈ servicesਨਲਾਈਨ ਸੇਵਾਵਾਂ ਦੀ ਵਰਤੋਂ ਕਰਦਾ ਹੈ. ਉਪਲੱਬਧਤਾ ਅਤੇ ਕੁਨੈਕਸ਼ਨ ਵਿਵਹਾਰ ਬਦਲ ਸਕਦਾ ਹੈ ਜਿਵੇਂ ਕਿ ਐਪਲੀਕੇਸ਼ਨ ਵਿਕਸਤ ਹੁੰਦਾ ਹੈ. ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੇ ਸੰਚਾਰ ਦੇ ਇਕੋ ਇਕ ਸਾਧਨ ਵਜੋਂ ਕ੍ਰਿਪਟ 'ਤੇ ਭਰੋਸਾ ਨਾ ਕਰੋ.",
+    "termsAgreement": "ਜਾਰੀ ਰੱਖ ਕੇ, ਤੁਸੀਂ ਪੁਸ਼ਟੀ ਕਰਦੇ ਹੋ ਕਿ ਤੁਸੀਂ ਇਨ੍ਹਾਂ ਸ਼ਰਤਾਂ ਦੇ ਤਹਿਤ ਕ੍ਰਿਪਟ ਨੂੰ ਪੜ੍ਹ ਲਿਆ ਹੈ ਅਤੇ ਵਰਤਣ ਲਈ ਸਹਿਮਤ ਹੋ.",
+    "agreeTerms": "ਮੈਂ ਨਿਯਮਾਂ ਅਤੇ ਸ਼ਰਤਾਂ ਨਾਲ ਸਹਿਮਤ ਹਾਂ",
+    "agreeAndContinue": "ਸਹਿਮਤ ਹੋਵੋ ਅਤੇ ਜਾਰੀ ਰੱਖੋ",
+    "beforeYouStart": "ਤੁਹਾਡੇ ਸ਼ੁਰੂ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ",
+    "connected": "ਕੁਨੈਕਟ",
+    "connectFirstThenChat": "ਪਹਿਲਾਂ ਕਨੈਕਟ ਕਰੋ, ਫਿਰ ਚੈਟ ਕਰੋ",
+    "betaIntro": "ਕ੍ਰਿਪਟ ਇੱਕ ਸ਼ੁਰੂਆਤੀ ਬੀਟਾ ਸੰਸਕਰਣ ਹੈ, ਇਸ ਲਈ ਭਵਿੱਖ ਦੇ ਸੰਸਕਰਣਾਂ ਵਿੱਚ ਤਜਰਬੇ ਵਿੱਚ ਸੁਧਾਰ ਹੋ ਸਕਦਾ ਹੈ.",
+    "walkieTalkieExplanation": "ਕ੍ਰਿਪਟ ਇੱਕ ਵਾਕੀ-ਟਾਲਕੀ ਵਰਗਾ ਕੰਮ ਕਰਦਾ ਹੈਃ ਦੋਵਾਂ ਲੋਕਾਂ ਨੂੰ ਆਨਲਾਈਨ ਹੋਣ ਦੀ ਜ਼ਰੂਰਤ ਹੈ ਅਤੇ ਕੁਨੈਕਸ਼ਨ ਸਥਾਪਤ ਕਰਨ ਲਈ ਉਸੇ ਸਮੇਂ ਕ੍ਰਿਪਟ ਖੁੱਲ੍ਹਾ ਹੈ.",
+    "howToUseCrypt": "ਕ੍ਰਿਪਟ ਦੀ ਵਰਤੋਂ ਕਿਵੇਂ ਕਰੀਏਃ\n1. ਦੂਜੇ ਵਿਅਕਤੀ ਦੇ ਕ੍ਰਿਪਟ QR ਕੋਡ ਨੂੰ ਸਕੈਨ ਕਰੋ.\n2. ਦੋਨੋ ਲੋਕ crypt ਓਪਨ ਅਤੇ ਆਨਲਾਈਨ ਦੀ ਲੋੜ ਹੈ.\n3. ਇੰਤਜ਼ਾਰ ਕਰੋ ਜਦੋਂ ਕਿ ਕ੍ਰਿਪਟ P2P ਕਨੈਕਸ਼ਨ ਸਥਾਪਤ ਕਰਦਾ ਹੈ.\n4. \"ਕਨੈਕਟਿੰਗ...\" ਅਵਸਥਾ ਦੇ ਅਲੋਪ ਹੋਣ ਅਤੇ ਕਨੈਕਸ਼ਨ ਸਥਾਪਤ ਹੋਣ ਦੀ ਉਡੀਕ ਕਰੋ.\n5. ਇਕ ਵਾਰ ਜੁੜਨ ਤੋਂ ਬਾਅਦ, ਤੁਸੀਂ ਚੈਟ ਕਰਨਾ ਸ਼ੁਰੂ ਕਰ ਸਕਦੇ ਹੋ.",
+    "messageStorageExplanation": "ਤੁਹਾਡੇ ਸੁਨੇਹੇ ਜੁੜੇ ਹੋਏ ਉਪਕਰਣਾਂ ਵਿਚਕਾਰ ਸਿੱਧੇ ਯਾਤਰਾ ਕਰਨ ਲਈ ਤਿਆਰ ਕੀਤੇ ਗਏ ਹਨ. ਕ੍ਰਿਪਟ ਤੁਹਾਡੇ ਚੈਟ ਸੁਨੇਹਿਆਂ ਨੂੰ ਸਾਡੇ ਸਰਵਰਾਂ ਤੇ ਸਟੋਰ ਨਹੀਂ ਕਰਦਾ. ਸਰਵਰ ਇਸ ਸਮੇਂ ਕੁਨੈਕਸ਼ਨ ਅਤੇ ਸਿਗਨਲਿੰਗ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ, ਅਤੇ ਚੈਟ ਇਤਿਹਾਸ ਸਰਵਰ ਤੇ ਸਟੋਰ ਨਹੀਂ ਕੀਤਾ ਜਾਂਦਾ ਹੈ. ਜੇ ਦੂਸਰਾ ਵਿਅਕਤੀ offlineਫਲਾਈਨ ਹੈ, ਤਾਂ ਮੌਜੂਦਾ P2P ਕਨੈਕਸ਼ਨ ਸਥਾਪਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ.",
+    "settingsAndSupportExplanation": "ਆਪਣੇ ਕ੍ਰਿਪਟ ਅਨੁਭਵ ਨੂੰ ਅਨੁਕੂਲਿਤ ਕਰਨ ਲਈ ਸੈਟਿੰਗਾਂ ਤੇ ਜਾਓ. ਹੋਰ ਕਸਟਮਾਈਜ਼ੇਸ਼ਨ ਵਿਕਲਪ ਜਲਦੀ ਆ ਰਹੇ ਹਨ.\n\nਕ੍ਰਿਪਟ ਦਾ ਸਮਰਥਨ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ? ਤੁਸੀਂ ਸੈਟਿੰਗਾਂ ਵਿੱਚ ਦਾਨ ਵਿਕਲਪ ਲੱਭ ਸਕਦੇ ਹੋ.",
+    "saving": "ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ....",
+    "continueToCrypt": "ਕ੍ਰਿਪਟ ਕਰਨਾ ਜਾਰੀ ਰੱਖੋ",
+    "showSplashScreen": "ਸ਼ੁਰੂਆਤੀ ਸਕਰੀਨ ਵੇਖੋ",
+    "retry": "ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ",
+    "connectionFailed": "ਕਨੈਕਸ਼ਨ ਅਸਫਲ ਰਿਹਾ",
+    "connectionFailedDetails": "ਕੁਨੈਕਸ਼ਨ ਫੇਲ੍ਹ ਹੈ । ਦੋਵੇਂ ਜੰਤਰ ਜੁੜਨ ਲਈ crypt ਖੁੱਲ੍ਹੇ ਨਾਲ ਔਨਲਾਈਨ ਹੋਣੇ ਚਾਹੀਦੇ ਹਨ ।",
+    "gallery": "ਗੈਲਰੀ",
+    "alignQrCode": "QR ਕੋਡ ਨੂੰ ਇਕਸਾਰ ਕਰੋ",
+    "scanFromGallery": "ਗੈਲਰੀ ਤੋਂ ਸਕੈਨ ਕਰੋ",
+    "couldNotScanImage": "ਈਮੇਜ਼ ਸਕੈਨ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ ।",
+    "couldNotShareQrCode": "QR ਕੋਡ ਸਾਂਝਾ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ: {error}",
+    "newContact": "ਨਵਾਂ ਸੰਪਰਕਃ {username}",
+    "publicEncryptionKeyMissing": "ਤੁਹਾਡੀ ਪਬਲਿਕ ਇਨਕ੍ਰਿਪਸ਼ਨ ਕੁੰਜੀ ਗੁੰਮ ਹੈ ।",
+    "contactEncryptionKeyMissing": "ਸੰਪਰਕ ਇੰਕ੍ਰਿਪਸ਼ਨ ਕੁੰਜੀ ਗੁੰਮ ਹੈ ।",
+    "localEncryptionKeyMissing": "ਲੋਕਲ ਇੰਕ੍ਰਿਪਸ਼ਨ ਕੁੰਜੀ ਗੁੰਮ ਹੈ ।",
+    "noQrCodeFound": "ਇਸ ਚਿੱਤਰ ਵਿੱਚ ਕੋਈ QR ਕੋਡ ਨਹੀਂ ਮਿਲਿਆ.",
+    "shareQrCode": "QR ਕੋਡ ਸਾਂਝਾ ਕਰੋ",
+    "@couldNotShareQrCode": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "@newContact": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "supportIntro": "ਹੇ! 👋 ਮੈਂ CRYPT 'ਤੇ ਸਖ਼ਤ ਮਿਹਨਤ ਕਰਨ ਵਾਲਾ ਇੱਕ ਸਿੰਗਲ ਡਿਵੈਲਪਰ ਹਾਂ। ਮੇਰੇ ਕੋਲ ਕੋਈ ਬਜਟ ਜਾਂ ਕਾਰਪੋਰੇਟ ਫੰਡਿੰਗ ਨਹੀਂ ਹੈ। ਮੈਂ ਐਪ ਨੂੰ ਬਿਹਤਰ ਬਣਾਉਣ ਲਈ ਤੁਹਾਡੀ ਇਮਾਨਦਾਰੀ ਅਤੇ ਹਮਦਰਦੀ 'ਤੇ ਪੂਰੀ ਤਰ੍ਹਾਂ ਭਰੋਸਾ ਕਰਦਾ ਹਾਂ ਅਤੇ ਹਮੇਸ਼ਾ ਲਈ ਕਿਸੇ ਵੀ ਵਿਗਿਆਪਨ ਦੀ ਗਰੰਟੀ ਨਹੀਂ ਦਿੰਦਾ।",
+    "chooseSupportAmount": "ਆਪਣੀ ਕੀਮਤ ਚੁਣੋ (ਸਮਰਥਨ ਲਈ ਸਲਾਈਡ):",
+    "poorGang": "ਮੈਂ ਗਰੀਬ ਗੈਂਗ 🥀✌️",
+    "launchOfferMinimum": "ਘੱਟੋ-ਘੱਟ ਪੇਸ਼ਕਸ਼ ਲਾਂਚ ਕਰੋ 🚀",
+    "buyMeCoffee": "ਮੈਨੂੰ ਇੱਕ ਕੌਫੀ ਖਰੀਦੋ ☕",
+    "superSupporter": "ਸੁਪਰ ਸਮਰਥਕ 🔥",
+    "feature": "ਵਿਸ਼ੇਸ਼ਤਾ",
+    "freeTier": "ਮੁਫਤ ਟੀਅਰ",
+    "premium": "ਪ੍ਰੀਮੀਅਮ",
+    "chatLocks": "ਚੈਟ ਲਾਕ",
+    "maxOneRoom": "ਅਧਿਕਤਮ 1 ਕਮਰਾ",
+    "unlimited": "ਅਸੀਮਤ",
+    "biometrics": "ਬਾਇਓਮੈਟ੍ਰਿਕਸ",
+    "disabled": "🚫 ਅਯੋਗ",
+    "supportWithSats": "{amount} sats (ਫੀਨਿਕ੍ਸ) ਨਾਲ ਸਹਾਇਤਾ",
+    "boltOffer": "⚡ BOLT12 ਭੁਗਤਾਨ ਦੀ ਪੇਸ਼ਕਸ਼ • ਕਾਪੀ ਕਰਨ ਲਈ ਟੈਪ ਕਰੋ",
+    "boltOfferCopied": "BOLT12 ਭੁਗਤਾਨ ਪੇਸ਼ਕਸ਼ ਕਾਪੀ ਕੀਤੀ ਗਈ",
+    "tapToCopyBoltOffer": "BOLT12 ਭੁਗਤਾਨ ਪੇਸ਼ਕਸ਼ ਨੂੰ ਕਾਪੀ ਕਰਨ ਲਈ ਟੈਪ ਕਰੋ",
+    "simpleInstructionsToUnlock": "📬 ਅਨਲੌਕ ਕਰਨ ਲਈ ਸਧਾਰਨ ਹਦਾਇਤਾਂ:",
+    "unlockInstructions": "1. ਐਂਡਰੌਇਡ 'ਤੇ ਫੀਨਿਕਸ ਵਾਲਿਟ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਭੁਗਤਾਨ ਕਰੋ (ਅਨਲਾਕ ਕਰਨ ਲਈ ਘੱਟੋ-ਘੱਟ 7,500 - ਹੋਰ ਦੀ ਹਮੇਸ਼ਾ ਸ਼ਲਾਘਾ ਕੀਤੀ ਜਾਂਦੀ ਹੈ)।\n2. ਆਪਣੀ ਸਫਲ ਟ੍ਰਾਂਜੈਕਸ਼ਨ ਪੁਸ਼ਟੀਕਰਨ ਸਕ੍ਰੀਨ ਦਾ ਸਕ੍ਰੀਨਸ਼ੌਟ ਲਓ।\n3. ਉਸ ਸਕ੍ਰੀਨਸ਼ੌਟ ਨੂੰ jounaidnadirmed@gmail.com 'ਤੇ ਈਮੇਲ ਕਰੋ ਅਤੇ ਮੈਨੂੰ ਆਪਣਾ ਵਿਲੱਖਣ ਖਾਤਾ ਵਰਤੋਂਕਾਰ ਨਾਮ ਦੱਸੋ: '{username}' ਤਾਂ ਮੈਨੂੰ ਪਤਾ ਲੱਗੇ ਕਿ ਕਿਸ ਨੇ ਭੁਗਤਾਨ ਕੀਤਾ ਹੈ।\n4. ਇਸ ਡਿਵਾਈਸ 'ਤੇ ਆਪਣੀ ਬੇਨਤੀ ਨੂੰ ਸੁਰੱਖਿਅਤ ਕਰਨ ਲਈ ਹੇਠਾਂ ਦਿੱਤੇ ਬਾਕਸ ਵਿੱਚ ਕੁਝ ਵੀ ਟਾਈਪ ਕਰੋ:",
+    "supportRequestHint": "ਇੱਥੇ ਆਪਣਾ ਨਾਮ ਜਾਂ ਲੈਣ-ਦੇਣ ਦੀ ਜਾਣਕਾਰੀ ਟਾਈਪ ਕਰੋ...",
+    "@supportWithSats": {
+        "placeholders": {
+            "amount": {
+                "type": "String"
+            }
+        }
+    },
+    "@unlockInstructions": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
     }
-  },
-
-  "copyDigitsHint": "ਉੱਪਰ ਦਿੱਤੇ 5 ਅੰਕਾਂ ਨੂੰ ਕਾਪੀ ਕਰੋ",
-
-  "codeMismatchNotice": "ਕੋਡ ਦਾ ਮੇਲ ਨਹੀਂ ਹੋਇਆ! ਓਵਰਰਾਈਡ ਕਰਨ ਲਈ ਮਾਸਟਰ ਪਾਸਵਰਡ ਦਰਜ ਕਰੋ ਜਾਂ 10 ਮਿੰਟ ਦੇ ਲਾਕ ਦਾ ਸਾਹਮਣਾ ਕਰੋ:",
-
-  "accountPasswordLabel": "ਖਾਤਾ ਪਾਸਵਰਡ",
-
-  "deleteEverythingPermanently": "ਸਭ ਕੁਝ ਪੱਕੇ ਤੌਰ 'ਤੇ ਮਿਟਾਓ",
-
-  "escapeAndPurgeDeviceData": "ਐਸਕੇਪ ਕਰੋ ਅਤੇ ਡਿਵਾਈਸ ਡਾਟਾ ਸਾਫ਼ ਕਰੋ",
-
-  "addContact": "ਸੰਪਰਕ ਜੋੜੋ",
-
-  "addContactConfirmation": "ਕੀ ਤੁਸੀਂ ਇਹ ਸੰਪਰਕ ਜੋੜਨਾ ਚਾਹੁੰਦੇ ਹੋ?",
-
-  "noMessagesYet": "ਅਜੇ ਕੋਈ ਸੁਨੇਹਾ ਨਹੀਂ",
-
-  "addNewContact": "ਨਵਾਂ ਸੰਪਰਕ ਜੋੜੋ",
-
-  "usernameLabel": "ਯੂਜ਼ਰਨੇਮ",
-
-  "nicknameOptionalLabel": "ਨਿਕਨੇਮ (ਵੈਕਲਪਿਕ)",
-
-  "add": "ਜੋੜੋ",
-
-  "usernameCannotBeEmpty": "ਯੂਜ਼ਰਨੇਮ ਖਾਲੀ ਨਹੀਂ ਹੋ ਸਕਦਾ",
-
-  "contactAlreadyExists": "ਸੰਪਰਕ '{name}' ਪਹਿਲਾਂ ਹੀ ਤੁਹਾਡੀ ਐਡਰੈੱਸ ਬੁੱਕ ਵਿੱਚ ਹੈ।",
-
-  "@contactAlreadyExists": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "userNotFoundOnRegistry": "ਨੈੱਟਵਰਕ ਰਜਿਸਟਰੀ 'ਤੇ ਉਪਭੋਗਤਾ '{name}' ਨਹੀਂ ਮਿਲਿਆ। ਇੱਕ ਸਾਂਝਾ ਭੇਦ (shared secret) ਨਹੀਂ ਬਣਾਇਆ ਜਾ ਸਕਦਾ।",
-
-  "@userNotFoundOnRegistry": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "successfullyAddedContact": "ਸਫਲਤਾਪੂਰਵਕ {name} ਨੂੰ ਜੋੜਿਆ ਗਿਆ!",
-
-  "@successfullyAddedContact": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "contacts": "ਸੰਪਰਕ",
-
-  "noContactsYet": "ਅਜੇ ਕੋਈ ਸੰਪਰਕ ਨਹੀਂ ਹੈ",
-
-  "securityLockoutActive": "ਸੁਰੱਖਿਆ ਲਾਕਡਾਊਨ ਸਰਗਰਮ ਹੈ",
-
-  "tooManyAttemptsFrozen": "ਬਹੁਤ ਸਾਰੀਆਂ ਅਵੈਧ ਕੋਸ਼ਿਸ਼ਾਂ। {minutes} ਮਿੰਟਾਂ ਲਈ ਫ੍ਰੀਜ਼ ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ।",
-
-  "@tooManyAttemptsFrozen": {
-    "placeholders": {
-      "minutes": {
-        "type": "int"
-      }
-    }
-  },
-
-  "acknowledge": "ਸਵੀਕਾਰ ਕਰੋ",
-
-  "accessBlocked": "ਪਹੁੰਚ ਬਲੌਕ ਕੀਤੀ ਗਈ",
-
-  "accessSuspended": "5 ਗਲਤ ਪੁਸ਼ਟੀਕਰਨ ਮੇਲ। ਅਗਲੇ {minutes} ਮਿੰਟਾਂ ਲਈ ਪਹੁੰਚ ਮੁਅੱਤਲ ਕਰ ਦਿੱਤੀ ਗਈ ਹੈ।",
-
-  "@accessSuspended": {
-    "placeholders": {
-      "minutes": {
-        "type": "int"
-      }
-    }
-  },
-
-  "ok": "ਠੀਕ ਹੈ",
-
-  "unlockSecureNode": "ਸੁਰੱਖਿਅਤ ਨੋਡ ਅਨਲਾਕ ਕਰੋ: {username}",
-
-  "@unlockSecureNode": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "verificationMetricsRemaining": "ਬਾਕੀ ਪੁਸ਼ਟੀਕਰਨ ਕੋਸ਼ਿਸ਼ਾਂ: {count} ਕੋਸ਼ਿਸ਼ਾਂ।",
-
-  "@verificationMetricsRemaining": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
-
-  "secureKeyPasscode": "ਸੁਰੱਖਿਅਤ ਕੁੰਜੀ ਪਾਸਕੋਡ",
-
-  "warningHardwareLockout": "ਚੇਤਾਵਨੀ: ਅਗਲਾ ਸਿਸਟਮ ਬੇਮੇਲ ਹੋਣ 'ਤੇ ਹਾਰਡਵੇਅਰ ਸੁਰੱਖਿਆ ਲਾਕਡਾਊਨ ਮਿਟੀਗੇਸ਼ਨ ਟ੍ਰਿਗਰ ਹੋ ਜਾਵੇਗੀ।",
-
-  "abort": "ਰੱਦ ਕਰੋ",
-
-  "authenticate": "ਪ੍ਰਮਾਣਿਤ ਕਰੋ",
-
-  "searchPipelinesHint": "ਸਰਗਰਮ ਸੁਰੱਖਿਅਤ ਪਾਈਪਲਾਈਨਾਂ ਦੀ ਪੁੱਛਗਿੱਛ ਕਰੋ...",
-
-  "zeroPipelinesDiscovered": "ਜ਼ੀਰੋ ਮੇਲ ਖਾਂਦੀਆਂ ਸੰਚਾਰ ਪਾਈਪਲਾਈਨਾਂ ਮਿਲੀਆਂ।",
-
-  "processingDecryption": "ਡਿਕ੍ਰਿਪਸ਼ਨ ਦੀ ਪ੍ਰਕਿਰਿਆ ਚੱਲ ਰਹੀ ਹੈ...",
-
-  "decrypting": "ਡਿਕ੍ਰਿਪਟ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ...",
-
-  "decryptionError": "[ਡਿਕ੍ਰਿਪਸ਼ਨ ਤਰੁਟੀ]",
-
-  "cryptContainerSecure": "CRYPT ਕੰਟੇਨਰ ਸੁਰੱਖਿਅਤ ਹੈ",
-
-  "connectAnAccount": "ਇੱਕ ਖਾਤਾ ਕਨੈਕਟ ਕਰੋ",
-
-  "username": "ਯੂਜ਼ਰਨੇਮ",
-
-  "password": "ਪਾਸਵਰਡ",
-
-  "enterMasterSecurityPassword": "ਆਪਣਾ ਮਾਸਟਰ ਸੁਰੱਖਿਆ ਪਾਸਵਰਡ ਦਰਜ ਕਰੋ",
-
-  "pleaseFillAllFields": "ਕਿਰਪਾ ਕਰਕੇ ਸਾਰੇ ਖੇਤਰ ਭਰੋ",
-
-  "wrongUsernameOrPassword": "ਗਲਤ ਯੂਜ਼ਰਨੇਮ ਜਾਂ ਪਾਸਵਰਡ",
-
-  "loginError": "ਲੌਗਇਨ ਤਰੁਟੀ: {error}",
-
-  "@loginError": {
-    "placeholders": {
-      "error": {
-        "type": "String"
-      }
-    }
-  },
-
-  "dontHaveAnAccountSignUp": "ਖਾਤਾ ਨਹੀਂ ਹੈ? ਸਾਈਨ ਅੱਪ ਕਰੋ",
-
-  "myIdentity": "ਮੇਰੀ ਪਛਾਣ",
-
-  "scanToAddMe": "ਮੈਨੂੰ ਜੋੜਨ ਲਈ ਸਕੈਨ ਕਰੋ",
-
-  "shareProfileLink": "ਪ੍ਰੋਫਾਈਲ ਲਿੰਕ ਸਾਂਝਾ ਕਰੋ",
-
-  "addMeOnCrypt": "ਮੈਨੂੰ CRYPT 'ਤੇ ਜੋੜੋ!\n\n{link}",
-
-  "@addMeOnCrypt": {
-    "placeholders": {
-      "link": {
-        "type": "String"
-      }
-    }
-  },
-
-  "scanQr": "QR ਸਕੈਨ ਕਰੋ",
-
-  "invalidCryptQrFormat": "ਅਮਾਨਵ CRYPT QR ਕੋਡ ਫਾਰਮੈਟ।",
-
-  "userScanned": "ਉਪਭੋਗਤਾ ਸਕੈਨ ਕੀਤਾ ਗਿਆ!",
-
-  "addingUser": "{username} ਨੂੰ ਜੋੜਿਆ ਜਾ ਰਿਹਾ ਹੈ...",
-
-  "@addingUser": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "defaultUser": "ਉਪਭੋਗਤਾ",
-
-  "createAccount": "ਖਾਤਾ ਬਣਾਓ",
-
-  "keepPasswordSecureHint": "ਇਸਨੂੰ ਸੁਰੱਖਿਅਤ ਰੱਖੋ, ਪਾਸਵਰਡ ਬਾਅਦ ਵਿੱਚ ਬਦਲਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ",
-
-  "pleaseFillInAllFields": "ਕਿਰਪਾ ਕਰਕੇ ਸਾਰੇ ਖੇਤਰਾਂ ਵਿੱਚ ਜਾਣਕਾਰੀ ਭਰੋ",
-
-  "usernameExceedsLimit": "ਯੂਜ਼ਰਨੇਮ 20 ਅੱਖਰਾਂ ਤੋਂ ਵੱਧ ਨਹੀਂ ਹੋ ਸਕਦਾ",
-
-  "invalidUsernameCharacters": "ਯੂਜ਼ਰਨੇਮ ਵਿੱਚ ਸਿਰਫ਼ ਅੱਖਰ, ਸੰਖਿਆਵਾਂ, ਅੰਡਰਸਕੋਰ ਅਤੇ ਹਾਈਫਨ ਹੋ ਸਕਦੇ ਹਨ",
-
-  "weakPasswordNotice": "ਪਾਸਵਰਡ 8+ ਅੱਖਰਾਂ ਦਾ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ, ਜਿਸ ਵਿੱਚ ਇੱਕ ਸੰਖਿਆ ਅਤੇ ਇੱਕ ਵੱਡਾ ਅੱਖਰ (uppercase) ਸ਼ਾਮਲ ਹੋਵੇ",
-
-  "unableToGenerateUniqueUsername": "ਇੱਕ ਵਿਲੱਖਣ ਯੂਜ਼ਰਨੇਮ ਬਣਾਉਣ ਵਿੱਚ ਅਸਮਰੱਥ।",
-
-  "accountCreated": "ਖਾਤਾ ਬਣ ਗਿਆ",
-
-  "yourUsernameIs": "ਤੁਹਾਡਾ ਯੂਜ਼ਰਨੇਮ ਹੈ:\n\n{username}",
-
-  "@yourUsernameIs": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "usernameTakenAssignedTag": "ਯੂਜ਼ਰਨੇਮ '{chosen}' ਪਹਿਲਾਂ ਹੀ ਲਿਆ ਜਾ ਚੁੱਕਾ ਸੀ।\n\nਤੁਹਾਡਾ ਯੂਜ਼ਰਨੇਮ ਹੈ:\n\n{assigned}\n\nਕਿਰਪਾ ਕਰਕੇ ਇਸਨੂੰ ਯਾਦ ਰੱਖੋ। ਲੌਗ ਇਨ ਕਰਨ ਲਈ ਤੁਹਾਨੂੰ ਇਸਦੀ ਲੋੜ ਪਵੇਗੀ।",
-
-  "@usernameTakenAssignedTag": {
-    "placeholders": {
-      "chosen": {
-        "type": "String"
-      },
-      "assigned": {
-        "type": "String"
-      }
-    }
-  },
-
-  "continueText": "ਜਾਰੀ ਰੱਖੋ",
-
-  "failedToGenerateIdentity": "ਸੁਰੱਖਿਅਤ ਪਛਾਣ ਬਣਾਉਣ ਵਿੱਚ ਅਸਫਲ: {error}",
-
-  "@failedToGenerateIdentity": {
-    "placeholders": {
-      "error": {
-        "type": "String"
-      }
-    }
-  },
-
-  "welcomeToCrypt": "CRYPT ਵਿੱਚ ਤੁਹਾਡਾ ਸੁਆਗਤ ਹੈ",
-
-  "signupDescription": "ਆਪਣੀਆਂ ਪੀਅਰ-ਟੂ-ਪੀਅਰ ਐਨਕ੍ਰਿਪਸ਼ਨ ਕੁੰਜੀਆਂ ਨੂੰ ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਇੱਕ ਯੂਜ਼ਰਨੇਮ ਅਤੇ ਪਾਸਵਰਡ ਦਰਜ ਕਰੋ।",
-
-  "chooseAUsername": "ਇੱਕ ਯੂਜ਼ਰਨੇਮ ਚੁਣੋ",
-
-  "usernameHelperText": "ਆਪਣੇ ਅਸਲੀ ਨਾਮ ਦੀ ਵਰਤੋਂ ਨਾ ਕਰੋ। ਜੇਕਰ ਯੂਜ਼ਰਨੇਮ ਪਹਿਲਾਂ ਹੀ ਲਿਆ ਗਿਆ ਹੈ, ਤਾਂ ਅਸੀਂ ਆਪਣੇ ਆਪ ਇੱਕ ਵਿਲੱਖਣ ਪਿਛੇਤਰ ਜੋੜ ਦੇਵਾਂਗੇ।",
-
-  "masterAuthenticationRequired": "ਮਾਸਟਰ ਪ੍ਰਮਾਣਿਕਤਾ ਦੀ ਲੋੜ ਹੈ",
-
-  "verify": "ਪੁਸ਼ਟੀ ਕਰੋ",
-
-  "darkThemeMode": "ਡਾਰਕ ਥੀਮ ਮੋਡ",
-
-  "secureConversations": "ਸੁਰੱਖਿਅਤ ਗੱਲਬਾਤ",
-
-  "noActiveConversations": "ਕੋਈ ਸਰਗਰਮ ਗੱਲਬਾਤ ਨਹੀਂ ਮਿਲੀ। ਕਸਟਮ ਸੁਰੱਖਿਆ ਲਾਕ ਲਾਗੂ ਕਰਨ ਲਈ ਪਹਿਲਾਂ ਇੱਕ ਗੱਲਬਾਤ ਸ਼ੁਰੂ ਕਰੋ।",
-
-  "logout": "ਲੌਗਆਊਟ",
-
-  "wipeDeviceAndEscape": "ਡਿਵਾਈਸ ਵਾਈਪ ਕਰੋ ਅਤੇ ਬਾਹਰ ਨਿਕਲੋ",
-
-  "falsePassword": "ਗਲਤ ਪਾਸਵਰਡ",
-
-  "accessSuspendedTimer": "ਸੁਰੱਖਿਆ ਕਾਰਨਾਂ ਕਰਕੇ ਪਹੁੰਚ ਮੁਅੱਤਲ ਕਰ ਦਿੱਤੀ ਗਈ ਹੈ। {time} ਵਿੱਚ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।",
-
-  "@accessSuspendedTimer": {
-    "placeholders": {
-      "time": {
-        "type": "String"
-      }
-    }
-  },
-
-  "selectSecureLockMethod": "ਸੁਰੱਖਿਅਤ ਲਾਕ ਵਿਧੀ ਚੁਣੋ",
-
-  "selectSecureLockDescription": "ਕੀ ਤੁਸੀਂ ਇਸ ਗੱਲਬਾਤ ਰੂਮ ਨੂੰ ਡਿਵਾਈਸ ਫਿੰਗਰਪ੍ਰਿੰਟ ਬਾਇਓਮੈਟ੍ਰਿਕਸ ਜਾਂ ਇੱਕ ਮਿਆਰੀ 4-ਅੰਕੀ ਪਿਨ ਕੋਡ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਲਾਕ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?",
-
-  "fourDigitPin": "4-ਅੰਕੀ ਪਿਨ",
-
-  "fingerprintUnlock": "ਫਿੰਗਰਪ੍ਰਿੰਟ 🔓",
-
-  "supportSoloDeveloper": "ਇੱਕ ਸੋਲੋ ਡਿਵੈਲਪਰ ਦਾ ਸਮਰਥਨ ਕਰੋ",
-
-  "maybeLater": "ਸ਼ਾਇਦ ਬਾਅਦ ਵਿੱਚ",
-
-  "submitProof": "ਸਬੂਤ ਜਮ੍ਹਾਂ ਕਰੋ",
-
-  "couldNotOpenWallet": "ਵਾਲਿਟ ਆਪਣੇ ਆਪ ਨਹੀਂ ਖੋਲ੍ਹਿਆ ਜਾ ਸਕਿਆ। ਕਿਰਪਾ ਕਰਕੇ ਇਸਦੀ ਬਜਾਏ ਹੇਠਾਂ ਦਿੱਤੇ ਟੈਕਸਟ ਕੋਡ ਸਟ੍ਰਿੰਗ ਨੂੰ ਕਾਪੀ ਕਰੋ।",
-
-  "proofSubmittedSnackbar": "ਸਬੂਤ ਜਮ੍ਹਾਂ ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ! ਮੈਨੂਅਲ ਸਮੀਖਿਆ ਵਿੱਚ 24-48 ਘੰਟੇ ਲੱਗਦੇ ਹਨ (ਹਫਤੇ ਦੇ ਅੰਤ ਨੂੰ ਛੱਡ ਕੇ)। ਤੁਸੀਂ ਐਪ ਦੀ ਆਮ ਤੌਰ 'ਤੇ ਵਰਤੋਂ ਜਾਰੀ ਰੱਖ ਸਕਦੇ ਹੋ!"
 }

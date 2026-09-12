@@ -11,20 +11,26 @@ import '../l10n/app_localizations.dart';
 import '../services/language_service.dart';
 import '../services/language_names.dart';
 import 'signup_page.dart';
-import 'welcome_page.dart';
+import 'terms_and_conditions_page.dart';
 import '../services/identity_service.dart';
 import '../services/account_service.dart';
+import '../services/session_service.dart';
+import '../main.dart';
 
 class SettingsPage extends StatefulWidget {
   final Function(bool) onThemeChanged;
   final bool isDarkMode;
   final Function(Locale)? onLanguageChanged;
+  final bool showSplashScreen;
+  final Function(bool)? onSplashScreenChanged;
 
   const SettingsPage({
     super.key,
     required this.onThemeChanged,
     required this.isDarkMode,
     this.onLanguageChanged,
+    this.showSplashScreen = true,
+    this.onSplashScreenChanged,
   });
 
   @override
@@ -41,21 +47,17 @@ class _SettingsPageState extends State<SettingsPage>
   String _currentLanguageCode = "en";
 
   late bool _isDarkMode;
+  late bool _showSplashScreen;
 
-  final FlutterSecureStorage _secureStorage =
-      const FlutterSecureStorage();
+  final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
 
-  final LocalAuthentication _localAuth =
-      LocalAuthentication();
+  final LocalAuthentication _localAuth = LocalAuthentication();
 
-  final IdentityService _identityService =
-      IdentityService();
+  final IdentityService _identityService = IdentityService();
 
-  final AccountService _accountService =
-      AccountService();
+  final AccountService _accountService = AccountService();
 
-  final LanguageService _languageService =
-      LanguageService();
+  final LanguageService _languageService = LanguageService();
 
   final List<Map<String, String>> _availableChats = [];
   final List<String> _lockedChatIds = [];
@@ -70,6 +72,7 @@ class _SettingsPageState extends State<SettingsPage>
     WidgetsBinding.instance.addObserver(this);
 
     _isDarkMode = widget.isDarkMode;
+    _showSplashScreen = widget.showSplashScreen;
 
     _checkLockoutTimerState();
     _loadPasscodePreferences();
@@ -81,9 +84,7 @@ class _SettingsPageState extends State<SettingsPage>
   // ============================================================
 
   @override
-  void didChangeAppLifecycleState(
-    AppLifecycleState state,
-  ) {
+  void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
 
     // Re-check saved settings every time the app
@@ -94,10 +95,7 @@ class _SettingsPageState extends State<SettingsPage>
   }
 
   Future<void> _refreshSettingsPreferences() async {
-    await Future.wait([
-      _loadCurrentLanguage(),
-      _loadThemeFromStorage(),
-    ]);
+    await Future.wait([_loadCurrentLanguage(), _loadThemeFromStorage()]);
 
     if (!mounted) return;
 
@@ -106,18 +104,19 @@ class _SettingsPageState extends State<SettingsPage>
   }
 
   @override
-  void didUpdateWidget(
-    covariant SettingsPage oldWidget,
-  ) {
+  void didUpdateWidget(covariant SettingsPage oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    if (oldWidget.isDarkMode !=
-        widget.isDarkMode) {
+    if (oldWidget.isDarkMode != widget.isDarkMode) {
       if (mounted) {
         setState(() {
           _isDarkMode = widget.isDarkMode;
         });
       }
+    }
+
+    if (oldWidget.showSplashScreen != widget.showSplashScreen) {
+      _showSplashScreen = widget.showSplashScreen;
     }
   }
 
@@ -126,8 +125,7 @@ class _SettingsPageState extends State<SettingsPage>
   // ============================================================
 
   Future<void> _loadCurrentLanguage() async {
-    final langCode =
-        await _languageService.getLanguage();
+    final langCode = await _languageService.getLanguage();
 
     if (!mounted) return;
 
@@ -138,26 +136,17 @@ class _SettingsPageState extends State<SettingsPage>
     }
   }
 
-  Future<void> _changeLanguage(
-    String selectedCode,
-  ) async {
-    // Save the language first.
-    await _languageService.setLanguage(
-      selectedCode,
-    );
-
+  Future<void> _changeLanguage(String selectedCode) async {
+    // Update the UI and app locale before persisting.
     if (!mounted) return;
 
-    // Update Settings immediately.
     setState(() {
-      _currentLanguageCode =
-          selectedCode;
+      _currentLanguageCode = selectedCode;
     });
 
-    // Tell CryptApp immediately.
-    widget.onLanguageChanged?.call(
-      Locale(selectedCode),
-    );
+    widget.onLanguageChanged?.call(Locale(selectedCode));
+
+    await _languageService.setLanguage(selectedCode);
   }
 
   // ============================================================
@@ -165,13 +154,11 @@ class _SettingsPageState extends State<SettingsPage>
   // ============================================================
 
   Future<void> _loadThemeFromStorage() async {
-    final prefs =
-        await SharedPreferences.getInstance();
+    final prefs = await SharedPreferences.getInstance();
 
     if (!mounted) return;
 
-    final savedDarkMode =
-        prefs.getBool('is_dark_mode') ?? true;
+    final savedDarkMode = prefs.getBool('is_dark_mode') ?? true;
 
     if (_isDarkMode != savedDarkMode) {
       setState(() {
@@ -180,9 +167,7 @@ class _SettingsPageState extends State<SettingsPage>
     }
   }
 
-  void _handleThemeChanged(
-    bool value,
-  ) {
+  void _handleThemeChanged(bool value) {
     if (_isDarkMode == value) return;
 
     setState(() {
@@ -197,38 +182,25 @@ class _SettingsPageState extends State<SettingsPage>
   // ============================================================
 
   Future<void> _checkLockoutTimerState() async {
-    final String? expiryString =
-        await _secureStorage.read(
+    final String? expiryString = await _secureStorage.read(
       key: 'settings_lockout_expiry',
     );
 
-    final int lockoutExpiry =
-        int.tryParse(
-              expiryString ?? '0',
-            ) ??
-            0;
+    final int lockoutExpiry = int.tryParse(expiryString ?? '0') ?? 0;
 
-    final int now =
-        DateTime.now()
-            .millisecondsSinceEpoch;
+    final int now = DateTime.now().millisecondsSinceEpoch;
 
     if (now < lockoutExpiry) {
       if (!mounted) return;
 
       setState(() {
         _isTimedOut = true;
-        _remainingSeconds =
-            ((lockoutExpiry - now) / 1000)
-                .ceil();
+        _remainingSeconds = ((lockoutExpiry - now) / 1000).ceil();
       });
 
-      _startCountdown(
-        lockoutExpiry,
-      );
+      _startCountdown(lockoutExpiry);
     } else {
-      await _secureStorage.delete(
-        key: 'settings_lockout_expiry',
-      );
+      await _secureStorage.delete(key: 'settings_lockout_expiry');
 
       if (!mounted) return;
 
@@ -236,26 +208,20 @@ class _SettingsPageState extends State<SettingsPage>
     }
   }
 
-  void _startCountdown(
-    int expiryTime,
-  ) {
+  void _startCountdown(int expiryTime) {
     if (_isCountdownRunning) return;
 
     _isCountdownRunning = true;
 
     Future.doWhile(() async {
-      await Future.delayed(
-        const Duration(seconds: 1),
-      );
+      await Future.delayed(const Duration(seconds: 1));
 
       if (!mounted) {
         _isCountdownRunning = false;
         return false;
       }
 
-      final now =
-          DateTime.now()
-              .millisecondsSinceEpoch;
+      final now = DateTime.now().millisecondsSinceEpoch;
 
       if (now >= expiryTime) {
         setState(() {
@@ -270,9 +236,7 @@ class _SettingsPageState extends State<SettingsPage>
       }
 
       setState(() {
-        _remainingSeconds =
-            ((expiryTime - now) / 1000)
-                .round();
+        _remainingSeconds = ((expiryTime - now) / 1000).round();
       });
 
       return true;
@@ -284,21 +248,15 @@ class _SettingsPageState extends State<SettingsPage>
   // ============================================================
 
   Future<void> _loadPasscodePreferences() async {
-    final prefs =
-        await SharedPreferences.getInstance();
+    final prefs = await SharedPreferences.getInstance();
 
     try {
-      final String? rawConversationsJson =
-          prefs.getString(
+      final String? rawConversationsJson = prefs.getString(
         'active_conversations_list',
       );
 
-      if (rawConversationsJson != null &&
-          rawConversationsJson.isNotEmpty) {
-        final List<dynamic> decodedList =
-            jsonDecode(
-          rawConversationsJson,
-        );
+      if (rawConversationsJson != null && rawConversationsJson.isNotEmpty) {
+        final List<dynamic> decodedList = jsonDecode(rawConversationsJson);
 
         if (mounted) {
           setState(() {
@@ -314,30 +272,18 @@ class _SettingsPageState extends State<SettingsPage>
         }
       }
     } catch (e) {
-      debugPrint(
-        "Failed to fetch active database chats: $e",
-      );
+      debugPrint("Failed to fetch active database chats: $e");
     }
 
     if (!mounted) return;
 
     setState(() {
-      _isPremiumUser =
-          prefs.getBool(
-                'account_is_premium',
-              ) ??
-              false;
+      _isPremiumUser = prefs.getBool('account_is_premium') ?? false;
 
-      final savedLocks =
-          prefs.getStringList(
-                'locked_conversation_ids',
-              ) ??
-              [];
+      final savedLocks = prefs.getStringList('locked_conversation_ids') ?? [];
 
       _lockedChatIds.clear();
-      _lockedChatIds.addAll(
-        savedLocks,
-      );
+      _lockedChatIds.addAll(savedLocks);
     });
   }
 
@@ -348,22 +294,16 @@ class _SettingsPageState extends State<SettingsPage>
   Future<void> _promptMasterPassword() async {
     if (_isTimedOut) return;
 
-    final loc =
-        AppLocalizations.of(context)!;
+    final loc = AppLocalizations.of(context)!;
 
-    final bool registered =
-        await _identityService
-            .hasStoredIdentity();
+    final bool registered = await _identityService.hasStoredIdentity();
 
     if (!registered) {
       if (!mounted) return;
 
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(
-          builder: (_) =>
-              const SignupPage(),
-        ),
+        MaterialPageRoute(builder: (_) => const SignupPage()),
         (route) => false,
       );
 
@@ -372,46 +312,34 @@ class _SettingsPageState extends State<SettingsPage>
 
     if (!mounted) return;
 
-    final controller =
-        TextEditingController();
+    final controller = TextEditingController();
 
-    final String? inputPassword =
-        await showDialog<String>(
+    final String? inputPassword = await showDialog<String>(
       context: context,
       barrierDismissible: false,
       builder: (dialogContext) {
         return PopScope(
           canPop: false,
           child: AlertDialog(
-            title: Text(
-              loc.masterAuthenticationRequired,
-            ),
+            title: Text(loc.masterAuthenticationRequired),
             content: TextField(
               controller: controller,
               obscureText: true,
               decoration: InputDecoration(
-                labelText:
-                    loc.accountPasswordLabel,
-                border:
-                    const OutlineInputBorder(),
+                labelText: loc.accountPasswordLabel,
+                border: const OutlineInputBorder(),
               ),
             ),
             actions: [
               TextButton(
                 onPressed: () {
-                  Navigator.pop(
-                    dialogContext,
-                    null,
-                  );
+                  Navigator.pop(dialogContext, null);
                 },
                 child: Text(loc.cancel),
               ),
               FilledButton(
                 onPressed: () {
-                  Navigator.pop(
-                    dialogContext,
-                    controller.text,
-                  );
+                  Navigator.pop(dialogContext, controller.text);
                 },
                 child: Text(loc.verify),
               ),
@@ -439,60 +367,42 @@ class _SettingsPageState extends State<SettingsPage>
       builder: (_) {
         return const PopScope(
           canPop: false,
-          child: Center(
-            child:
-                CircularProgressIndicator(),
-          ),
+          child: Center(child: CircularProgressIndicator()),
         );
       },
     );
 
     try {
-      final identity =
-          await _identityService
-              .getLocalIdentityWithPassword(
+      final identity = await _identityService.getLocalIdentityWithPassword(
         inputPassword,
       );
 
       if (identity != null) {
         verifySuccess = true;
-        _currentUsername =
-            identity.username;
+        _currentUsername = identity.username;
       }
     } catch (e, stackTrace) {
       verifySuccess = false;
 
-      debugPrint(
-        "[Settings] Password verification failed: $e",
-      );
+      debugPrint("[Settings] Password verification failed: $e");
 
-      debugPrint(
-        "[Settings] $stackTrace",
-      );
+      debugPrint("[Settings] $stackTrace");
     }
 
     if (!mounted) return;
 
     if (progressDialogOpen) {
-      Navigator.of(
-        context,
-        rootNavigator: true,
-      ).pop();
+      Navigator.of(context, rootNavigator: true).pop();
 
       progressDialogOpen = false;
     }
 
-    final prefs =
-        await SharedPreferences
-            .getInstance();
+    final prefs = await SharedPreferences.getInstance();
 
     if (!mounted) return;
 
     if (verifySuccess) {
-      await prefs.setInt(
-        'failed_settings_attempts',
-        0,
-      );
+      await prefs.setInt('failed_settings_attempts', 0);
 
       if (!mounted) return;
 
@@ -500,17 +410,9 @@ class _SettingsPageState extends State<SettingsPage>
         _isUnlocked = true;
       });
     } else {
-      int currentFails =
-          (prefs.getInt(
-                'failed_settings_attempts',
-              ) ??
-              0) +
-          1;
+      int currentFails = (prefs.getInt('failed_settings_attempts') ?? 0) + 1;
 
-      await prefs.setInt(
-        'failed_settings_attempts',
-        currentFails,
-      );
+      await prefs.setInt('failed_settings_attempts', currentFails);
 
       int penaltyMinutes = 10;
 
@@ -534,13 +436,10 @@ class _SettingsPageState extends State<SettingsPage>
         penaltyMinutes = 6000;
       }
 
-      final int totalPenaltySeconds =
-          penaltyMinutes * 60;
+      final int totalPenaltySeconds = penaltyMinutes * 60;
 
       final int expiry =
-          DateTime.now()
-                  .millisecondsSinceEpoch +
-              (totalPenaltySeconds * 1000);
+          DateTime.now().millisecondsSinceEpoch + (totalPenaltySeconds * 1000);
 
       await _secureStorage.write(
         key: 'settings_lockout_expiry',
@@ -551,8 +450,7 @@ class _SettingsPageState extends State<SettingsPage>
 
       setState(() {
         _isTimedOut = true;
-        _remainingSeconds =
-            totalPenaltySeconds;
+        _remainingSeconds = totalPenaltySeconds;
       });
 
       _startCountdown(expiry);
@@ -564,69 +462,42 @@ class _SettingsPageState extends State<SettingsPage>
   // ============================================================
 
   Future<void> _executeEmergencySignOut() async {
-    final loc =
-        AppLocalizations.of(context)!;
+    final loc = AppLocalizations.of(context)!;
 
     final confirm =
         await showDialog<bool>(
-              context: context,
-              builder: (dialogContext) =>
-                  AlertDialog(
-                title: Text(
-                  loc.forceEscapeSignOutTitle,
-                ),
-                content: Text(
-                  loc.forceEscapeSignOutContent,
-                ),
-                actions: [
-                  TextButton(
-                    onPressed: () =>
-                        Navigator.pop(
-                      dialogContext,
-                      false,
-                    ),
-                    child: Text(loc.cancel),
-                  ),
-                  FilledButton(
-                    onPressed: () =>
-                        Navigator.pop(
-                      dialogContext,
-                      true,
-                    ),
-                    style:
-                        FilledButton.styleFrom(
-                      backgroundColor:
-                          Colors.red,
-                    ),
-                    child: Text(
-                      loc.wipeDevice,
-                    ),
-                  ),
-                ],
+          context: context,
+          builder: (dialogContext) => AlertDialog(
+            title: Text(loc.forceEscapeSignOutTitle),
+            content: Text(loc.forceEscapeSignOutContent),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(dialogContext, false),
+                child: Text(loc.cancel),
               ),
-            ) ??
-            false;
+              FilledButton(
+                onPressed: () => Navigator.pop(dialogContext, true),
+                style: FilledButton.styleFrom(backgroundColor: Colors.red),
+                child: Text(loc.wipeDevice),
+              ),
+            ],
+          ),
+        ) ??
+        false;
 
     if (!confirm) return;
 
-    final prefs =
-        await SharedPreferences
-            .getInstance();
+    final prefs = await SharedPreferences.getInstance();
 
     await prefs.clear();
 
-    await _secureStorage.delete(
-      key: 'settings_lockout_expiry',
-    );
+    await _secureStorage.delete(key: 'settings_lockout_expiry');
 
     if (!mounted) return;
 
     Navigator.pushAndRemoveUntil(
       context,
-      MaterialPageRoute(
-        builder: (_) =>
-            const SignupPage(),
-      ),
+      MaterialPageRoute(builder: (_) => const SignupPage()),
       (route) => false,
     );
   }
@@ -636,170 +507,110 @@ class _SettingsPageState extends State<SettingsPage>
   // ============================================================
 
   Future<void> _showLanguageSelectionDialog() async {
-    final loc =
-        AppLocalizations.of(context)!;
+    final loc = AppLocalizations.of(context)!;
 
     String filterQuery = "";
 
-    final List<Map<String, String>>
-        languageList =
-        LanguageNames.nativeNames.keys.map(
-      (code) {
-        return {
-          'code': code,
-          'native':
-              LanguageNames.nativeNames[
-                      code] ??
-                  code,
-          'english':
-              LanguageNames.englishNames[
-                      code] ??
-                  code,
-        };
-      },
-    ).toList();
+    final List<Map<String, String>> languageList = LanguageNames
+        .nativeNames
+        .keys
+        .map((code) {
+          return {
+            'code': code,
+            'native': LanguageNames.nativeNames[code] ?? code,
+            'english': LanguageNames.englishNames[code] ?? code,
+          };
+        })
+        .toList();
 
     await showDialog(
       context: context,
       builder: (dialogContext) {
         return StatefulBuilder(
-          builder: (
-            dialogContext,
-            setDialogState,
-          ) {
-            final filteredLanguages =
-                languageList.where((lang) {
-              final nativeName =
-                  lang['native']!
-                      .toLowerCase();
+          builder: (dialogContext, setDialogState) {
+            final filteredLanguages = languageList.where((lang) {
+              final nativeName = lang['native']!.toLowerCase();
 
-              final englishName =
-                  lang['english']!
-                      .toLowerCase();
+              final englishName = lang['english']!.toLowerCase();
 
-              final code =
-                  lang['code']!
-                      .toLowerCase();
+              final code = lang['code']!.toLowerCase();
 
-              final query =
-                  filterQuery.toLowerCase();
+              final query = filterQuery.toLowerCase();
 
-              return nativeName
-                      .contains(query) ||
-                  englishName
-                      .contains(query) ||
+              return nativeName.contains(query) ||
+                  englishName.contains(query) ||
                   code.contains(query);
             }).toList();
 
             return AlertDialog(
-              title: Text(
-                loc.searchLanguage,
-              ),
+              title: Text(loc.searchLanguage),
               content: SizedBox(
                 width: double.maxFinite,
                 height: 400,
                 child: Column(
-                  mainAxisSize:
-                      MainAxisSize.min,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     TextField(
-                      decoration:
-                          InputDecoration(
-                        hintText:
-                            loc.searchLanguage,
-                        prefixIcon:
-                            const Icon(
-                          Icons.search,
-                        ),
-                        border:
-                            const OutlineInputBorder(),
-                        contentPadding:
-                            const EdgeInsets
-                                .symmetric(
+                      decoration: InputDecoration(
+                        hintText: loc.searchLanguage,
+                        prefixIcon: const Icon(Icons.search),
+                        border: const OutlineInputBorder(),
+                        contentPadding: const EdgeInsets.symmetric(
                           horizontal: 10,
                           vertical: 8,
                         ),
                       ),
                       onChanged: (value) {
                         setDialogState(() {
-                          filterQuery =
-                              value;
+                          filterQuery = value;
                         });
                       },
                     ),
                     const SizedBox(height: 12),
                     Expanded(
-                      child:
-                          ListView.builder(
+                      child: ListView.builder(
                         shrinkWrap: true,
-                        itemCount:
-                            filteredLanguages
-                                .length,
-                        itemBuilder:
-                            (context, index) {
-                          final lang =
-                              filteredLanguages[
-                                  index];
+                        itemCount: filteredLanguages.length,
+                        itemBuilder: (context, index) {
+                          final lang = filteredLanguages[index];
 
                           final isSelected =
-                              lang['code'] ==
-                                  _currentLanguageCode;
+                              lang['code'] == _currentLanguageCode;
 
                           return ListTile(
                             title: Text(
                               lang['native']!,
                               style: TextStyle(
-                                fontWeight:
-                                    isSelected
-                                        ? FontWeight
-                                            .bold
-                                        : FontWeight
-                                            .normal,
+                                fontWeight: isSelected
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
                               ),
                             ),
                             subtitle: Text(
                               lang['english']!,
-                              style:
-                                  const TextStyle(
+                              style: const TextStyle(
                                 fontSize: 12,
-                                color:
-                                    Colors.grey,
+                                color: Colors.grey,
                               ),
                             ),
-                            trailing:
-                                isSelected
-                                    ? const Icon(
-                                        Icons.check,
-                                        color:
-                                            Colors.green,
-                                      )
-                                    : Text(
-                                        lang['code']!
-                                            .toUpperCase(),
-                                        style:
-                                            const TextStyle(
-                                          color:
-                                              Colors.grey,
-                                        ),
-                                      ),
+                            trailing: isSelected
+                                ? const Icon(Icons.check, color: Colors.green)
+                                : Text(
+                                    lang['code']!.toUpperCase(),
+                                    style: const TextStyle(color: Colors.grey),
+                                  ),
                             onTap: () async {
-                              final selectedCode =
-                                  lang['code']!;
+                              final selectedCode = lang['code']!;
 
                               // SAVE + UPDATE EVERYTHING
                               // IMMEDIATELY.
-                              await _changeLanguage(
-                                selectedCode,
-                              );
+                              await _changeLanguage(selectedCode);
 
-                              if (!dialogContext
-                                  .mounted) {
+                              if (!dialogContext.mounted) {
                                 return;
                               }
 
-                              Navigator.pop(
-                                dialogContext,
-                              );
+                              Navigator.pop(dialogContext);
                             },
                           );
                         },
@@ -810,13 +621,8 @@ class _SettingsPageState extends State<SettingsPage>
               ),
               actions: [
                 TextButton(
-                  onPressed: () =>
-                      Navigator.pop(
-                    dialogContext,
-                  ),
-                  child: Text(
-                    loc.cancel,
-                  ),
+                  onPressed: () => Navigator.pop(dialogContext),
+                  child: Text(loc.cancel),
                 ),
               ],
             );
@@ -830,258 +636,156 @@ class _SettingsPageState extends State<SettingsPage>
   // CHAT LOCKS
   // ============================================================
 
-  Future<void> _toggleChatCheckbox(
-    String chatId,
-    bool isChecked,
-  ) async {
-    final prefs =
-        await SharedPreferences
-            .getInstance();
+  Future<void> _toggleChatCheckbox(String chatId, bool isChecked) async {
+    final prefs = await SharedPreferences.getInstance();
 
-    final loc =
-        AppLocalizations.of(context)!;
+    final loc = AppLocalizations.of(context)!;
 
     if (isChecked) {
-      if (_lockedChatIds.isNotEmpty &&
-          !_isPremiumUser) {
+      if (_lockedChatIds.isNotEmpty && !_isPremiumUser) {
         if (!mounted) return;
 
         double selectedAmount = 15000;
 
-        final inputController =
-            TextEditingController();
+        final inputController = TextEditingController();
 
         await showDialog(
           context: context,
           builder: (dialogContext) {
             return StatefulBuilder(
-              builder: (
-                dialogContext,
-                setDialogState,
-              ) {
+              builder: (dialogContext, setDialogState) {
                 return AlertDialog(
-                  shape:
-                      RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.circular(
-                      20,
-                    ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
                   ),
                   title: Row(
                     children: [
-                      const Icon(
-                        Icons.coffee,
-                        color: Colors.amber,
-                        size: 24,
-                      ),
+                      const Icon(Icons.coffee, color: Colors.amber, size: 24),
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
                           loc.supportSoloDeveloper,
-                          style:
-                              const TextStyle(
-                            fontWeight:
-                                FontWeight.bold,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
                             fontSize: 16,
                           ),
                         ),
                       ),
                     ],
                   ),
-                  content:
-                      SingleChildScrollView(
+                  content: SingleChildScrollView(
                     child: Column(
-                      mainAxisSize:
-                          MainAxisSize.min,
-                      crossAxisAlignment:
-                          CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          "Hey! 👋 I am a solo developer working hard on CRYPT. I do not have a budget or corporate funding. I rely entirely on your honesty and empathy to keep improving the app and guarantee NO ADS FOREVER.",
-                          style:
-                              TextStyle(
-                            fontSize: 12,
-                            height: 1.3,
-                          ),
+                        Text(
+                          loc.supportIntro,
+                          style: TextStyle(fontSize: 12, height: 1.3),
                         ),
-                        const SizedBox(
-                          height: 12,
-                        ),
+                        const SizedBox(height: 12),
                         Container(
-                          width:
-                              double.infinity,
-                          padding:
-                              const EdgeInsets.all(
-                            10,
-                          ),
-                          decoration:
-                              BoxDecoration(
-                            color: Colors.amber
-                                .withValues(
-                              alpha: 0.06,
-                            ),
-                            borderRadius:
-                                BorderRadius.circular(
-                              12,
-                            ),
-                            border:
-                                Border.all(
-                              color: Colors
-                                  .amber
-                                  .withValues(
-                                alpha: 0.15,
-                              ),
+                          width: double.infinity,
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Colors.amber.withValues(alpha: 0.06),
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              color: Colors.amber.withValues(alpha: 0.15),
                             ),
                           ),
                           child: Column(
                             children: [
-                              const Text(
-                                "Choose Your Price (Slide to support):",
-                                style:
-                                    TextStyle(
+                              Text(
+                                loc.chooseSupportAmount,
+                                style: TextStyle(
                                   fontSize: 11,
-                                  fontWeight:
-                                      FontWeight
-                                          .bold,
-                                  color:
-                                      Colors.amber,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.amber,
                                 ),
-                              ),
-                              const Text(
-                                "I'm poor gang 🥀✌️",
-                                style:
-                                    TextStyle(
-                                  fontSize: 9,
-                                  fontStyle:
-                                      FontStyle
-                                          .italic,
-                                  color:
-                                      Colors.grey,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 2,
                               ),
                               Text(
-                                "$selectedAmount sats ${selectedAmount == 7500 ? '(Launch Offer Minimum 🚀)' : selectedAmount <= 10000 ? '(Buy Me a Coffee ☕)' : '(Super Supporter 🔥)'}",
-                                style:
-                                    const TextStyle(
+                                loc.poorGang,
+                                style: TextStyle(
+                                  fontSize: 9,
+                                  fontStyle: FontStyle.italic,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              const SizedBox(height: 2),
+                              Text(
+                                "${selectedAmount.toStringAsFixed(0)} sats (${selectedAmount == 7500
+                                    ? loc.launchOfferMinimum
+                                    : selectedAmount <= 10000
+                                    ? loc.buyMeCoffee
+                                    : loc.superSupporter})",
+                                style: const TextStyle(
                                   fontSize: 13,
-                                  fontWeight:
-                                      FontWeight
-                                          .bold,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                               Slider(
-                                value:
-                                    selectedAmount,
+                                value: selectedAmount,
                                 min: 7500,
                                 max: 25000,
                                 divisions: 7,
-                                activeColor:
-                                    Colors.amber,
-                                inactiveColor:
-                                    Colors.grey
-                                        .withValues(
+                                activeColor: Colors.amber,
+                                inactiveColor: Colors.grey.withValues(
                                   alpha: 0.2,
                                 ),
-                                onChanged:
-                                    (double val) {
-                                  setDialogState(
-                                    () {
-                                      selectedAmount =
-                                          val;
-                                    },
-                                  );
+                                onChanged: (double val) {
+                                  setDialogState(() {
+                                    selectedAmount = val;
+                                  });
                                 },
                               ),
                             ],
                           ),
                         ),
-                        const SizedBox(
-                          height: 12,
-                        ),
+                        const SizedBox(height: 12),
                         Table(
-                          border:
-                              TableBorder.symmetric(
-                            inside:
-                                BorderSide(
-                              color: Colors.grey
-                                  .withValues(
-                                alpha: 0.15,
-                              ),
+                          border: TableBorder.symmetric(
+                            inside: BorderSide(
+                              color: Colors.grey.withValues(alpha: 0.15),
                               width: 0.5,
                             ),
                           ),
                           columnWidths: const {
-                            0:
-                                FlexColumnWidth(
-                              1.2,
-                            ),
-                            1:
-                                FlexColumnWidth(
-                              1.0,
-                            ),
-                            2:
-                                FlexColumnWidth(
-                              1.0,
-                            ),
+                            0: FlexColumnWidth(1.2),
+                            1: FlexColumnWidth(1.0),
+                            2: FlexColumnWidth(1.0),
                           },
-                          children: const [
+                          children: [
                             TableRow(
                               children: [
                                 Padding(
-                                  padding:
-                                      EdgeInsets
-                                          .symmetric(
-                                    vertical: 3,
-                                  ),
+                                  padding: EdgeInsets.symmetric(vertical: 3),
                                   child: Text(
-                                    "Feature",
-                                    style:
-                                        TextStyle(
-                                      fontWeight:
-                                          FontWeight
-                                              .bold,
+                                    loc.feature,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
                                       fontSize: 10,
                                     ),
                                   ),
                                 ),
                                 Padding(
-                                  padding:
-                                      EdgeInsets
-                                          .symmetric(
-                                    vertical: 3,
-                                  ),
+                                  padding: EdgeInsets.symmetric(vertical: 3),
                                   child: Text(
-                                    "Free Tier",
-                                    style:
-                                        TextStyle(
-                                      fontWeight:
-                                          FontWeight
-                                              .bold,
+                                    loc.freeTier,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
                                       fontSize: 10,
-                                      color: Colors
-                                          .grey,
+                                      color: Colors.grey,
                                     ),
                                   ),
                                 ),
                                 Padding(
-                                  padding:
-                                      EdgeInsets
-                                          .symmetric(
-                                    vertical: 4,
-                                  ),
+                                  padding: EdgeInsets.symmetric(vertical: 4),
                                   child: Text(
-                                    "Premium",
-                                    style:
-                                        TextStyle(
-                                      fontWeight:
-                                          FontWeight
-                                              .bold,
+                                    loc.premium,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
                                       fontSize: 10,
-                                      color: Colors
-                                          .amber,
+                                      color: Colors.amber,
                                     ),
                                   ),
                                 ),
@@ -1090,51 +794,30 @@ class _SettingsPageState extends State<SettingsPage>
                             TableRow(
                               children: [
                                 Padding(
-                                  padding:
-                                      EdgeInsets
-                                          .symmetric(
-                                    vertical: 3,
-                                  ),
+                                  padding: EdgeInsets.symmetric(vertical: 3),
                                   child: Text(
-                                    "Chat Locks",
-                                    style:
-                                        TextStyle(
+                                    loc.chatLocks,
+                                    style: TextStyle(fontSize: 10),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 3),
+                                  child: Text(
+                                    loc.maxOneRoom,
+                                    style: TextStyle(
                                       fontSize: 10,
+                                      color: Colors.grey,
                                     ),
                                   ),
                                 ),
                                 Padding(
-                                  padding:
-                                      EdgeInsets
-                                          .symmetric(
-                                    vertical: 3,
-                                  ),
+                                  padding: EdgeInsets.symmetric(vertical: 3),
                                   child: Text(
-                                    "Max 1 Room",
-                                    style:
-                                        TextStyle(
+                                    loc.unlimited,
+                                    style: TextStyle(
                                       fontSize: 10,
-                                      color: Colors
-                                          .grey,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding:
-                                      EdgeInsets
-                                          .symmetric(
-                                    vertical: 3,
-                                  ),
-                                  child: Text(
-                                    "Unlimited",
-                                    style:
-                                        TextStyle(
-                                      fontSize: 10,
-                                      color: Colors
-                                          .amber,
-                                      fontWeight:
-                                          FontWeight
-                                              .bold,
+                                      color: Colors.amber,
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 ),
@@ -1143,51 +826,30 @@ class _SettingsPageState extends State<SettingsPage>
                             TableRow(
                               children: [
                                 Padding(
-                                  padding:
-                                      EdgeInsets
-                                          .symmetric(
-                                    vertical: 3,
-                                  ),
+                                  padding: EdgeInsets.symmetric(vertical: 3),
                                   child: Text(
-                                    "Biometrics",
-                                    style:
-                                        TextStyle(
+                                    loc.biometrics,
+                                    style: TextStyle(fontSize: 10),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 3),
+                                  child: Text(
+                                    loc.disabled,
+                                    style: TextStyle(
                                       fontSize: 10,
+                                      color: Colors.grey,
                                     ),
                                   ),
                                 ),
                                 Padding(
-                                  padding:
-                                      EdgeInsets
-                                          .symmetric(
-                                    vertical: 3,
-                                  ),
+                                  padding: EdgeInsets.symmetric(vertical: 3),
                                   child: Text(
-                                    "🚫 Disabled",
-                                    style:
-                                        TextStyle(
+                                    loc.fingerprintUnlock,
+                                    style: TextStyle(
                                       fontSize: 10,
-                                      color: Colors
-                                          .grey,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding:
-                                      EdgeInsets
-                                          .symmetric(
-                                    vertical: 3,
-                                  ),
-                                  child: Text(
-                                    "Fingerprint 🔓",
-                                    style:
-                                        TextStyle(
-                                      fontSize: 10,
-                                      color: Colors
-                                          .amber,
-                                      fontWeight:
-                                          FontWeight
-                                              .bold,
+                                      color: Colors.amber,
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 ),
@@ -1195,177 +857,107 @@ class _SettingsPageState extends State<SettingsPage>
                             ),
                           ],
                         ),
-                        const SizedBox(
-                          height: 16,
-                        ),
+                        const SizedBox(height: 16),
                         SizedBox(
-                          width:
-                              double.infinity,
-                          height: 45,
-                          child:
-                              FilledButton.icon(
-                            style:
-                                FilledButton.styleFrom(
-                              backgroundColor:
-                                  const Color
-                                      .fromARGB(
+                          width: double.infinity,
+                          child: FilledButton.icon(
+                            style: FilledButton.styleFrom(
+                              backgroundColor: const Color.fromARGB(
                                 255,
                                 7,
                                 255,
                                 90,
                               ),
-                              foregroundColor:
-                                  Colors.black,
-                              shape:
-                                  RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius
-                                        .circular(
-                                  12,
-                                ),
+                              foregroundColor: Colors.black,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
                               ),
                             ),
-                            icon: const Icon(
-                              Icons.bolt,
-                            ),
+                            icon: const Icon(Icons.bolt),
                             label: Text(
-                              "Support with $selectedAmount sats (Phoenix)",
-                              style:
-                                  const TextStyle(
-                                fontWeight:
-                                    FontWeight
-                                        .bold,
+                              loc.supportWithSats(
+                                selectedAmount.toStringAsFixed(0),
+                              ),
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                             onPressed: () async {
-                              const String
-                                  paymentLink =
+                              const String paymentLink =
                                   "bitcoin:?lno=lno1pqp7fcwqpgx5x5je2p2zqurjv4kkjatdzrhq8pjw7qjlm68mtp7e3yvxee4y5xrgjhhyf2fxhlphpckrvevh50u0q24pzh2v8vu2g6ety7rtfhg284c8v3n7r2eykde7epxp4r6z2xkkyqszt5m6t5pt4anhz92gyflsttxdd8rpk60fwmuvwh8v3xrs4ednd08qqvetd723w88efu8gkdx8zh9nfq5sy5ag2x0khx7uygcwftsw640hzc9l687cun9unvje47aqyzan59r2cvmuq274jagu6rtrs25ggem04sl7hdvzt07qsgt4xe90y0thhjywet55cqpju6w9zmtc0wdw3l4y6d9679mxht3pth7pktpv94yp45ql6f4tg7c8ekdmw8qqjj2jhntawrmevv33d6fv";
 
-                              final Uri
-                                  parsedUri =
-                                  Uri.parse(
-                                paymentLink,
-                              );
+                              final Uri parsedUri = Uri.parse(paymentLink);
 
-                              if (await canLaunchUrl(
-                                parsedUri,
-                              )) {
+                              if (await canLaunchUrl(parsedUri)) {
                                 await launchUrl(
                                   parsedUri,
-                                  mode: LaunchMode
-                                      .externalApplication,
+                                  mode: LaunchMode.externalApplication,
                                 );
                               } else {
-                                if (!dialogContext
-                                    .mounted) {
+                                if (!dialogContext.mounted) {
                                   return;
                                 }
 
-                                ScaffoldMessenger
-                                        .of(
+                                ScaffoldMessenger.of(
                                   dialogContext,
                                 ).showSnackBar(
                                   SnackBar(
-                                    content: Text(
-                                      loc.couldNotOpenWallet,
-                                    ),
+                                    content: Text(loc.couldNotOpenWallet),
                                   ),
                                 );
                               }
                             },
                           ),
                         ),
-                        const SizedBox(
-                          height: 12,
-                        ),
-                        const Text(
-                          "⚡ BOLT12 payment offer • Tap to copy",
-                          style:
-                              TextStyle(
-                            fontWeight:
-                                FontWeight.bold,
+                        const SizedBox(height: 12),
+                        Text(
+                          loc.boltOffer,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
                             fontSize: 11,
-                            color:
-                                Colors.amber,
+                            color: Colors.amber,
                           ),
                         ),
-                        const SizedBox(
-                          height: 4,
-                        ),
+                        const SizedBox(height: 4),
                         GestureDetector(
                           onTap: () async {
-                            const String
-                                bolt12Offer =
+                            const String bolt12Offer =
                                 "bitcoin:?lno=lno1pqp7fcwqpgx5x5je2p2zqurjv4kkjatdzrhq8pjw7qjlm68mtp7e3yvxee4y5xrgjhhyf2fxhlphpckrvevh50u0q24pzh2v8vu2g6ety7rtfhg284c8v3n7r2eykde7epxp4r6z2xkkyqszt5m6t5pt4anhz92gyflsttxdd8rpk60fwmuvwh8v3xrs4ednd08qqvetd723w88efu8gkdx8zh9nfq5sy5ag2x0khx7uygcwftsw640hzc9l687cun9unvje47aqyzan59r2cvmuq274jagu6rtrs25ggem04sl7hdvzt07qsgt4xe90y0thhjywet55cqpju6w9zmtc0wdw3l4y6d9679mxht3pth7pktpv94yp45ql6f4tg7c8ekdmw8qqjj2jhntawrmevv33d6fv";
 
-                            await Clipboard
-                                .setData(
-                              const ClipboardData(
-                                text:
-                                    bolt12Offer,
-                              ),
+                            await Clipboard.setData(
+                              const ClipboardData(text: bolt12Offer),
                             );
 
-                            if (!dialogContext
-                                .mounted) {
+                            if (!dialogContext.mounted) {
                               return;
                             }
 
-                            ScaffoldMessenger
-                                    .of(
-                              dialogContext,
-                            ).showSnackBar(
-                              const SnackBar(
-                                content: Text(
-                                  "BOLT12 payment offer copied",
-                                ),
-                                duration:
-                                    Duration(
-                                  seconds: 2,
-                                ),
+                            ScaffoldMessenger.of(dialogContext).showSnackBar(
+                              SnackBar(
+                                content: Text(loc.boltOfferCopied),
+                                duration: Duration(seconds: 2),
                               ),
                             );
                           },
                           child: Container(
-                            width:
-                                double.infinity,
-                            padding:
-                                const EdgeInsets.all(
-                              10,
+                            width: double.infinity,
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: Colors.black26,
+                              borderRadius: BorderRadius.circular(8),
                             ),
-                            decoration:
-                                BoxDecoration(
-                              color:
-                                  Colors.black26,
-                              borderRadius:
-                                  BorderRadius
-                                      .circular(
-                                8,
-                              ),
-                            ),
-                            child: const Row(
+                            child: Row(
                               children: [
-                                Icon(
-                                  Icons.copy,
-                                  size: 16,
-                                  color: Colors
-                                      .amber,
-                                ),
-                                SizedBox(
-                                  width: 8,
-                                ),
+                                Icon(Icons.copy, size: 16, color: Colors.amber),
+                                SizedBox(width: 8),
                                 Expanded(
                                   child: Text(
-                                    "Tap to copy BOLT12 payment offer",
-                                    style:
-                                        TextStyle(
-                                      color: Colors
-                                          .amber,
+                                    loc.tapToCopyBoltOffer,
+                                    style: TextStyle(
+                                      color: Colors.amber,
                                       fontSize: 10,
-                                      fontWeight:
-                                          FontWeight
-                                              .bold,
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 ),
@@ -1373,63 +965,37 @@ class _SettingsPageState extends State<SettingsPage>
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          height: 12,
-                        ),
-                        const Text(
-                          "📬 Simple Instructions to Unlock:",
-                          style:
-                              TextStyle(
-                            fontWeight:
-                                FontWeight.bold,
+                        const SizedBox(height: 12),
+                        Text(
+                          loc.simpleInstructionsToUnlock,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
                             fontSize: 12,
-                            color:
-                                Colors.white,
+                            color: Colors.white,
                           ),
                         ),
-                        const SizedBox(
-                          height: 4,
-                        ),
+                        const SizedBox(height: 4),
                         Text(
-                          "1. Pay using Phoenix Wallet on Android (7,500 minimum to unlock- more is always appreciated).\n"
-                          "2. Take a screenshot of your successful transaction confirmation screen.\n"
-                          "3. Email that screenshot to jounaidnadirmed@gmail.com and tell me your unique account username: '$_currentUsername' so I know who paid.\n"
-                          "4. Type anything in the box below to save your request on this device:",
-                          style:
-                              const TextStyle(
+                          loc.unlockInstructions(_currentUsername),
+                          style: const TextStyle(
                             fontSize: 11,
-                            color:
-                                Colors.grey,
+                            color: Colors.grey,
                             height: 1.3,
                           ),
                         ),
-                        const SizedBox(
-                          height: 8,
-                        ),
+                        const SizedBox(height: 8),
                         TextField(
-                          controller:
-                              inputController,
-                          decoration:
-                              const InputDecoration(
-                            labelText:
-                                "Type your name or transaction info here...",
-                            border:
-                                OutlineInputBorder(),
-                            contentPadding:
-                                EdgeInsets
-                                    .symmetric(
+                          controller: inputController,
+                          decoration: InputDecoration(
+                            labelText: loc.supportRequestHint,
+                            border: OutlineInputBorder(),
+                            contentPadding: EdgeInsets.symmetric(
                               horizontal: 10,
                               vertical: 8,
                             ),
-                            labelStyle:
-                                TextStyle(
-                              fontSize: 11,
-                            ),
+                            labelStyle: TextStyle(fontSize: 11),
                           ),
-                          style:
-                              const TextStyle(
-                            fontSize: 11,
-                          ),
+                          style: const TextStyle(fontSize: 11),
                         ),
                       ],
                     ),
@@ -1437,19 +1003,13 @@ class _SettingsPageState extends State<SettingsPage>
                   actions: [
                     TextButton(
                       onPressed: () {
-                        Navigator.pop(
-                          dialogContext,
-                        );
+                        Navigator.pop(dialogContext);
                       },
-                      child: Text(
-                        loc.maybeLater,
-                      ),
+                      child: Text(loc.maybeLater),
                     ),
                     FilledButton(
                       onPressed: () async {
-                        final String comment =
-                            inputController.text
-                                .trim();
+                        final String comment = inputController.text.trim();
 
                         if (comment.isNotEmpty) {
                           await prefs.setString(
@@ -1458,29 +1018,17 @@ class _SettingsPageState extends State<SettingsPage>
                           );
                         }
 
-                        if (!dialogContext
-                            .mounted) {
+                        if (!dialogContext.mounted) {
                           return;
                         }
 
-                        Navigator.pop(
-                          dialogContext,
-                        );
+                        Navigator.pop(dialogContext);
 
-                        ScaffoldMessenger
-                                .of(
-                          context,
-                        ).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              loc.proofSubmittedSnackbar,
-                            ),
-                          ),
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(loc.proofSubmittedSnackbar)),
                         );
                       },
-                      child: Text(
-                        loc.submitProof,
-                      ),
+                      child: Text(loc.submitProof),
                     ),
                   ],
                 );
@@ -1499,37 +1047,19 @@ class _SettingsPageState extends State<SettingsPage>
       if (_isPremiumUser) {
         if (!mounted) return;
 
-        final String? lockType =
-            await showDialog<String>(
+        final String? lockType = await showDialog<String>(
           context: context,
-          builder: (dialogContext) =>
-              AlertDialog(
-            title: Text(
-              loc.selectSecureLockMethod,
-            ),
-            content: Text(
-              loc.selectSecureLockDescription,
-            ),
+          builder: (dialogContext) => AlertDialog(
+            title: Text(loc.selectSecureLockMethod),
+            content: Text(loc.selectSecureLockDescription),
             actions: [
               TextButton(
-                onPressed: () =>
-                    Navigator.pop(
-                  dialogContext,
-                  "PIN",
-                ),
-                child: Text(
-                  loc.fourDigitPin,
-                ),
+                onPressed: () => Navigator.pop(dialogContext, "PIN"),
+                child: Text(loc.fourDigitPin),
               ),
               FilledButton(
-                onPressed: () =>
-                    Navigator.pop(
-                  dialogContext,
-                  "BIOMETRIC",
-                ),
-                child: Text(
-                  loc.fingerprintUnlock,
-                ),
+                onPressed: () => Navigator.pop(dialogContext, "BIOMETRIC"),
+                child: Text(loc.fingerprintUnlock),
               ),
             ],
           ),
@@ -1538,10 +1068,7 @@ class _SettingsPageState extends State<SettingsPage>
         if (lockType != null) {
           setupCompleted = true;
 
-          await prefs.setString(
-            "lock_type_$chatId",
-            lockType,
-          );
+          await prefs.setString("lock_type_$chatId", lockType);
         }
       } else {
         setupCompleted = true;
@@ -1554,10 +1081,7 @@ class _SettingsPageState extends State<SettingsPage>
           _lockedChatIds.add(chatId);
         });
 
-        await prefs.setStringList(
-          'locked_conversation_ids',
-          _lockedChatIds,
-        );
+        await prefs.setStringList('locked_conversation_ids', _lockedChatIds);
       }
     } else {
       if (!mounted) return;
@@ -1566,18 +1090,11 @@ class _SettingsPageState extends State<SettingsPage>
         _lockedChatIds.remove(chatId);
       });
 
-      await prefs.setStringList(
-        'locked_conversation_ids',
-        _lockedChatIds,
-      );
+      await prefs.setStringList('locked_conversation_ids', _lockedChatIds);
 
-      await prefs.remove(
-        "pin_$chatId",
-      );
+      await prefs.remove("pin_$chatId");
 
-      await prefs.remove(
-        "lock_type_$chatId",
-      );
+      await prefs.remove("lock_type_$chatId");
     }
   }
 
@@ -1587,17 +1104,11 @@ class _SettingsPageState extends State<SettingsPage>
 
   Future<void> _handleLogout() async {
     await _accountService.logout();
+    SessionService.instance.lock();
 
     if (!mounted) return;
 
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(
-        builder: (_) =>
-            const WelcomePage(),
-      ),
-      (route) => false,
-    );
+    CryptApp.restartStartup(context);
   }
 
   // ============================================================
@@ -1606,16 +1117,14 @@ class _SettingsPageState extends State<SettingsPage>
 
   @override
   Widget build(BuildContext context) {
-    final loc =
-        AppLocalizations.of(context)!;
+    final loc = AppLocalizations.of(context)!;
 
     return PopScope(
       canPop: !_isTimedOut,
       child: Scaffold(
         appBar: AppBar(
           title: Text(loc.settings),
-          automaticallyImplyLeading:
-              !_isTimedOut,
+          automaticallyImplyLeading: !_isTimedOut,
         ),
         body: _buildPageLayout(),
       ),
@@ -1623,81 +1132,52 @@ class _SettingsPageState extends State<SettingsPage>
   }
 
   Widget _buildPageLayout() {
-    final loc =
-        AppLocalizations.of(context)!;
+    final loc = AppLocalizations.of(context)!;
 
     if (_isTimedOut) {
-      final int hours =
-          _remainingSeconds ~/ 3600;
+      final int hours = _remainingSeconds ~/ 3600;
 
-      final int minutes =
-          (_remainingSeconds % 3600) ~/ 60;
+      final int minutes = (_remainingSeconds % 3600) ~/ 60;
 
-      final int seconds =
-          _remainingSeconds % 60;
+      final int seconds = _remainingSeconds % 60;
 
-      String timeText =
-          "$_remainingSeconds seconds";
+      String timeText = "$_remainingSeconds seconds";
 
       if (hours > 0) {
-        timeText =
-            "${hours}h ${minutes}m ${seconds}s";
+        timeText = "${hours}h ${minutes}m ${seconds}s";
       } else if (minutes > 0) {
-        timeText =
-            "${minutes}m ${seconds}s";
+        timeText = "${minutes}m ${seconds}s";
       }
 
       return Center(
         child: Padding(
-          padding:
-              const EdgeInsets.all(24.0),
+          padding: const EdgeInsets.all(24.0),
           child: Column(
-            mainAxisAlignment:
-                MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(
-                Icons.lock_clock,
-                size: 72,
-                color: Colors.red,
-              ),
+              const Icon(Icons.lock_clock, size: 72, color: Colors.red),
               const SizedBox(height: 16),
               Text(
                 loc.falsePassword,
-                style:
-                    const TextStyle(
+                style: const TextStyle(
                   fontSize: 22,
-                  fontWeight:
-                      FontWeight.bold,
+                  fontWeight: FontWeight.bold,
                   color: Colors.red,
                 ),
               ),
               const SizedBox(height: 12),
               Text(
-                loc.accessSuspendedTimer(
-                  timeText,
-                ),
-                textAlign:
-                    TextAlign.center,
+                loc.accessSuspendedTimer(timeText),
+                textAlign: TextAlign.center,
               ),
               const SizedBox(height: 36),
               FilledButton.icon(
-                onPressed:
-                    _executeEmergencySignOut,
-                style:
-                    FilledButton.styleFrom(
-                  backgroundColor:
-                      Colors.red,
-                ),
-                icon: const Icon(
-                  Icons.delete_forever,
-                ),
+                onPressed: _executeEmergencySignOut,
+                style: FilledButton.styleFrom(backgroundColor: Colors.red),
+                icon: const Icon(Icons.delete_forever),
                 label: Text(
                   loc.wipeDeviceAndEscape,
-                  style:
-                      const TextStyle(
-                    fontWeight:
-                        FontWeight.bold,
-                  ),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
             ],
@@ -1707,52 +1187,58 @@ class _SettingsPageState extends State<SettingsPage>
     }
 
     if (!_isUnlocked) {
-      return const Center(
-        child:
-            CircularProgressIndicator(),
-      );
+      return const Center(child: CircularProgressIndicator());
     }
 
     final activeNativeName =
-        LanguageNames.nativeNames[
-                _currentLanguageCode] ??
-            loc.language;
+        LanguageNames.nativeNames[_currentLanguageCode] ?? loc.language;
 
     return ListView(
-      padding:
-          const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(16.0),
       children: [
         // ======================================================
         // THEME
         // ======================================================
+        SwitchListTile(
+          title: Text(loc.darkThemeMode, softWrap: true),
+          isThreeLine: true,
+          value: _isDarkMode,
+          onChanged: _handleThemeChanged,
+        ),
 
         SwitchListTile(
-          title: Text(
-            loc.darkThemeMode,
-          ),
-          value: _isDarkMode,
-          onChanged:
-              _handleThemeChanged,
+          title: Text(loc.showSplashScreen, softWrap: true),
+          isThreeLine: true,
+          value: _showSplashScreen,
+          onChanged: (value) {
+            setState(() {
+              _showSplashScreen = value;
+            });
+            widget.onSplashScreenChanged?.call(value);
+          },
         ),
 
         // ======================================================
         // LANGUAGE
         // ======================================================
+        ListTile(
+          leading: const Icon(Icons.language),
+          title: Text(loc.language),
+          subtitle: Text(activeNativeName),
+          trailing: const Icon(Icons.chevron_right),
+          onTap: _showLanguageSelectionDialog,
+        ),
 
         ListTile(
-          leading: const Icon(
-            Icons.language,
-          ),
-          title:
-              Text(loc.language),
-          subtitle:
-              Text(activeNativeName),
-          trailing:
-              const Icon(
-            Icons.chevron_right,
-          ),
-          onTap:
-              _showLanguageSelectionDialog,
+          leading: const Icon(Icons.description_outlined),
+          title: Text(loc.settingsTermsAndConditions),
+          trailing: const Icon(Icons.chevron_right),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const TermsAndConditionsPage()),
+            );
+          },
         ),
 
         const Divider(),
@@ -1760,54 +1246,30 @@ class _SettingsPageState extends State<SettingsPage>
         // ======================================================
         // SECURE CONVERSATIONS
         // ======================================================
-
         Padding(
-          padding:
-              const EdgeInsets.symmetric(
-            vertical: 8.0,
-            horizontal: 16.0,
-          ),
+          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
           child: Text(
             loc.secureConversations,
-            style:
-                const TextStyle(
-              fontWeight:
-                  FontWeight.bold,
-              fontSize: 16,
-            ),
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
           ),
         ),
 
         if (_availableChats.isEmpty)
           Padding(
-            padding:
-                const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             child: Text(
               loc.noActiveConversations,
-              style:
-                  const TextStyle(
-                color: Colors.grey,
-                fontSize: 13,
-              ),
-              textAlign:
-                  TextAlign.center,
+              style: const TextStyle(color: Colors.grey, fontSize: 13),
+              textAlign: TextAlign.center,
             ),
           )
         else
-          for (final chat
-              in _availableChats)
+          for (final chat in _availableChats)
             CheckboxListTile(
-              title:
-                  Text(chat["name"]!),
-              value:
-                  _lockedChatIds.contains(
-                chat["id"],
-              ),
+              title: Text(chat["name"]!),
+              value: _lockedChatIds.contains(chat["id"]),
               onChanged: (val) =>
-                  _toggleChatCheckbox(
-                chat["id"]!,
-                val ?? false,
-              ),
+                  _toggleChatCheckbox(chat["id"]!, val ?? false),
             ),
 
         const Divider(),
@@ -1817,19 +1279,12 @@ class _SettingsPageState extends State<SettingsPage>
         // ======================================================
         // LOGOUT
         // ======================================================
-
         SizedBox(
-          width:
-              double.infinity,
-          child:
-              ElevatedButton.icon(
-            onPressed:
-                _handleLogout,
-            icon: const Icon(
-              Icons.logout,
-            ),
-            label:
-                Text(loc.logout),
+          width: double.infinity,
+          child: ElevatedButton.icon(
+            onPressed: _handleLogout,
+            icon: const Icon(Icons.logout),
+            label: Text(loc.logout),
           ),
         ),
 
@@ -1838,28 +1293,16 @@ class _SettingsPageState extends State<SettingsPage>
         // ======================================================
         // WIPE DEVICE
         // ======================================================
-
         SizedBox(
-          width:
-              double.infinity,
-          child:
-              OutlinedButton.icon(
-            onPressed:
-                _executeEmergencySignOut,
-            style:
-                OutlinedButton.styleFrom(
-              foregroundColor:
-                  Colors.red,
-              side:
-                  const BorderSide(
-                color: Colors.red,
-              ),
+          width: double.infinity,
+          child: OutlinedButton.icon(
+            onPressed: _executeEmergencySignOut,
+            style: OutlinedButton.styleFrom(
+              foregroundColor: Colors.red,
+              side: const BorderSide(color: Colors.red),
             ),
-            icon: const Icon(
-              Icons.delete_forever,
-            ),
-            label:
-                Text(loc.wipeDevice),
+            icon: const Icon(Icons.delete_forever),
+            label: Text(loc.wipeDevice),
           ),
         ),
       ],
@@ -1872,8 +1315,7 @@ class _SettingsPageState extends State<SettingsPage>
 
   @override
   void dispose() {
-    WidgetsBinding.instance
-        .removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
 
     super.dispose();
   }

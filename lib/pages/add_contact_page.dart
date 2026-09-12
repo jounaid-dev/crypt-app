@@ -28,21 +28,13 @@ class AddContactPage extends StatelessWidget {
       throw Exception("My public encryption key is missing.");
     }
 
-    // 2. Debug logs with fully validated keys
-    print("=== CONVERSATION ID DEBUG ===");
-    print("MY encryption key: $myPublicEncryptionKey");
-    print("PEER encryption key: $publicEncryptionKey");
-
-    // 3. Generate symmetric ID
+    // 2. Generate symmetric ID
     final generatedId = ConversationIdService.generate(
       myPublicEncryptionKey: myPublicEncryptionKey,
       peerPublicEncryptionKey: publicEncryptionKey,
     );
 
-    print("GENERATED CONVERSATION ID: $generatedId");
-    print("============================");
-
-    // 4. Construct the local conversation instance
+    // 3. Construct the local conversation instance
     final conversation = Conversation(
       id: generatedId,
       username: username,

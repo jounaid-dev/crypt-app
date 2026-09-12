@@ -12,6 +12,118 @@ class AppLocalizationsTl extends AppLocalizations {
   String get appName => 'CRYPT';
 
   @override
+  String get termsAndConditions => 'Mga Tuntunin at Kundisyon';
+
+  @override
+  String get settingsTermsAndConditions => 'Mga Tuntunin at Kundisyon';
+
+  @override
+  String get termsIntro =>
+      'Ang CRYPT ay isang maagang aplikasyon para direktang pag-ugnayin ang mga tao para sa pag-uusap. Ikaw ang responsable sa wastong paggamit ng aplikasyon at sa seguridad ng mga kredensyal ng iyong account.';
+
+  @override
+  String get termsConnectivity =>
+      'Gumagamit ang CRYPT ng mga online na serbisyo upang tulungan ang mga device na makahanap at makapagtatag ng koneksyon. Maaaring magbago ang availability at pag-uugali ng koneksyon habang umuunlad ang aplikasyon. Huwag umasa sa CRYPT bilang tanging paraan ng komunikasyon.';
+
+  @override
+  String get termsAgreement =>
+      'Sa pagpapatuloy, kinukumpirma mong nabasa at sinasang-ayunan mong gamitin ang CRYPT alinsunod sa mga tuntuning ito.';
+
+  @override
+  String get agreeTerms => 'Sumasang-ayon ako sa Mga Tuntunin at Kundisyon';
+
+  @override
+  String get agreeAndContinue => 'Sumang-ayon at magpatuloy';
+
+  @override
+  String get beforeYouStart => 'Bago Ka Magsimula';
+
+  @override
+  String get connected => 'Nakakonekta';
+
+  @override
+  String get connectFirstThenChat => 'Kumonekta muna, saka makipag-chat';
+
+  @override
+  String get betaIntro =>
+      'Ang CRYPT ay isang maagang beta na bersyon, kaya maaaring mapabuti ang karanasan sa mga susunod na bersyon.';
+
+  @override
+  String get walkieTalkieExplanation =>
+      'Gumagana ang CRYPT na parang walkie-talkie: kailangang online ang dalawang tao at sabay na bukas ang CRYPT upang maitatag ang koneksyon.';
+
+  @override
+  String get howToUseCrypt =>
+      'Paano gamitin ang CRYPT:\n1. I-scan ang CRYPT QR code ng kausap.\n2. Kailangang bukas at online ang CRYPT sa parehong device.\n3. Maghintay habang itinatatag ng CRYPT ang P2P connection.\n4. Hintaying mawala ang status na “Kumokonekta...” at maitatag ang koneksyon.\n5. Kapag nakakonekta na, maaari ka nang makipag-chat.';
+
+  @override
+  String get messageStorageExplanation =>
+      'Ang iyong mga mensahe ay idinisenyong dumiretso sa pagitan ng mga nakakonektang device. Hindi iniimbak ng CRYPT ang iyong mga chat message sa aming mga server. Kasalukuyang tumutulong ang server sa koneksyon at signaling, at hindi iniimbak dito ang chat history. Kung offline ang kausap, hindi maitatatag ang kasalukuyang P2P connection.';
+
+  @override
+  String get settingsAndSupportExplanation =>
+      'Pumunta sa Settings upang i-customize ang iyong karanasan sa CRYPT. May paparating pang mga opsyon sa pag-customize.\n\nGusto mo bang suportahan ang CRYPT? Makikita mo ang opsyon sa donasyon sa Settings.';
+
+  @override
+  String get saving => 'Nagse-save...';
+
+  @override
+  String get continueToCrypt => 'Magpatuloy sa CRYPT';
+
+  @override
+  String get showSplashScreen => 'Ipakita ang splash screen';
+
+  @override
+  String get retry => 'Subukan muli';
+
+  @override
+  String get connectionFailed => 'Nabigo ang koneksyon';
+
+  @override
+  String get connectionFailedDetails =>
+      'Nabigo ang koneksyon. Kailangang online ang parehong device at bukas ang CRYPT upang makakonekta.';
+
+  @override
+  String get gallery => 'Gallery';
+
+  @override
+  String get alignQrCode => 'I-ALIGN ANG QR CODE';
+
+  @override
+  String get scanFromGallery => 'I-SCAN MULA SA GALLERY';
+
+  @override
+  String get couldNotScanImage => 'Hindi ma-scan ang larawan.';
+
+  @override
+  String couldNotShareQrCode(String error) {
+    return 'Hindi maibahagi ang QR code: $error';
+  }
+
+  @override
+  String newContact(String username) {
+    return 'Bagong contact: $username';
+  }
+
+  @override
+  String get publicEncryptionKeyMissing =>
+      'Nawawala ang iyong pampublikong encryption key.';
+
+  @override
+  String get contactEncryptionKeyMissing =>
+      'Nawawala ang encryption key ng contact.';
+
+  @override
+  String get localEncryptionKeyMissing =>
+      'Nawawala ang lokal na encryption key.';
+
+  @override
+  String get noQrCodeFound => 'Walang QR code sa larawang ito.';
+
+  @override
+  String get shareQrCode => 'Ibahagi ang QR code';
+
+  @override
   String get welcome => 'Maligayang Pagdating';
 
   @override
@@ -68,11 +180,11 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get accountDestructionWarning =>
-      'BABALA: Ang aksyong ito ay magbubura ng lahat ng iyong data sa aparatong ito. Kapag nakakonekta sa Internet, magpapadala ito ng remote self-destruct command. Ang bawat mensaheng ipinadala mula sa iyong natatanging User ID ay permanenteng mabubura sa memorya ng lahat ng peer.';
+      'BABALA: Buburahin ng pagkilos na ito ang lahat ng data sa device. Kapag nakakonekta sa Internet, magpapadala ito ng utos para sa malayuang pagbura. Permanenteng mabubura sa memorya ng mga peer ang bawat mensaheng ipinadala mula sa iyong natatanging User ID.';
 
   @override
   String get accountDestructionCriticalNotice =>
-      'KRITIKAL: Kung maling mai-type ang mga validation number na ito, magla-lock ang system. Upang i-unlock ito, kailangan mong ilagay ang iyong master Account Password, o gamitin ang Emergency Escape hatch na agarang maglilinis sa imbakan ng data ng aparatong ito.';
+      'KRITIKAL: Kapag mali ang mga validation number, mala-lock ang system. Ilagay ang iyong password ng account o gamitin ang emergency escape para agad burahin ang data sa device.';
 
   @override
   String verificationSecurityKey(String code) {
@@ -87,7 +199,7 @@ class AppLocalizationsTl extends AppLocalizations {
       'Hindi Nagtutugma ang Code! Ilagay ang Master Password para i-override o harapin ang 10-Minutong Lock:';
 
   @override
-  String get accountPasswordLabel => 'Password ng Account';
+  String get accountPasswordLabel => 'Password ng account';
 
   @override
   String get deleteEverythingPermanently => 'PERMANENTENG BURAHIN ANG LAHAT';
@@ -110,7 +222,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get addNewContact => 'Magdagdag ng Bagong Contact';
 
   @override
-  String get usernameLabel => 'Username';
+  String get usernameLabel => 'User name';
 
   @override
   String get nicknameOptionalLabel => 'Palayaw (Opsyonal)';
@@ -372,6 +484,79 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get supportSoloDeveloper => 'Suportahan ang isang Solo Developer';
+
+  @override
+  String get supportIntro =>
+      'Hoy! 👋 Isa akong solo developer na nagsusumikap sa CRYPT. Wala akong budget o corporate funding. Lubos akong umaasa sa iyong katapatan at empatiya para patuloy na pahusayin ang app at ginagarantiyahan na WALANG MGA AD FOREVER.';
+
+  @override
+  String get chooseSupportAmount =>
+      'Piliin ang Iyong Presyo (Slide para suportahan):';
+
+  @override
+  String get poorGang => 'Kawawang gang ako 🥀✌️';
+
+  @override
+  String get launchOfferMinimum => 'Ilunsad ang Minimum na Alok 🚀';
+
+  @override
+  String get buyMeCoffee => 'Bilhan Mo Ako ng Kape ☕';
+
+  @override
+  String get superSupporter => 'Super tagasuporta 🔥';
+
+  @override
+  String get feature => 'Tampok';
+
+  @override
+  String get freeTier => 'Libreng Tier';
+
+  @override
+  String get premium => 'Premium na tampok';
+
+  @override
+  String get chatLocks => 'Mga Lock ng Chat';
+
+  @override
+  String get maxOneRoom => 'Max 1 Kwarto';
+
+  @override
+  String get unlimited => 'Walang limitasyon';
+
+  @override
+  String get biometrics => 'Biometriko';
+
+  @override
+  String get disabled => '🚫 Hindi pinagana';
+
+  @override
+  String supportWithSats(String amount) {
+    return 'Suporta sa $amount sats (Phoenix)';
+  }
+
+  @override
+  String get boltOffer =>
+      '⚡ BOLT12 na alok sa pagbabayad • I-tap para kopyahin';
+
+  @override
+  String get boltOfferCopied => 'Nakopya ang alok sa pagbabayad ng BOLT12';
+
+  @override
+  String get tapToCopyBoltOffer =>
+      'I-tap para kopyahin ang alok sa pagbabayad ng BOLT12';
+
+  @override
+  String get simpleInstructionsToUnlock =>
+      '📬 Mga Simpleng Tagubilin para I-unlock:';
+
+  @override
+  String unlockInstructions(String username) {
+    return '1. Magbayad gamit ang Phoenix Wallet sa Android (7,500 minimum para i-unlock — higit pa ang palaging pinahahalagahan).\n2. Kumuha ng screenshot ng iyong matagumpay na screen ng pagkumpirma ng transaksyon.\n3. I-email ang screenshot na iyon sa jounaidnadirmed@gmail.com at sabihin sa akin ang iyong natatanging account username: \'$username\' para malaman ko kung sino ang nagbayad.\n4. I-type ang anumang bagay sa kahon sa ibaba upang i-save ang iyong kahilingan sa device na ito:';
+  }
+
+  @override
+  String get supportRequestHint =>
+      'I-type ang iyong pangalan o impormasyon ng transaksyon dito...';
 
   @override
   String get maybeLater => 'Mamaya na lang';

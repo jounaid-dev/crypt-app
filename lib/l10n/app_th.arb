@@ -1,255 +1,301 @@
 {
-  "@@locale": "th",
-
-  "appName": "CRYPT",
-  "welcome": "ยินดีต้อนรับ",
-  "login": "เข้าสู่ระบบ",
-  "signup": "ลงทะเบียน",
-  "settings": "การตั้งค่า",
-  "chats": "แชท",
-  "typeMessage": "พิมพ์ข้อความ...",
-  "send": "ส่ง",
-  "p2p": "P2P",
-  "connecting": "กำลังเชื่อมต่อ...",
-  "connectingP2p": "กำลังเชื่อมต่อกับ P2P...",
-  "p2pConnectionNotReady": "P2P ยังไม่พร้อม",
-  "searchLanguage": "ค้นหาภาษา...",
-  "language": "ภาษา",
-
-  "forceEscapeSignOutTitle": "บังคับออกจากระบบฉุกเฉิน?",
-  "forceEscapeSignOutContent": "คำเตือน: การดำเนินการนี้จะลบข้อมูลทั้งหมดออกจากอุปกรณ์นี้โดยสิ้นเชิง",
-  "cancel": "ยกเลิก",
-  "wipeDevice": "ล้างข้อมูลอุปกรณ์",
-
-  "accountDestructionAlertTitle": "คำเตือนการลบบัญชี",
-  "accountDestructionWarning": "คำเตือน: การดำเนินการนี้จะลบข้อมูลทั้งหมดของคุณออกจากอุปกรณ์นี้ เมื่อเชื่อมต่ออินเทอร์เน็ต ระบบจะเปิดใช้งานคำสั่งทำลายตัวเองจากระยะไกล ข้อความทุกข้อความที่ส่งจาก ID ผู้ใช้เฉพาะของคุณจะถูกลบออกจากหน่วยความจำของเพียร์ทั้งหมดอย่างถาวร",
-
-  "accountDestructionCriticalNotice": "คำเตือนสำคัญ: หากคุณป้อนตัวเลขยืนยันเหล่านี้ไม่ถูกต้อง ระบบจะถูกล็อก หากต้องการปลดล็อก คุณต้องป้อนรหัสผ่านบัญชีหลักของคุณ หรือใช้ตัวเลือกฉุกเฉินเพื่อออก ซึ่งจะล้างข้อมูลทั้งหมดบนอุปกรณ์นี้ทันที",
-
-  "verificationSecurityKey": "คีย์ความปลอดภัยสำหรับการยืนยัน: {code}",
-  "@verificationSecurityKey": {
-    "placeholders": {
-      "code": {
-        "type": "String"
-      }
+    "@@locale": "th",
+    "welcome": "ยินดีต้อนรับ",
+    "login": "เข้าสู่ระบบ",
+    "signup": "ลงทะเบียน",
+    "settings": "การตั้งค่า",
+    "chats": "แชท",
+    "typeMessage": "พิมพ์ข้อความ...",
+    "send": "ส่ง",
+    "p2p": "P2P",
+    "connecting": "กำลังเชื่อมต่อ...",
+    "connectingP2p": "กำลังเชื่อมต่อกับ P2P...",
+    "p2pConnectionNotReady": "P2P ยังไม่พร้อม",
+    "searchLanguage": "ค้นหาภาษา...",
+    "language": "ภาษา",
+    "forceEscapeSignOutTitle": "บังคับออกจากระบบฉุกเฉิน?",
+    "forceEscapeSignOutContent": "คำเตือน: การดำเนินการนี้จะลบข้อมูลทั้งหมดออกจากอุปกรณ์นี้โดยสิ้นเชิง",
+    "cancel": "ยกเลิก",
+    "wipeDevice": "ล้างข้อมูลอุปกรณ์",
+    "accountDestructionAlertTitle": "คำเตือนการลบบัญชี",
+    "accountDestructionWarning": "คำเตือน: การดำเนินการนี้จะลบข้อมูลทั้งหมดของคุณออกจากอุปกรณ์นี้ เมื่อเชื่อมต่ออินเทอร์เน็ต ระบบจะเปิดใช้งานคำสั่งทำลายตัวเองจากระยะไกล ข้อความทุกข้อความที่ส่งจาก ID ผู้ใช้เฉพาะของคุณจะถูกลบออกจากหน่วยความจำของเพียร์ทั้งหมดอย่างถาวร",
+    "accountDestructionCriticalNotice": "คำเตือนสำคัญ: หากคุณป้อนตัวเลขยืนยันเหล่านี้ไม่ถูกต้อง ระบบจะถูกล็อก หากต้องการปลดล็อก คุณต้องป้อนรหัสผ่านบัญชีหลักของคุณ หรือใช้ตัวเลือกฉุกเฉินเพื่อออก ซึ่งจะล้างข้อมูลทั้งหมดบนอุปกรณ์นี้ทันที",
+    "verificationSecurityKey": "คีย์ความปลอดภัยสำหรับการยืนยัน: {code}",
+    "@verificationSecurityKey": {
+        "placeholders": {
+            "code": {
+                "type": "String"
+            }
+        }
+    },
+    "copyDigitsHint": "คัดลอกตัวเลข 5 หลักด้านบน",
+    "codeMismatchNotice": "รหัสไม่ตรงกัน ป้อนรหัสผ่านหลักเพื่อข้ามการล็อก หรือรอ 10 นาที",
+    "accountPasswordLabel": "รหัสผ่านบัญชี",
+    "deleteEverythingPermanently": "ลบทุกอย่างอย่างถาวร",
+    "escapeAndPurgeDeviceData": "ออกและล้างข้อมูลอุปกรณ์",
+    "addContact": "เพิ่มผู้ติดต่อ",
+    "addContactConfirmation": "เพิ่มผู้ติดต่อนี้หรือไม่?",
+    "noMessagesYet": "ยังไม่มีข้อความ",
+    "addNewContact": "เพิ่มผู้ติดต่อใหม่",
+    "usernameLabel": "ชื่อผู้ใช้",
+    "nicknameOptionalLabel": "ชื่อเล่น (ไม่บังคับ)",
+    "add": "เพิ่ม",
+    "usernameCannotBeEmpty": "ชื่อผู้ใช้ต้องไม่เว้นว่าง",
+    "contactAlreadyExists": "ผู้ติดต่อ «{name}» มีอยู่ในสมุดที่อยู่ของคุณแล้ว",
+    "@contactAlreadyExists": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "userNotFoundOnRegistry": "ไม่พบผู้ใช้ «{name}» ในทะเบียนเครือข่าย ไม่สามารถสร้างความลับที่ใช้ร่วมกันได้",
+    "@userNotFoundOnRegistry": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "successfullyAddedContact": "เพิ่มผู้ติดต่อ {name} สำเร็จแล้ว!",
+    "@successfullyAddedContact": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "contacts": "ผู้ติดต่อ",
+    "noContactsYet": "ยังไม่มีผู้ติดต่อ",
+    "securityLockoutActive": "การล็อกความปลอดภัยกำลังทำงาน",
+    "tooManyAttemptsFrozen": "มีการพยายามไม่ถูกต้องมากเกินไป การเข้าถึงถูกบล็อกเป็นเวลา {minutes} นาที",
+    "@tooManyAttemptsFrozen": {
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "acknowledge": "รับทราบ",
+    "accessBlocked": "การเข้าถึงถูกบล็อก",
+    "accessSuspended": "การตรวจสอบไม่ถูกต้อง 5 ครั้ง การเข้าถึงถูกระงับเป็นเวลา {minutes} นาทีถัดไป",
+    "@accessSuspended": {
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "ok": "ตกลง",
+    "unlockSecureNode": "ปลดล็อกโหนดที่ปลอดภัย: {username}",
+    "@unlockSecureNode": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "verificationMetricsRemaining": "จำนวนครั้งที่เหลือสำหรับการยืนยัน: {count}",
+    "@verificationMetricsRemaining": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "secureKeyPasscode": "รหัสผ่านสำหรับคีย์ความปลอดภัย",
+    "warningHardwareLockout": "คำเตือน: ความไม่ตรงกันครั้งถัดไปจะทำให้ระบบรักษาความปลอดภัยถูกล็อก",
+    "abort": "ยกเลิก",
+    "authenticate": "ยืนยันตัวตน",
+    "searchPipelinesHint": "กำลังค้นหาการเชื่อมต่อที่ปลอดภัยที่ใช้งานอยู่...",
+    "zeroPipelinesDiscovered": "ไม่พบการเชื่อมต่อที่ตรงกัน",
+    "processingDecryption": "กำลังถอดรหัส...",
+    "decrypting": "กำลังถอดรหัส...",
+    "decryptionError": "[ข้อผิดพลาดในการถอดรหัส]",
+    "cryptContainerSecure": "คอนเทนเนอร์ CRYPT ปลอดภัย",
+    "connectAnAccount": "เชื่อมต่อบัญชี",
+    "username": "ชื่อผู้ใช้",
+    "password": "รหัสผ่าน",
+    "enterMasterSecurityPassword": "ป้อนรหัสผ่านความปลอดภัยหลักของคุณ",
+    "pleaseFillAllFields": "กรุณากรอกข้อมูลให้ครบทุกช่อง",
+    "wrongUsernameOrPassword": "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง",
+    "loginError": "เกิดข้อผิดพลาดในการเข้าสู่ระบบ: {error}",
+    "@loginError": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "dontHaveAnAccountSignUp": "ยังไม่มีบัญชี? ลงทะเบียน",
+    "myIdentity": "ตัวตนของฉัน",
+    "scanToAddMe": "สแกนเพื่อเพิ่มฉัน",
+    "shareProfileLink": "แชร์ลิงก์โปรไฟล์",
+    "addMeOnCrypt": "เพิ่มฉันใน CRYPT!\n\n{link}",
+    "@addMeOnCrypt": {
+        "placeholders": {
+            "link": {
+                "type": "String"
+            }
+        }
+    },
+    "scanQr": "สแกน QR",
+    "invalidCryptQrFormat": "รูปแบบ QR ของ CRYPT ไม่ถูกต้อง",
+    "userScanned": "สแกนผู้ใช้แล้ว!",
+    "addingUser": "กำลังเพิ่ม {username}...",
+    "@addingUser": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "defaultUser": "ผู้ใช้",
+    "createAccount": "สร้างบัญชี",
+    "keepPasswordSecureHint": "เก็บรหัสผ่านไว้ในที่ปลอดภัย รหัสผ่านไม่สามารถเปลี่ยนได้",
+    "pleaseFillInAllFields": "กรุณากรอกข้อมูลให้ครบทุกช่อง",
+    "usernameExceedsLimit": "ชื่อผู้ใช้ต้องมีความยาวไม่เกิน 20 ตัวอักษร",
+    "invalidUsernameCharacters": "ชื่อผู้ใช้สามารถประกอบด้วยตัวอักษร ตัวเลข เครื่องหมายขีดล่าง และยัติภังค์เท่านั้น",
+    "weakPasswordNotice": "รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร รวมถึงตัวเลขและตัวอักษรพิมพ์ใหญ่",
+    "unableToGenerateUniqueUsername": "ไม่สามารถสร้างชื่อผู้ใช้ที่ไม่ซ้ำกันได้",
+    "accountCreated": "สร้างบัญชีแล้ว",
+    "yourUsernameIs": "ชื่อผู้ใช้ของคุณคือ:\n\n{username}",
+    "@yourUsernameIs": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "usernameTakenAssignedTag": "ชื่อผู้ใช้ «{chosen}» ถูกใช้งานแล้ว\n\nชื่อผู้ใช้ของคุณคือ:\n\n{assigned}\n\nโปรดจำชื่อนี้ไว้ คุณจะต้องใช้สำหรับเข้าสู่ระบบ",
+    "@usernameTakenAssignedTag": {
+        "placeholders": {
+            "chosen": {
+                "type": "String"
+            },
+            "assigned": {
+                "type": "String"
+            }
+        }
+    },
+    "continueText": "ดำเนินการต่อ",
+    "failedToGenerateIdentity": "ไม่สามารถสร้างตัวตนที่ปลอดภัยได้: {error}",
+    "@failedToGenerateIdentity": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "welcomeToCrypt": "ยินดีต้อนรับสู่ CRYPT",
+    "signupDescription": "ป้อนชื่อผู้ใช้และรหัสผ่านเพื่อสร้างคีย์การเข้ารหัสแบบ P2P ของคุณ",
+    "chooseAUsername": "เลือกชื่อผู้ใช้",
+    "usernameHelperText": "อย่าใช้ชื่อจริงของคุณ หากชื่อผู้ใช้ถูกใช้งานแล้ว เราจะเพิ่มส่วนต่อท้ายที่ไม่ซ้ำกันให้โดยอัตโนมัติ",
+    "masterAuthenticationRequired": "จำเป็นต้องมีการยืนยันตัวตนหลัก",
+    "verify": "ตรวจสอบ",
+    "darkThemeMode": "ธีมมืด",
+    "secureConversations": "การสนทนาที่ปลอดภัย",
+    "noActiveConversations": "ไม่พบการสนทนาที่ใช้งานอยู่ เริ่มการสนทนาเพื่อเปิดใช้งานการล็อกความปลอดภัย",
+    "logout": "ออกจากระบบ",
+    "wipeDeviceAndEscape": "ล้างข้อมูลอุปกรณ์และออก",
+    "falsePassword": "รหัสผ่านไม่ถูกต้อง",
+    "accessSuspendedTimer": "การเข้าถึงถูกระงับเพื่อความปลอดภัย ลองอีกครั้งใน {time}",
+    "@accessSuspendedTimer": {
+        "placeholders": {
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "selectSecureLockMethod": "เลือกวิธีการล็อกที่ปลอดภัย",
+    "selectSecureLockDescription": "คุณต้องการล็อกการสนทนานี้ด้วยไบโอเมตริกลายนิ้วมือของอุปกรณ์ หรือใช้ PIN มาตรฐาน 4 หลัก?",
+    "fourDigitPin": "PIN 4 หลัก",
+    "fingerprintUnlock": "ลายนิ้วมือ 🔓",
+    "supportSoloDeveloper": "สนับสนุนนักพัฒนาอิสระ",
+    "maybeLater": "ไว้ทีหลัง",
+    "submitProof": "ส่งหลักฐาน",
+    "couldNotOpenWallet": "ไม่สามารถเปิดกระเป๋าเงินโดยอัตโนมัติได้ กรุณาคัดลอกรหัสข้อความด้านล่างแทน",
+    "proofSubmittedSnackbar": "ส่งหลักฐานแล้ว! การตรวจสอบด้วยตนเองใช้เวลา 24–48 ชั่วโมง (ไม่รวมวันหยุดสุดสัปดาห์) คุณสามารถใช้งานแอปต่อได้ตามปกติ",
+    "@couldNotShareQrCode": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "@newContact": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "appName": "CRYPT",
+    "termsAndConditions": "ข้อกำหนดและเงื่อนไข",
+    "settingsTermsAndConditions": "ข้อกำหนดและเงื่อนไข",
+    "termsIntro": "CRYPT เป็นแอปพลิเคชันระยะเริ่มต้นสำหรับเชื่อมต่อผู้คนโดยตรงเพื่อการสนทนา คุณมีหน้าที่รับผิดชอบต่อการใช้งานแอปอย่างเหมาะสมและการรักษาข้อมูลบัญชีของคุณให้ปลอดภัย",
+    "termsConnectivity": "CRYPT ใช้บริการออนไลน์เพื่อช่วยให้อุปกรณ์ค้นหาและสร้างการเชื่อมต่อ ความพร้อมใช้งานและพฤติกรรมการเชื่อมต่ออาจเปลี่ยนแปลงไปเมื่อแอปพัฒนา โปรดอย่าพึ่งพา CRYPT เป็นช่องทางการสื่อสารเพียงช่องทางเดียว",
+    "termsAgreement": "เมื่อดำเนินการต่อ คุณยืนยันว่าได้อ่านและยอมรับการใช้งาน CRYPT ภายใต้ข้อกำหนดเหล่านี้",
+    "agreeTerms": "ฉันยอมรับข้อกำหนดและเงื่อนไข",
+    "agreeAndContinue": "ยอมรับและดำเนินการต่อ",
+    "beforeYouStart": "ก่อนเริ่มต้น",
+    "connected": "เชื่อมต่อแล้ว",
+    "connectFirstThenChat": "เชื่อมต่อก่อน แล้วจึงแชท",
+    "betaIntro": "CRYPT เป็นรุ่นเบต้าเริ่มต้น ประสบการณ์การใช้งานจึงอาจได้รับการปรับปรุงในรุ่นต่อ ๆ ไป",
+    "walkieTalkieExplanation": "CRYPT ทำงานคล้ายวิทยุสื่อสาร: ทั้งสองคนต้องออนไลน์และเปิด CRYPT พร้อมกันเพื่อสร้างการเชื่อมต่อ",
+    "howToUseCrypt": "วิธีใช้ CRYPT:\n1. สแกนรหัส QR ของ CRYPT ของอีกฝ่าย\n2. ทั้งสองคนต้องเปิด CRYPT และออนไลน์\n3. รอให้ CRYPT สร้างการเชื่อมต่อ P2P\n4. รอให้สถานะ “กำลังเชื่อมต่อ...” หายไปและการเชื่อมต่อเสร็จสมบูรณ์\n5. เมื่อเชื่อมต่อแล้ว คุณสามารถเริ่มแชทได้",
+    "messageStorageExplanation": "ข้อความของคุณออกแบบให้ส่งโดยตรงระหว่างอุปกรณ์ที่เชื่อมต่อ CRYPT ไม่จัดเก็บข้อความแชทของคุณบนเซิร์ฟเวอร์ เซิร์ฟเวอร์ช่วยเรื่องการเชื่อมต่อและการส่งสัญญาณในขณะนี้ และไม่ได้จัดเก็บประวัติแชท หากอีกฝ่ายออฟไลน์ จะไม่สามารถสร้างการเชื่อมต่อ P2P ปัจจุบันได้",
+    "settingsAndSupportExplanation": "ไปที่การตั้งค่าเพื่อปรับแต่งประสบการณ์ CRYPT ของคุณ จะมีตัวเลือกการปรับแต่งเพิ่มเติมในเร็ว ๆ นี้\n\nต้องการสนับสนุน CRYPT หรือไม่ คุณสามารถพบตัวเลือกบริจาคได้ในการตั้งค่า",
+    "saving": "กำลังบันทึก...",
+    "continueToCrypt": "ไปต่อที่ CRYPT",
+    "showSplashScreen": "แสดงหน้าจอเริ่มต้น",
+    "retry": "ลองอีกครั้ง",
+    "connectionFailed": "การเชื่อมต่อล้มเหลว",
+    "connectionFailedDetails": "การเชื่อมต่อล้มเหลว อุปกรณ์ทั้งสองต้องออนไลน์และเปิด CRYPT เพื่อเชื่อมต่อ",
+    "gallery": "แกลเลอรี",
+    "alignQrCode": "จัดแนวรหัส QR",
+    "scanFromGallery": "สแกนจากแกลเลอรี",
+    "couldNotScanImage": "ไม่สามารถสแกนรูปภาพได้",
+    "couldNotShareQrCode": "ไม่สามารถแชร์รหัส QR ได้: {error}",
+    "newContact": "ผู้ติดต่อใหม่: {username}",
+    "publicEncryptionKeyMissing": "ไม่พบคีย์เข้ารหัสสาธารณะของคุณ",
+    "contactEncryptionKeyMissing": "ไม่พบคีย์เข้ารหัสของผู้ติดต่อ",
+    "localEncryptionKeyMissing": "ไม่พบคีย์เข้ารหัสภายในเครื่อง",
+    "noQrCodeFound": "ไม่พบรหัส QR ในรูปภาพนี้",
+    "shareQrCode": "แชร์รหัส QR",
+    "supportIntro": "เฮ้! 😏 ฉันเป็นนักพัฒนาเดี่ยวที่ทำงานอย่างหนักกับ CRYPT ฉันไม่มีงบประมาณหรือเงินทุนของบริษัท ฉันพึ่งพาความซื่อสัตย์และความเห็นอกเห็นใจของคุณอย่างเต็มที่เพื่อพัฒนาแอปต่อไปและรับประกันว่าไม่มีโฆษณาตลอดไป",
+    "chooseSupportAmount": "เลือกราคาของคุณ (เลื่อนเพื่อรองรับ):",
+    "poorGang": "แก๊งค์จน 🥀✌️",
+    "launchOfferMinimum": "เปิดตัวข้อเสนอขั้นต่ำ 🚀",
+    "buyMeCoffee": "ซื้อกาแฟให้ฉัน ☕",
+    "superSupporter": "สุดยอดผู้สนับสนุน 🔥",
+    "feature": "คุณสมบัติ",
+    "freeTier": "ฟรีเทียร์",
+    "premium": "พรีเมี่ยม",
+    "chatLocks": "ล็อคแชท",
+    "maxOneRoom": "สูงสุด 1 ห้อง",
+    "unlimited": "ไม่จำกัด",
+    "biometrics": "ไบโอเมตริกซ์",
+    "disabled": "🚫 ปิดการใช้งาน",
+    "supportWithSats": "สนับสนุนด้วย {amount} sats (ฟีนิกซ์)",
+    "boltOffer": "⚡ ข้อเสนอการชำระเงิน BOLT12 • แตะเพื่อคัดลอก",
+    "boltOfferCopied": "คัดลอกข้อเสนอการชำระเงิน BOLT12 แล้ว",
+    "tapToCopyBoltOffer": "แตะเพื่อคัดลอกข้อเสนอการชำระเงิน BOLT12",
+    "simpleInstructionsToUnlock": "📬 คำแนะนำง่ายๆ ในการปลดล็อค:",
+    "unlockInstructions": "1. ชำระเงินโดยใช้ Phoenix Wallet บน Android (ขั้นต่ำ 7,500 เพื่อปลดล็อค — หากมากกว่านั้นจะยินดีเสมอ)\n2. จับภาพหน้าจอยืนยันการทำธุรกรรมของคุณสำเร็จ\n3. ส่งอีเมลภาพหน้าจอไปที่ jounaidnadirmed@gmail.com และแจ้งชื่อผู้ใช้บัญชีเฉพาะของคุณ: '{username}' เพื่อให้ฉันรู้ว่าใครเป็นผู้ชำระเงิน\n4. พิมพ์อะไรก็ได้ลงในช่องด้านล่างเพื่อบันทึกคำขอของคุณบนอุปกรณ์นี้:",
+    "supportRequestHint": "พิมพ์ชื่อหรือข้อมูลการทำธุรกรรมของคุณที่นี่...",
+    "@supportWithSats": {
+        "placeholders": {
+            "amount": {
+                "type": "String"
+            }
+        }
+    },
+    "@unlockInstructions": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
     }
-  },
-
-  "copyDigitsHint": "คัดลอกตัวเลข 5 หลักด้านบน",
-  "codeMismatchNotice": "รหัสไม่ตรงกัน ป้อนรหัสผ่านหลักเพื่อข้ามการล็อก หรือรอ 10 นาที",
-  "accountPasswordLabel": "รหัสผ่านบัญชี",
-  "deleteEverythingPermanently": "ลบทุกอย่างอย่างถาวร",
-  "escapeAndPurgeDeviceData": "ออกและล้างข้อมูลอุปกรณ์",
-
-  "addContact": "เพิ่มผู้ติดต่อ",
-  "addContactConfirmation": "เพิ่มผู้ติดต่อนี้หรือไม่?",
-  "noMessagesYet": "ยังไม่มีข้อความ",
-  "addNewContact": "เพิ่มผู้ติดต่อใหม่",
-  "usernameLabel": "ชื่อผู้ใช้",
-  "nicknameOptionalLabel": "ชื่อเล่น (ไม่บังคับ)",
-  "add": "เพิ่ม",
-  "usernameCannotBeEmpty": "ชื่อผู้ใช้ต้องไม่เว้นว่าง",
-
-  "contactAlreadyExists": "ผู้ติดต่อ «{name}» มีอยู่ในสมุดที่อยู่ของคุณแล้ว",
-  "@contactAlreadyExists": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "userNotFoundOnRegistry": "ไม่พบผู้ใช้ «{name}» ในทะเบียนเครือข่าย ไม่สามารถสร้างความลับที่ใช้ร่วมกันได้",
-  "@userNotFoundOnRegistry": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "successfullyAddedContact": "เพิ่มผู้ติดต่อ {name} สำเร็จแล้ว!",
-  "@successfullyAddedContact": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "contacts": "ผู้ติดต่อ",
-  "noContactsYet": "ยังไม่มีผู้ติดต่อ",
-  "securityLockoutActive": "การล็อกความปลอดภัยกำลังทำงาน",
-
-  "tooManyAttemptsFrozen": "มีการพยายามไม่ถูกต้องมากเกินไป การเข้าถึงถูกบล็อกเป็นเวลา {minutes} นาที",
-  "@tooManyAttemptsFrozen": {
-    "placeholders": {
-      "minutes": {
-        "type": "int"
-      }
-    }
-  },
-
-  "acknowledge": "รับทราบ",
-  "accessBlocked": "การเข้าถึงถูกบล็อก",
-
-  "accessSuspended": "การตรวจสอบไม่ถูกต้อง 5 ครั้ง การเข้าถึงถูกระงับเป็นเวลา {minutes} นาทีถัดไป",
-  "@accessSuspended": {
-    "placeholders": {
-      "minutes": {
-        "type": "int"
-      }
-    }
-  },
-
-  "ok": "ตกลง",
-
-  "unlockSecureNode": "ปลดล็อกโหนดที่ปลอดภัย: {username}",
-  "@unlockSecureNode": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "verificationMetricsRemaining": "จำนวนครั้งที่เหลือสำหรับการยืนยัน: {count}",
-  "@verificationMetricsRemaining": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
-
-  "secureKeyPasscode": "รหัสผ่านสำหรับคีย์ความปลอดภัย",
-  "warningHardwareLockout": "คำเตือน: ความไม่ตรงกันครั้งถัดไปจะทำให้ระบบรักษาความปลอดภัยถูกล็อก",
-  "abort": "ยกเลิก",
-  "authenticate": "ยืนยันตัวตน",
-
-  "searchPipelinesHint": "กำลังค้นหาการเชื่อมต่อที่ปลอดภัยที่ใช้งานอยู่...",
-  "zeroPipelinesDiscovered": "ไม่พบการเชื่อมต่อที่ตรงกัน",
-  "processingDecryption": "กำลังถอดรหัส...",
-  "decrypting": "กำลังถอดรหัส...",
-  "decryptionError": "[ข้อผิดพลาดในการถอดรหัส]",
-  "cryptContainerSecure": "คอนเทนเนอร์ CRYPT ปลอดภัย",
-
-  "connectAnAccount": "เชื่อมต่อบัญชี",
-  "username": "ชื่อผู้ใช้",
-  "password": "รหัสผ่าน",
-  "enterMasterSecurityPassword": "ป้อนรหัสผ่านความปลอดภัยหลักของคุณ",
-  "pleaseFillAllFields": "กรุณากรอกข้อมูลให้ครบทุกช่อง",
-  "wrongUsernameOrPassword": "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง",
-
-  "loginError": "เกิดข้อผิดพลาดในการเข้าสู่ระบบ: {error}",
-  "@loginError": {
-    "placeholders": {
-      "error": {
-        "type": "String"
-      }
-    }
-  },
-
-  "dontHaveAnAccountSignUp": "ยังไม่มีบัญชี? ลงทะเบียน",
-  "myIdentity": "ตัวตนของฉัน",
-  "scanToAddMe": "สแกนเพื่อเพิ่มฉัน",
-  "shareProfileLink": "แชร์ลิงก์โปรไฟล์",
-
-  "addMeOnCrypt": "เพิ่มฉันใน CRYPT!\n\n{link}",
-  "@addMeOnCrypt": {
-    "placeholders": {
-      "link": {
-        "type": "String"
-      }
-    }
-  },
-
-  "scanQr": "สแกน QR",
-  "invalidCryptQrFormat": "รูปแบบ QR ของ CRYPT ไม่ถูกต้อง",
-  "userScanned": "สแกนผู้ใช้แล้ว!",
-
-  "addingUser": "กำลังเพิ่ม {username}...",
-  "@addingUser": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "defaultUser": "ผู้ใช้",
-  "createAccount": "สร้างบัญชี",
-  "keepPasswordSecureHint": "เก็บรหัสผ่านไว้ในที่ปลอดภัย รหัสผ่านไม่สามารถเปลี่ยนได้",
-  "pleaseFillInAllFields": "กรุณากรอกข้อมูลให้ครบทุกช่อง",
-  "usernameExceedsLimit": "ชื่อผู้ใช้ต้องมีความยาวไม่เกิน 20 ตัวอักษร",
-  "invalidUsernameCharacters": "ชื่อผู้ใช้สามารถประกอบด้วยตัวอักษร ตัวเลข เครื่องหมายขีดล่าง และยัติภังค์เท่านั้น",
-  "weakPasswordNotice": "รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร รวมถึงตัวเลขและตัวอักษรพิมพ์ใหญ่",
-  "unableToGenerateUniqueUsername": "ไม่สามารถสร้างชื่อผู้ใช้ที่ไม่ซ้ำกันได้",
-
-  "accountCreated": "สร้างบัญชีแล้ว",
-
-  "yourUsernameIs": "ชื่อผู้ใช้ของคุณคือ:\n\n{username}",
-  "@yourUsernameIs": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "usernameTakenAssignedTag": "ชื่อผู้ใช้ «{chosen}» ถูกใช้งานแล้ว\n\nชื่อผู้ใช้ของคุณคือ:\n\n{assigned}\n\nโปรดจำชื่อนี้ไว้ คุณจะต้องใช้สำหรับเข้าสู่ระบบ",
-  "@usernameTakenAssignedTag": {
-    "placeholders": {
-      "chosen": {
-        "type": "String"
-      },
-      "assigned": {
-        "type": "String"
-      }
-    }
-  },
-
-  "continueText": "ดำเนินการต่อ",
-
-  "failedToGenerateIdentity": "ไม่สามารถสร้างตัวตนที่ปลอดภัยได้: {error}",
-  "@failedToGenerateIdentity": {
-    "placeholders": {
-      "error": {
-        "type": "String"
-      }
-    }
-  },
-
-  "welcomeToCrypt": "ยินดีต้อนรับสู่ CRYPT",
-  "signupDescription": "ป้อนชื่อผู้ใช้และรหัสผ่านเพื่อสร้างคีย์การเข้ารหัสแบบ P2P ของคุณ",
-  "chooseAUsername": "เลือกชื่อผู้ใช้",
-  "usernameHelperText": "อย่าใช้ชื่อจริงของคุณ หากชื่อผู้ใช้ถูกใช้งานแล้ว เราจะเพิ่มส่วนต่อท้ายที่ไม่ซ้ำกันให้โดยอัตโนมัติ",
-
-  "masterAuthenticationRequired": "จำเป็นต้องมีการยืนยันตัวตนหลัก",
-  "verify": "ตรวจสอบ",
-  "darkThemeMode": "ธีมมืด",
-  "secureConversations": "การสนทนาที่ปลอดภัย",
-  "noActiveConversations": "ไม่พบการสนทนาที่ใช้งานอยู่ เริ่มการสนทนาเพื่อเปิดใช้งานการล็อกความปลอดภัย",
-  "logout": "ออกจากระบบ",
-  "wipeDeviceAndEscape": "ล้างข้อมูลอุปกรณ์และออก",
-  "falsePassword": "รหัสผ่านไม่ถูกต้อง",
-
-  "accessSuspendedTimer": "การเข้าถึงถูกระงับเพื่อความปลอดภัย ลองอีกครั้งใน {time}",
-  "@accessSuspendedTimer": {
-    "placeholders": {
-      "time": {
-        "type": "String"
-      }
-    }
-  },
-
-  "selectSecureLockMethod": "เลือกวิธีการล็อกที่ปลอดภัย",
-  "selectSecureLockDescription": "คุณต้องการล็อกการสนทนานี้ด้วยไบโอเมตริกลายนิ้วมือของอุปกรณ์ หรือใช้ PIN มาตรฐาน 4 หลัก?",
-  "fourDigitPin": "PIN 4 หลัก",
-  "fingerprintUnlock": "ลายนิ้วมือ 🔓",
-  "supportSoloDeveloper": "สนับสนุนนักพัฒนาอิสระ",
-  "maybeLater": "ไว้ทีหลัง",
-  "submitProof": "ส่งหลักฐาน",
-  "couldNotOpenWallet": "ไม่สามารถเปิดกระเป๋าเงินโดยอัตโนมัติได้ กรุณาคัดลอกรหัสข้อความด้านล่างแทน",
-  "proofSubmittedSnackbar": "ส่งหลักฐานแล้ว! การตรวจสอบด้วยตนเองใช้เวลา 24–48 ชั่วโมง (ไม่รวมวันหยุดสุดสัปดาห์) คุณสามารถใช้งานแอปต่อได้ตามปกติ"
 }

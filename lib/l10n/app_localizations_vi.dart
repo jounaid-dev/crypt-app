@@ -12,6 +12,116 @@ class AppLocalizationsVi extends AppLocalizations {
   String get appName => 'CRYPT';
 
   @override
+  String get termsAndConditions => 'Điều khoản và Điều kiện';
+
+  @override
+  String get settingsTermsAndConditions => 'Điều khoản và Điều kiện';
+
+  @override
+  String get termsIntro =>
+      'CRYPT là một ứng dụng đang ở giai đoạn đầu, giúp kết nối mọi người trực tiếp để trò chuyện. Bạn chịu trách nhiệm sử dụng ứng dụng phù hợp và bảo vệ thông tin đăng nhập tài khoản của mình.';
+
+  @override
+  String get termsConnectivity =>
+      'CRYPT sử dụng các dịch vụ trực tuyến để giúp thiết bị tìm thấy nhau và thiết lập kết nối. Tính khả dụng và hoạt động kết nối có thể thay đổi khi ứng dụng phát triển. Vui lòng không phụ thuộc vào CRYPT như phương tiện liên lạc duy nhất.';
+
+  @override
+  String get termsAgreement =>
+      'Bằng cách tiếp tục, bạn xác nhận đã đọc và đồng ý sử dụng CRYPT theo các điều khoản này.';
+
+  @override
+  String get agreeTerms => 'Tôi đồng ý với Điều khoản và Điều kiện';
+
+  @override
+  String get agreeAndContinue => 'Đồng ý và tiếp tục';
+
+  @override
+  String get beforeYouStart => 'Trước khi bắt đầu';
+
+  @override
+  String get connected => 'Đã kết nối';
+
+  @override
+  String get connectFirstThenChat => 'Kết nối trước, rồi trò chuyện';
+
+  @override
+  String get betaIntro =>
+      'CRYPT đang ở phiên bản beta đầu tiên, vì vậy trải nghiệm có thể được cải thiện trong các phiên bản tương lai.';
+
+  @override
+  String get walkieTalkieExplanation =>
+      'CRYPT hoạt động như bộ đàm: cả hai người cần trực tuyến và mở CRYPT cùng lúc để thiết lập kết nối.';
+
+  @override
+  String get howToUseCrypt =>
+      'Cách sử dụng CRYPT:\n1. Quét mã QR CRYPT của người kia.\n2. Cả hai người cần mở CRYPT và trực tuyến.\n3. Chờ CRYPT thiết lập kết nối P2P.\n4. Chờ trạng thái “Đang kết nối...” biến mất và kết nối được thiết lập.\n5. Khi đã kết nối, bạn có thể bắt đầu trò chuyện.';
+
+  @override
+  String get messageStorageExplanation =>
+      'Tin nhắn của bạn được thiết kế để truyền trực tiếp giữa các thiết bị đã kết nối. CRYPT không lưu tin nhắn trò chuyện trên máy chủ. Máy chủ hiện hỗ trợ kết nối và báo hiệu, còn lịch sử trò chuyện không được lưu trên máy chủ. Nếu người kia ngoại tuyến, không thể thiết lập kết nối P2P hiện tại.';
+
+  @override
+  String get settingsAndSupportExplanation =>
+      'Mở Cài đặt để tùy chỉnh trải nghiệm CRYPT. Sắp có thêm các tùy chọn tùy chỉnh.\n\nBạn muốn hỗ trợ CRYPT? Bạn có thể tìm tùy chọn quyên góp trong Cài đặt.';
+
+  @override
+  String get saving => 'Đang lưu...';
+
+  @override
+  String get continueToCrypt => 'Tiếp tục đến CRYPT';
+
+  @override
+  String get showSplashScreen => 'Hiển thị màn hình khởi động';
+
+  @override
+  String get retry => 'Thử lại';
+
+  @override
+  String get connectionFailed => 'Kết nối thất bại';
+
+  @override
+  String get connectionFailedDetails =>
+      'Kết nối thất bại. Cả hai thiết bị phải trực tuyến và mở CRYPT để kết nối.';
+
+  @override
+  String get gallery => 'Thư viện';
+
+  @override
+  String get alignQrCode => 'CĂN CHỈNH MÃ QR';
+
+  @override
+  String get scanFromGallery => 'QUÉT TỪ THƯ VIỆN';
+
+  @override
+  String get couldNotScanImage => 'Không thể quét hình ảnh.';
+
+  @override
+  String couldNotShareQrCode(String error) {
+    return 'Không thể chia sẻ mã QR: $error';
+  }
+
+  @override
+  String newContact(String username) {
+    return 'Liên hệ mới: $username';
+  }
+
+  @override
+  String get publicEncryptionKeyMissing =>
+      'Thiếu khóa mã hóa công khai của bạn.';
+
+  @override
+  String get contactEncryptionKeyMissing => 'Thiếu khóa mã hóa của liên hệ.';
+
+  @override
+  String get localEncryptionKeyMissing => 'Thiếu khóa mã hóa cục bộ.';
+
+  @override
+  String get noQrCodeFound => 'Không tìm thấy mã QR trong hình ảnh này.';
+
+  @override
+  String get shareQrCode => 'Chia sẻ mã QR';
+
+  @override
   String get welcome => 'Chào mừng';
 
   @override
@@ -369,6 +479,75 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get supportSoloDeveloper => 'Hỗ trợ một nhà phát triển độc lập';
+
+  @override
+  String get supportIntro =>
+      'Chào! 👋 Tôi là nhà phát triển solo đang làm việc chăm chỉ trên CRYPT. Tôi không có ngân sách hoặc tài trợ của công ty. Tôi hoàn toàn tin tưởng vào sự trung thực và đồng cảm của bạn để tiếp tục cải thiện ứng dụng và đảm bảo KHÔNG CÓ QUẢNG CÁO MÃI MÃI.';
+
+  @override
+  String get chooseSupportAmount => 'Chọn giá của bạn (Trượt để hỗ trợ):';
+
+  @override
+  String get poorGang => 'Tôi là một nhóm nghèo 🥀✌️';
+
+  @override
+  String get launchOfferMinimum => 'Ra mắt ưu đãi tối thiểu 🚀';
+
+  @override
+  String get buyMeCoffee => 'Mua cho tôi một ly cà phê ☕';
+
+  @override
+  String get superSupporter => 'Siêu ủng hộ 🔥';
+
+  @override
+  String get feature => 'Tính năng';
+
+  @override
+  String get freeTier => 'Bậc miễn phí';
+
+  @override
+  String get premium => 'Phần thưởng';
+
+  @override
+  String get chatLocks => 'Khóa trò chuyện';
+
+  @override
+  String get maxOneRoom => 'Tối đa 1 phòng';
+
+  @override
+  String get unlimited => 'Không giới hạn';
+
+  @override
+  String get biometrics => 'Sinh trắc học';
+
+  @override
+  String get disabled => '🚫 Bị vô hiệu hóa';
+
+  @override
+  String supportWithSats(String amount) {
+    return 'Hỗ trợ với $amount sats (Phoenix)';
+  }
+
+  @override
+  String get boltOffer => '⚡ Ưu đãi thanh toán BOLT12 • Nhấn để sao chép';
+
+  @override
+  String get boltOfferCopied => 'Đã sao chép ưu đãi thanh toán BOLT12';
+
+  @override
+  String get tapToCopyBoltOffer => 'Nhấn để sao chép ưu đãi thanh toán BOLT12';
+
+  @override
+  String get simpleInstructionsToUnlock => '📬 Hướng dẫn đơn giản để mở khóa:';
+
+  @override
+  String unlockInstructions(String username) {
+    return '1. Thanh toán bằng Ví Phoenix trên Android (tối thiểu 7.500 để mở khóa - luôn được đánh giá cao hơn).\n2. Chụp ảnh màn hình xác nhận giao dịch thành công.\n3. Gửi ảnh chụp màn hình đó qua email tới jounaidnadirmed@gmail.com và cho tôi biết tên người dùng tài khoản duy nhất của bạn: \'$username\' để tôi biết ai đã trả tiền.\n4. Nhập bất kỳ nội dung nào vào ô bên dưới để lưu yêu cầu của bạn trên thiết bị này:';
+  }
+
+  @override
+  String get supportRequestHint =>
+      'Nhập tên hoặc thông tin giao dịch của bạn vào đây...';
 
   @override
   String get maybeLater => 'Có thể để sau';

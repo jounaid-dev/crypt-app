@@ -1,257 +1,301 @@
 {
-  "@@locale": "vi",
-
-  "appName": "CRYPT",
-  "welcome": "Chào mừng",
-  "login": "Đăng nhập",
-  "signup": "Đăng ký",
-  "settings": "Cài đặt",
-  "chats": "Trò chuyện",
-  "typeMessage": "Nhập tin nhắn...",
-  "send": "Gửi",
-
-  "p2p": "P2P",
-  "connecting": "Đang kết nối...",
-  "connectingP2p": "Đang kết nối P2P...",
-  "p2pConnectionNotReady": "Kết nối P2P chưa sẵn sàng.",
-
-  "searchLanguage": "Tìm kiếm ngôn ngữ...",
-  "language": "Ngôn ngữ",
-
-  "forceEscapeSignOutTitle": "BUỘC THOÁT KHẨN CẤP?",
-  "forceEscapeSignOutContent": "CẢNH BÁO: Hành động này sẽ xóa hoàn toàn mọi dữ liệu khỏi thiết bị này.",
-  "cancel": "Hủy",
-  "wipeDevice": "XÓA THIẾT BỊ",
-
-  "accountDestructionAlertTitle": "CẢNH BÁO XÓA TÀI KHOẢN",
-  "accountDestructionWarning": "CẢNH BÁO: Hành động này sẽ xóa tất cả dữ liệu của bạn khỏi thiết bị này. Khi kết nối Internet, lệnh tự hủy từ xa sẽ được kích hoạt. Mọi tin nhắn được gửi từ ID người dùng duy nhất của bạn sẽ bị xóa vĩnh viễn khỏi bộ nhớ của tất cả các thiết bị ngang hàng.",
-  "accountDestructionCriticalNotice": "NGHIÊM TRỌNG: Nếu nhập sai các số xác minh này, hệ thống sẽ bị khóa. Để mở khóa, bạn phải nhập Mật khẩu tài khoản chính hoặc sử dụng Lối thoát khẩn cấp để ngay lập tức xóa sạch dữ liệu trên thiết bị này.",
-
-  "verificationSecurityKey": "Khóa bảo mật xác minh: {code}",
-  "@verificationSecurityKey": {
-    "placeholders": {
-      "code": {
-        "type": "String"
-      }
+    "@@locale": "vi",
+    "welcome": "Chào mừng",
+    "login": "Đăng nhập",
+    "signup": "Đăng ký",
+    "settings": "Cài đặt",
+    "chats": "Trò chuyện",
+    "typeMessage": "Nhập tin nhắn...",
+    "send": "Gửi",
+    "p2p": "P2P",
+    "connecting": "Đang kết nối...",
+    "connectingP2p": "Đang kết nối P2P...",
+    "p2pConnectionNotReady": "Kết nối P2P chưa sẵn sàng.",
+    "searchLanguage": "Tìm kiếm ngôn ngữ...",
+    "language": "Ngôn ngữ",
+    "forceEscapeSignOutTitle": "BUỘC THOÁT KHẨN CẤP?",
+    "forceEscapeSignOutContent": "CẢNH BÁO: Hành động này sẽ xóa hoàn toàn mọi dữ liệu khỏi thiết bị này.",
+    "cancel": "Hủy",
+    "wipeDevice": "XÓA THIẾT BỊ",
+    "accountDestructionAlertTitle": "CẢNH BÁO XÓA TÀI KHOẢN",
+    "accountDestructionWarning": "CẢNH BÁO: Hành động này sẽ xóa tất cả dữ liệu của bạn khỏi thiết bị này. Khi kết nối Internet, lệnh tự hủy từ xa sẽ được kích hoạt. Mọi tin nhắn được gửi từ ID người dùng duy nhất của bạn sẽ bị xóa vĩnh viễn khỏi bộ nhớ của tất cả các thiết bị ngang hàng.",
+    "accountDestructionCriticalNotice": "NGHIÊM TRỌNG: Nếu nhập sai các số xác minh này, hệ thống sẽ bị khóa. Để mở khóa, bạn phải nhập Mật khẩu tài khoản chính hoặc sử dụng Lối thoát khẩn cấp để ngay lập tức xóa sạch dữ liệu trên thiết bị này.",
+    "verificationSecurityKey": "Khóa bảo mật xác minh: {code}",
+    "@verificationSecurityKey": {
+        "placeholders": {
+            "code": {
+                "type": "String"
+            }
+        }
+    },
+    "copyDigitsHint": "Sao chép 5 chữ số ở trên",
+    "codeMismatchNotice": "Mã không khớp! Nhập Mật khẩu chính để bỏ qua hoặc hệ thống sẽ bị khóa trong 10 phút:",
+    "accountPasswordLabel": "Mật khẩu tài khoản",
+    "deleteEverythingPermanently": "XÓA VĨNH VIỄN TẤT CẢ",
+    "escapeAndPurgeDeviceData": "Thoát khẩn cấp và xóa dữ liệu thiết bị",
+    "addContact": "Thêm liên hệ",
+    "addContactConfirmation": "Bạn có muốn thêm liên hệ này không?",
+    "noMessagesYet": "Chưa có tin nhắn",
+    "addNewContact": "Thêm liên hệ mới",
+    "usernameLabel": "Tên người dùng",
+    "nicknameOptionalLabel": "Biệt danh (Tùy chọn)",
+    "add": "Thêm",
+    "usernameCannotBeEmpty": "Tên người dùng không được để trống",
+    "contactAlreadyExists": "Liên hệ '{name}' đã có trong danh bạ của bạn.",
+    "@contactAlreadyExists": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "userNotFoundOnRegistry": "Không tìm thấy người dùng '{name}' trong sổ đăng ký mạng. Không thể tạo bí mật chung.",
+    "@userNotFoundOnRegistry": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "successfullyAddedContact": "Đã thêm {name} thành công!",
+    "@successfullyAddedContact": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "contacts": "Danh bạ",
+    "noContactsYet": "Chưa có liên hệ nào",
+    "securityLockoutActive": "Khóa bảo mật đang hoạt động",
+    "tooManyAttemptsFrozen": "Quá nhiều lần thử không hợp lệ. Quyền truy cập đã bị đóng băng trong {minutes} phút.",
+    "@tooManyAttemptsFrozen": {
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "acknowledge": "Đã hiểu",
+    "accessBlocked": "Truy cập bị chặn",
+    "accessSuspended": "5 lần xác minh không khớp. Quyền truy cập bị đình chỉ trong {minutes} phút tiếp theo.",
+    "@accessSuspended": {
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "ok": "OK",
+    "unlockSecureNode": "Mở khóa nút bảo mật: {username}",
+    "@unlockSecureNode": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "verificationMetricsRemaining": "Số lần xác minh còn lại: {count}",
+    "@verificationMetricsRemaining": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "secureKeyPasscode": "Mật mã khóa bảo mật",
+    "warningHardwareLockout": "CẢNH BÁO: Lần không khớp tiếp theo sẽ kích hoạt khóa bảo mật phần cứng.",
+    "abort": "Hủy bỏ",
+    "authenticate": "Xác thực",
+    "searchPipelinesHint": "Đang tìm kiếm các kênh liên lạc bảo mật đang hoạt động...",
+    "zeroPipelinesDiscovered": "Không tìm thấy kênh liên lạc phù hợp.",
+    "processingDecryption": "Đang xử lý giải mã...",
+    "decrypting": "Đang giải mã...",
+    "decryptionError": "[Lỗi giải mã]",
+    "cryptContainerSecure": "BỘ CHỨA CRYPT AN TOÀN",
+    "connectAnAccount": "Kết nối tài khoản",
+    "username": "Tên người dùng",
+    "password": "Mật khẩu",
+    "enterMasterSecurityPassword": "Nhập mật khẩu bảo mật chính của bạn",
+    "pleaseFillAllFields": "Vui lòng điền đầy đủ tất cả các trường",
+    "wrongUsernameOrPassword": "Sai tên người dùng hoặc mật khẩu",
+    "loginError": "Lỗi đăng nhập: {error}",
+    "@loginError": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "dontHaveAnAccountSignUp": "Chưa có tài khoản? Đăng ký",
+    "myIdentity": "Danh tính của tôi",
+    "scanToAddMe": "Quét để thêm tôi",
+    "shareProfileLink": "Chia sẻ liên kết hồ sơ",
+    "addMeOnCrypt": "Thêm tôi trên CRYPT!\n\n{link}",
+    "@addMeOnCrypt": {
+        "placeholders": {
+            "link": {
+                "type": "String"
+            }
+        }
+    },
+    "scanQr": "Quét QR",
+    "invalidCryptQrFormat": "Định dạng mã QR CRYPT không hợp lệ.",
+    "userScanned": "Đã quét người dùng!",
+    "addingUser": "Đang thêm {username}...",
+    "@addingUser": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "defaultUser": "Người dùng",
+    "createAccount": "Tạo tài khoản",
+    "keepPasswordSecureHint": "Hãy giữ mật khẩu an toàn; mật khẩu không thể thay đổi sau này.",
+    "pleaseFillInAllFields": "Vui lòng điền đầy đủ tất cả các trường",
+    "usernameExceedsLimit": "Tên người dùng không được vượt quá 20 ký tự",
+    "invalidUsernameCharacters": "Tên người dùng chỉ được chứa chữ cái, số, dấu gạch dưới và dấu gạch ngang",
+    "weakPasswordNotice": "Mật khẩu phải có ít nhất 8 ký tự, bao gồm một chữ số và một chữ cái viết hoa",
+    "unableToGenerateUniqueUsername": "Không thể tạo tên người dùng duy nhất.",
+    "accountCreated": "Đã tạo tài khoản",
+    "yourUsernameIs": "Tên người dùng của bạn:\n\n{username}",
+    "@yourUsernameIs": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "usernameTakenAssignedTag": "Tên người dùng '{chosen}' đã được sử dụng.\n\nTên người dùng của bạn:\n\n{assigned}\n\nVui lòng ghi nhớ tên này. Bạn sẽ cần nó để đăng nhập.",
+    "@usernameTakenAssignedTag": {
+        "placeholders": {
+            "chosen": {
+                "type": "String"
+            },
+            "assigned": {
+                "type": "String"
+            }
+        }
+    },
+    "continueText": "Tiếp tục",
+    "failedToGenerateIdentity": "Không thể tạo danh tính bảo mật: {error}",
+    "@failedToGenerateIdentity": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "welcomeToCrypt": "Chào mừng đến với CRYPT",
+    "signupDescription": "Nhập tên người dùng và mật khẩu để khởi tạo các khóa mã hóa ngang hàng (P2P) của bạn.",
+    "chooseAUsername": "Chọn tên người dùng",
+    "usernameHelperText": "Không sử dụng tên thật của bạn. Nếu tên người dùng đã được sử dụng, chúng tôi sẽ tự động thêm một hậu tố duy nhất.",
+    "masterAuthenticationRequired": "Yêu cầu xác thực chính",
+    "verify": "Xác minh",
+    "darkThemeMode": "Chế độ giao diện tối",
+    "secureConversations": "Cuộc trò chuyện bảo mật",
+    "noActiveConversations": "Không tìm thấy cuộc trò chuyện đang hoạt động. Hãy bắt đầu một cuộc trò chuyện trước để sử dụng các khóa bảo mật tùy chỉnh.",
+    "logout": "Đăng xuất",
+    "wipeDeviceAndEscape": "XÓA THIẾT BỊ VÀ THOÁT",
+    "falsePassword": "Mật khẩu sai",
+    "accessSuspendedTimer": "Quyền truy cập bị đình chỉ vì lý do bảo mật. Thử lại sau {time}.",
+    "@accessSuspendedTimer": {
+        "placeholders": {
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "selectSecureLockMethod": "Chọn phương thức khóa bảo mật",
+    "selectSecureLockDescription": "Bạn muốn khóa phòng trò chuyện này bằng sinh trắc học vân tay của thiết bị hay mã PIN 4 chữ số tiêu chuẩn?",
+    "fourDigitPin": "PIN 4 chữ số",
+    "fingerprintUnlock": "Vân tay 🔓",
+    "supportSoloDeveloper": "Hỗ trợ một nhà phát triển độc lập",
+    "maybeLater": "Có thể để sau",
+    "submitProof": "Gửi bằng chứng",
+    "couldNotOpenWallet": "Không thể tự động mở ví. Vui lòng sao chép chuỗi mã văn bản bên dưới.",
+    "proofSubmittedSnackbar": "Đã gửi bằng chứng! Quá trình xem xét thủ công mất 24–48 giờ (không bao gồm cuối tuần). Bạn có thể tiếp tục sử dụng ứng dụng bình thường!",
+    "@couldNotShareQrCode": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "@newContact": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "appName": "CRYPT",
+    "termsAndConditions": "Điều khoản và Điều kiện",
+    "settingsTermsAndConditions": "Điều khoản và Điều kiện",
+    "termsIntro": "CRYPT là một ứng dụng đang ở giai đoạn đầu, giúp kết nối mọi người trực tiếp để trò chuyện. Bạn chịu trách nhiệm sử dụng ứng dụng phù hợp và bảo vệ thông tin đăng nhập tài khoản của mình.",
+    "termsConnectivity": "CRYPT sử dụng các dịch vụ trực tuyến để giúp thiết bị tìm thấy nhau và thiết lập kết nối. Tính khả dụng và hoạt động kết nối có thể thay đổi khi ứng dụng phát triển. Vui lòng không phụ thuộc vào CRYPT như phương tiện liên lạc duy nhất.",
+    "termsAgreement": "Bằng cách tiếp tục, bạn xác nhận đã đọc và đồng ý sử dụng CRYPT theo các điều khoản này.",
+    "agreeTerms": "Tôi đồng ý với Điều khoản và Điều kiện",
+    "agreeAndContinue": "Đồng ý và tiếp tục",
+    "beforeYouStart": "Trước khi bắt đầu",
+    "connected": "Đã kết nối",
+    "connectFirstThenChat": "Kết nối trước, rồi trò chuyện",
+    "betaIntro": "CRYPT đang ở phiên bản beta đầu tiên, vì vậy trải nghiệm có thể được cải thiện trong các phiên bản tương lai.",
+    "walkieTalkieExplanation": "CRYPT hoạt động như bộ đàm: cả hai người cần trực tuyến và mở CRYPT cùng lúc để thiết lập kết nối.",
+    "howToUseCrypt": "Cách sử dụng CRYPT:\n1. Quét mã QR CRYPT của người kia.\n2. Cả hai người cần mở CRYPT và trực tuyến.\n3. Chờ CRYPT thiết lập kết nối P2P.\n4. Chờ trạng thái “Đang kết nối...” biến mất và kết nối được thiết lập.\n5. Khi đã kết nối, bạn có thể bắt đầu trò chuyện.",
+    "messageStorageExplanation": "Tin nhắn của bạn được thiết kế để truyền trực tiếp giữa các thiết bị đã kết nối. CRYPT không lưu tin nhắn trò chuyện trên máy chủ. Máy chủ hiện hỗ trợ kết nối và báo hiệu, còn lịch sử trò chuyện không được lưu trên máy chủ. Nếu người kia ngoại tuyến, không thể thiết lập kết nối P2P hiện tại.",
+    "settingsAndSupportExplanation": "Mở Cài đặt để tùy chỉnh trải nghiệm CRYPT. Sắp có thêm các tùy chọn tùy chỉnh.\n\nBạn muốn hỗ trợ CRYPT? Bạn có thể tìm tùy chọn quyên góp trong Cài đặt.",
+    "saving": "Đang lưu...",
+    "continueToCrypt": "Tiếp tục đến CRYPT",
+    "showSplashScreen": "Hiển thị màn hình khởi động",
+    "retry": "Thử lại",
+    "connectionFailed": "Kết nối thất bại",
+    "connectionFailedDetails": "Kết nối thất bại. Cả hai thiết bị phải trực tuyến và mở CRYPT để kết nối.",
+    "gallery": "Thư viện",
+    "alignQrCode": "CĂN CHỈNH MÃ QR",
+    "scanFromGallery": "QUÉT TỪ THƯ VIỆN",
+    "couldNotScanImage": "Không thể quét hình ảnh.",
+    "couldNotShareQrCode": "Không thể chia sẻ mã QR: {error}",
+    "newContact": "Liên hệ mới: {username}",
+    "publicEncryptionKeyMissing": "Thiếu khóa mã hóa công khai của bạn.",
+    "contactEncryptionKeyMissing": "Thiếu khóa mã hóa của liên hệ.",
+    "localEncryptionKeyMissing": "Thiếu khóa mã hóa cục bộ.",
+    "noQrCodeFound": "Không tìm thấy mã QR trong hình ảnh này.",
+    "shareQrCode": "Chia sẻ mã QR",
+    "supportIntro": "Chào! 👋 Tôi là nhà phát triển solo đang làm việc chăm chỉ trên CRYPT. Tôi không có ngân sách hoặc tài trợ của công ty. Tôi hoàn toàn tin tưởng vào sự trung thực và đồng cảm của bạn để tiếp tục cải thiện ứng dụng và đảm bảo KHÔNG CÓ QUẢNG CÁO MÃI MÃI.",
+    "chooseSupportAmount": "Chọn giá của bạn (Trượt để hỗ trợ):",
+    "poorGang": "Tôi là một nhóm nghèo 🥀✌️",
+    "launchOfferMinimum": "Ra mắt ưu đãi tối thiểu 🚀",
+    "buyMeCoffee": "Mua cho tôi một ly cà phê ☕",
+    "superSupporter": "Siêu ủng hộ 🔥",
+    "feature": "Tính năng",
+    "freeTier": "Bậc miễn phí",
+    "premium": "Phần thưởng",
+    "chatLocks": "Khóa trò chuyện",
+    "maxOneRoom": "Tối đa 1 phòng",
+    "unlimited": "Không giới hạn",
+    "biometrics": "Sinh trắc học",
+    "disabled": "🚫 Bị vô hiệu hóa",
+    "supportWithSats": "Hỗ trợ với {amount} sats (Phoenix)",
+    "boltOffer": "⚡ Ưu đãi thanh toán BOLT12 • Nhấn để sao chép",
+    "boltOfferCopied": "Đã sao chép ưu đãi thanh toán BOLT12",
+    "tapToCopyBoltOffer": "Nhấn để sao chép ưu đãi thanh toán BOLT12",
+    "simpleInstructionsToUnlock": "📬 Hướng dẫn đơn giản để mở khóa:",
+    "unlockInstructions": "1. Thanh toán bằng Ví Phoenix trên Android (tối thiểu 7.500 để mở khóa - luôn được đánh giá cao hơn).\n2. Chụp ảnh màn hình xác nhận giao dịch thành công.\n3. Gửi ảnh chụp màn hình đó qua email tới jounaidnadirmed@gmail.com và cho tôi biết tên người dùng tài khoản duy nhất của bạn: '{username}' để tôi biết ai đã trả tiền.\n4. Nhập bất kỳ nội dung nào vào ô bên dưới để lưu yêu cầu của bạn trên thiết bị này:",
+    "supportRequestHint": "Nhập tên hoặc thông tin giao dịch của bạn vào đây...",
+    "@supportWithSats": {
+        "placeholders": {
+            "amount": {
+                "type": "String"
+            }
+        }
+    },
+    "@unlockInstructions": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
     }
-  },
-
-  "copyDigitsHint": "Sao chép 5 chữ số ở trên",
-  "codeMismatchNotice": "Mã không khớp! Nhập Mật khẩu chính để bỏ qua hoặc hệ thống sẽ bị khóa trong 10 phút:",
-  "accountPasswordLabel": "Mật khẩu tài khoản",
-  "deleteEverythingPermanently": "XÓA VĨNH VIỄN TẤT CẢ",
-  "escapeAndPurgeDeviceData": "Thoát khẩn cấp và xóa dữ liệu thiết bị",
-
-  "addContact": "Thêm liên hệ",
-  "addContactConfirmation": "Bạn có muốn thêm liên hệ này không?",
-  "noMessagesYet": "Chưa có tin nhắn",
-  "addNewContact": "Thêm liên hệ mới",
-  "usernameLabel": "Tên người dùng",
-  "nicknameOptionalLabel": "Biệt danh (Tùy chọn)",
-  "add": "Thêm",
-  "usernameCannotBeEmpty": "Tên người dùng không được để trống",
-
-  "contactAlreadyExists": "Liên hệ '{name}' đã có trong danh bạ của bạn.",
-  "@contactAlreadyExists": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "userNotFoundOnRegistry": "Không tìm thấy người dùng '{name}' trong sổ đăng ký mạng. Không thể tạo bí mật chung.",
-  "@userNotFoundOnRegistry": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "successfullyAddedContact": "Đã thêm {name} thành công!",
-  "@successfullyAddedContact": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "contacts": "Danh bạ",
-  "noContactsYet": "Chưa có liên hệ nào",
-
-  "securityLockoutActive": "Khóa bảo mật đang hoạt động",
-  "tooManyAttemptsFrozen": "Quá nhiều lần thử không hợp lệ. Quyền truy cập đã bị đóng băng trong {minutes} phút.",
-  "@tooManyAttemptsFrozen": {
-    "placeholders": {
-      "minutes": {
-        "type": "int"
-      }
-    }
-  },
-
-  "acknowledge": "Đã hiểu",
-  "accessBlocked": "Truy cập bị chặn",
-  "accessSuspended": "5 lần xác minh không khớp. Quyền truy cập bị đình chỉ trong {minutes} phút tiếp theo.",
-  "@accessSuspended": {
-    "placeholders": {
-      "minutes": {
-        "type": "int"
-      }
-    }
-  },
-
-  "ok": "OK",
-  "unlockSecureNode": "Mở khóa nút bảo mật: {username}",
-  "@unlockSecureNode": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "verificationMetricsRemaining": "Số lần xác minh còn lại: {count}",
-  "@verificationMetricsRemaining": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
-
-  "secureKeyPasscode": "Mật mã khóa bảo mật",
-  "warningHardwareLockout": "CẢNH BÁO: Lần không khớp tiếp theo sẽ kích hoạt khóa bảo mật phần cứng.",
-  "abort": "Hủy bỏ",
-  "authenticate": "Xác thực",
-
-  "searchPipelinesHint": "Đang tìm kiếm các kênh liên lạc bảo mật đang hoạt động...",
-  "zeroPipelinesDiscovered": "Không tìm thấy kênh liên lạc phù hợp.",
-  "processingDecryption": "Đang xử lý giải mã...",
-  "decrypting": "Đang giải mã...",
-  "decryptionError": "[Lỗi giải mã]",
-  "cryptContainerSecure": "BỘ CHỨA CRYPT AN TOÀN",
-
-  "connectAnAccount": "Kết nối tài khoản",
-  "username": "Tên người dùng",
-  "password": "Mật khẩu",
-  "enterMasterSecurityPassword": "Nhập mật khẩu bảo mật chính của bạn",
-  "pleaseFillAllFields": "Vui lòng điền đầy đủ tất cả các trường",
-  "wrongUsernameOrPassword": "Sai tên người dùng hoặc mật khẩu",
-
-  "loginError": "Lỗi đăng nhập: {error}",
-  "@loginError": {
-    "placeholders": {
-      "error": {
-        "type": "String"
-      }
-    }
-  },
-
-  "dontHaveAnAccountSignUp": "Chưa có tài khoản? Đăng ký",
-  "myIdentity": "Danh tính của tôi",
-  "scanToAddMe": "Quét để thêm tôi",
-  "shareProfileLink": "Chia sẻ liên kết hồ sơ",
-
-  "addMeOnCrypt": "Thêm tôi trên CRYPT!\n\n{link}",
-  "@addMeOnCrypt": {
-    "placeholders": {
-      "link": {
-        "type": "String"
-      }
-    }
-  },
-
-  "scanQr": "Quét QR",
-  "invalidCryptQrFormat": "Định dạng mã QR CRYPT không hợp lệ.",
-  "userScanned": "Đã quét người dùng!",
-  "addingUser": "Đang thêm {username}...",
-  "@addingUser": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "defaultUser": "Người dùng",
-  "createAccount": "Tạo tài khoản",
-  "keepPasswordSecureHint": "Hãy giữ mật khẩu an toàn; mật khẩu không thể thay đổi sau này.",
-  "pleaseFillInAllFields": "Vui lòng điền đầy đủ tất cả các trường",
-
-  "usernameExceedsLimit": "Tên người dùng không được vượt quá 20 ký tự",
-  "invalidUsernameCharacters": "Tên người dùng chỉ được chứa chữ cái, số, dấu gạch dưới và dấu gạch ngang",
-  "weakPasswordNotice": "Mật khẩu phải có ít nhất 8 ký tự, bao gồm một chữ số và một chữ cái viết hoa",
-  "unableToGenerateUniqueUsername": "Không thể tạo tên người dùng duy nhất.",
-
-  "accountCreated": "Đã tạo tài khoản",
-  "yourUsernameIs": "Tên người dùng của bạn:\n\n{username}",
-  "@yourUsernameIs": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "usernameTakenAssignedTag": "Tên người dùng '{chosen}' đã được sử dụng.\n\nTên người dùng của bạn:\n\n{assigned}\n\nVui lòng ghi nhớ tên này. Bạn sẽ cần nó để đăng nhập.",
-  "@usernameTakenAssignedTag": {
-    "placeholders": {
-      "chosen": {
-        "type": "String"
-      },
-      "assigned": {
-        "type": "String"
-      }
-    }
-  },
-
-  "continueText": "Tiếp tục",
-
-  "failedToGenerateIdentity": "Không thể tạo danh tính bảo mật: {error}",
-  "@failedToGenerateIdentity": {
-    "placeholders": {
-      "error": {
-        "type": "String"
-      }
-    }
-  },
-
-  "welcomeToCrypt": "Chào mừng đến với CRYPT",
-  "signupDescription": "Nhập tên người dùng và mật khẩu để khởi tạo các khóa mã hóa ngang hàng (P2P) của bạn.",
-  "chooseAUsername": "Chọn tên người dùng",
-  "usernameHelperText": "Không sử dụng tên thật của bạn. Nếu tên người dùng đã được sử dụng, chúng tôi sẽ tự động thêm một hậu tố duy nhất.",
-
-  "masterAuthenticationRequired": "Yêu cầu xác thực chính",
-  "verify": "Xác minh",
-  "darkThemeMode": "Chế độ giao diện tối",
-  "secureConversations": "Cuộc trò chuyện bảo mật",
-  "noActiveConversations": "Không tìm thấy cuộc trò chuyện đang hoạt động. Hãy bắt đầu một cuộc trò chuyện trước để sử dụng các khóa bảo mật tùy chỉnh.",
-
-  "logout": "Đăng xuất",
-  "wipeDeviceAndEscape": "XÓA THIẾT BỊ VÀ THOÁT",
-  "falsePassword": "Mật khẩu sai",
-
-  "accessSuspendedTimer": "Quyền truy cập bị đình chỉ vì lý do bảo mật. Thử lại sau {time}.",
-  "@accessSuspendedTimer": {
-    "placeholders": {
-      "time": {
-        "type": "String"
-      }
-    }
-  },
-
-  "selectSecureLockMethod": "Chọn phương thức khóa bảo mật",
-  "selectSecureLockDescription": "Bạn muốn khóa phòng trò chuyện này bằng sinh trắc học vân tay của thiết bị hay mã PIN 4 chữ số tiêu chuẩn?",
-  "fourDigitPin": "PIN 4 chữ số",
-  "fingerprintUnlock": "Vân tay 🔓",
-
-  "supportSoloDeveloper": "Hỗ trợ một nhà phát triển độc lập",
-  "maybeLater": "Có thể để sau",
-  "submitProof": "Gửi bằng chứng",
-
-  "couldNotOpenWallet": "Không thể tự động mở ví. Vui lòng sao chép chuỗi mã văn bản bên dưới.",
-
-  "proofSubmittedSnackbar": "Đã gửi bằng chứng! Quá trình xem xét thủ công mất 24–48 giờ (không bao gồm cuối tuần). Bạn có thể tiếp tục sử dụng ứng dụng bình thường!"
 }

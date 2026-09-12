@@ -12,6 +12,117 @@ class AppLocalizationsId extends AppLocalizations {
   String get appName => 'CRYPT';
 
   @override
+  String get termsAndConditions => 'Syarat & Ketentuan';
+
+  @override
+  String get settingsTermsAndConditions => 'Syarat & Ketentuan';
+
+  @override
+  String get termsIntro =>
+      'CRYPT adalah aplikasi tahap awal untuk menghubungkan orang secara langsung untuk melakukan percakapan. Anda bertanggung jawab untuk menggunakan aplikasi dengan benar dan menjaga keamanan kredensial akun Anda.';
+
+  @override
+  String get termsConnectivity =>
+      'CRYPT menggunakan layanan online untuk membantu perangkat menemukan dan membuat koneksi. Ketersediaan dan perilaku koneksi dapat berubah seiring berkembangnya aplikasi. Harap jangan mengandalkan CRYPT sebagai satu-satunya alat komunikasi Anda.';
+
+  @override
+  String get termsAgreement =>
+      'Dengan melanjutkan, Anda mengonfirmasi bahwa Anda telah membaca dan setuju untuk menggunakan CRYPT berdasarkan ketentuan ini.';
+
+  @override
+  String get agreeTerms => 'Saya menyetujui Syarat & Ketentuan';
+
+  @override
+  String get agreeAndContinue => 'Setuju dan lanjutkan';
+
+  @override
+  String get beforeYouStart => 'Sebelum Anda Mulai';
+
+  @override
+  String get connected => 'Terhubung';
+
+  @override
+  String get connectFirstThenChat => 'Hubungkan dulu, lalu ngobrol';
+
+  @override
+  String get betaIntro =>
+      'CRYPT adalah versi beta awal, sehingga pengalamannya mungkin meningkat di versi mendatang.';
+
+  @override
+  String get walkieTalkieExplanation =>
+      'CRYPT bekerja seperti walkie-talkie: kedua orang harus online dan membuka CRYPT pada saat yang sama untuk membuat koneksi.';
+
+  @override
+  String get howToUseCrypt =>
+      'Cara menggunakan CRYPT:\n1. Pindai kode QR CRYPT orang lain.\n2. Kedua orang tersebut membutuhkan CRYPT secara terbuka dan online.\n3. Tunggu sementara CRYPT membuat koneksi P2P.\n4. Tunggu hingga status \"Menghubungkan...\" menghilang dan koneksi terjalin.\n5. Setelah terhubung, Anda dapat mulai mengobrol.';
+
+  @override
+  String get messageStorageExplanation =>
+      'Pesan Anda dirancang untuk dikirim langsung antar perangkat yang terhubung. CRYPT tidak menyimpan pesan obrolan Anda di server kami. Server saat ini membantu koneksi dan sinyal, dan riwayat obrolan tidak disimpan di server. Jika orang lain sedang offline, koneksi P2P saat ini tidak dapat dibuat.';
+
+  @override
+  String get settingsAndSupportExplanation =>
+      'Kunjungi Pengaturan untuk menyesuaikan pengalaman CRYPT Anda. Opsi penyesuaian lainnya akan segera hadir.\n\nIngin mendukung CRYPT? Anda dapat menemukan opsi donasi di Pengaturan.';
+
+  @override
+  String get saving => 'Penghematan...';
+
+  @override
+  String get continueToCrypt => 'Lanjutkan ke CRYPT';
+
+  @override
+  String get showSplashScreen => 'Tampilkan layar splash';
+
+  @override
+  String get retry => 'Mencoba kembali';
+
+  @override
+  String get connectionFailed => 'Koneksi gagal';
+
+  @override
+  String get connectionFailedDetails =>
+      'Koneksi gagal. Kedua perangkat harus online dengan CRYPT terbuka untuk terhubung.';
+
+  @override
+  String get gallery => 'Galeri';
+
+  @override
+  String get alignQrCode => 'SESUAIKAN KODE QR';
+
+  @override
+  String get scanFromGallery => 'PINDAI DARI GALERI';
+
+  @override
+  String get couldNotScanImage => 'Tidak dapat memindai gambar.';
+
+  @override
+  String couldNotShareQrCode(String error) {
+    return 'Tidak dapat membagikan kode QR: $error';
+  }
+
+  @override
+  String newContact(String username) {
+    return 'Kontak baru: $username';
+  }
+
+  @override
+  String get publicEncryptionKeyMissing =>
+      'Kunci enkripsi publik Anda tidak ada.';
+
+  @override
+  String get contactEncryptionKeyMissing => 'Kunci enkripsi kontak tidak ada.';
+
+  @override
+  String get localEncryptionKeyMissing => 'Kunci enkripsi lokal tidak ada.';
+
+  @override
+  String get noQrCodeFound =>
+      'Tidak ada kode QR yang ditemukan pada gambar ini.';
+
+  @override
+  String get shareQrCode => 'Bagikan Kode QR';
+
+  @override
   String get welcome => 'Selamat Datang';
 
   @override
@@ -368,6 +479,78 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get supportSoloDeveloper => 'Dukung pengembang solo';
+
+  @override
+  String get supportIntro =>
+      'Hai! 👋 Saya seorang pengembang tunggal yang bekerja keras di CRYPT. Saya tidak memiliki anggaran atau pendanaan perusahaan. Saya sepenuhnya mengandalkan kejujuran dan empati Anda untuk terus meningkatkan aplikasi dan menjamin TANPA IKLAN SELAMANYA.';
+
+  @override
+  String get chooseSupportAmount => 'Pilih Harga Anda (Geser untuk mendukung):';
+
+  @override
+  String get poorGang => 'Aku miskin geng 🥀✌️';
+
+  @override
+  String get launchOfferMinimum => 'Luncurkan Penawaran Minimum 🚀';
+
+  @override
+  String get buyMeCoffee => 'Belikan Aku Kopi ☕';
+
+  @override
+  String get superSupporter => 'Pendukung Super 🔥';
+
+  @override
+  String get feature => 'Fitur';
+
+  @override
+  String get freeTier => 'Tingkat Gratis';
+
+  @override
+  String get premium => 'Premi';
+
+  @override
+  String get chatLocks => 'Kunci Obrolan';
+
+  @override
+  String get maxOneRoom => 'Maks 1 Kamar';
+
+  @override
+  String get unlimited => 'Tak terbatas';
+
+  @override
+  String get biometrics => 'Biometrik';
+
+  @override
+  String get disabled => 'dengan disabilitas';
+
+  @override
+  String supportWithSats(String amount) {
+    return 'Dukungan dengan $amount sats (Phoenix)';
+  }
+
+  @override
+  String get boltOffer =>
+      '⚡ Penawaran pembayaran BOLT12 • Ketuk untuk menyalin';
+
+  @override
+  String get boltOfferCopied => 'Penawaran pembayaran BOLT12 disalin';
+
+  @override
+  String get tapToCopyBoltOffer =>
+      'Ketuk untuk menyalin penawaran pembayaran BOLT12';
+
+  @override
+  String get simpleInstructionsToUnlock =>
+      '📬 Petunjuk Sederhana untuk Membuka Kunci:';
+
+  @override
+  String unlockInstructions(String username) {
+    return '1. Bayar menggunakan Phoenix Wallet di Android (minimum 7.500 untuk membuka kunci — lebih banyak selalu dihargai).\n2. Ambil screenshot layar konfirmasi transaksi Anda yang berhasil.\n3. Kirimkan tangkapan layar tersebut melalui email ke jounaidnadirmed@gmail.com dan beri tahu saya nama pengguna unik akun Anda: \'$username\' agar saya tahu siapa yang membayar.\n4. Ketik apa saja pada kotak di bawah ini untuk menyimpan permintaan Anda di perangkat ini:';
+  }
+
+  @override
+  String get supportRequestHint =>
+      'Ketik nama atau info transaksi Anda di sini...';
 
   @override
   String get maybeLater => 'Mungkin nanti';

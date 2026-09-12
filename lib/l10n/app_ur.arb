@@ -1,257 +1,301 @@
 {
-  "@@locale": "ur",
-
-  "appName": "CRYPT",
-  "welcome": "خوش آمدید",
-  "login": "لاگ ان",
-  "signup": "سائن اپ",
-  "settings": "ترتیبات",
-  "chats": "چیٹس",
-  "typeMessage": "پیغام لکھیں...",
-  "send": "بھیجیں",
-
-  "p2p": "P2P",
-  "connecting": "کنکشن قائم ہو رہا ہے...",
-  "connectingP2p": "P2P سے کنیکٹ ہو رہا ہے...",
-  "p2pConnectionNotReady": "P2P کنکشن ابھی تیار نہیں ہے.",
-
-  "searchLanguage": "زبان تلاش کریں...",
-  "language": "زبان",
-
-  "forceEscapeSignOutTitle": "ہنگامی لاگ آؤٹ کریں؟",
-  "forceEscapeSignOutContent": "انتباہ: اس عمل سے ڈیوائس کا تمام ڈیٹا مکمل طور پر مٹ جائے گا۔",
-  "cancel": "منسوخ کریں",
-  "wipeDevice": "ڈیوائس مٹائیں",
-
-  "accountDestructionAlertTitle": "اکاؤنٹ حذف کرنے کا انتباہ",
-  "accountDestructionWarning": "انتباہ: اس عمل سے ڈیوائس کا تمام ڈیٹا حذف ہو جائے گا۔ انٹرنیٹ سے منسلک ہونے پر یہ ریموٹ خودکار حذف کمانڈ کو متحرک کرے گا۔ آپ کی منفرد یوزر آئی ڈی سے بھیجا گیا ہر پیغام تمام پیئرز کی میموری سے مستقل طور پر مٹا دیا جائے گا۔",
-  "accountDestructionCriticalNotice": "اہم: اگر آپ یہ تصدیقی اعداد غلط درج کرتے ہیں تو سسٹم لاک ہو جائے گا۔ اسے ان لاک کرنے کے لیے ماسٹر اکاؤنٹ پاس ورڈ درج کریں یا ایمرجنسی ایسکیپ استعمال کریں، جو ڈیوائس کا ڈیٹا فوری طور پر صاف کر دیتا ہے۔",
-
-  "verificationSecurityKey": "تصدیقی سیکیورٹی کی: {code}",
-  "@verificationSecurityKey": {
-    "placeholders": {
-      "code": {
-        "type": "String"
-      }
+    "@@locale": "ur",
+    "welcome": "خوش آمدید",
+    "login": "لاگ ان",
+    "signup": "سائن اپ",
+    "settings": "ترتیبات",
+    "chats": "چیٹس",
+    "typeMessage": "پیغام لکھیں...",
+    "send": "بھیجیں",
+    "p2p": "P2P",
+    "connecting": "کنکشن قائم ہو رہا ہے...",
+    "connectingP2p": "P2P سے کنیکٹ ہو رہا ہے...",
+    "p2pConnectionNotReady": "P2P کنکشن ابھی تیار نہیں ہے.",
+    "searchLanguage": "زبان تلاش کریں...",
+    "language": "زبان",
+    "forceEscapeSignOutTitle": "ہنگامی لاگ آؤٹ کریں؟",
+    "forceEscapeSignOutContent": "انتباہ: اس عمل سے ڈیوائس کا تمام ڈیٹا مکمل طور پر مٹ جائے گا۔",
+    "cancel": "منسوخ کریں",
+    "wipeDevice": "ڈیوائس مٹائیں",
+    "accountDestructionAlertTitle": "اکاؤنٹ حذف کرنے کا انتباہ",
+    "accountDestructionWarning": "انتباہ: اس عمل سے ڈیوائس کا تمام ڈیٹا حذف ہو جائے گا۔ انٹرنیٹ سے منسلک ہونے پر یہ ریموٹ خودکار حذف کمانڈ کو متحرک کرے گا۔ آپ کی منفرد یوزر آئی ڈی سے بھیجا گیا ہر پیغام تمام پیئرز کی میموری سے مستقل طور پر مٹا دیا جائے گا۔",
+    "accountDestructionCriticalNotice": "اہم: اگر آپ یہ تصدیقی اعداد غلط درج کرتے ہیں تو سسٹم لاک ہو جائے گا۔ اسے ان لاک کرنے کے لیے ماسٹر اکاؤنٹ پاس ورڈ درج کریں یا ایمرجنسی ایسکیپ استعمال کریں، جو ڈیوائس کا ڈیٹا فوری طور پر صاف کر دیتا ہے۔",
+    "verificationSecurityKey": "تصدیقی سیکیورٹی کی: {code}",
+    "@verificationSecurityKey": {
+        "placeholders": {
+            "code": {
+                "type": "String"
+            }
+        }
+    },
+    "copyDigitsHint": "اوپر دیے گئے 5 ہندسے کاپی کریں",
+    "codeMismatchNotice": "کوڈ مماثل نہیں ہے۔ ماسٹر پاس ورڈ درج کریں یا 10 منٹ کے لیے لاک کا سامنا کریں۔",
+    "accountPasswordLabel": "اکاؤنٹ پاس ورڈ",
+    "deleteEverythingPermanently": "سب کچھ مستقل طور پر حذف کریں",
+    "escapeAndPurgeDeviceData": "ایمرجنسی ایسکیپ اور ڈیوائس کا ڈیٹا صاف کریں",
+    "addContact": "کانٹیکٹ شامل کریں",
+    "addContactConfirmation": "کیا آپ یہ کانٹیکٹ شامل کرنا چاہتے ہیں؟",
+    "noMessagesYet": "ابھی تک کوئی پیغام نہیں",
+    "addNewContact": "نیا کانٹیکٹ شامل کریں",
+    "usernameLabel": "یوزر نیم",
+    "nicknameOptionalLabel": "عرفی نام (اختیاری)",
+    "add": "شامل کریں",
+    "usernameCannotBeEmpty": "یوزر نیم خالی نہیں ہو سکتا",
+    "contactAlreadyExists": "کانٹیکٹ '{name}' پہلے ہی آپ کی ایڈریس بک میں موجود ہے۔",
+    "@contactAlreadyExists": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "userNotFoundOnRegistry": "صارف '{name}' نیٹ ورک رجسٹری میں نہیں ملا۔ مشترکہ خفیہ کلید بنانا ممکن نہیں۔",
+    "@userNotFoundOnRegistry": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "successfullyAddedContact": "{name} کامیابی سے شامل کر لیا گیا!",
+    "@successfullyAddedContact": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "contacts": "کانٹیکٹس",
+    "noContactsYet": "ابھی تک کوئی کانٹیکٹ نہیں ہے",
+    "securityLockoutActive": "سیکیورٹی لاک فعال ہے",
+    "tooManyAttemptsFrozen": "بہت زیادہ غلط کوششیں۔ رسائی {minutes} منٹ کے لیے منجمد کر دی گئی ہے۔",
+    "@tooManyAttemptsFrozen": {
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "acknowledge": "سمجھ گیا",
+    "accessBlocked": "رسائی مسدود ہے",
+    "accessSuspended": "5 غلط تصدیقی کوششیں۔ رسائی اگلے {minutes} منٹ کے لیے معطل کر دی گئی ہے۔",
+    "@accessSuspended": {
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "ok": "ٹھیک ہے",
+    "unlockSecureNode": "محفوظ نوڈ ان لاک کریں: {username}",
+    "@unlockSecureNode": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "verificationMetricsRemaining": "باقی تصدیقی کوششیں: {count}",
+    "@verificationMetricsRemaining": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "secureKeyPasscode": "محفوظ کلید کا پاس کوڈ",
+    "warningHardwareLockout": "انتباہ: اگلی غلطی ہارڈویئر سیکیورٹی لاک کو فعال کر دے گی۔",
+    "abort": "منسوخ کریں",
+    "authenticate": "تصدیق کریں",
+    "searchPipelinesHint": "فعال محفوظ کنکشنز تلاش کیے جا رہے ہیں...",
+    "zeroPipelinesDiscovered": "کوئی مماثل کمیونیکیشن کنکشن نہیں ملا۔",
+    "processingDecryption": "ڈیکرپشن جاری ہے...",
+    "decrypting": "ڈیکرپٹ کیا جا رہا ہے...",
+    "decryptionError": "[ڈیکرپشن میں خرابی]",
+    "cryptContainerSecure": "CRYPT کنٹینر محفوظ ہے",
+    "connectAnAccount": "اکاؤنٹ کنیکٹ کریں",
+    "username": "یوزر نیم",
+    "password": "پاس ورڈ",
+    "enterMasterSecurityPassword": "اپنا ماسٹر سیکیورٹی پاس ورڈ درج کریں",
+    "pleaseFillAllFields": "براہ کرم تمام فیلڈز پُر کریں",
+    "wrongUsernameOrPassword": "غلط یوزر نیم یا پاس ورڈ",
+    "loginError": "لاگ ان میں خرابی: {error}",
+    "@loginError": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "dontHaveAnAccountSignUp": "اکاؤنٹ نہیں ہے؟ سائن اپ کریں",
+    "myIdentity": "میری شناخت",
+    "scanToAddMe": "مجھے شامل کرنے کے لیے اسکین کریں",
+    "shareProfileLink": "پروفائل لنک شیئر کریں",
+    "addMeOnCrypt": "مجھے CRYPT پر شامل کریں!\n\n{link}",
+    "@addMeOnCrypt": {
+        "placeholders": {
+            "link": {
+                "type": "String"
+            }
+        }
+    },
+    "scanQr": "QR اسکین کریں",
+    "invalidCryptQrFormat": "غلط CRYPT QR کوڈ فارمیٹ۔",
+    "userScanned": "صارف اسکین ہو گیا!",
+    "addingUser": "{username} کو شامل کیا جا رہا ہے...",
+    "@addingUser": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "defaultUser": "صارف",
+    "createAccount": "اکاؤنٹ بنائیں",
+    "keepPasswordSecureHint": "اسے محفوظ رکھیں؛ پاس ورڈ بعد میں تبدیل نہیں کیا جا سکتا۔",
+    "pleaseFillInAllFields": "براہ کرم تمام فیلڈز پُر کریں",
+    "usernameExceedsLimit": "یوزر نیم 20 حروف سے زیادہ نہیں ہو سکتا",
+    "invalidUsernameCharacters": "یوزر نیم میں صرف حروف، اعداد، انڈر اسکور اور ہائفن شامل ہو سکتے ہیں",
+    "weakPasswordNotice": "پاس ورڈ کم از کم 8 حروف کا ہونا چاہیے اور اس میں ایک عدد اور ایک بڑا حرف شامل ہونا چاہیے",
+    "unableToGenerateUniqueUsername": "منفرد یوزر نیم بنانے میں ناکامی۔",
+    "accountCreated": "اکاؤنٹ بن گیا",
+    "yourUsernameIs": "آپ کا یوزر نیم:\n\n{username}",
+    "@yourUsernameIs": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "usernameTakenAssignedTag": "یوزر نیم '{chosen}' پہلے ہی لیا جا چکا ہے۔\n\nآپ کا یوزر نیم:\n\n{assigned}\n\nاسے یاد رکھیں۔ لاگ ان کرنے کے لیے آپ کو اس کی ضرورت ہوگی۔",
+    "@usernameTakenAssignedTag": {
+        "placeholders": {
+            "chosen": {
+                "type": "String"
+            },
+            "assigned": {
+                "type": "String"
+            }
+        }
+    },
+    "continueText": "جاری رکھیں",
+    "failedToGenerateIdentity": "محفوظ شناخت بنانے میں ناکامی: {error}",
+    "@failedToGenerateIdentity": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "welcomeToCrypt": "CRYPT میں خوش آمدید",
+    "signupDescription": "اپنی پیئر ٹو پیئر (P2P) انکرپشن کیز شروع کرنے کے لیے یوزر نیم اور پاس ورڈ درج کریں۔",
+    "chooseAUsername": "یوزر نیم منتخب کریں",
+    "usernameHelperText": "اپنا اصلی نام استعمال نہ کریں۔ اگر یوزر نیم پہلے سے لیا جا چکا ہو تو ہم خود بخود ایک منفرد لاحقہ شامل کر دیں گے۔",
+    "masterAuthenticationRequired": "ماسٹر تصدیق درکار ہے",
+    "verify": "تصدیق کریں",
+    "darkThemeMode": "ڈارک تھیم موڈ",
+    "secureConversations": "محفوظ گفتگو",
+    "noActiveConversations": "کوئی فعال گفتگو نہیں ملی۔ سیکیورٹی لاکس استعمال کرنے کے لیے پہلے ایک گفتگو شروع کریں۔",
+    "logout": "لاگ آؤٹ",
+    "wipeDeviceAndEscape": "ڈیوائس مٹائیں اور ایمرجنسی ایسکیپ کریں",
+    "falsePassword": "غلط پاس ورڈ",
+    "accessSuspendedTimer": "سیکیورٹی کی وجہ سے رسائی معطل ہے۔ {time} بعد دوبارہ کوشش کریں۔",
+    "@accessSuspendedTimer": {
+        "placeholders": {
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "selectSecureLockMethod": "محفوظ لاک کا طریقہ منتخب کریں",
+    "selectSecureLockDescription": "کیا آپ اس گفتگو کو ڈیوائس کے فنگر پرنٹ بائیومیٹرکس یا معیاری 4 ہندسوں کے PIN سے لاک کرنا چاہتے ہیں؟",
+    "fourDigitPin": "4 ہندسوں کا PIN",
+    "fingerprintUnlock": "فنگر پرنٹ 🔓",
+    "supportSoloDeveloper": "ایک سولو ڈویلپر کو سپورٹ کریں",
+    "maybeLater": "شاید بعد میں",
+    "submitProof": "ثبوت جمع کریں",
+    "couldNotOpenWallet": "والیٹ خود بخود نہیں کھل سکا۔ براہ کرم اس کے بجائے نیچے دیا گیا ٹیکسٹ کوڈ کاپی کریں۔",
+    "proofSubmittedSnackbar": "ثبوت جمع کر دیا گیا! دستی جائزے میں 24–48 گھنٹے لگتے ہیں (ہفتہ وار تعطیلات کے علاوہ)۔ آپ ایپ کو معمول کے مطابق استعمال کرتے رہ سکتے ہیں۔",
+    "@couldNotShareQrCode": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "@newContact": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "appName": "CRYPT",
+    "termsAndConditions": "شرائط و ضوابط",
+    "settingsTermsAndConditions": "شرائط و ضوابط",
+    "termsIntro": "CRYPT لوگوں کو براہ راست گفتگو کے لیے جوڑنے والی ابتدائی مرحلے کی ایپلی کیشن ہے۔ ایپ کو مناسب طریقے سے استعمال کرنا اور اپنے اکاؤنٹ کی اسناد محفوظ رکھنا آپ کی ذمہ داری ہے۔",
+    "termsConnectivity": "CRYPT آلات کو ایک دوسرے کو تلاش کرنے اور رابطہ قائم کرنے میں مدد دینے کے لیے آن لائن خدمات استعمال کرتا ہے۔ ایپ کی ترقی کے ساتھ دستیابی اور رابطے کا طریقہ بدل سکتا ہے۔ براہ کرم CRYPT کو رابطے کا اپنا واحد ذریعہ نہ سمجھیں۔",
+    "termsAgreement": "جاری رکھ کر آپ تصدیق کرتے ہیں کہ آپ نے یہ شرائط پڑھ لی ہیں اور ان کے تحت CRYPT استعمال کرنے سے اتفاق کرتے ہیں۔",
+    "agreeTerms": "میں شرائط و ضوابط سے اتفاق کرتا ہوں",
+    "agreeAndContinue": "اتفاق کریں اور جاری رکھیں",
+    "beforeYouStart": "شروع کرنے سے پہلے",
+    "connected": "منسلک",
+    "connectFirstThenChat": "پہلے منسلک ہوں، پھر چیٹ کریں",
+    "betaIntro": "CRYPT ابتدائی بیٹا ورژن ہے، اس لیے آئندہ ورژنز میں تجربہ بہتر ہو سکتا ہے۔",
+    "walkieTalkieExplanation": "CRYPT واکی ٹاکی کی طرح کام کرتا ہے: رابطہ قائم کرنے کے لیے دونوں افراد کا آن لائن ہونا اور ایک ہی وقت میں CRYPT کھولنا ضروری ہے۔",
+    "howToUseCrypt": "CRYPT استعمال کرنے کا طریقہ:\n1. دوسرے شخص کا CRYPT QR کوڈ اسکین کریں۔\n2. دونوں افراد کے لیے CRYPT کھلا اور آن لائن ہونا ضروری ہے۔\n3. CRYPT کے P2P رابطہ قائم کرنے تک انتظار کریں۔\n4. “رابطہ ہو رہا ہے...” کی حالت ختم ہونے اور رابطہ قائم ہونے تک انتظار کریں۔\n5. منسلک ہونے کے بعد آپ چیٹ شروع کر سکتے ہیں۔",
+    "messageStorageExplanation": "آپ کے پیغامات منسلک آلات کے درمیان براہ راست منتقل ہونے کے لیے بنائے گئے ہیں۔ CRYPT آپ کے چیٹ پیغامات ہمارے سرورز پر محفوظ نہیں کرتا۔ سرور فی الحال رابطے اور سگنلنگ میں مدد کرتا ہے، جبکہ چیٹ کی تاریخ سرور پر محفوظ نہیں ہوتی۔ اگر دوسرا شخص آف لائن ہو تو موجودہ P2P رابطہ قائم نہیں ہو سکتا۔",
+    "settingsAndSupportExplanation": "اپنا CRYPT تجربہ حسب ضرورت بنانے کے لیے Settings کھولیں۔ مزید تخصیصی اختیارات جلد آ رہے ہیں۔\n\nکیا آپ CRYPT کی مدد کرنا چاہتے ہیں؟ عطیہ دینے کا اختیار Settings میں موجود ہے۔",
+    "saving": "محفوظ کیا جا رہا ہے...",
+    "continueToCrypt": "CRYPT پر جاری رکھیں",
+    "showSplashScreen": "اسپلش اسکرین دکھائیں",
+    "retry": "دوبارہ کوشش کریں",
+    "connectionFailed": "رابطہ ناکام ہو گیا",
+    "connectionFailedDetails": "رابطہ ناکام ہو گیا۔ منسلک ہونے کے لیے دونوں آلات کا CRYPT کے ساتھ آن لائن ہونا ضروری ہے۔",
+    "gallery": "گیلری",
+    "alignQrCode": "QR کوڈ سیدھا کریں",
+    "scanFromGallery": "گیلری سے اسکین کریں",
+    "couldNotScanImage": "تصویر اسکین نہیں ہو سکی۔",
+    "couldNotShareQrCode": "QR کوڈ شیئر نہیں ہو سکا: {error}",
+    "newContact": "نیا رابطہ: {username}",
+    "publicEncryptionKeyMissing": "آپ کی عوامی انکرپشن کلید موجود نہیں ہے۔",
+    "contactEncryptionKeyMissing": "رابطے کی انکرپشن کلید موجود نہیں ہے۔",
+    "localEncryptionKeyMissing": "مقامی انکرپشن کلید موجود نہیں ہے۔",
+    "noQrCodeFound": "اس تصویر میں کوئی QR کوڈ نہیں ملا۔",
+    "shareQrCode": "QR کوڈ شیئر کریں",
+    "supportIntro": "ارے! 👋 میں ایک سولو ڈویلپر ہوں جو CRYPT پر سخت محنت کر رہا ہوں۔ میرے پاس بجٹ یا کارپوریٹ فنڈنگ ​​نہیں ہے۔ میں ایپ کو بہتر بنانے کے لیے آپ کی ایمانداری اور ہمدردی پر مکمل انحصار کرتا ہوں اور ہمیشہ کے لیے کسی اشتہار کی ضمانت نہیں دیتا ہوں۔",
+    "chooseSupportAmount": "اپنی قیمت کا انتخاب کریں (سپورٹ کے لیے سلائیڈ):",
+    "poorGang": "میں غریب گینگ ہوں 🥀✌️",
+    "launchOfferMinimum": "کم از کم پیشکش لانچ کریں 🚀",
+    "buyMeCoffee": "مجھے ایک کافی خریدیں ☕",
+    "superSupporter": "سپر سپورٹر 🔥",
+    "feature": "فیچر",
+    "freeTier": "مفت درجے",
+    "premium": "پریمیم",
+    "chatLocks": "چیٹ لاک",
+    "maxOneRoom": "زیادہ سے زیادہ 1 کمرہ",
+    "unlimited": "لا محدود",
+    "biometrics": "بایومیٹرکس",
+    "disabled": "🚫 معذور",
+    "supportWithSats": "{amount} sats کے ساتھ سپورٹ (فینکس)",
+    "boltOffer": "⚡ BOLT12 ادائیگی کی پیشکش • کاپی کرنے کے لیے تھپتھپائیں۔",
+    "boltOfferCopied": "BOLT12 ادائیگی کی پیشکش کاپی ہو گئی۔",
+    "tapToCopyBoltOffer": "BOLT12 ادائیگی کی پیشکش کاپی کرنے کے لیے تھپتھپائیں۔",
+    "simpleInstructionsToUnlock": "📬 غیر مقفل کرنے کے لیے آسان ہدایات:",
+    "unlockInstructions": "1. Android پر Phoenix Wallet کا استعمال کرتے ہوئے ادائیگی کریں (انلاک کرنے کے لیے کم از کم 7,500 — زیادہ کی ہمیشہ تعریف کی جاتی ہے)۔\n2. اپنی کامیاب ٹرانزیکشن کی تصدیق کی اسکرین کا اسکرین شاٹ لیں۔\n3. اس اسکرین شاٹ کو jounaidnadirmed@gmail.com پر ای میل کریں اور مجھے اپنے منفرد اکاؤنٹ کا صارف نام بتائیں: '{username}' تاکہ مجھے معلوم ہو کہ کس نے ادائیگی کی۔\n4. اس ڈیوائس پر اپنی درخواست محفوظ کرنے کے لیے نیچے دیے گئے باکس میں کچھ بھی ٹائپ کریں:",
+    "supportRequestHint": "اپنا نام یا لین دین کی معلومات یہاں ٹائپ کریں...",
+    "@supportWithSats": {
+        "placeholders": {
+            "amount": {
+                "type": "String"
+            }
+        }
+    },
+    "@unlockInstructions": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
     }
-  },
-
-  "copyDigitsHint": "اوپر دیے گئے 5 ہندسے کاپی کریں",
-  "codeMismatchNotice": "کوڈ مماثل نہیں ہے۔ ماسٹر پاس ورڈ درج کریں یا 10 منٹ کے لیے لاک کا سامنا کریں۔",
-  "accountPasswordLabel": "اکاؤنٹ پاس ورڈ",
-  "deleteEverythingPermanently": "سب کچھ مستقل طور پر حذف کریں",
-  "escapeAndPurgeDeviceData": "ایمرجنسی ایسکیپ اور ڈیوائس کا ڈیٹا صاف کریں",
-
-  "addContact": "کانٹیکٹ شامل کریں",
-  "addContactConfirmation": "کیا آپ یہ کانٹیکٹ شامل کرنا چاہتے ہیں؟",
-  "noMessagesYet": "ابھی تک کوئی پیغام نہیں",
-  "addNewContact": "نیا کانٹیکٹ شامل کریں",
-  "usernameLabel": "یوزر نیم",
-  "nicknameOptionalLabel": "عرفی نام (اختیاری)",
-  "add": "شامل کریں",
-  "usernameCannotBeEmpty": "یوزر نیم خالی نہیں ہو سکتا",
-
-  "contactAlreadyExists": "کانٹیکٹ '{name}' پہلے ہی آپ کی ایڈریس بک میں موجود ہے۔",
-  "@contactAlreadyExists": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "userNotFoundOnRegistry": "صارف '{name}' نیٹ ورک رجسٹری میں نہیں ملا۔ مشترکہ خفیہ کلید بنانا ممکن نہیں۔",
-  "@userNotFoundOnRegistry": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "successfullyAddedContact": "{name} کامیابی سے شامل کر لیا گیا!",
-  "@successfullyAddedContact": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "contacts": "کانٹیکٹس",
-  "noContactsYet": "ابھی تک کوئی کانٹیکٹ نہیں ہے",
-
-  "securityLockoutActive": "سیکیورٹی لاک فعال ہے",
-  "tooManyAttemptsFrozen": "بہت زیادہ غلط کوششیں۔ رسائی {minutes} منٹ کے لیے منجمد کر دی گئی ہے۔",
-  "@tooManyAttemptsFrozen": {
-    "placeholders": {
-      "minutes": {
-        "type": "int"
-      }
-    }
-  },
-
-  "acknowledge": "سمجھ گیا",
-  "accessBlocked": "رسائی مسدود ہے",
-  "accessSuspended": "5 غلط تصدیقی کوششیں۔ رسائی اگلے {minutes} منٹ کے لیے معطل کر دی گئی ہے۔",
-  "@accessSuspended": {
-    "placeholders": {
-      "minutes": {
-        "type": "int"
-      }
-    }
-  },
-
-  "ok": "ٹھیک ہے",
-  "unlockSecureNode": "محفوظ نوڈ ان لاک کریں: {username}",
-  "@unlockSecureNode": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "verificationMetricsRemaining": "باقی تصدیقی کوششیں: {count}",
-  "@verificationMetricsRemaining": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
-
-  "secureKeyPasscode": "محفوظ کلید کا پاس کوڈ",
-  "warningHardwareLockout": "انتباہ: اگلی غلطی ہارڈویئر سیکیورٹی لاک کو فعال کر دے گی۔",
-  "abort": "منسوخ کریں",
-  "authenticate": "تصدیق کریں",
-
-  "searchPipelinesHint": "فعال محفوظ کنکشنز تلاش کیے جا رہے ہیں...",
-  "zeroPipelinesDiscovered": "کوئی مماثل کمیونیکیشن کنکشن نہیں ملا۔",
-  "processingDecryption": "ڈیکرپشن جاری ہے...",
-  "decrypting": "ڈیکرپٹ کیا جا رہا ہے...",
-  "decryptionError": "[ڈیکرپشن میں خرابی]",
-  "cryptContainerSecure": "CRYPT کنٹینر محفوظ ہے",
-
-  "connectAnAccount": "اکاؤنٹ کنیکٹ کریں",
-  "username": "یوزر نیم",
-  "password": "پاس ورڈ",
-  "enterMasterSecurityPassword": "اپنا ماسٹر سیکیورٹی پاس ورڈ درج کریں",
-  "pleaseFillAllFields": "براہ کرم تمام فیلڈز پُر کریں",
-  "wrongUsernameOrPassword": "غلط یوزر نیم یا پاس ورڈ",
-
-  "loginError": "لاگ ان میں خرابی: {error}",
-  "@loginError": {
-    "placeholders": {
-      "error": {
-        "type": "String"
-      }
-    }
-  },
-
-  "dontHaveAnAccountSignUp": "اکاؤنٹ نہیں ہے؟ سائن اپ کریں",
-  "myIdentity": "میری شناخت",
-  "scanToAddMe": "مجھے شامل کرنے کے لیے اسکین کریں",
-  "shareProfileLink": "پروفائل لنک شیئر کریں",
-
-  "addMeOnCrypt": "مجھے CRYPT پر شامل کریں!\n\n{link}",
-  "@addMeOnCrypt": {
-    "placeholders": {
-      "link": {
-        "type": "String"
-      }
-    }
-  },
-
-  "scanQr": "QR اسکین کریں",
-  "invalidCryptQrFormat": "غلط CRYPT QR کوڈ فارمیٹ۔",
-  "userScanned": "صارف اسکین ہو گیا!",
-  "addingUser": "{username} کو شامل کیا جا رہا ہے...",
-  "@addingUser": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "defaultUser": "صارف",
-  "createAccount": "اکاؤنٹ بنائیں",
-  "keepPasswordSecureHint": "اسے محفوظ رکھیں؛ پاس ورڈ بعد میں تبدیل نہیں کیا جا سکتا۔",
-  "pleaseFillInAllFields": "براہ کرم تمام فیلڈز پُر کریں",
-
-  "usernameExceedsLimit": "یوزر نیم 20 حروف سے زیادہ نہیں ہو سکتا",
-  "invalidUsernameCharacters": "یوزر نیم میں صرف حروف، اعداد، انڈر اسکور اور ہائفن شامل ہو سکتے ہیں",
-  "weakPasswordNotice": "پاس ورڈ کم از کم 8 حروف کا ہونا چاہیے اور اس میں ایک عدد اور ایک بڑا حرف شامل ہونا چاہیے",
-  "unableToGenerateUniqueUsername": "منفرد یوزر نیم بنانے میں ناکامی۔",
-
-  "accountCreated": "اکاؤنٹ بن گیا",
-  "yourUsernameIs": "آپ کا یوزر نیم:\n\n{username}",
-  "@yourUsernameIs": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "usernameTakenAssignedTag": "یوزر نیم '{chosen}' پہلے ہی لیا جا چکا ہے۔\n\nآپ کا یوزر نیم:\n\n{assigned}\n\nاسے یاد رکھیں۔ لاگ ان کرنے کے لیے آپ کو اس کی ضرورت ہوگی۔",
-  "@usernameTakenAssignedTag": {
-    "placeholders": {
-      "chosen": {
-        "type": "String"
-      },
-      "assigned": {
-        "type": "String"
-      }
-    }
-  },
-
-  "continueText": "جاری رکھیں",
-
-  "failedToGenerateIdentity": "محفوظ شناخت بنانے میں ناکامی: {error}",
-  "@failedToGenerateIdentity": {
-    "placeholders": {
-      "error": {
-        "type": "String"
-      }
-    }
-  },
-
-  "welcomeToCrypt": "CRYPT میں خوش آمدید",
-  "signupDescription": "اپنی پیئر ٹو پیئر (P2P) انکرپشن کیز شروع کرنے کے لیے یوزر نیم اور پاس ورڈ درج کریں۔",
-  "chooseAUsername": "یوزر نیم منتخب کریں",
-  "usernameHelperText": "اپنا اصلی نام استعمال نہ کریں۔ اگر یوزر نیم پہلے سے لیا جا چکا ہو تو ہم خود بخود ایک منفرد لاحقہ شامل کر دیں گے۔",
-
-  "masterAuthenticationRequired": "ماسٹر تصدیق درکار ہے",
-  "verify": "تصدیق کریں",
-  "darkThemeMode": "ڈارک تھیم موڈ",
-  "secureConversations": "محفوظ گفتگو",
-  "noActiveConversations": "کوئی فعال گفتگو نہیں ملی۔ سیکیورٹی لاکس استعمال کرنے کے لیے پہلے ایک گفتگو شروع کریں۔",
-
-  "logout": "لاگ آؤٹ",
-  "wipeDeviceAndEscape": "ڈیوائس مٹائیں اور ایمرجنسی ایسکیپ کریں",
-  "falsePassword": "غلط پاس ورڈ",
-
-  "accessSuspendedTimer": "سیکیورٹی کی وجہ سے رسائی معطل ہے۔ {time} بعد دوبارہ کوشش کریں۔",
-  "@accessSuspendedTimer": {
-    "placeholders": {
-      "time": {
-        "type": "String"
-      }
-    }
-  },
-
-  "selectSecureLockMethod": "محفوظ لاک کا طریقہ منتخب کریں",
-  "selectSecureLockDescription": "کیا آپ اس گفتگو کو ڈیوائس کے فنگر پرنٹ بائیومیٹرکس یا معیاری 4 ہندسوں کے PIN سے لاک کرنا چاہتے ہیں؟",
-  "fourDigitPin": "4 ہندسوں کا PIN",
-  "fingerprintUnlock": "فنگر پرنٹ 🔓",
-
-  "supportSoloDeveloper": "ایک سولو ڈویلپر کو سپورٹ کریں",
-  "maybeLater": "شاید بعد میں",
-  "submitProof": "ثبوت جمع کریں",
-
-  "couldNotOpenWallet": "والیٹ خود بخود نہیں کھل سکا۔ براہ کرم اس کے بجائے نیچے دیا گیا ٹیکسٹ کوڈ کاپی کریں۔",
-
-  "proofSubmittedSnackbar": "ثبوت جمع کر دیا گیا! دستی جائزے میں 24–48 گھنٹے لگتے ہیں (ہفتہ وار تعطیلات کے علاوہ)۔ آپ ایپ کو معمول کے مطابق استعمال کرتے رہ سکتے ہیں۔"
 }

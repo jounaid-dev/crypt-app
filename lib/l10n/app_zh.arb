@@ -1,262 +1,301 @@
 {
-  "@@locale": "zh",
-
-  "appName": "CRYPT",
-  "welcome": "欢迎",
-  "login": "登录",
-  "signup": "注册",
-  "settings": "设置",
-  "chats": "聊天",
-  "typeMessage": "输入消息...",
-  "send": "发送",
-
-  "p2p": "P2P",
-  "connecting": "正在连接...",
-  "connectingP2p": "正在连接到 P2P...",
-  "p2pConnectionNotReady": "P2P 尚未就绪。",
-
-  "searchLanguage": "搜索语言...",
-  "language": "语言",
-
-  "forceEscapeSignOutTitle": "强制紧急退出？",
-  "forceEscapeSignOutContent": "警告：此操作将完全清除本设备上的所有数据。",
-  "cancel": "取消",
-  "wipeDevice": "擦除设备",
-
-  "accountDestructionAlertTitle": "账户销毁警报",
-  "accountDestructionWarning": "警告：此操作将删除您在本设备上的所有数据。连接互联网后，将触发远程自毁命令。使用您唯一用户 ID 发送的每条消息都将从所有对等设备的内存中永久删除。",
-  "accountDestructionCriticalNotice": "严重警告：如果错误输入这些验证数字，系统将被锁定。要解锁，您必须输入主账户密码，或使用紧急退出功能立即彻底清除本设备的数据存储。",
-
-  "verificationSecurityKey": "验证安全密钥：{code}",
-
-  "@verificationSecurityKey": {
-    "placeholders": {
-      "code": {
-        "type": "String"
-      }
+    "@@locale": "zh",
+    "welcome": "欢迎",
+    "login": "登录",
+    "signup": "注册",
+    "settings": "设置",
+    "chats": "聊天",
+    "typeMessage": "输入消息...",
+    "send": "发送",
+    "p2p": "P2P",
+    "connecting": "正在连接...",
+    "connectingP2p": "正在连接到 P2P...",
+    "p2pConnectionNotReady": "P2P 尚未就绪。",
+    "searchLanguage": "搜索语言...",
+    "language": "语言",
+    "forceEscapeSignOutTitle": "强制紧急退出？",
+    "forceEscapeSignOutContent": "警告：此操作将完全清除本设备上的所有数据。",
+    "cancel": "取消",
+    "wipeDevice": "擦除设备",
+    "accountDestructionAlertTitle": "账户销毁警报",
+    "accountDestructionWarning": "警告：此操作将删除您在本设备上的所有数据。连接互联网后，将触发远程自毁命令。使用您唯一用户 ID 发送的每条消息都将从所有对等设备的内存中永久删除。",
+    "accountDestructionCriticalNotice": "严重警告：如果错误输入这些验证数字，系统将被锁定。要解锁，您必须输入主账户密码，或使用紧急退出功能立即彻底清除本设备的数据存储。",
+    "verificationSecurityKey": "验证安全密钥：{code}",
+    "@verificationSecurityKey": {
+        "placeholders": {
+            "code": {
+                "type": "String"
+            }
+        }
+    },
+    "copyDigitsHint": "复制上方的 5 位数字",
+    "codeMismatchNotice": "验证码不匹配！请输入主密码以解除锁定，否则系统将锁定 10 分钟：",
+    "accountPasswordLabel": "账户密码",
+    "deleteEverythingPermanently": "永久删除所有内容",
+    "escapeAndPurgeDeviceData": "紧急退出并清除设备数据",
+    "addContact": "添加联系人",
+    "addContactConfirmation": "确定要添加此联系人吗？",
+    "noMessagesYet": "暂无消息",
+    "addNewContact": "添加新联系人",
+    "usernameLabel": "用户名",
+    "nicknameOptionalLabel": "昵称（可选）",
+    "add": "添加",
+    "usernameCannotBeEmpty": "用户名不能为空",
+    "contactAlreadyExists": "联系人“{name}”已存在于您的通讯录中。",
+    "@contactAlreadyExists": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "userNotFoundOnRegistry": "在网络注册表中找不到用户“{name}”。无法建立共享密钥。",
+    "@userNotFoundOnRegistry": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "successfullyAddedContact": "已成功添加 {name}！",
+    "@successfullyAddedContact": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "contacts": "联系人",
+    "noContactsYet": "暂无联系人",
+    "securityLockoutActive": "安全锁定已启用",
+    "tooManyAttemptsFrozen": "无效尝试次数过多。已锁定 {minutes} 分钟。",
+    "@tooManyAttemptsFrozen": {
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "acknowledge": "确认",
+    "accessBlocked": "访问被阻止",
+    "accessSuspended": "验证失败 5 次。访问已暂停 {minutes} 分钟。",
+    "@accessSuspended": {
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "ok": "确定",
+    "unlockSecureNode": "解锁安全节点：{username}",
+    "@unlockSecureNode": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "verificationMetricsRemaining": "剩余验证尝试次数：{count} 次。",
+    "@verificationMetricsRemaining": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "secureKeyPasscode": "安全密钥密码",
+    "warningHardwareLockout": "警告：下一次系统验证不匹配将触发硬件安全锁定。",
+    "abort": "中止",
+    "authenticate": "身份验证",
+    "searchPipelinesHint": "正在查询活动的安全通信通道...",
+    "zeroPipelinesDiscovered": "未找到匹配的通信通道。",
+    "processingDecryption": "正在处理解密...",
+    "decrypting": "正在解密...",
+    "decryptionError": "[解密错误]",
+    "cryptContainerSecure": "CRYPT 容器安全",
+    "connectAnAccount": "连接账户",
+    "username": "用户名",
+    "password": "密码",
+    "enterMasterSecurityPassword": "输入您的主安全密码",
+    "pleaseFillAllFields": "请填写所有字段",
+    "wrongUsernameOrPassword": "用户名或密码错误",
+    "loginError": "登录错误：{error}",
+    "@loginError": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "dontHaveAnAccountSignUp": "还没有账户？注册",
+    "myIdentity": "我的身份",
+    "scanToAddMe": "扫描以添加我",
+    "shareProfileLink": "分享个人资料链接",
+    "addMeOnCrypt": "在 CRYPT 上添加我！\n\n{link}",
+    "@addMeOnCrypt": {
+        "placeholders": {
+            "link": {
+                "type": "String"
+            }
+        }
+    },
+    "scanQr": "扫描二维码",
+    "invalidCryptQrFormat": "无效的 CRYPT 二维码格式。",
+    "userScanned": "用户已扫描！",
+    "addingUser": "正在添加 {username}...",
+    "@addingUser": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "defaultUser": "用户",
+    "createAccount": "创建账户",
+    "keepPasswordSecureHint": "请妥善保管。密码创建后无法更改。",
+    "pleaseFillInAllFields": "请填写所有字段",
+    "usernameExceedsLimit": "用户名不能超过 20 个字符",
+    "invalidUsernameCharacters": "用户名只能包含字母、数字、下划线和连字符",
+    "weakPasswordNotice": "密码必须至少包含 8 个字符，并包含一个数字和一个大写字母",
+    "unableToGenerateUniqueUsername": "无法生成唯一用户名。",
+    "accountCreated": "账户已创建",
+    "yourUsernameIs": "您的用户名是：\n\n{username}",
+    "@yourUsernameIs": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "usernameTakenAssignedTag": "用户名“{chosen}”已被占用。\n\n您的用户名是：\n\n{assigned}\n\n请记住此用户名。登录时需要使用它。",
+    "@usernameTakenAssignedTag": {
+        "placeholders": {
+            "chosen": {
+                "type": "String"
+            },
+            "assigned": {
+                "type": "String"
+            }
+        }
+    },
+    "continueText": "继续",
+    "failedToGenerateIdentity": "无法创建安全身份：{error}",
+    "@failedToGenerateIdentity": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "welcomeToCrypt": "欢迎来到 CRYPT",
+    "signupDescription": "输入用户名和密码，以初始化您的点对点（P2P）加密密钥。",
+    "chooseAUsername": "选择用户名",
+    "usernameHelperText": "请勿使用真实姓名。如果用户名已被占用，我们会自动添加唯一后缀。",
+    "masterAuthenticationRequired": "需要主身份验证",
+    "verify": "验证",
+    "darkThemeMode": "深色主题模式",
+    "secureConversations": "安全对话",
+    "noActiveConversations": "未找到活动对话。请先开始一段对话，以启用自定义安全锁。",
+    "logout": "退出登录",
+    "wipeDeviceAndEscape": "擦除设备并紧急退出",
+    "falsePassword": "错误密码",
+    "accessSuspendedTimer": "出于安全保护，访问已被暂停。请在 {time} 后重试。",
+    "@accessSuspendedTimer": {
+        "placeholders": {
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "selectSecureLockMethod": "选择安全锁定方式",
+    "selectSecureLockDescription": "您希望使用设备指纹生物识别，还是标准的 4 位 PIN 码来锁定此聊天？",
+    "fourDigitPin": "4 位 PIN 码",
+    "fingerprintUnlock": "指纹解锁 🔓",
+    "supportSoloDeveloper": "支持独立开发者",
+    "maybeLater": "稍后再说",
+    "submitProof": "提交证明",
+    "couldNotOpenWallet": "无法自动打开钱包。请复制下方的文本代码。",
+    "proofSubmittedSnackbar": "证明已提交！人工审核需要 24–48 小时（周末除外）。您可以继续正常使用应用！",
+    "@couldNotShareQrCode": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "@newContact": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "appName": "CRYPT",
+    "termsAndConditions": "条款与条件",
+    "settingsTermsAndConditions": "条款与条件",
+    "termsIntro": "CRYPT 是一款处于早期阶段、用于让人们直接进行交流的应用。您需要对正确使用应用并保护账户凭据负责。",
+    "termsConnectivity": "CRYPT 使用在线服务帮助设备发现彼此并建立连接。随着应用的发展，可用性和连接行为可能会改变。请不要将 CRYPT 作为唯一的通信方式。",
+    "termsAgreement": "继续操作即表示您确认已阅读并同意在这些条款下使用 CRYPT。",
+    "agreeTerms": "我同意条款与条件",
+    "agreeAndContinue": "同意并继续",
+    "beforeYouStart": "开始之前",
+    "connected": "已连接",
+    "connectFirstThenChat": "先连接，再聊天",
+    "betaIntro": "CRYPT 是早期测试版，因此未来版本可能会改善使用体验。",
+    "walkieTalkieExplanation": "CRYPT 的工作方式类似对讲机：双方都需要在线并同时打开 CRYPT 才能建立连接。",
+    "howToUseCrypt": "如何使用 CRYPT：\n1. 扫描对方的 CRYPT 二维码。\n2. 双方都需要打开 CRYPT 并保持在线。\n3. 等待 CRYPT 建立 P2P 连接。\n4. 等待“正在连接...”状态消失并建立连接。\n5. 连接后即可开始聊天。",
+    "messageStorageExplanation": "您的消息设计为在已连接的设备之间直接传输。CRYPT 不会将聊天消息存储在我们的服务器上。服务器目前帮助处理连接和信令，聊天记录不会存储在服务器上。如果对方离线，则无法建立当前的 P2P 连接。",
+    "settingsAndSupportExplanation": "访问设置以自定义 CRYPT 体验。更多自定义选项即将推出。\n\n想支持 CRYPT？您可以在设置中找到捐赠选项。",
+    "saving": "正在保存...",
+    "continueToCrypt": "继续使用 CRYPT",
+    "showSplashScreen": "显示启动画面",
+    "retry": "重试",
+    "connectionFailed": "连接失败",
+    "connectionFailedDetails": "连接失败。两台设备都必须在线并打开 CRYPT 才能连接。",
+    "gallery": "图库",
+    "alignQrCode": "对齐二维码",
+    "scanFromGallery": "从图库扫描",
+    "couldNotScanImage": "无法扫描图像。",
+    "couldNotShareQrCode": "无法分享二维码：{error}",
+    "newContact": "新联系人：{username}",
+    "publicEncryptionKeyMissing": "缺少您的公共加密密钥。",
+    "contactEncryptionKeyMissing": "缺少联系人的加密密钥。",
+    "localEncryptionKeyMissing": "缺少本地加密密钥。",
+    "noQrCodeFound": "在此图像中未找到二维码。",
+    "shareQrCode": "分享二维码",
+    "supportIntro": "嘿！ 👋 我是一名致力于 CRYPT 的独立开发者。我没有预算或公司资金。我完全依靠您的诚实和同理心来不断改进应用程序并保证永远没有广告。",
+    "chooseSupportAmount": "选择您的价格（滑动至支持）：",
+    "poorGang": "我是穷小子🥀✌️",
+    "launchOfferMinimum": "推出最低优惠🚀",
+    "buyMeCoffee": "请我喝杯咖啡☕",
+    "superSupporter": "超级支持者🔥",
+    "feature": "特征",
+    "freeTier": "免费套餐",
+    "premium": "优质的",
+    "chatLocks": "聊天锁",
+    "maxOneRoom": "最多 1 间客房",
+    "unlimited": "无限",
+    "biometrics": "生物识别技术",
+    "disabled": "🚫 残疾人",
+    "supportWithSats": "支持 {amount} sats (Phoenix)",
+    "boltOffer": "⚡ BOLT12 付款优惠• 点击复制",
+    "boltOfferCopied": "已复制 BOLT12 付款报价",
+    "tapToCopyBoltOffer": "点击复制 BOLT12 付款报价",
+    "simpleInstructionsToUnlock": "📬简单的解锁说明：",
+    "unlockInstructions": "1. 使用 Android 上的 Phoenix Wallet 进行支付（至少解锁 7,500 个 - 更多总是感激）。\n2. 截取您成功交易确认屏幕的屏幕截图。\n3. 通过电子邮件将该屏幕截图发送至 jounaidnadirmed@gmail.com 并告诉我您的唯一帐户用户名：“{username}”，以便我知道谁付款。\n4. 在下面的框中输入任何内容以将您的请求保存到该设备上：",
+    "supportRequestHint": "在此输入您的姓名或交易信息...",
+    "@supportWithSats": {
+        "placeholders": {
+            "amount": {
+                "type": "String"
+            }
+        }
+    },
+    "@unlockInstructions": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
     }
-  },
-
-  "copyDigitsHint": "复制上方的 5 位数字",
-  "codeMismatchNotice": "验证码不匹配！请输入主密码以解除锁定，否则系统将锁定 10 分钟：",
-  "accountPasswordLabel": "账户密码",
-  "deleteEverythingPermanently": "永久删除所有内容",
-  "escapeAndPurgeDeviceData": "紧急退出并清除设备数据",
-
-  "addContact": "添加联系人",
-  "addContactConfirmation": "确定要添加此联系人吗？",
-  "noMessagesYet": "暂无消息",
-  "addNewContact": "添加新联系人",
-  "usernameLabel": "用户名",
-  "nicknameOptionalLabel": "昵称（可选）",
-  "add": "添加",
-  "usernameCannotBeEmpty": "用户名不能为空",
-
-  "contactAlreadyExists": "联系人“{name}”已存在于您的通讯录中。",
-
-  "@contactAlreadyExists": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "userNotFoundOnRegistry": "在网络注册表中找不到用户“{name}”。无法建立共享密钥。",
-
-  "@userNotFoundOnRegistry": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "successfullyAddedContact": "已成功添加 {name}！",
-
-  "@successfullyAddedContact": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "contacts": "联系人",
-  "noContactsYet": "暂无联系人",
-
-  "securityLockoutActive": "安全锁定已启用",
-  "tooManyAttemptsFrozen": "无效尝试次数过多。已锁定 {minutes} 分钟。",
-
-  "@tooManyAttemptsFrozen": {
-    "placeholders": {
-      "minutes": {
-        "type": "int"
-      }
-    }
-  },
-
-  "acknowledge": "确认",
-  "accessBlocked": "访问被阻止",
-  "accessSuspended": "验证失败 5 次。访问已暂停 {minutes} 分钟。",
-
-  "@accessSuspended": {
-    "placeholders": {
-      "minutes": {
-        "type": "int"
-      }
-    }
-  },
-
-  "ok": "确定",
-  "unlockSecureNode": "解锁安全节点：{username}",
-
-  "@unlockSecureNode": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "verificationMetricsRemaining": "剩余验证尝试次数：{count} 次。",
-
-  "@verificationMetricsRemaining": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
-
-  "secureKeyPasscode": "安全密钥密码",
-  "warningHardwareLockout": "警告：下一次系统验证不匹配将触发硬件安全锁定。",
-  "abort": "中止",
-  "authenticate": "身份验证",
-
-  "searchPipelinesHint": "正在查询活动的安全通信通道...",
-  "zeroPipelinesDiscovered": "未找到匹配的通信通道。",
-  "processingDecryption": "正在处理解密...",
-  "decrypting": "正在解密...",
-  "decryptionError": "[解密错误]",
-  "cryptContainerSecure": "CRYPT 容器安全",
-
-  "connectAnAccount": "连接账户",
-  "username": "用户名",
-  "password": "密码",
-  "enterMasterSecurityPassword": "输入您的主安全密码",
-  "pleaseFillAllFields": "请填写所有字段",
-  "wrongUsernameOrPassword": "用户名或密码错误",
-  "loginError": "登录错误：{error}",
-
-  "@loginError": {
-    "placeholders": {
-      "error": {
-        "type": "String"
-      }
-    }
-  },
-
-  "dontHaveAnAccountSignUp": "还没有账户？注册",
-  "myIdentity": "我的身份",
-  "scanToAddMe": "扫描以添加我",
-  "shareProfileLink": "分享个人资料链接",
-  "addMeOnCrypt": "在 CRYPT 上添加我！\n\n{link}",
-
-  "@addMeOnCrypt": {
-    "placeholders": {
-      "link": {
-        "type": "String"
-      }
-    }
-  },
-
-  "scanQr": "扫描二维码",
-  "invalidCryptQrFormat": "无效的 CRYPT 二维码格式。",
-  "userScanned": "用户已扫描！",
-  "addingUser": "正在添加 {username}...",
-
-  "@addingUser": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "defaultUser": "用户",
-  "createAccount": "创建账户",
-  "keepPasswordSecureHint": "请妥善保管。密码创建后无法更改。",
-  "pleaseFillInAllFields": "请填写所有字段",
-  "usernameExceedsLimit": "用户名不能超过 20 个字符",
-  "invalidUsernameCharacters": "用户名只能包含字母、数字、下划线和连字符",
-  "weakPasswordNotice": "密码必须至少包含 8 个字符，并包含一个数字和一个大写字母",
-  "unableToGenerateUniqueUsername": "无法生成唯一用户名。",
-  "accountCreated": "账户已创建",
-
-  "yourUsernameIs": "您的用户名是：\n\n{username}",
-
-  "@yourUsernameIs": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "usernameTakenAssignedTag": "用户名“{chosen}”已被占用。\n\n您的用户名是：\n\n{assigned}\n\n请记住此用户名。登录时需要使用它。",
-
-  "@usernameTakenAssignedTag": {
-    "placeholders": {
-      "chosen": {
-        "type": "String"
-      },
-      "assigned": {
-        "type": "String"
-      }
-    }
-  },
-
-  "continueText": "继续",
-  "failedToGenerateIdentity": "无法创建安全身份：{error}",
-
-  "@failedToGenerateIdentity": {
-    "placeholders": {
-      "error": {
-        "type": "String"
-      }
-    }
-  },
-
-  "welcomeToCrypt": "欢迎来到 CRYPT",
-  "signupDescription": "输入用户名和密码，以初始化您的点对点（P2P）加密密钥。",
-  "chooseAUsername": "选择用户名",
-  "usernameHelperText": "请勿使用真实姓名。如果用户名已被占用，我们会自动添加唯一后缀。",
-  "masterAuthenticationRequired": "需要主身份验证",
-  "verify": "验证",
-  "darkThemeMode": "深色主题模式",
-  "secureConversations": "安全对话",
-  "noActiveConversations": "未找到活动对话。请先开始一段对话，以启用自定义安全锁。",
-  "logout": "退出登录",
-  "wipeDeviceAndEscape": "擦除设备并紧急退出",
-  "falsePassword": "错误密码",
-  "accessSuspendedTimer": "出于安全保护，访问已被暂停。请在 {time} 后重试。",
-
-  "@accessSuspendedTimer": {
-    "placeholders": {
-      "time": {
-        "type": "String"
-      }
-    }
-  },
-
-  "selectSecureLockMethod": "选择安全锁定方式",
-  "selectSecureLockDescription": "您希望使用设备指纹生物识别，还是标准的 4 位 PIN 码来锁定此聊天？",
-  "fourDigitPin": "4 位 PIN 码",
-  "fingerprintUnlock": "指纹解锁 🔓",
-  "supportSoloDeveloper": "支持独立开发者",
-  "maybeLater": "稍后再说",
-  "submitProof": "提交证明",
-  "couldNotOpenWallet": "无法自动打开钱包。请复制下方的文本代码。",
-  "proofSubmittedSnackbar": "证明已提交！人工审核需要 24–48 小时（周末除外）。您可以继续正常使用应用！"
 }

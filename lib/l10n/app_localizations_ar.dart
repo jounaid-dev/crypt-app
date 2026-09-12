@@ -12,6 +12,116 @@ class AppLocalizationsAr extends AppLocalizations {
   String get appName => 'CRYPT';
 
   @override
+  String get termsAndConditions => 'الشروط والأحكام';
+
+  @override
+  String get settingsTermsAndConditions => 'الشروط والأحكام';
+
+  @override
+  String get termsIntro =>
+      'CRYPT هو تطبيق في مرحلة مبكرة لربط الأشخاص مباشرةً لإجراء المحادثات. أنت مسؤول عن استخدام التطبيق بشكل مناسب والحفاظ على بيانات اعتماد حسابك آمنة.';
+
+  @override
+  String get termsConnectivity =>
+      'يستخدم CRYPT الخدمات عبر الإنترنت لمساعدة الأجهزة على اكتشاف الاتصالات وإنشاءها. قد يتغير سلوك التوفر والاتصال مع تطور التطبيق. من فضلك لا تعتمد على CRYPT كوسيلة الاتصال الوحيدة لديك.';
+
+  @override
+  String get termsAgreement =>
+      'من خلال المتابعة، فإنك تؤكد أنك قرأت ووافقت على استخدام CRYPT بموجب هذه الشروط.';
+
+  @override
+  String get agreeTerms => 'أوافق على الشروط والأحكام';
+
+  @override
+  String get agreeAndContinue => 'وافق واستمر';
+
+  @override
+  String get beforeYouStart => 'قبل أن تبدأ';
+
+  @override
+  String get connected => 'متصل';
+
+  @override
+  String get connectFirstThenChat => 'الاتصال أولا، ثم الدردشة';
+
+  @override
+  String get betaIntro =>
+      'CRYPT هو إصدار تجريبي مبكر، لذا قد تتحسن التجربة في الإصدارات المستقبلية.';
+
+  @override
+  String get walkieTalkieExplanation =>
+      'يعمل CRYPT مثل جهاز اتصال لاسلكي: يحتاج كلا الشخصين إلى الاتصال بالإنترنت وفتح CRYPT في نفس الوقت لتأسيس الاتصال.';
+
+  @override
+  String get howToUseCrypt =>
+      'كيفية استخدام كريبت:\n1. قم بمسح رمز CRYPT QR الخاص بالشخص الآخر.\n2. يحتاج كلا الشخصين إلى CRYPT مفتوحًا ومتصلًا بالإنترنت.\n3. انتظر حتى يقوم CRYPT بإنشاء اتصال P2P.\n4. انتظر حتى تختفي حالة \"الاتصال...\" ويتم إنشاء الاتصال.\n5. بمجرد الاتصال، يمكنك البدء في الدردشة.';
+
+  @override
+  String get messageStorageExplanation =>
+      'تم تصميم رسائلك للانتقال مباشرة بين الأجهزة المتصلة. لا يقوم CRYPT بتخزين رسائل الدردشة الخاصة بك على خوادمنا. يساعد الخادم حاليًا في الاتصال وإرسال الإشارات، ولا يتم تخزين سجل الدردشة على الخادم. إذا كان الشخص الآخر غير متصل بالإنترنت، فلا يمكن إنشاء اتصال P2P الحالي.';
+
+  @override
+  String get settingsAndSupportExplanation =>
+      'قم بزيارة الإعدادات لتخصيص تجربة CRYPT الخاصة بك. المزيد من خيارات التخصيص تأتي في وقت قريب.\n\nهل تريد دعم CRYPT؟ يمكنك العثور على خيار التبرع في الإعدادات.';
+
+  @override
+  String get saving => 'توفير...';
+
+  @override
+  String get continueToCrypt => 'المتابعة إلى التشفير';
+
+  @override
+  String get showSplashScreen => 'إظهار شاشة البداية';
+
+  @override
+  String get retry => 'أعد المحاولة';
+
+  @override
+  String get connectionFailed => 'فشل الاتصال';
+
+  @override
+  String get connectionFailedDetails =>
+      'فشل الاتصال. يجب أن يكون كلا الجهازين متصلين بالإنترنت مع فتح CRYPT للاتصال.';
+
+  @override
+  String get gallery => 'معرض';
+
+  @override
+  String get alignQrCode => 'محاذاة رمز الاستجابة السريعة';
+
+  @override
+  String get scanFromGallery => 'مسح من المعرض';
+
+  @override
+  String get couldNotScanImage => 'تعذر مسح الصورة ضوئيًا.';
+
+  @override
+  String couldNotShareQrCode(String error) {
+    return 'تعذرت مشاركة رمز الاستجابة السريعة: $error';
+  }
+
+  @override
+  String newContact(String username) {
+    return 'جهة اتصال جديدة: $username';
+  }
+
+  @override
+  String get publicEncryptionKeyMissing =>
+      'مفتاح التشفير العام الخاص بك مفقود.';
+
+  @override
+  String get contactEncryptionKeyMissing => 'مفتاح تشفير جهة الاتصال مفقود.';
+
+  @override
+  String get localEncryptionKeyMissing => 'مفتاح التشفير المحلي مفقود.';
+
+  @override
+  String get noQrCodeFound => 'لم يتم العثور على رمز QR في هذه الصورة.';
+
+  @override
+  String get shareQrCode => 'مشاركة رمز الاستجابة السريعة';
+
+  @override
   String get welcome => 'مرحبًا';
 
   @override
@@ -363,6 +473,74 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get supportSoloDeveloper => 'دعم المطور';
+
+  @override
+  String get supportIntro =>
+      'مرحبًا! أنا مطور مستقل أعمل بجد على CRYPT. لا أملك ميزانية أو تمويلًا مؤسسيًا، وأعتمد على صدقك وتعاطفك لتحسين التطبيق وضمان عدم وجود إعلانات أبدًا.';
+
+  @override
+  String get chooseSupportAmount => 'اختر مبلغ الدعم:';
+
+  @override
+  String get poorGang => 'أنا من مجموعة الفقراء 🥀✌️';
+
+  @override
+  String get launchOfferMinimum => 'الحد الأدنى لعرض الإطلاق 🚀';
+
+  @override
+  String get buyMeCoffee => 'اشترِ لي قهوة ☕';
+
+  @override
+  String get superSupporter => 'داعِم مميز 🔥';
+
+  @override
+  String get feature => 'الميزة';
+
+  @override
+  String get freeTier => 'الخطة المجانية';
+
+  @override
+  String get premium => 'مميزة';
+
+  @override
+  String get chatLocks => 'أقفال الدردشة';
+
+  @override
+  String get maxOneRoom => 'غرفة واحدة كحد أقصى';
+
+  @override
+  String get unlimited => 'غير محدود';
+
+  @override
+  String get biometrics => 'القياسات الحيوية';
+
+  @override
+  String get disabled => 'معطل 🚫';
+
+  @override
+  String supportWithSats(String amount) {
+    return 'ادعم بـ $amount ساتوشي (Phoenix)';
+  }
+
+  @override
+  String get boltOffer => 'عرض دفع BOLT12 ⚡ • اضغط للنسخ';
+
+  @override
+  String get boltOfferCopied => 'تم نسخ عرض الدفع BOLT12';
+
+  @override
+  String get tapToCopyBoltOffer => 'اضغط لنسخ عرض الدفع BOLT12';
+
+  @override
+  String get simpleInstructionsToUnlock => 'تعليمات بسيطة لفتح القفل 📬:';
+
+  @override
+  String unlockInstructions(String username) {
+    return '1. ادفع باستخدام Phoenix على أندرويد (الحد الأدنى 7,500).\n2. التقط صورة لتأكيد المعاملة الناجحة.\n3. أرسل الصورة إلى jounaidnadirmed@gmail.com واذكر اسم المستخدم \'$username\'.\n4. اكتب أي شيء أدناه لحفظ طلبك على هذا الجهاز:';
+  }
+
+  @override
+  String get supportRequestHint => 'اكتب اسمك أو معلومات المعاملة هنا...';
 
   @override
   String get maybeLater => 'ربما لاحقًا';

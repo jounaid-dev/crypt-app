@@ -166,6 +166,198 @@ abstract class AppLocalizations {
   /// **'CRYPT'**
   String get appName;
 
+  /// No description provided for @termsAndConditions.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms & Conditions'**
+  String get termsAndConditions;
+
+  /// No description provided for @settingsTermsAndConditions.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms & Conditions'**
+  String get settingsTermsAndConditions;
+
+  /// No description provided for @termsIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'CRYPT is an early-stage application for connecting people directly for conversations. You are responsible for using the application appropriately and for keeping your account credentials secure.'**
+  String get termsIntro;
+
+  /// No description provided for @termsConnectivity.
+  ///
+  /// In en, this message translates to:
+  /// **'CRYPT uses online services to help devices discover and establish connections. Availability and connection behavior may change as the application develops. Please do not rely on CRYPT as your only means of communication.'**
+  String get termsConnectivity;
+
+  /// No description provided for @termsAgreement.
+  ///
+  /// In en, this message translates to:
+  /// **'By continuing, you confirm that you have read and agree to use CRYPT under these terms.'**
+  String get termsAgreement;
+
+  /// No description provided for @agreeTerms.
+  ///
+  /// In en, this message translates to:
+  /// **'I agree to the Terms & Conditions'**
+  String get agreeTerms;
+
+  /// No description provided for @agreeAndContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Agree and continue'**
+  String get agreeAndContinue;
+
+  /// No description provided for @beforeYouStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Before You Start'**
+  String get beforeYouStart;
+
+  /// No description provided for @connected.
+  ///
+  /// In en, this message translates to:
+  /// **'Connected'**
+  String get connected;
+
+  /// No description provided for @connectFirstThenChat.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect first, then chat'**
+  String get connectFirstThenChat;
+
+  /// No description provided for @betaIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'CRYPT is an early beta version, so the experience may improve in future versions.'**
+  String get betaIntro;
+
+  /// No description provided for @walkieTalkieExplanation.
+  ///
+  /// In en, this message translates to:
+  /// **'CRYPT works like a walkie-talkie: both people need to be online and have CRYPT open at the same time to establish the connection.'**
+  String get walkieTalkieExplanation;
+
+  /// No description provided for @howToUseCrypt.
+  ///
+  /// In en, this message translates to:
+  /// **'How to use CRYPT:\n1. Scan the other person\'s CRYPT QR code.\n2. Both people need CRYPT open and online.\n3. Wait while CRYPT establishes the P2P connection.\n4. Wait for the “Connecting...” state to disappear and the connection to be established.\n5. Once connected, you can start chatting.'**
+  String get howToUseCrypt;
+
+  /// No description provided for @messageStorageExplanation.
+  ///
+  /// In en, this message translates to:
+  /// **'Your messages are designed to travel directly between connected devices. CRYPT does not store your chat messages on our servers. The server currently helps with connection and signaling, and chat history is not stored on the server. If the other person is offline, the current P2P connection cannot be established.'**
+  String get messageStorageExplanation;
+
+  /// No description provided for @settingsAndSupportExplanation.
+  ///
+  /// In en, this message translates to:
+  /// **'Visit Settings to customise your CRYPT experience. More customisation options are coming soon.\n\nWant to support CRYPT? You can find the donation option in Settings.'**
+  String get settingsAndSupportExplanation;
+
+  /// No description provided for @saving.
+  ///
+  /// In en, this message translates to:
+  /// **'Saving...'**
+  String get saving;
+
+  /// No description provided for @continueToCrypt.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue to CRYPT'**
+  String get continueToCrypt;
+
+  /// No description provided for @showSplashScreen.
+  ///
+  /// In en, this message translates to:
+  /// **'Show splash screen'**
+  String get showSplashScreen;
+
+  /// No description provided for @retry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get retry;
+
+  /// No description provided for @connectionFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection failed'**
+  String get connectionFailed;
+
+  /// No description provided for @connectionFailedDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection failed. Both devices must be online with CRYPT open to connect.'**
+  String get connectionFailedDetails;
+
+  /// No description provided for @gallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Gallery'**
+  String get gallery;
+
+  /// No description provided for @alignQrCode.
+  ///
+  /// In en, this message translates to:
+  /// **'ALIGN QR CODE'**
+  String get alignQrCode;
+
+  /// No description provided for @scanFromGallery.
+  ///
+  /// In en, this message translates to:
+  /// **'SCAN FROM GALLERY'**
+  String get scanFromGallery;
+
+  /// No description provided for @couldNotScanImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not scan image.'**
+  String get couldNotScanImage;
+
+  /// No description provided for @couldNotShareQrCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not share QR code: {error}'**
+  String couldNotShareQrCode(String error);
+
+  /// No description provided for @newContact.
+  ///
+  /// In en, this message translates to:
+  /// **'New contact: {username}'**
+  String newContact(String username);
+
+  /// No description provided for @publicEncryptionKeyMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'Your public encryption key is missing.'**
+  String get publicEncryptionKeyMissing;
+
+  /// No description provided for @contactEncryptionKeyMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact encryption key is missing.'**
+  String get contactEncryptionKeyMissing;
+
+  /// No description provided for @localEncryptionKeyMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'Local encryption key is missing.'**
+  String get localEncryptionKeyMissing;
+
+  /// No description provided for @noQrCodeFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No QR code found in this image.'**
+  String get noQrCodeFound;
+
+  /// No description provided for @shareQrCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Share QR Code'**
+  String get shareQrCode;
+
   /// No description provided for @welcome.
   ///
   /// In en, this message translates to:
@@ -789,6 +981,132 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Support Developer'**
   String get supportSoloDeveloper;
+
+  /// No description provided for @supportIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Hey! 👋 I am a solo developer working hard on CRYPT. I do not have a budget or corporate funding. I rely entirely on your honesty and empathy to keep improving the app and guarantee NO ADS FOREVER.'**
+  String get supportIntro;
+
+  /// No description provided for @chooseSupportAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose Your Price (Slide to support):'**
+  String get chooseSupportAmount;
+
+  /// No description provided for @poorGang.
+  ///
+  /// In en, this message translates to:
+  /// **'I\'m poor gang 🥀✌️'**
+  String get poorGang;
+
+  /// No description provided for @launchOfferMinimum.
+  ///
+  /// In en, this message translates to:
+  /// **'Launch Offer Minimum 🚀'**
+  String get launchOfferMinimum;
+
+  /// No description provided for @buyMeCoffee.
+  ///
+  /// In en, this message translates to:
+  /// **'Buy Me a Coffee ☕'**
+  String get buyMeCoffee;
+
+  /// No description provided for @superSupporter.
+  ///
+  /// In en, this message translates to:
+  /// **'Super Supporter 🔥'**
+  String get superSupporter;
+
+  /// No description provided for @feature.
+  ///
+  /// In en, this message translates to:
+  /// **'Feature'**
+  String get feature;
+
+  /// No description provided for @freeTier.
+  ///
+  /// In en, this message translates to:
+  /// **'Free Tier'**
+  String get freeTier;
+
+  /// No description provided for @premium.
+  ///
+  /// In en, this message translates to:
+  /// **'Premium'**
+  String get premium;
+
+  /// No description provided for @chatLocks.
+  ///
+  /// In en, this message translates to:
+  /// **'Chat Locks'**
+  String get chatLocks;
+
+  /// No description provided for @maxOneRoom.
+  ///
+  /// In en, this message translates to:
+  /// **'Max 1 Room'**
+  String get maxOneRoom;
+
+  /// No description provided for @unlimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited'**
+  String get unlimited;
+
+  /// No description provided for @biometrics.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometrics'**
+  String get biometrics;
+
+  /// No description provided for @disabled.
+  ///
+  /// In en, this message translates to:
+  /// **'🚫 Disabled'**
+  String get disabled;
+
+  /// No description provided for @supportWithSats.
+  ///
+  /// In en, this message translates to:
+  /// **'Support with {amount} sats (Phoenix)'**
+  String supportWithSats(String amount);
+
+  /// No description provided for @boltOffer.
+  ///
+  /// In en, this message translates to:
+  /// **'⚡ BOLT12 payment offer • Tap to copy'**
+  String get boltOffer;
+
+  /// No description provided for @boltOfferCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'BOLT12 payment offer copied'**
+  String get boltOfferCopied;
+
+  /// No description provided for @tapToCopyBoltOffer.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to copy BOLT12 payment offer'**
+  String get tapToCopyBoltOffer;
+
+  /// No description provided for @simpleInstructionsToUnlock.
+  ///
+  /// In en, this message translates to:
+  /// **'📬 Simple Instructions to Unlock:'**
+  String get simpleInstructionsToUnlock;
+
+  /// No description provided for @unlockInstructions.
+  ///
+  /// In en, this message translates to:
+  /// **'1. Pay using Phoenix Wallet on Android (7,500 minimum to unlock — more is always appreciated).\n2. Take a screenshot of your successful transaction confirmation screen.\n3. Email that screenshot to jounaidnadirmed@gmail.com and tell me your unique account username: \'{username}\' so I know who paid.\n4. Type anything in the box below to save your request on this device:'**
+  String unlockInstructions(String username);
+
+  /// No description provided for @supportRequestHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Type your name or transaction info here...'**
+  String get supportRequestHint;
 
   /// No description provided for @maybeLater.
   ///

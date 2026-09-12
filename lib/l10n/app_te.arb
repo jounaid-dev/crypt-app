@@ -1,255 +1,301 @@
 {
-  "@@locale": "te",
-
-  "appName": "CRYPT",
-  "welcome": "స్వాగతం",
-  "login": "లాగిన్",
-  "signup": "సైన్ అప్",
-  "settings": "సెట్టింగ్‌లు",
-  "chats": "చాట్‌లు",
-  "typeMessage": "సందేశాన్ని టైప్ చేయండి...",
-  "send": "పంపు",
-  "p2p": "P2P",
-  "connecting": "కనెక్ట్ అవుతోంది...",
-  "connectingP2p": "P2Pకి కనెక్ట్ అవుతోంది...",
-  "p2pConnectionNotReady": "P2P ఇంకా సిద్ధంగా లేదు.",
-  "searchLanguage": "భాషను వెతకండి...",
-  "language": "భాష",
-
-  "forceEscapeSignOutTitle": "ఎమర్జెన్సీ లాగ్ అవుట్ చేయాలా?",
-  "forceEscapeSignOutContent": "హెచ్చరిక: ఈ చర్య ఈ పరికరం నుండి మొత్తం డేటాను పూర్తిగా తొలగిస్తుంది.",
-  "cancel": "రద్దు చేయి",
-  "wipeDevice": "పరికరాన్ని పూర్తిగా తొలగించు",
-
-  "accountDestructionAlertTitle": "ఖాతా తొలగింపు హెచ్చరిక",
-  "accountDestructionWarning": "హెచ్చరిక: ఈ చర్య ఈ పరికరం నుండి మీ మొత్తం డేటాను తొలగిస్తుంది. ఇంటర్నెట్‌కు కనెక్ట్ అయిన తర్వాత, ఇది రిమోట్ స్వీయ-తొలగింపు ఆదేశాన్ని ప్రారంభిస్తుంది. మీ ప్రత్యేక యూజర్ ID నుండి పంపిన ప్రతి సందేశం అన్ని పీర్‌ల మెమరీల నుండి శాశ్వతంగా తొలగించబడుతుంది.",
-
-  "accountDestructionCriticalNotice": "కీలక హెచ్చరిక: మీరు ఈ ధృవీకరణ సంఖ్యలను తప్పుగా నమోదు చేస్తే, సిస్టమ్ లాక్ అవుతుంది. దాన్ని అన్‌లాక్ చేయడానికి, మీరు మీ మాస్టర్ అకౌంట్ పాస్‌వర్డ్‌ను నమోదు చేయాలి లేదా ఈ పరికరంలోని మొత్తం డేటాను వెంటనే పూర్తిగా తొలగించే ఎమర్జెన్సీ ఎస్కేప్ ఎంపికను ఉపయోగించాలి.",
-
-  "verificationSecurityKey": "ధృవీకరణ భద్రతా కీ: {code}",
-  "@verificationSecurityKey": {
-    "placeholders": {
-      "code": {
-        "type": "String"
-      }
+    "@@locale": "te",
+    "appName": "CRYPT",
+    "welcome": "స్వాగతం",
+    "login": "లాగిన్",
+    "signup": "సైన్ అప్",
+    "settings": "సెట్టింగ్‌లు",
+    "chats": "చాట్‌లు",
+    "typeMessage": "సందేశాన్ని టైప్ చేయండి...",
+    "send": "పంపు",
+    "p2p": "P2P",
+    "connecting": "కనెక్ట్ అవుతోంది...",
+    "connectingP2p": "P2Pకి కనెక్ట్ అవుతోంది...",
+    "p2pConnectionNotReady": "P2P ఇంకా సిద్ధంగా లేదు.",
+    "searchLanguage": "భాషను వెతకండి...",
+    "language": "భాష",
+    "forceEscapeSignOutTitle": "ఎమర్జెన్సీ లాగ్ అవుట్ చేయాలా?",
+    "forceEscapeSignOutContent": "హెచ్చరిక: ఈ చర్య ఈ పరికరం నుండి మొత్తం డేటాను పూర్తిగా తొలగిస్తుంది.",
+    "cancel": "రద్దు చేయి",
+    "wipeDevice": "పరికరాన్ని పూర్తిగా తొలగించు",
+    "accountDestructionAlertTitle": "ఖాతా తొలగింపు హెచ్చరిక",
+    "accountDestructionWarning": "హెచ్చరిక: ఈ చర్య ఈ పరికరం నుండి మీ మొత్తం డేటాను తొలగిస్తుంది. ఇంటర్నెట్‌కు కనెక్ట్ అయిన తర్వాత, ఇది రిమోట్ స్వీయ-తొలగింపు ఆదేశాన్ని ప్రారంభిస్తుంది. మీ ప్రత్యేక యూజర్ ID నుండి పంపిన ప్రతి సందేశం అన్ని పీర్‌ల మెమరీల నుండి శాశ్వతంగా తొలగించబడుతుంది.",
+    "accountDestructionCriticalNotice": "కీలక హెచ్చరిక: మీరు ఈ ధృవీకరణ సంఖ్యలను తప్పుగా నమోదు చేస్తే, సిస్టమ్ లాక్ అవుతుంది. దాన్ని అన్‌లాక్ చేయడానికి, మీరు మీ మాస్టర్ అకౌంట్ పాస్‌వర్డ్‌ను నమోదు చేయాలి లేదా ఈ పరికరంలోని మొత్తం డేటాను వెంటనే పూర్తిగా తొలగించే ఎమర్జెన్సీ ఎస్కేప్ ఎంపికను ఉపయోగించాలి.",
+    "verificationSecurityKey": "ధృవీకరణ భద్రతా కీ: {code}",
+    "@verificationSecurityKey": {
+        "placeholders": {
+            "code": {
+                "type": "String"
+            }
+        }
+    },
+    "copyDigitsHint": "పైన ఉన్న 5 అంకెలను కాపీ చేయండి",
+    "codeMismatchNotice": "కోడ్ సరిపోలలేదు. లాక్‌ను దాటవేయడానికి మాస్టర్ పాస్‌వర్డ్‌ను నమోదు చేయండి లేదా 10 నిమిషాల లాక్‌ను ఎదుర్కోవాలి.",
+    "accountPasswordLabel": "ఖాతా పాస్‌వర్డ్",
+    "deleteEverythingPermanently": "అన్నింటినీ శాశ్వతంగా తొలగించు",
+    "escapeAndPurgeDeviceData": "లాగ్ అవుట్ చేసి పరికర డేటాను తొలగించు",
+    "addContact": "పరిచయాన్ని జోడించు",
+    "addContactConfirmation": "ఈ పరిచయాన్ని జోడించాలా?",
+    "noMessagesYet": "ఇంకా సందేశాలు లేవు",
+    "addNewContact": "కొత్త పరిచయాన్ని జోడించు",
+    "usernameLabel": "యూజర్ పేరు",
+    "nicknameOptionalLabel": "మారుపేరు (ఐచ్ఛికం)",
+    "add": "జోడించు",
+    "usernameCannotBeEmpty": "యూజర్ పేరు ఖాళీగా ఉండకూడదు",
+    "contactAlreadyExists": "పరిచయం «{name}» ఇప్పటికే మీ అడ్రస్ బుక్‌లో ఉంది.",
+    "@contactAlreadyExists": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "userNotFoundOnRegistry": "యూజర్ «{name}» నెట్‌వర్క్ రిజిస్ట్రీలో కనుగొనబడలేదు. భాగస్వామ్య రహస్యాన్ని సృష్టించడం సాధ్యం కాదు.",
+    "@userNotFoundOnRegistry": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "successfullyAddedContact": "పరిచయం {name} విజయవంతంగా జోడించబడింది!",
+    "@successfullyAddedContact": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "contacts": "పరిచయాలు",
+    "noContactsYet": "ఇంకా పరిచయాలు లేవు",
+    "securityLockoutActive": "భద్రతా లాక్ సక్రియంగా ఉంది",
+    "tooManyAttemptsFrozen": "చాలా తప్పు ప్రయత్నాలు జరిగాయి. {minutes} నిమిషాల పాటు యాక్సెస్ బ్లాక్ చేయబడింది.",
+    "@tooManyAttemptsFrozen": {
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "acknowledge": "అర్థమైంది",
+    "accessBlocked": "యాక్సెస్ బ్లాక్ చేయబడింది",
+    "accessSuspended": "5 తప్పు ధృవీకరణలు జరిగాయి. తదుపరి {minutes} నిమిషాల పాటు యాక్సెస్ నిలిపివేయబడింది.",
+    "@accessSuspended": {
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "ok": "సరే",
+    "unlockSecureNode": "సురక్షిత నోడ్‌ను అన్‌లాక్ చేయి: {username}",
+    "@unlockSecureNode": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "verificationMetricsRemaining": "మిగిలిన ధృవీకరణ ప్రయత్నాలు: {count}",
+    "@verificationMetricsRemaining": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "secureKeyPasscode": "సురక్షిత కీ పాస్‌కోడ్",
+    "warningHardwareLockout": "హెచ్చరిక: తదుపరి తప్పు ధృవీకరణ భద్రతా సిస్టమ్‌ను లాక్ చేస్తుంది.",
+    "abort": "రద్దు చేయి",
+    "authenticate": "ప్రమాణీకరించు",
+    "searchPipelinesHint": "సక్రియంగా ఉన్న సురక్షిత కనెక్షన్‌ల కోసం వెతుకుతోంది...",
+    "zeroPipelinesDiscovered": "సరిపోలే కమ్యూనికేషన్ కనెక్షన్‌లు ఏవీ కనుగొనబడలేదు.",
+    "processingDecryption": "డీక్రిప్షన్ జరుగుతోంది...",
+    "decrypting": "డీక్రిప్ట్ చేస్తోంది...",
+    "decryptionError": "[డీక్రిప్షన్ లోపం]",
+    "cryptContainerSecure": "CRYPT కంటైనర్ సురక్షితం",
+    "connectAnAccount": "ఖాతాను కనెక్ట్ చేయి",
+    "username": "యూజర్ పేరు",
+    "password": "పాస్‌వర్డ్",
+    "enterMasterSecurityPassword": "మీ మాస్టర్ సెక్యూరిటీ పాస్‌వర్డ్‌ను నమోదు చేయండి",
+    "pleaseFillAllFields": "దయచేసి అన్ని ఫీల్డ్‌లను పూరించండి",
+    "wrongUsernameOrPassword": "యూజర్ పేరు లేదా పాస్‌వర్డ్ తప్పుగా ఉంది",
+    "loginError": "లాగిన్ లోపం: {error}",
+    "@loginError": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "dontHaveAnAccountSignUp": "ఖాతా లేదా? సైన్ అప్ చేయండి",
+    "myIdentity": "నా గుర్తింపు",
+    "scanToAddMe": "నన్ను జోడించడానికి స్కాన్ చేయండి",
+    "shareProfileLink": "ప్రొఫైల్ లింక్‌ను షేర్ చేయండి",
+    "addMeOnCrypt": "నన్ను CRYPTలో జోడించండి!\n\n{link}",
+    "@addMeOnCrypt": {
+        "placeholders": {
+            "link": {
+                "type": "String"
+            }
+        }
+    },
+    "scanQr": "QR స్కాన్ చేయి",
+    "invalidCryptQrFormat": "చెల్లని CRYPT QR కోడ్ ఫార్మాట్.",
+    "userScanned": "యూజర్ స్కాన్ చేయబడ్డారు!",
+    "addingUser": "{username}ను జోడిస్తోంది...",
+    "@addingUser": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "defaultUser": "యూజర్",
+    "createAccount": "ఖాతాను సృష్టించు",
+    "keepPasswordSecureHint": "దీన్ని సురక్షితంగా ఉంచండి. పాస్‌వర్డ్‌ను మార్చలేరు.",
+    "pleaseFillInAllFields": "దయచేసి అన్ని ఫీల్డ్‌లను పూరించండి",
+    "usernameExceedsLimit": "యూజర్ పేరు 20 అక్షరాలకు మించకూడదు",
+    "invalidUsernameCharacters": "యూజర్ పేరు అక్షరాలు, సంఖ్యలు, అండర్‌స్కోర్‌లు మరియు హైఫన్‌లను మాత్రమే కలిగి ఉండవచ్చు",
+    "weakPasswordNotice": "పాస్‌వర్డ్‌లో కనీసం 8 అక్షరాలు, ఒక సంఖ్య మరియు ఒక పెద్ద అక్షరం ఉండాలి",
+    "unableToGenerateUniqueUsername": "ప్రత్యేకమైన యూజర్ పేరును సృష్టించడం సాధ్యం కాలేదు.",
+    "accountCreated": "ఖాతా సృష్టించబడింది",
+    "yourUsernameIs": "మీ యూజర్ పేరు:\n\n{username}",
+    "@yourUsernameIs": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "usernameTakenAssignedTag": "యూజర్ పేరు «{chosen}» ఇప్పటికే తీసుకోబడింది.\n\nమీ యూజర్ పేరు:\n\n{assigned}\n\nదయచేసి దీన్ని గుర్తుంచుకోండి. లాగిన్ చేయడానికి ఇది అవసరం.",
+    "@usernameTakenAssignedTag": {
+        "placeholders": {
+            "chosen": {
+                "type": "String"
+            },
+            "assigned": {
+                "type": "String"
+            }
+        }
+    },
+    "continueText": "కొనసాగించు",
+    "failedToGenerateIdentity": "సురక్షిత గుర్తింపును సృష్టించడం విఫలమైంది: {error}",
+    "@failedToGenerateIdentity": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "welcomeToCrypt": "CRYPTకి స్వాగతం",
+    "signupDescription": "మీ P2P ఎన్‌క్రిప్షన్ కీలను రూపొందించడానికి యూజర్ పేరు మరియు పాస్‌వర్డ్‌ను నమోదు చేయండి.",
+    "chooseAUsername": "యూజర్ పేరును ఎంచుకోండి",
+    "usernameHelperText": "మీ నిజమైన పేరును ఉపయోగించవద్దు. యూజర్ పేరు ఇప్పటికే తీసుకోబడితే, మేము స్వయంచాలకంగా ప్రత్యేకమైన ప్రత్యయాన్ని జోడిస్తాము.",
+    "masterAuthenticationRequired": "మాస్టర్ ప్రమాణీకరణ అవసరం",
+    "verify": "ధృవీకరించు",
+    "darkThemeMode": "డార్క్ థీమ్",
+    "secureConversations": "సురక్షిత సంభాషణలు",
+    "noActiveConversations": "సక్రియ సంభాషణలు ఏవీ కనుగొనబడలేదు. భద్రతా లాక్‌లను ఉపయోగించడానికి ముందుగా సంభాషణను ప్రారంభించండి.",
+    "logout": "లాగ్ అవుట్",
+    "wipeDeviceAndEscape": "పరికరాన్ని పూర్తిగా తొలగించి లాగ్ అవుట్ చేయి",
+    "falsePassword": "తప్పు పాస్‌వర్డ్",
+    "accessSuspendedTimer": "భద్రతా కారణాల వల్ల యాక్సెస్ నిలిపివేయబడింది. {time} తర్వాత మళ్లీ ప్రయత్నించండి.",
+    "@accessSuspendedTimer": {
+        "placeholders": {
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "selectSecureLockMethod": "సురక్షిత లాక్ పద్ధతిని ఎంచుకోండి",
+    "selectSecureLockDescription": "ఈ సంభాషణను పరికరం యొక్క వేలిముద్ర బయోమెట్రిక్స్ లేదా సాధారణ 4-అంకెల PINతో లాక్ చేయాలనుకుంటున్నారా?",
+    "fourDigitPin": "4-అంకెల PIN",
+    "fingerprintUnlock": "వేలిముద్ర 🔓",
+    "supportSoloDeveloper": "స్వతంత్ర డెవలపర్‌కు మద్దతు ఇవ్వండి",
+    "maybeLater": "బహుశా తర్వాత",
+    "submitProof": "ధృవీకరణను సమర్పించు",
+    "couldNotOpenWallet": "వాలెట్‌ను స్వయంచాలకంగా తెరవడం సాధ్యం కాలేదు. బదులుగా క్రింది టెక్స్ట్ కోడ్‌ను కాపీ చేయండి.",
+    "proofSubmittedSnackbar": "ధృవీకరణ సమర్పించబడింది! మాన్యువల్ సమీక్షకు 24–48 గంటలు పడుతుంది (వారాంతాలు మినహా). మీరు యాప్‌ను సాధారణంగా ఉపయోగించడం కొనసాగించవచ్చు.",
+    "termsAndConditions": "నియమనిబంధనలు",
+    "settingsTermsAndConditions": "నియమనిబంధనలు",
+    "termsIntro": "సంభాషణల కోసం వ్యక్తులను నేరుగా కనెక్ట్ చేయడానికి క్రిప్ట్ అనేది ప్రారంభ-దశ అప్లికేషన్. అప్లికేషన్ ‌ ను తగిన విధంగా ఉపయోగించడం మరియు మీ ఖాతా క్రెడెన్షియల్ ‌ లను సురక్షితంగా ఉంచడం మీ బాధ్యత.",
+    "termsConnectivity": "పరికరాలను కనుగొనడంలో మరియు కనెక్షన్ ‌ లను స్థాపించడంలో సహాయపడటానికి క్రిప్ట్ ఆన్ ‌ లైన్ సేవలను ఉపయోగిస్తుంది. అప్లికేషన్ అభివృద్ధి చెందుతున్నప్పుడు లభ్యత మరియు కనెక్షన్ ప్రవర్తన మారవచ్చు. దయచేసి మీ ఏకైక కమ్యూనికేషన్ సాధనంగా క్రిప్ట్ ‌ పై ఆధారపడకండి.",
+    "termsAgreement": "కొనసాగించడం ద్వారా, మీరు ఈ నిబంధనల ప్రకారం క్రిప్ట్ ‌ ను చదివి, ఉపయోగించడానికి అంగీకరించినట్లు ధృవీకరిస్తున్నారు.",
+    "agreeTerms": "నేను నిబంధనలు & షరతులకు అంగీకరిస్తున్నాను",
+    "agreeAndContinue": "అంగీకరించి, కొనసాగించండి",
+    "beforeYouStart": "మీరు ప్రారంభించే ముందు",
+    "connected": "అనుసంధానించబడింది",
+    "connectFirstThenChat": "మొదట కనెక్ట్ చేయండి, ఆపై చాట్ చేయండి",
+    "betaIntro": "క్రిప్ట్ అనేది ప్రారంభ బీటా వెర్షన్, కాబట్టి భవిష్యత్ వెర్షన్ ‌ లలో అనుభవం మెరుగుపడవచ్చు.",
+    "walkieTalkieExplanation": "క్రిప్ట్ వాకీ-టాకీ లాగా పనిచేస్తుంది: కనెక్షన్ ‌ ను స్థాపించడానికి ఇద్దరు వ్యక్తులు ఆన్ ‌ లైన్ ‌ లో ఉండాలి మరియు ఒకే సమయంలో క్రిప్ట్ ఓపెన్ చేయాలి.",
+    "howToUseCrypt": "క్రిప్ట్ ‌ ను ఎలా ఉపయోగించాలి:\n1. ఇతర వ్యక్తి యొక్క క్రిప్ట్ QR కోడ్ ‌ ను స్కాన్ చేయండి.\n2. ఇద్దరికీ క్రిప్ట్ ఓపెన్ మరియు ఆన్ ‌ లైన్ అవసరం.\n3. క్రిప్ట్ P2P కనెక్షన్ ‌ ను ఏర్పాటు చేసేటప్పుడు వేచి ఉండండి.\n4. \"కనెక్ట్ చేస్తోంది...\" స్థితి అదృశ్యమయ్యే వరకు మరియు కనెక్షన్ స్థాపించబడే వరకు వేచి ఉండండి.\n5. కనెక్ట్ అయిన తర్వాత, మీరు చాటింగ్ ప్రారంభించవచ్చు.",
+    "messageStorageExplanation": "కనెక్ట్ చేయబడిన పరికరాల మధ్య నేరుగా ప్రయాణించడానికి మీ సందేశాలు రూపొందించబడ్డాయి. క్రిప్ట్ మీ చాట్ సందేశాలను మా సర్వర్ ‌ లలో నిల్వ చేయదు. సర్వర్ ప్రస్తుతం కనెక్షన్ మరియు సిగ్నలింగ్ ‌ తో సహాయపడుతుంది మరియు చాట్ చరిత్ర సర్వర్ ‌ లో నిల్వ చేయబడదు. మరొక వ్యక్తి ఆఫ్ ‌ లైన్ ‌ లో ఉంటే, ప్రస్తుత P2P కనెక్షన్ ‌ ను ఏర్పాటు చేయలేము.",
+    "settingsAndSupportExplanation": "మీ క్రిప్ట్ అనుభవాన్ని అనుకూలీకరించడానికి సెట్టింగ్ ‌ లను సందర్శించండి. మరిన్ని అనుకూలీకరణ ఎంపికలు త్వరలో రానున్నాయి.\n\nక్రిప్ట్ ‌ కు మద్దతు ఇవ్వాలనుకుంటున్నారా? మీరు సెట్టింగ్ ‌ లలో విరాళం ఎంపికను కనుగొనవచ్చు.",
+    "saving": "పొదుపు",
+    "continueToCrypt": "క్రిప్ట్ చేయడం కొనసాగించండి",
+    "showSplashScreen": "స్ప్లాష్ స్క్రీన్",
+    "retry": "తిరిగి ప్రయత్నించండి",
+    "connectionFailed": "కనెక్షన్ విఫలమైంది",
+    "connectionFailedDetails": "కనెక్షన్ విఫలమైంది. కనెక్ట్ చేయడానికి రెండు పరికరాలు క్రిప్ట్ ఓపెన్ ‌ తో ఆన్ ‌ లైన్ ‌ లో ఉండాలి.",
+    "gallery": "గ్యాలరీ",
+    "alignQrCode": "QR కోడ్ ‌ ను సమలేఖనం చేయండి",
+    "scanFromGallery": "గ్యాలరీ నుండి స్కాన్ చేయండి",
+    "couldNotScanImage": "ఇమేజ్ ‌ ను స్కాన్ చేయడం సాధ్యం కాలేదు.",
+    "couldNotShareQrCode": "QR కోడ్ ‌ ను షేర్ చేయడం సాధ్యం కాలేదు: {error}",
+    "newContact": "కొత్త కాంటాక్ట్: {username}",
+    "publicEncryptionKeyMissing": "మీ పబ్లిక్ ఎన్ ‌ క్రిప్షన్ కీ లేదు.",
+    "contactEncryptionKeyMissing": "కాంటాక్ట్ ఎన్ ‌ క్రిప్షన్ కీ లేదు.",
+    "localEncryptionKeyMissing": "స్థానిక ఎన్ ‌ క్రిప్షన్ కీ లేదు.",
+    "noQrCodeFound": "ఈ చిత్రంలో QR కోడ్ ఏదీ కనుగొనబడలేదు.",
+    "shareQrCode": "QR కోడ్ ‌ ను షేర్ చేయండి",
+    "@couldNotShareQrCode": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "@newContact": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "supportIntro": "హే! 👋 నేను CRYPTలో కష్టపడి పనిచేస్తున్న సోలో డెవలపర్‌ని. నా దగ్గర బడ్జెట్ లేదా కార్పొరేట్ ఫండింగ్ లేదు. నేను యాప్‌ను మెరుగుపరచడం కోసం మీ నిజాయితీ మరియు సానుభూతిపై పూర్తిగా ఆధారపడతాను మరియు ఎప్పటికీ ప్రకటనలు ఉండవని హామీ ఇస్తున్నాను.",
+    "chooseSupportAmount": "మీ ధరను ఎంచుకోండి (సపోర్ట్ చేయడానికి స్లయిడ్):",
+    "poorGang": "నేను పేద ముఠా 🥀✌️",
+    "launchOfferMinimum": "కనిష్ట ఆఫర్‌ను ప్రారంభించండి 🚀",
+    "buyMeCoffee": "నాకు ఒక కాఫీ కొనండి ☕",
+    "superSupporter": "సూపర్ సపోర్టర్ 🔥",
+    "feature": "ఫీచర్",
+    "freeTier": "ఉచిత టైర్",
+    "premium": "ప్రీమియం",
+    "chatLocks": "చాట్ లాక్‌లు",
+    "maxOneRoom": "గరిష్టంగా 1 గది",
+    "unlimited": "అపరిమిత",
+    "biometrics": "బయోమెట్రిక్స్",
+    "disabled": "🚫 వికలాంగుడు",
+    "supportWithSats": "{amount} సాట్‌లతో (ఫీనిక్స్) మద్దతు",
+    "boltOffer": "⚡ BOLT12 చెల్లింపు ఆఫర్ • కాపీ చేయడానికి నొక్కండి",
+    "boltOfferCopied": "BOLT12 చెల్లింపు ఆఫర్ కాపీ చేయబడింది",
+    "tapToCopyBoltOffer": "BOLT12 చెల్లింపు ఆఫర్‌ను కాపీ చేయడానికి నొక్కండి",
+    "simpleInstructionsToUnlock": "📬 అన్‌లాక్ చేయడానికి సాధారణ సూచనలు:",
+    "unlockInstructions": "1. ఆండ్రాయిడ్‌లో ఫీనిక్స్ వాలెట్‌ని ఉపయోగించి చెల్లించండి (అన్‌లాక్ చేయడానికి కనీసం 7,500 - మరిన్ని ఎల్లప్పుడూ ప్రశంసించబడతాయి).\n2. మీ విజయవంతమైన లావాదేవీ నిర్ధారణ స్క్రీన్ స్క్రీన్ షాట్ తీసుకోండి.\n3. ఆ స్క్రీన్‌షాట్‌ని jounaidnadirmed@gmail.comకి ఇమెయిల్ చేయండి మరియు మీ ప్రత్యేకమైన ఖాతా వినియోగదారు పేరుని నాకు చెప్పండి: '{username}' కాబట్టి నాకు ఎవరు చెల్లించారో నాకు తెలుసు.\n4. ఈ పరికరంలో మీ అభ్యర్థనను సేవ్ చేయడానికి దిగువ పెట్టెలో ఏదైనా టైప్ చేయండి:",
+    "supportRequestHint": "మీ పేరు లేదా లావాదేవీ సమాచారాన్ని ఇక్కడ టైప్ చేయండి...",
+    "@supportWithSats": {
+        "placeholders": {
+            "amount": {
+                "type": "String"
+            }
+        }
+    },
+    "@unlockInstructions": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
     }
-  },
-
-  "copyDigitsHint": "పైన ఉన్న 5 అంకెలను కాపీ చేయండి",
-  "codeMismatchNotice": "కోడ్ సరిపోలలేదు. లాక్‌ను దాటవేయడానికి మాస్టర్ పాస్‌వర్డ్‌ను నమోదు చేయండి లేదా 10 నిమిషాల లాక్‌ను ఎదుర్కోవాలి.",
-  "accountPasswordLabel": "ఖాతా పాస్‌వర్డ్",
-  "deleteEverythingPermanently": "అన్నింటినీ శాశ్వతంగా తొలగించు",
-  "escapeAndPurgeDeviceData": "లాగ్ అవుట్ చేసి పరికర డేటాను తొలగించు",
-
-  "addContact": "పరిచయాన్ని జోడించు",
-  "addContactConfirmation": "ఈ పరిచయాన్ని జోడించాలా?",
-  "noMessagesYet": "ఇంకా సందేశాలు లేవు",
-  "addNewContact": "కొత్త పరిచయాన్ని జోడించు",
-  "usernameLabel": "యూజర్ పేరు",
-  "nicknameOptionalLabel": "మారుపేరు (ఐచ్ఛికం)",
-  "add": "జోడించు",
-  "usernameCannotBeEmpty": "యూజర్ పేరు ఖాళీగా ఉండకూడదు",
-
-  "contactAlreadyExists": "పరిచయం «{name}» ఇప్పటికే మీ అడ్రస్ బుక్‌లో ఉంది.",
-  "@contactAlreadyExists": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "userNotFoundOnRegistry": "యూజర్ «{name}» నెట్‌వర్క్ రిజిస్ట్రీలో కనుగొనబడలేదు. భాగస్వామ్య రహస్యాన్ని సృష్టించడం సాధ్యం కాదు.",
-  "@userNotFoundOnRegistry": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "successfullyAddedContact": "పరిచయం {name} విజయవంతంగా జోడించబడింది!",
-  "@successfullyAddedContact": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "contacts": "పరిచయాలు",
-  "noContactsYet": "ఇంకా పరిచయాలు లేవు",
-  "securityLockoutActive": "భద్రతా లాక్ సక్రియంగా ఉంది",
-
-  "tooManyAttemptsFrozen": "చాలా తప్పు ప్రయత్నాలు జరిగాయి. {minutes} నిమిషాల పాటు యాక్సెస్ బ్లాక్ చేయబడింది.",
-  "@tooManyAttemptsFrozen": {
-    "placeholders": {
-      "minutes": {
-        "type": "int"
-      }
-    }
-  },
-
-  "acknowledge": "అర్థమైంది",
-  "accessBlocked": "యాక్సెస్ బ్లాక్ చేయబడింది",
-
-  "accessSuspended": "5 తప్పు ధృవీకరణలు జరిగాయి. తదుపరి {minutes} నిమిషాల పాటు యాక్సెస్ నిలిపివేయబడింది.",
-  "@accessSuspended": {
-    "placeholders": {
-      "minutes": {
-        "type": "int"
-      }
-    }
-  },
-
-  "ok": "సరే",
-
-  "unlockSecureNode": "సురక్షిత నోడ్‌ను అన్‌లాక్ చేయి: {username}",
-  "@unlockSecureNode": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "verificationMetricsRemaining": "మిగిలిన ధృవీకరణ ప్రయత్నాలు: {count}",
-  "@verificationMetricsRemaining": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
-
-  "secureKeyPasscode": "సురక్షిత కీ పాస్‌కోడ్",
-  "warningHardwareLockout": "హెచ్చరిక: తదుపరి తప్పు ధృవీకరణ భద్రతా సిస్టమ్‌ను లాక్ చేస్తుంది.",
-  "abort": "రద్దు చేయి",
-  "authenticate": "ప్రమాణీకరించు",
-
-  "searchPipelinesHint": "సక్రియంగా ఉన్న సురక్షిత కనెక్షన్‌ల కోసం వెతుకుతోంది...",
-  "zeroPipelinesDiscovered": "సరిపోలే కమ్యూనికేషన్ కనెక్షన్‌లు ఏవీ కనుగొనబడలేదు.",
-  "processingDecryption": "డీక్రిప్షన్ జరుగుతోంది...",
-  "decrypting": "డీక్రిప్ట్ చేస్తోంది...",
-  "decryptionError": "[డీక్రిప్షన్ లోపం]",
-  "cryptContainerSecure": "CRYPT కంటైనర్ సురక్షితం",
-
-  "connectAnAccount": "ఖాతాను కనెక్ట్ చేయి",
-  "username": "యూజర్ పేరు",
-  "password": "పాస్‌వర్డ్",
-  "enterMasterSecurityPassword": "మీ మాస్టర్ సెక్యూరిటీ పాస్‌వర్డ్‌ను నమోదు చేయండి",
-  "pleaseFillAllFields": "దయచేసి అన్ని ఫీల్డ్‌లను పూరించండి",
-  "wrongUsernameOrPassword": "యూజర్ పేరు లేదా పాస్‌వర్డ్ తప్పుగా ఉంది",
-
-  "loginError": "లాగిన్ లోపం: {error}",
-  "@loginError": {
-    "placeholders": {
-      "error": {
-        "type": "String"
-      }
-    }
-  },
-
-  "dontHaveAnAccountSignUp": "ఖాతా లేదా? సైన్ అప్ చేయండి",
-  "myIdentity": "నా గుర్తింపు",
-  "scanToAddMe": "నన్ను జోడించడానికి స్కాన్ చేయండి",
-  "shareProfileLink": "ప్రొఫైల్ లింక్‌ను షేర్ చేయండి",
-
-  "addMeOnCrypt": "నన్ను CRYPTలో జోడించండి!\n\n{link}",
-  "@addMeOnCrypt": {
-    "placeholders": {
-      "link": {
-        "type": "String"
-      }
-    }
-  },
-
-  "scanQr": "QR స్కాన్ చేయి",
-  "invalidCryptQrFormat": "చెల్లని CRYPT QR కోడ్ ఫార్మాట్.",
-  "userScanned": "యూజర్ స్కాన్ చేయబడ్డారు!",
-
-  "addingUser": "{username}ను జోడిస్తోంది...",
-  "@addingUser": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "defaultUser": "యూజర్",
-  "createAccount": "ఖాతాను సృష్టించు",
-  "keepPasswordSecureHint": "దీన్ని సురక్షితంగా ఉంచండి. పాస్‌వర్డ్‌ను మార్చలేరు.",
-  "pleaseFillInAllFields": "దయచేసి అన్ని ఫీల్డ్‌లను పూరించండి",
-  "usernameExceedsLimit": "యూజర్ పేరు 20 అక్షరాలకు మించకూడదు",
-  "invalidUsernameCharacters": "యూజర్ పేరు అక్షరాలు, సంఖ్యలు, అండర్‌స్కోర్‌లు మరియు హైఫన్‌లను మాత్రమే కలిగి ఉండవచ్చు",
-  "weakPasswordNotice": "పాస్‌వర్డ్‌లో కనీసం 8 అక్షరాలు, ఒక సంఖ్య మరియు ఒక పెద్ద అక్షరం ఉండాలి",
-  "unableToGenerateUniqueUsername": "ప్రత్యేకమైన యూజర్ పేరును సృష్టించడం సాధ్యం కాలేదు.",
-
-  "accountCreated": "ఖాతా సృష్టించబడింది",
-
-  "yourUsernameIs": "మీ యూజర్ పేరు:\n\n{username}",
-  "@yourUsernameIs": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "usernameTakenAssignedTag": "యూజర్ పేరు «{chosen}» ఇప్పటికే తీసుకోబడింది.\n\nమీ యూజర్ పేరు:\n\n{assigned}\n\nదయచేసి దీన్ని గుర్తుంచుకోండి. లాగిన్ చేయడానికి ఇది అవసరం.",
-  "@usernameTakenAssignedTag": {
-    "placeholders": {
-      "chosen": {
-        "type": "String"
-      },
-      "assigned": {
-        "type": "String"
-      }
-    }
-  },
-
-  "continueText": "కొనసాగించు",
-
-  "failedToGenerateIdentity": "సురక్షిత గుర్తింపును సృష్టించడం విఫలమైంది: {error}",
-  "@failedToGenerateIdentity": {
-    "placeholders": {
-      "error": {
-        "type": "String"
-      }
-    }
-  },
-
-  "welcomeToCrypt": "CRYPTకి స్వాగతం",
-  "signupDescription": "మీ P2P ఎన్‌క్రిప్షన్ కీలను రూపొందించడానికి యూజర్ పేరు మరియు పాస్‌వర్డ్‌ను నమోదు చేయండి.",
-  "chooseAUsername": "యూజర్ పేరును ఎంచుకోండి",
-  "usernameHelperText": "మీ నిజమైన పేరును ఉపయోగించవద్దు. యూజర్ పేరు ఇప్పటికే తీసుకోబడితే, మేము స్వయంచాలకంగా ప్రత్యేకమైన ప్రత్యయాన్ని జోడిస్తాము.",
-
-  "masterAuthenticationRequired": "మాస్టర్ ప్రమాణీకరణ అవసరం",
-  "verify": "ధృవీకరించు",
-  "darkThemeMode": "డార్క్ థీమ్",
-  "secureConversations": "సురక్షిత సంభాషణలు",
-  "noActiveConversations": "సక్రియ సంభాషణలు ఏవీ కనుగొనబడలేదు. భద్రతా లాక్‌లను ఉపయోగించడానికి ముందుగా సంభాషణను ప్రారంభించండి.",
-  "logout": "లాగ్ అవుట్",
-  "wipeDeviceAndEscape": "పరికరాన్ని పూర్తిగా తొలగించి లాగ్ అవుట్ చేయి",
-  "falsePassword": "తప్పు పాస్‌వర్డ్",
-
-  "accessSuspendedTimer": "భద్రతా కారణాల వల్ల యాక్సెస్ నిలిపివేయబడింది. {time} తర్వాత మళ్లీ ప్రయత్నించండి.",
-  "@accessSuspendedTimer": {
-    "placeholders": {
-      "time": {
-        "type": "String"
-      }
-    }
-  },
-
-  "selectSecureLockMethod": "సురక్షిత లాక్ పద్ధతిని ఎంచుకోండి",
-  "selectSecureLockDescription": "ఈ సంభాషణను పరికరం యొక్క వేలిముద్ర బయోమెట్రిక్స్ లేదా సాధారణ 4-అంకెల PINతో లాక్ చేయాలనుకుంటున్నారా?",
-  "fourDigitPin": "4-అంకెల PIN",
-  "fingerprintUnlock": "వేలిముద్ర 🔓",
-  "supportSoloDeveloper": "స్వతంత్ర డెవలపర్‌కు మద్దతు ఇవ్వండి",
-  "maybeLater": "బహుశా తర్వాత",
-  "submitProof": "ధృవీకరణను సమర్పించు",
-  "couldNotOpenWallet": "వాలెట్‌ను స్వయంచాలకంగా తెరవడం సాధ్యం కాలేదు. బదులుగా క్రింది టెక్స్ట్ కోడ్‌ను కాపీ చేయండి.",
-  "proofSubmittedSnackbar": "ధృవీకరణ సమర్పించబడింది! మాన్యువల్ సమీక్షకు 24–48 గంటలు పడుతుంది (వారాంతాలు మినహా). మీరు యాప్‌ను సాధారణంగా ఉపయోగించడం కొనసాగించవచ్చు."
 }

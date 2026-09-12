@@ -175,11 +175,13 @@ class _AccountDestructionPageState extends State<AccountDestructionPage> {
                 const SizedBox(height: 24),
                 SizedBox(
                   width: double.infinity,
-                  height: 50,
                   child: FilledButton(
                     onPressed: (_codeMatches || (_showPasswordOverride && _passwordOverrideController.text.isNotEmpty)) ? _executeAccountWipe : null,
                     style: FilledButton.styleFrom(backgroundColor: Colors.red, disabledBackgroundColor: Colors.white10),
-                    child: Text(l10n.deleteEverythingPermanently),
+                    child: Text(
+                      l10n.deleteEverythingPermanently,
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 16),

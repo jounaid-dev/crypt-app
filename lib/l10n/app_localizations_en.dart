@@ -12,6 +12,117 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appName => 'CRYPT';
 
   @override
+  String get termsAndConditions => 'Terms & Conditions';
+
+  @override
+  String get settingsTermsAndConditions => 'Terms & Conditions';
+
+  @override
+  String get termsIntro =>
+      'CRYPT is an early-stage application for connecting people directly for conversations. You are responsible for using the application appropriately and for keeping your account credentials secure.';
+
+  @override
+  String get termsConnectivity =>
+      'CRYPT uses online services to help devices discover and establish connections. Availability and connection behavior may change as the application develops. Please do not rely on CRYPT as your only means of communication.';
+
+  @override
+  String get termsAgreement =>
+      'By continuing, you confirm that you have read and agree to use CRYPT under these terms.';
+
+  @override
+  String get agreeTerms => 'I agree to the Terms & Conditions';
+
+  @override
+  String get agreeAndContinue => 'Agree and continue';
+
+  @override
+  String get beforeYouStart => 'Before You Start';
+
+  @override
+  String get connected => 'Connected';
+
+  @override
+  String get connectFirstThenChat => 'Connect first, then chat';
+
+  @override
+  String get betaIntro =>
+      'CRYPT is an early beta version, so the experience may improve in future versions.';
+
+  @override
+  String get walkieTalkieExplanation =>
+      'CRYPT works like a walkie-talkie: both people need to be online and have CRYPT open at the same time to establish the connection.';
+
+  @override
+  String get howToUseCrypt =>
+      'How to use CRYPT:\n1. Scan the other person\'s CRYPT QR code.\n2. Both people need CRYPT open and online.\n3. Wait while CRYPT establishes the P2P connection.\n4. Wait for the “Connecting...” state to disappear and the connection to be established.\n5. Once connected, you can start chatting.';
+
+  @override
+  String get messageStorageExplanation =>
+      'Your messages are designed to travel directly between connected devices. CRYPT does not store your chat messages on our servers. The server currently helps with connection and signaling, and chat history is not stored on the server. If the other person is offline, the current P2P connection cannot be established.';
+
+  @override
+  String get settingsAndSupportExplanation =>
+      'Visit Settings to customise your CRYPT experience. More customisation options are coming soon.\n\nWant to support CRYPT? You can find the donation option in Settings.';
+
+  @override
+  String get saving => 'Saving...';
+
+  @override
+  String get continueToCrypt => 'Continue to CRYPT';
+
+  @override
+  String get showSplashScreen => 'Show splash screen';
+
+  @override
+  String get retry => 'Retry';
+
+  @override
+  String get connectionFailed => 'Connection failed';
+
+  @override
+  String get connectionFailedDetails =>
+      'Connection failed. Both devices must be online with CRYPT open to connect.';
+
+  @override
+  String get gallery => 'Gallery';
+
+  @override
+  String get alignQrCode => 'ALIGN QR CODE';
+
+  @override
+  String get scanFromGallery => 'SCAN FROM GALLERY';
+
+  @override
+  String get couldNotScanImage => 'Could not scan image.';
+
+  @override
+  String couldNotShareQrCode(String error) {
+    return 'Could not share QR code: $error';
+  }
+
+  @override
+  String newContact(String username) {
+    return 'New contact: $username';
+  }
+
+  @override
+  String get publicEncryptionKeyMissing =>
+      'Your public encryption key is missing.';
+
+  @override
+  String get contactEncryptionKeyMissing =>
+      'Contact encryption key is missing.';
+
+  @override
+  String get localEncryptionKeyMissing => 'Local encryption key is missing.';
+
+  @override
+  String get noQrCodeFound => 'No QR code found in this image.';
+
+  @override
+  String get shareQrCode => 'Share QR Code';
+
+  @override
   String get welcome => 'Welcome';
 
   @override
@@ -362,6 +473,74 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get supportSoloDeveloper => 'Support Developer';
+
+  @override
+  String get supportIntro =>
+      'Hey! 👋 I am a solo developer working hard on CRYPT. I do not have a budget or corporate funding. I rely entirely on your honesty and empathy to keep improving the app and guarantee NO ADS FOREVER.';
+
+  @override
+  String get chooseSupportAmount => 'Choose Your Price (Slide to support):';
+
+  @override
+  String get poorGang => 'I\'m poor gang 🥀✌️';
+
+  @override
+  String get launchOfferMinimum => 'Launch Offer Minimum 🚀';
+
+  @override
+  String get buyMeCoffee => 'Buy Me a Coffee ☕';
+
+  @override
+  String get superSupporter => 'Super Supporter 🔥';
+
+  @override
+  String get feature => 'Feature';
+
+  @override
+  String get freeTier => 'Free Tier';
+
+  @override
+  String get premium => 'Premium';
+
+  @override
+  String get chatLocks => 'Chat Locks';
+
+  @override
+  String get maxOneRoom => 'Max 1 Room';
+
+  @override
+  String get unlimited => 'Unlimited';
+
+  @override
+  String get biometrics => 'Biometrics';
+
+  @override
+  String get disabled => '🚫 Disabled';
+
+  @override
+  String supportWithSats(String amount) {
+    return 'Support with $amount sats (Phoenix)';
+  }
+
+  @override
+  String get boltOffer => '⚡ BOLT12 payment offer • Tap to copy';
+
+  @override
+  String get boltOfferCopied => 'BOLT12 payment offer copied';
+
+  @override
+  String get tapToCopyBoltOffer => 'Tap to copy BOLT12 payment offer';
+
+  @override
+  String get simpleInstructionsToUnlock => '📬 Simple Instructions to Unlock:';
+
+  @override
+  String unlockInstructions(String username) {
+    return '1. Pay using Phoenix Wallet on Android (7,500 minimum to unlock — more is always appreciated).\n2. Take a screenshot of your successful transaction confirmation screen.\n3. Email that screenshot to jounaidnadirmed@gmail.com and tell me your unique account username: \'$username\' so I know who paid.\n4. Type anything in the box below to save your request on this device:';
+  }
+
+  @override
+  String get supportRequestHint => 'Type your name or transaction info here...';
 
   @override
   String get maybeLater => 'Maybe Later';

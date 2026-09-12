@@ -12,6 +12,117 @@ class AppLocalizationsTe extends AppLocalizations {
   String get appName => 'CRYPT';
 
   @override
+  String get termsAndConditions => 'నియమనిబంధనలు';
+
+  @override
+  String get settingsTermsAndConditions => 'నియమనిబంధనలు';
+
+  @override
+  String get termsIntro =>
+      'సంభాషణల కోసం వ్యక్తులను నేరుగా కనెక్ట్ చేయడానికి క్రిప్ట్ అనేది ప్రారంభ-దశ అప్లికేషన్. అప్లికేషన్ ‌ ను తగిన విధంగా ఉపయోగించడం మరియు మీ ఖాతా క్రెడెన్షియల్ ‌ లను సురక్షితంగా ఉంచడం మీ బాధ్యత.';
+
+  @override
+  String get termsConnectivity =>
+      'పరికరాలను కనుగొనడంలో మరియు కనెక్షన్ ‌ లను స్థాపించడంలో సహాయపడటానికి క్రిప్ట్ ఆన్ ‌ లైన్ సేవలను ఉపయోగిస్తుంది. అప్లికేషన్ అభివృద్ధి చెందుతున్నప్పుడు లభ్యత మరియు కనెక్షన్ ప్రవర్తన మారవచ్చు. దయచేసి మీ ఏకైక కమ్యూనికేషన్ సాధనంగా క్రిప్ట్ ‌ పై ఆధారపడకండి.';
+
+  @override
+  String get termsAgreement =>
+      'కొనసాగించడం ద్వారా, మీరు ఈ నిబంధనల ప్రకారం క్రిప్ట్ ‌ ను చదివి, ఉపయోగించడానికి అంగీకరించినట్లు ధృవీకరిస్తున్నారు.';
+
+  @override
+  String get agreeTerms => 'నేను నిబంధనలు & షరతులకు అంగీకరిస్తున్నాను';
+
+  @override
+  String get agreeAndContinue => 'అంగీకరించి, కొనసాగించండి';
+
+  @override
+  String get beforeYouStart => 'మీరు ప్రారంభించే ముందు';
+
+  @override
+  String get connected => 'అనుసంధానించబడింది';
+
+  @override
+  String get connectFirstThenChat => 'మొదట కనెక్ట్ చేయండి, ఆపై చాట్ చేయండి';
+
+  @override
+  String get betaIntro =>
+      'క్రిప్ట్ అనేది ప్రారంభ బీటా వెర్షన్, కాబట్టి భవిష్యత్ వెర్షన్ ‌ లలో అనుభవం మెరుగుపడవచ్చు.';
+
+  @override
+  String get walkieTalkieExplanation =>
+      'క్రిప్ట్ వాకీ-టాకీ లాగా పనిచేస్తుంది: కనెక్షన్ ‌ ను స్థాపించడానికి ఇద్దరు వ్యక్తులు ఆన్ ‌ లైన్ ‌ లో ఉండాలి మరియు ఒకే సమయంలో క్రిప్ట్ ఓపెన్ చేయాలి.';
+
+  @override
+  String get howToUseCrypt =>
+      'క్రిప్ట్ ‌ ను ఎలా ఉపయోగించాలి:\n1. ఇతర వ్యక్తి యొక్క క్రిప్ట్ QR కోడ్ ‌ ను స్కాన్ చేయండి.\n2. ఇద్దరికీ క్రిప్ట్ ఓపెన్ మరియు ఆన్ ‌ లైన్ అవసరం.\n3. క్రిప్ట్ P2P కనెక్షన్ ‌ ను ఏర్పాటు చేసేటప్పుడు వేచి ఉండండి.\n4. \"కనెక్ట్ చేస్తోంది...\" స్థితి అదృశ్యమయ్యే వరకు మరియు కనెక్షన్ స్థాపించబడే వరకు వేచి ఉండండి.\n5. కనెక్ట్ అయిన తర్వాత, మీరు చాటింగ్ ప్రారంభించవచ్చు.';
+
+  @override
+  String get messageStorageExplanation =>
+      'కనెక్ట్ చేయబడిన పరికరాల మధ్య నేరుగా ప్రయాణించడానికి మీ సందేశాలు రూపొందించబడ్డాయి. క్రిప్ట్ మీ చాట్ సందేశాలను మా సర్వర్ ‌ లలో నిల్వ చేయదు. సర్వర్ ప్రస్తుతం కనెక్షన్ మరియు సిగ్నలింగ్ ‌ తో సహాయపడుతుంది మరియు చాట్ చరిత్ర సర్వర్ ‌ లో నిల్వ చేయబడదు. మరొక వ్యక్తి ఆఫ్ ‌ లైన్ ‌ లో ఉంటే, ప్రస్తుత P2P కనెక్షన్ ‌ ను ఏర్పాటు చేయలేము.';
+
+  @override
+  String get settingsAndSupportExplanation =>
+      'మీ క్రిప్ట్ అనుభవాన్ని అనుకూలీకరించడానికి సెట్టింగ్ ‌ లను సందర్శించండి. మరిన్ని అనుకూలీకరణ ఎంపికలు త్వరలో రానున్నాయి.\n\nక్రిప్ట్ ‌ కు మద్దతు ఇవ్వాలనుకుంటున్నారా? మీరు సెట్టింగ్ ‌ లలో విరాళం ఎంపికను కనుగొనవచ్చు.';
+
+  @override
+  String get saving => 'పొదుపు';
+
+  @override
+  String get continueToCrypt => 'క్రిప్ట్ చేయడం కొనసాగించండి';
+
+  @override
+  String get showSplashScreen => 'స్ప్లాష్ స్క్రీన్';
+
+  @override
+  String get retry => 'తిరిగి ప్రయత్నించండి';
+
+  @override
+  String get connectionFailed => 'కనెక్షన్ విఫలమైంది';
+
+  @override
+  String get connectionFailedDetails =>
+      'కనెక్షన్ విఫలమైంది. కనెక్ట్ చేయడానికి రెండు పరికరాలు క్రిప్ట్ ఓపెన్ ‌ తో ఆన్ ‌ లైన్ ‌ లో ఉండాలి.';
+
+  @override
+  String get gallery => 'గ్యాలరీ';
+
+  @override
+  String get alignQrCode => 'QR కోడ్ ‌ ను సమలేఖనం చేయండి';
+
+  @override
+  String get scanFromGallery => 'గ్యాలరీ నుండి స్కాన్ చేయండి';
+
+  @override
+  String get couldNotScanImage => 'ఇమేజ్ ‌ ను స్కాన్ చేయడం సాధ్యం కాలేదు.';
+
+  @override
+  String couldNotShareQrCode(String error) {
+    return 'QR కోడ్ ‌ ను షేర్ చేయడం సాధ్యం కాలేదు: $error';
+  }
+
+  @override
+  String newContact(String username) {
+    return 'కొత్త కాంటాక్ట్: $username';
+  }
+
+  @override
+  String get publicEncryptionKeyMissing =>
+      'మీ పబ్లిక్ ఎన్ ‌ క్రిప్షన్ కీ లేదు.';
+
+  @override
+  String get contactEncryptionKeyMissing =>
+      'కాంటాక్ట్ ఎన్ ‌ క్రిప్షన్ కీ లేదు.';
+
+  @override
+  String get localEncryptionKeyMissing => 'స్థానిక ఎన్ ‌ క్రిప్షన్ కీ లేదు.';
+
+  @override
+  String get noQrCodeFound => 'ఈ చిత్రంలో QR కోడ్ ఏదీ కనుగొనబడలేదు.';
+
+  @override
+  String get shareQrCode => 'QR కోడ్ ‌ ను షేర్ చేయండి';
+
+  @override
   String get welcome => 'స్వాగతం';
 
   @override
@@ -371,6 +482,78 @@ class AppLocalizationsTe extends AppLocalizations {
 
   @override
   String get supportSoloDeveloper => 'స్వతంత్ర డెవలపర్‌కు మద్దతు ఇవ్వండి';
+
+  @override
+  String get supportIntro =>
+      'హే! 👋 నేను CRYPTలో కష్టపడి పనిచేస్తున్న సోలో డెవలపర్‌ని. నా దగ్గర బడ్జెట్ లేదా కార్పొరేట్ ఫండింగ్ లేదు. నేను యాప్‌ను మెరుగుపరచడం కోసం మీ నిజాయితీ మరియు సానుభూతిపై పూర్తిగా ఆధారపడతాను మరియు ఎప్పటికీ ప్రకటనలు ఉండవని హామీ ఇస్తున్నాను.';
+
+  @override
+  String get chooseSupportAmount =>
+      'మీ ధరను ఎంచుకోండి (సపోర్ట్ చేయడానికి స్లయిడ్):';
+
+  @override
+  String get poorGang => 'నేను పేద ముఠా 🥀✌️';
+
+  @override
+  String get launchOfferMinimum => 'కనిష్ట ఆఫర్‌ను ప్రారంభించండి 🚀';
+
+  @override
+  String get buyMeCoffee => 'నాకు ఒక కాఫీ కొనండి ☕';
+
+  @override
+  String get superSupporter => 'సూపర్ సపోర్టర్ 🔥';
+
+  @override
+  String get feature => 'ఫీచర్';
+
+  @override
+  String get freeTier => 'ఉచిత టైర్';
+
+  @override
+  String get premium => 'ప్రీమియం';
+
+  @override
+  String get chatLocks => 'చాట్ లాక్‌లు';
+
+  @override
+  String get maxOneRoom => 'గరిష్టంగా 1 గది';
+
+  @override
+  String get unlimited => 'అపరిమిత';
+
+  @override
+  String get biometrics => 'బయోమెట్రిక్స్';
+
+  @override
+  String get disabled => '🚫 వికలాంగుడు';
+
+  @override
+  String supportWithSats(String amount) {
+    return '$amount సాట్‌లతో (ఫీనిక్స్) మద్దతు';
+  }
+
+  @override
+  String get boltOffer => '⚡ BOLT12 చెల్లింపు ఆఫర్ • కాపీ చేయడానికి నొక్కండి';
+
+  @override
+  String get boltOfferCopied => 'BOLT12 చెల్లింపు ఆఫర్ కాపీ చేయబడింది';
+
+  @override
+  String get tapToCopyBoltOffer =>
+      'BOLT12 చెల్లింపు ఆఫర్‌ను కాపీ చేయడానికి నొక్కండి';
+
+  @override
+  String get simpleInstructionsToUnlock =>
+      '📬 అన్‌లాక్ చేయడానికి సాధారణ సూచనలు:';
+
+  @override
+  String unlockInstructions(String username) {
+    return '1. ఆండ్రాయిడ్‌లో ఫీనిక్స్ వాలెట్‌ని ఉపయోగించి చెల్లించండి (అన్‌లాక్ చేయడానికి కనీసం 7,500 - మరిన్ని ఎల్లప్పుడూ ప్రశంసించబడతాయి).\n2. మీ విజయవంతమైన లావాదేవీ నిర్ధారణ స్క్రీన్ స్క్రీన్ షాట్ తీసుకోండి.\n3. ఆ స్క్రీన్‌షాట్‌ని jounaidnadirmed@gmail.comకి ఇమెయిల్ చేయండి మరియు మీ ప్రత్యేకమైన ఖాతా వినియోగదారు పేరుని నాకు చెప్పండి: \'$username\' కాబట్టి నాకు ఎవరు చెల్లించారో నాకు తెలుసు.\n4. ఈ పరికరంలో మీ అభ్యర్థనను సేవ్ చేయడానికి దిగువ పెట్టెలో ఏదైనా టైప్ చేయండి:';
+  }
+
+  @override
+  String get supportRequestHint =>
+      'మీ పేరు లేదా లావాదేవీ సమాచారాన్ని ఇక్కడ టైప్ చేయండి...';
 
   @override
   String get maybeLater => 'బహుశా తర్వాత';

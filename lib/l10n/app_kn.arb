@@ -1,253 +1,301 @@
 {
-  "@@locale": "kn",
-
-  "appName": "CRYPT",
-  "welcome": "ಸ್ವಾಗತ",
-  "login": "ಲಾಗ್ ಇನ್",
-  "signup": "ಸೈನ್ ಅಪ್",
-  "settings": "ಸೆಟ್ಟಿಂಗ್‌ಗಳು",
-  "chats": "ಚಾಟ್‌ಗಳು",
-  "typeMessage": "ಸಂದೇಶವನ್ನು ಟೈಪ್ ಮಾಡಿ...",
-  "send": "ಕಳುಹಿಸಿ",
-
-  "p2p": "P2P",
-  "connecting": "ಸಂಪರ್ಕಿಸಲಾಗುತ್ತಿದೆ...",
-  "connectingP2p": "P2P ಗೆ ಸಂಪರ್ಕಿಸಲಾಗುತ್ತಿದೆ...",
-  "p2pConnectionNotReady": "P2P ಸಿದ್ಧವಾಗಿಲ್ಲ.",
-
-  "searchLanguage": "ಭಾಷೆಯನ್ನು ಹುಡುಕಿ...",
-  "language": "ಭಾಷೆ",
-
-  "forceEscapeSignOutTitle": "ಬಲವಂತವಾಗಿ ಸೈನ್ ಔಟ್ ಮಾಡಬೇಕೆ?",
-  "forceEscapeSignOutContent": "ಎಚ್ಚರಿಕೆ: ಎಲ್ಲಾ ಸಾಧನದ ಡೇಟಾವನ್ನು ಅಳಿಸಲಾಗುತ್ತದೆ.",
-  "cancel": "ರದ್ದುಮಾಡಿ",
-  "wipeDevice": "ಸಾಧನವನ್ನು ಅಳಿಸಿ",
-
-  "accountDestructionAlertTitle": "ಖಾತೆ ಅಳಿಸುವಿಕೆ",
-  "accountDestructionWarning": "ಎಚ್ಚರಿಕೆ: ಸಾಧನದ ಡೇಟಾ ಮತ್ತು ದೂರಸ್ಥ ಸಂದೇಶಗಳನ್ನು ಅಳಿಸಲಾಗುತ್ತದೆ.",
-  "accountDestructionCriticalNotice": "ನಿರ್ಣಾಯಕ: ತಪ್ಪಾದ ಕೋಡ್‌ಗಳು ಸಿಸ್ಟಮ್ ಅನ್ನು ಲಾಕ್ ಮಾಡುತ್ತವೆ. ನಿಮ್ಮ ಖಾತೆಯ ಪಾಸ್‌ವರ್ಡ್ ಅಥವಾ ತುರ್ತು ನಿರ್ಗಮನವನ್ನು ಬಳಸಿ.",
-
-  "verificationSecurityKey": "ಭದ್ರತಾ ಕೀ: {code}",
-  "@verificationSecurityKey": {
-    "placeholders": {
-      "code": {
-        "type": "String"
-      }
+    "@@locale": "kn",
+    "appName": "CRYPT",
+    "welcome": "ಸ್ವಾಗತ",
+    "login": "ಲಾಗ್ ಇನ್",
+    "signup": "ಸೈನ್ ಅಪ್",
+    "settings": "ಸೆಟ್ಟಿಂಗ್‌ಗಳು",
+    "chats": "ಚಾಟ್‌ಗಳು",
+    "typeMessage": "ಸಂದೇಶವನ್ನು ಟೈಪ್ ಮಾಡಿ...",
+    "send": "ಕಳುಹಿಸಿ",
+    "p2p": "P2P",
+    "connecting": "ಸಂಪರ್ಕಿಸಲಾಗುತ್ತಿದೆ...",
+    "connectingP2p": "P2P ಗೆ ಸಂಪರ್ಕಿಸಲಾಗುತ್ತಿದೆ...",
+    "p2pConnectionNotReady": "P2P ಸಿದ್ಧವಾಗಿಲ್ಲ.",
+    "searchLanguage": "ಭಾಷೆಯನ್ನು ಹುಡುಕಿ...",
+    "language": "ಭಾಷೆ",
+    "forceEscapeSignOutTitle": "ಬಲವಂತವಾಗಿ ಸೈನ್ ಔಟ್ ಮಾಡಬೇಕೆ?",
+    "forceEscapeSignOutContent": "ಎಚ್ಚರಿಕೆ: ಎಲ್ಲಾ ಸಾಧನದ ಡೇಟಾವನ್ನು ಅಳಿಸಲಾಗುತ್ತದೆ.",
+    "cancel": "ರದ್ದುಮಾಡಿ",
+    "wipeDevice": "ಸಾಧನವನ್ನು ಅಳಿಸಿ",
+    "accountDestructionAlertTitle": "ಖಾತೆ ಅಳಿಸುವಿಕೆ",
+    "accountDestructionWarning": "ಎಚ್ಚರಿಕೆ: ಸಾಧನದ ಡೇಟಾ ಮತ್ತು ದೂರಸ್ಥ ಸಂದೇಶಗಳನ್ನು ಅಳಿಸಲಾಗುತ್ತದೆ.",
+    "accountDestructionCriticalNotice": "ನಿರ್ಣಾಯಕ: ತಪ್ಪಾದ ಕೋಡ್‌ಗಳು ಸಿಸ್ಟಮ್ ಅನ್ನು ಲಾಕ್ ಮಾಡುತ್ತವೆ. ನಿಮ್ಮ ಖಾತೆಯ ಪಾಸ್‌ವರ್ಡ್ ಅಥವಾ ತುರ್ತು ನಿರ್ಗಮನವನ್ನು ಬಳಸಿ.",
+    "verificationSecurityKey": "ಭದ್ರತಾ ಕೀ: {code}",
+    "@verificationSecurityKey": {
+        "placeholders": {
+            "code": {
+                "type": "String"
+            }
+        }
+    },
+    "copyDigitsHint": "5 ಅಂಕೆಗಳನ್ನು ಕಾಪಿ ಮಾಡಿ",
+    "codeMismatchNotice": "ಕೋಡ್ ಹೊಂದಿಕೆಯಾಗುತ್ತಿಲ್ಲ. ನಿಮ್ಮ ಮಾಸ್ಟರ್ ಪಾಸ್‌ವರ್ಡ್ ನಮೂದಿಸಿ ಅಥವಾ 10 ನಿಮಿಷ ಕಾಯಿರಿ.",
+    "accountPasswordLabel": "ಖಾತೆಯ ಪಾಸ್‌ವರ್ಡ್",
+    "deleteEverythingPermanently": "ಎಲ್ಲವನ್ನೂ ಶಾಶ್ವತವಾಗಿ ಅಳಿಸಿ",
+    "escapeAndPurgeDeviceData": "ನಿರ್ಗಮಿಸಿ ಮತ್ತು ಡೇಟಾವನ್ನು ಅಳಿಸಿ",
+    "addContact": "ಸಂಪರ್ಕವನ್ನು ಸೇರಿಸಿ",
+    "addContactConfirmation": "ಈ ಸಂಪರ್ಕವನ್ನು ಸೇರಿಸಬೇಕೆ?",
+    "noMessagesYet": "ಇನ್ನೂ ಯಾವುದೇ ಸಂದೇಶಗಳಿಲ್ಲ",
+    "addNewContact": "ಹೊಸ ಸಂಪರ್ಕ",
+    "usernameLabel": "ಬಳಕೆದಾರ ಹೆಸರು",
+    "nicknameOptionalLabel": "ಅಡ್ಡಹೆಸರು (ಐಚ್ಛಿಕ)",
+    "add": "ಸೇರಿಸಿ",
+    "usernameCannotBeEmpty": "ಬಳಕೆದಾರ ಹೆಸರು ಅಗತ್ಯವಿದೆ",
+    "contactAlreadyExists": "ಸಂಪರ್ಕ '{name}' ಈಗಾಗಲೇ ಅಸ್ತಿತ್ವದಲ್ಲಿದೆ.",
+    "@contactAlreadyExists": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "userNotFoundOnRegistry": "ಬಳಕೆದಾರ '{name}' ಕಂಡುಬಂದಿಲ್ಲ. ಹಂಚಿಕೆಯ ರಹಸ್ಯ ಲಭ್ಯವಿಲ್ಲ.",
+    "@userNotFoundOnRegistry": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "successfullyAddedContact": "{name} ಅನ್ನು ಸೇರಿಸಲಾಗಿದೆ!",
+    "@successfullyAddedContact": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "contacts": "ಸಂಪರ್ಕಗಳು",
+    "noContactsYet": "ಇನ್ನೂ ಯಾವುದೇ ಸಂಪರ್ಕಗಳಿಲ್ಲ",
+    "securityLockoutActive": "ಭದ್ರತಾ ಲಾಕ್‌ಔಟ್",
+    "tooManyAttemptsFrozen": "ತುಂಬಾ ಹೆಚ್ಚು ಪ್ರಯತ್ನಗಳು. {minutes} ನಿಮಿಷಗಳ ಕಾಲ ಲಾಕ್ ಮಾಡಲಾಗಿದೆ.",
+    "@tooManyAttemptsFrozen": {
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "acknowledge": "ದೃಢೀಕರಿಸಿ",
+    "accessBlocked": "ಪ್ರವೇಶವನ್ನು ನಿರ್ಬಂಧಿಸಲಾಗಿದೆ",
+    "accessSuspended": "5 ಬಾರಿ ತಪ್ಪಾಗಿ ಹೊಂದಿಕೆಯಾಗಿದೆ. {minutes} ನಿಮಿಷಗಳ ಕಾಲ ಪ್ರವೇಶವನ್ನು ಸ್ಥಗಿತಗೊಳಿಸಲಾಗಿದೆ.",
+    "@accessSuspended": {
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "ok": "ಸರಿ",
+    "unlockSecureNode": "ಅನ್‌ಲಾಕ್ ಮಾಡಿ: {username}",
+    "@unlockSecureNode": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "verificationMetricsRemaining": "ಉಳಿದಿರುವ ಪ್ರಯತ್ನಗಳು: {count}",
+    "@verificationMetricsRemaining": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "secureKeyPasscode": "ಭದ್ರತಾ ಪಾಸ್‌ಕೋಡ್",
+    "warningHardwareLockout": "ಎಚ್ಚರಿಕೆ: ಮುಂದಿನ ವೈಫಲ್ಯವು ಭದ್ರತೆಯನ್ನು ಲಾಕ್ ಮಾಡುತ್ತದೆ.",
+    "abort": "ರದ್ದುಮಾಡಿ",
+    "authenticate": "ದೃಢೀಕರಿಸಿ",
+    "searchPipelinesHint": "ಸುರಕ್ಷಿತ ಸಂಪರ್ಕಗಳನ್ನು ಹುಡುಕಿ...",
+    "zeroPipelinesDiscovered": "ಯಾವುದೇ ಸಂಪರ್ಕಗಳು ಕಂಡುಬಂದಿಲ್ಲ.",
+    "processingDecryption": "ಡೀಕ್ರಿಪ್ಟ್ ಮಾಡಲಾಗುತ್ತಿದೆ...",
+    "decrypting": "ಡೀಕ್ರಿಪ್ಟ್ ಮಾಡಲಾಗುತ್ತಿದೆ...",
+    "decryptionError": "[ಡೀಕ್ರಿಪ್ಶನ್ ದೋಷ]",
+    "cryptContainerSecure": "CRYPT ಕಂಟೇನರ್ ಸುರಕ್ಷಿತವಾಗಿದೆ",
+    "connectAnAccount": "ಖಾತೆಯನ್ನು ಸಂಪರ್ಕಿಸಿ",
+    "username": "ಬಳಕೆದಾರ ಹೆಸರು",
+    "password": "ಪಾಸ್‌ವರ್ಡ್",
+    "enterMasterSecurityPassword": "ನಿಮ್ಮ ಮಾಸ್ಟರ್ ಪಾಸ್‌ವರ್ಡ್ ನಮೂದಿಸಿ",
+    "pleaseFillAllFields": "ಎಲ್ಲಾ ಕ್ಷೇತ್ರಗಳನ್ನು ಭರ್ತಿ ಮಾಡಿ",
+    "wrongUsernameOrPassword": "ತಪ್ಪಾದ ಬಳಕೆದಾರ ಹೆಸರು ಅಥವಾ ಪಾಸ್‌ವರ್ಡ್",
+    "loginError": "ಲಾಗಿನ್ ದೋಷ: {error}",
+    "@loginError": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "dontHaveAnAccountSignUp": "ಖಾತೆ ಇಲ್ಲವೇ? ಸೈನ್ ಅಪ್ ಮಾಡಿ",
+    "myIdentity": "ನನ್ನ ಗುರುತು",
+    "scanToAddMe": "ನನ್ನನ್ನು ಸೇರಿಸಲು ಸ್ಕ್ಯಾನ್ ಮಾಡಿ",
+    "shareProfileLink": "ಪ್ರೊಫೈಲ್ ಹಂಚಿಕೊಳ್ಳಿ",
+    "addMeOnCrypt": "ನನ್ನನ್ನು CRYPT ನಲ್ಲಿ ಸೇರಿಸಿ!\n\n{link}",
+    "@addMeOnCrypt": {
+        "placeholders": {
+            "link": {
+                "type": "String"
+            }
+        }
+    },
+    "scanQr": "QR ಸ್ಕ್ಯಾನ್ ಮಾಡಿ",
+    "invalidCryptQrFormat": "ಅಮಾನ್ಯ CRYPT QR ಕೋಡ್.",
+    "userScanned": "ಬಳಕೆದಾರರನ್ನು ಸ್ಕ್ಯಾನ್ ಮಾಡಲಾಗಿದೆ!",
+    "addingUser": "{username} ಅನ್ನು ಸೇರಿಸಲಾಗುತ್ತಿದೆ...",
+    "@addingUser": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "defaultUser": "ಬಳಕೆದಾರ",
+    "createAccount": "ಖಾತೆಯನ್ನು ರಚಿಸಿ",
+    "keepPasswordSecureHint": "ಅದನ್ನು ಸುರಕ್ಷಿತವಾಗಿಡಿ. ಪಾಸ್‌ವರ್ಡ್ ಅನ್ನು ಬದಲಾಯಿಸಲಾಗುವುದಿಲ್ಲ.",
+    "pleaseFillInAllFields": "ಎಲ್ಲಾ ಕ್ಷೇತ್ರಗಳನ್ನು ಭರ್ತಿ ಮಾಡಿ",
+    "usernameExceedsLimit": "ಬಳಕೆದಾರ ಹೆಸರು: ಗರಿಷ್ಠ 20 ಅಕ್ಷರಗಳು",
+    "invalidUsernameCharacters": "ಅಕ್ಷರಗಳು, ಸಂಖ್ಯೆಗಳು, _ ಅಥವಾ - ಮಾತ್ರ ಬಳಸಿ.",
+    "weakPasswordNotice": "8+ ಅಕ್ಷರಗಳು, 1 ಸಂಖ್ಯೆ ಮತ್ತು 1 ದೊಡ್ಡ ಅಕ್ಷರವನ್ನು ಬಳಸಿ.",
+    "unableToGenerateUniqueUsername": "ಅನನ್ಯ ಬಳಕೆದಾರ ಹೆಸರನ್ನು ರಚಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.",
+    "accountCreated": "ಖಾತೆ ರಚಿಸಲಾಗಿದೆ",
+    "yourUsernameIs": "ನಿಮ್ಮ ಬಳಕೆದಾರ ಹೆಸರು:\n\n{username}",
+    "@yourUsernameIs": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "usernameTakenAssignedTag": "ಬಳಕೆದಾರ ಹೆಸರು '{chosen}' ಈಗಾಗಲೇ ಬಳಕೆಯಲ್ಲಿದೆ.\n\nನಿಮ್ಮ ಬಳಕೆದಾರ ಹೆಸರು:\n\n{assigned}\n\nಲಾಗಿನ್ ಮಾಡಲು ಇದನ್ನು ಉಳಿಸಿಕೊಳ್ಳಿ.",
+    "@usernameTakenAssignedTag": {
+        "placeholders": {
+            "chosen": {
+                "type": "String"
+            },
+            "assigned": {
+                "type": "String"
+            }
+        }
+    },
+    "continueText": "ಮುಂದುವರಿಸಿ",
+    "failedToGenerateIdentity": "ಗುರುತನ್ನು ರಚಿಸಲು ವಿಫಲವಾಗಿದೆ: {error}",
+    "@failedToGenerateIdentity": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "welcomeToCrypt": "CRYPT ಗೆ ಸ್ವಾಗತ",
+    "signupDescription": "P2P ಕೀಗಳನ್ನು ರಚಿಸಲು ಬಳಕೆದಾರ ಹೆಸರು ಮತ್ತು ಪಾಸ್‌ವರ್ಡ್ ರಚಿಸಿ.",
+    "chooseAUsername": "ಬಳಕೆದಾರ ಹೆಸರನ್ನು ಆಯ್ಕೆಮಾಡಿ",
+    "usernameHelperText": "ನಿಮ್ಮ ನಿಜವಾದ ಹೆಸರನ್ನು ಬಳಸಬೇಡಿ. ಈಗಾಗಲೇ ಬಳಕೆಯಲ್ಲಿದ್ದರೆ ಒಂದು ಪ್ರತ್ಯಯವನ್ನು ಸೇರಿಸಲಾಗುತ್ತದೆ.",
+    "masterAuthenticationRequired": "ಮಾಸ್ಟರ್ ದೃಢೀಕರಣ",
+    "verify": "ಪರಿಶೀಲಿಸಿ",
+    "darkThemeMode": "ಡಾರ್ಕ್ ಥೀಮ್",
+    "secureConversations": "ಸುರಕ್ಷಿತ ಸಂಭಾಷಣೆಗಳು",
+    "noActiveConversations": "ಯಾವುದೇ ಸಕ್ರಿಯ ಚಾಟ್‌ಗಳಿಲ್ಲ. ಲಾಕ್‌ಗಳನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಲು ಒಂದನ್ನು ಪ್ರಾರಂಭಿಸಿ.",
+    "logout": "ಲಾಗ್ ಔಟ್",
+    "wipeDeviceAndEscape": "ಸಾಧನವನ್ನು ಅಳಿಸಿ",
+    "falsePassword": "ತಪ್ಪಾದ ಪಾಸ್‌ವರ್ಡ್",
+    "accessSuspendedTimer": "ಪ್ರವೇಶವನ್ನು ಸ್ಥಗಿತಗೊಳಿಸಲಾಗಿದೆ. {time} ನಂತರ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
+    "@accessSuspendedTimer": {
+        "placeholders": {
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "selectSecureLockMethod": "ಲಾಕ್ ವಿಧಾನವನ್ನು ಆಯ್ಕೆಮಾಡಿ",
+    "selectSecureLockDescription": "ಫಿಂಗರ್‌ಪ್ರಿಂಟ್ ಅಥವಾ 4-ಅಂಕಿಯ PIN ನಿಂದ ಲಾಕ್ ಮಾಡಬೇಕೆ?",
+    "fourDigitPin": "4-ಅಂಕಿಯ PIN",
+    "fingerprintUnlock": "ಫಿಂಗರ್‌ಪ್ರಿಂಟ್ 🔓",
+    "supportSoloDeveloper": "ಡೆವಲಪರ್ ಅನ್ನು ಬೆಂಬಲಿಸಿ",
+    "maybeLater": "ಬಹುಶಃ ನಂತರ",
+    "submitProof": "ಪುರಾವೆಯನ್ನು ಸಲ್ಲಿಸಿ",
+    "couldNotOpenWallet": "ವಾಲೆಟ್ ತೆರೆಯಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ಕೆಳಗಿನ ಕೋಡ್ ಅನ್ನು ಕಾಪಿ ಮಾಡಿ.",
+    "proofSubmittedSnackbar": "ಪುರಾವೆ ಸಲ್ಲಿಸಲಾಗಿದೆ. ಹಸ್ತಚಾಲಿತ ಪರಿಶೀಲನೆ: 24–48 ಗಂಟೆಗಳು (ವಾರಾಂತ್ಯಗಳನ್ನು ಹೊರತುಪಡಿಸಿ).",
+    "termsAndConditions": "ನಿಯಮಗಳು ಮತ್ತು ಷರತ್ತುಗಳು",
+    "settingsTermsAndConditions": "ನಿಯಮಗಳು ಮತ್ತು ಷರತ್ತುಗಳು",
+    "termsIntro": "CRYPT ಎನ್ನುವುದು ಸಂಭಾಷಣೆಗಳಿಗಾಗಿ ಜನರನ್ನು ನೇರವಾಗಿ ಸಂಪರ್ಕಿಸಲು ಆರಂಭಿಕ ಹಂತದ ಅಪ್ಲಿಕೇಶನ್ ಆಗಿದೆ. ಅಪ್ಲಿಕೇಶನ್ ಅನ್ನು ಸೂಕ್ತವಾಗಿ ಬಳಸಲು ಮತ್ತು ನಿಮ್ಮ ಖಾತೆಯ ರುಜುವಾತುಗಳನ್ನು ಸುರಕ್ಷಿತವಾಗಿರಿಸಲು ನೀವು ಜವಾಬ್ದಾರರಾಗಿರುತ್ತೀರಿ.",
+    "termsConnectivity": "ಸಾಧನಗಳನ್ನು ಅನ್ವೇಷಿಸಲು ಮತ್ತು ಸಂಪರ್ಕಗಳನ್ನು ಸ್ಥಾಪಿಸಲು ಸಹಾಯ ಮಾಡಲು CRYPT ಆನ್‌ಲೈನ್ ಸೇವೆಗಳನ್ನು ಬಳಸುತ್ತದೆ. ಅಪ್ಲಿಕೇಶನ್ ಅಭಿವೃದ್ಧಿಗೊಂಡಂತೆ ಲಭ್ಯತೆ ಮತ್ತು ಸಂಪರ್ಕದ ನಡವಳಿಕೆ ಬದಲಾಗಬಹುದು. ನಿಮ್ಮ ಏಕೈಕ ಸಂವಹನ ಸಾಧನವಾಗಿ CRYPT ಅನ್ನು ಅವಲಂಬಿಸಬೇಡಿ.",
+    "termsAgreement": "ಮುಂದುವರಿಸುವ ಮೂಲಕ, ನೀವು ಈ ನಿಯಮಗಳ ಅಡಿಯಲ್ಲಿ CRYPT ಅನ್ನು ಓದಿದ್ದೀರಿ ಮತ್ತು ಸಮ್ಮತಿಸುತ್ತೀರಿ ಎಂದು ನೀವು ಖಚಿತಪಡಿಸುತ್ತೀರಿ.",
+    "agreeTerms": "ನಾನು ನಿಯಮಗಳು ಮತ್ತು ಷರತ್ತುಗಳಿಗೆ ಸಮ್ಮತಿಸುತ್ತೇನೆ",
+    "agreeAndContinue": "ಒಪ್ಪಿಕೊಳ್ಳಿ ಮತ್ತು ಮುಂದುವರಿಸಿ",
+    "beforeYouStart": "ನೀವು ಪ್ರಾರಂಭಿಸುವ ಮೊದಲು",
+    "connected": "ಸಂಪರ್ಕಗೊಂಡಿದೆ",
+    "connectFirstThenChat": "ಮೊದಲು ಸಂಪರ್ಕಿಸಿ, ನಂತರ ಚಾಟ್ ಮಾಡಿ",
+    "betaIntro": "CRYPT ಆರಂಭಿಕ ಬೀಟಾ ಆವೃತ್ತಿಯಾಗಿದೆ, ಆದ್ದರಿಂದ ಭವಿಷ್ಯದ ಆವೃತ್ತಿಗಳಲ್ಲಿ ಅನುಭವವು ಸುಧಾರಿಸಬಹುದು.",
+    "walkieTalkieExplanation": "CRYPT ವಾಕಿ-ಟಾಕಿಯಂತೆ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತದೆ: ಸಂಪರ್ಕವನ್ನು ಸ್ಥಾಪಿಸಲು ಇಬ್ಬರೂ ಆನ್‌ಲೈನ್‌ನಲ್ಲಿರಬೇಕು ಮತ್ತು CRYPT ಅನ್ನು ಒಂದೇ ಸಮಯದಲ್ಲಿ ತೆರೆದಿರಬೇಕು.",
+    "howToUseCrypt": "ಕ್ರಿಪ್ಟ್ ಅನ್ನು ಹೇಗೆ ಬಳಸುವುದು:\n1. ಇತರ ವ್ಯಕ್ತಿಯ CRYPT QR ಕೋಡ್ ಅನ್ನು ಸ್ಕ್ಯಾನ್ ಮಾಡಿ.\n2. ಇಬ್ಬರಿಗೂ CRYPT ಮುಕ್ತ ಮತ್ತು ಆನ್‌ಲೈನ್ ಅಗತ್ಯವಿದೆ.\n3. CRYPT P2P ಸಂಪರ್ಕವನ್ನು ಸ್ಥಾಪಿಸುವಾಗ ನಿರೀಕ್ಷಿಸಿ.\n4. \"ಸಂಪರ್ಕಿಸಲಾಗುತ್ತಿದೆ...\" ಸ್ಥಿತಿ ಕಣ್ಮರೆಯಾಗಲು ಮತ್ತು ಸಂಪರ್ಕವನ್ನು ಸ್ಥಾಪಿಸಲು ನಿರೀಕ್ಷಿಸಿ.\n5. ಸಂಪರ್ಕಗೊಂಡ ನಂತರ, ನೀವು ಚಾಟ್ ಮಾಡಲು ಪ್ರಾರಂಭಿಸಬಹುದು.",
+    "messageStorageExplanation": "ಸಂಪರ್ಕಿತ ಸಾಧನಗಳ ನಡುವೆ ನೇರವಾಗಿ ಪ್ರಯಾಣಿಸಲು ನಿಮ್ಮ ಸಂದೇಶಗಳನ್ನು ವಿನ್ಯಾಸಗೊಳಿಸಲಾಗಿದೆ. CRYPT ನಿಮ್ಮ ಚಾಟ್ ಸಂದೇಶಗಳನ್ನು ನಮ್ಮ ಸರ್ವರ್‌ಗಳಲ್ಲಿ ಸಂಗ್ರಹಿಸುವುದಿಲ್ಲ. ಸರ್ವರ್ ಪ್ರಸ್ತುತ ಸಂಪರ್ಕ ಮತ್ತು ಸಿಗ್ನಲಿಂಗ್‌ಗೆ ಸಹಾಯ ಮಾಡುತ್ತದೆ ಮತ್ತು ಚಾಟ್ ಇತಿಹಾಸವನ್ನು ಸರ್ವರ್‌ನಲ್ಲಿ ಸಂಗ್ರಹಿಸಲಾಗಿಲ್ಲ. ಇತರ ವ್ಯಕ್ತಿಯು ಆಫ್‌ಲೈನ್‌ನಲ್ಲಿದ್ದರೆ, ಪ್ರಸ್ತುತ P2P ಸಂಪರ್ಕವನ್ನು ಸ್ಥಾಪಿಸಲಾಗುವುದಿಲ್ಲ.",
+    "settingsAndSupportExplanation": "ನಿಮ್ಮ CRYPT ಅನುಭವವನ್ನು ಕಸ್ಟಮೈಸ್ ಮಾಡಲು ಸೆಟ್ಟಿಂಗ್‌ಗಳಿಗೆ ಭೇಟಿ ನೀಡಿ. ಹೆಚ್ಚಿನ ಗ್ರಾಹಕೀಕರಣ ಆಯ್ಕೆಗಳು ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿವೆ.\n\nCRYPT ಅನ್ನು ಬೆಂಬಲಿಸಲು ಬಯಸುವಿರಾ? ನೀವು ದೇಣಿಗೆ ಆಯ್ಕೆಯನ್ನು ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಕಾಣಬಹುದು.",
+    "saving": "ಉಳಿಸಲಾಗುತ್ತಿದೆ...",
+    "continueToCrypt": "CRYPT ಗೆ ಮುಂದುವರಿಯಿರಿ",
+    "showSplashScreen": "ಸ್ಪ್ಲಾಶ್ ಪರದೆಯನ್ನು ತೋರಿಸಿ",
+    "retry": "ಮರುಪ್ರಯತ್ನಿಸಿ",
+    "connectionFailed": "ಸಂಪರ್ಕ ವಿಫಲವಾಗಿದೆ",
+    "connectionFailedDetails": "ಸಂಪರ್ಕ ವಿಫಲವಾಗಿದೆ. ಸಂಪರ್ಕಿಸಲು CRYPT ತೆರೆದಿರುವ ಎರಡೂ ಸಾಧನಗಳು ಆನ್‌ಲೈನ್‌ನಲ್ಲಿರಬೇಕು.",
+    "gallery": "ಗ್ಯಾಲರಿ",
+    "alignQrCode": "QR ಕೋಡ್ ಅನ್ನು ಹೊಂದಿಸಿ",
+    "scanFromGallery": "ಗ್ಯಾಲರಿಯಿಂದ ಸ್ಕ್ಯಾನ್ ಮಾಡಿ",
+    "couldNotScanImage": "ಚಿತ್ರವನ್ನು ಸ್ಕ್ಯಾನ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.",
+    "couldNotShareQrCode": "QR ಕೋಡ್ ಅನ್ನು ಹಂಚಿಕೊಳ್ಳಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ: {error}",
+    "newContact": "ಹೊಸ ಸಂಪರ್ಕ: {username}",
+    "publicEncryptionKeyMissing": "ನಿಮ್ಮ ಸಾರ್ವಜನಿಕ ಎನ್‌ಕ್ರಿಪ್ಶನ್ ಕೀ ಕಾಣೆಯಾಗಿದೆ.",
+    "contactEncryptionKeyMissing": "ಸಂಪರ್ಕ ಎನ್‌ಕ್ರಿಪ್ಶನ್ ಕೀ ಕಾಣೆಯಾಗಿದೆ.",
+    "localEncryptionKeyMissing": "ಸ್ಥಳೀಯ ಎನ್‌ಕ್ರಿಪ್ಶನ್ ಕೀ ಕಾಣೆಯಾಗಿದೆ.",
+    "noQrCodeFound": "ಈ ಚಿತ್ರದಲ್ಲಿ ಯಾವುದೇ QR ಕೋಡ್ ಕಂಡುಬಂದಿಲ್ಲ.",
+    "shareQrCode": "QR ಕೋಡ್ ಹಂಚಿಕೊಳ್ಳಿ",
+    "@couldNotShareQrCode": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "@newContact": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "supportIntro": "ಹೇ! 👋 ನಾನು ಒಬ್ಬ ಏಕವ್ಯಕ್ತಿ ಡೆವಲಪರ್ ಆಗಿದ್ದೇನೆ, CRYPT ನಲ್ಲಿ ಶ್ರಮಿಸುತ್ತಿದ್ದೇನೆ. ನನ್ನ ಬಳಿ ಬಜೆಟ್ ಅಥವಾ ಕಾರ್ಪೊರೇಟ್ ಫಂಡಿಂಗ್ ಇಲ್ಲ. ನಾನು ಸಂಪೂರ್ಣವಾಗಿ ನಿಮ್ಮ ಪ್ರಾಮಾಣಿಕತೆ ಮತ್ತು ಪರಾನುಭೂತಿಯ ಮೇಲೆ ಅವಲಂಬಿತವಾಗಿದ್ದೇನೆ ಮತ್ತು ಅಪ್ಲಿಕೇಶನ್ ಅನ್ನು ಸುಧಾರಿಸುವುದನ್ನು ಮುಂದುವರಿಸುತ್ತೇನೆ ಮತ್ತು ಯಾವುದೇ ಜಾಹೀರಾತುಗಳನ್ನು ಶಾಶ್ವತವಾಗಿ ಖಾತರಿಪಡಿಸುವುದಿಲ್ಲ.",
+    "chooseSupportAmount": "ನಿಮ್ಮ ಬೆಲೆಯನ್ನು ಆರಿಸಿ (ಬೆಂಬಲಿಸಲು ಸ್ಲೈಡ್):",
+    "poorGang": "ನಾನು ಬಡ ಗ್ಯಾಂಗ್ 🥀✌️",
+    "launchOfferMinimum": "ಆಫರ್ ಕನಿಷ್ಠ 🚀 ಪ್ರಾರಂಭಿಸಿ",
+    "buyMeCoffee": "ನನಗೆ ಕಾಫಿ ಖರೀದಿಸಿ ☕",
+    "superSupporter": "ಸೂಪರ್ ಸಪೋರ್ಟರ್ 🔥",
+    "feature": "ವೈಶಿಷ್ಟ್ಯ",
+    "freeTier": "ಉಚಿತ ಶ್ರೇಣಿ",
+    "premium": "ಪ್ರೀಮಿಯಂ",
+    "chatLocks": "ಚಾಟ್ ಲಾಕ್‌ಗಳು",
+    "maxOneRoom": "ಗರಿಷ್ಠ 1 ಕೊಠಡಿ",
+    "unlimited": "ಅನಿಯಮಿತ",
+    "biometrics": "ಬಯೋಮೆಟ್ರಿಕ್ಸ್",
+    "disabled": "🚫 ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ",
+    "supportWithSats": "{amount} ಸ್ಯಾಟ್ಸ್‌ನೊಂದಿಗೆ ಬೆಂಬಲ (ಫೀನಿಕ್ಸ್)",
+    "boltOffer": "⚡ BOLT12 ಪಾವತಿ ಆಫರ್ • ನಕಲಿಸಲು ಟ್ಯಾಪ್ ಮಾಡಿ",
+    "boltOfferCopied": "BOLT12 ಪಾವತಿ ಕೊಡುಗೆಯನ್ನು ನಕಲಿಸಲಾಗಿದೆ",
+    "tapToCopyBoltOffer": "BOLT12 ಪಾವತಿ ಕೊಡುಗೆಯನ್ನು ನಕಲಿಸಲು ಟ್ಯಾಪ್ ಮಾಡಿ",
+    "simpleInstructionsToUnlock": "📬 ಅನ್‌ಲಾಕ್ ಮಾಡಲು ಸರಳ ಸೂಚನೆಗಳು:",
+    "unlockInstructions": "1. ಆಂಡ್ರಾಯ್ಡ್‌ನಲ್ಲಿ ಫೀನಿಕ್ಸ್ ವಾಲೆಟ್ ಬಳಸಿ ಪಾವತಿಸಿ (ಅನ್‌ಲಾಕ್ ಮಾಡಲು ಕನಿಷ್ಠ 7,500 - ಹೆಚ್ಚಿನದನ್ನು ಯಾವಾಗಲೂ ಪ್ರಶಂಸಿಸಲಾಗುತ್ತದೆ).\n2. ನಿಮ್ಮ ಯಶಸ್ವಿ ವಹಿವಾಟು ದೃಢೀಕರಣ ಪರದೆಯ ಸ್ಕ್ರೀನ್‌ಶಾಟ್ ತೆಗೆದುಕೊಳ್ಳಿ.\n3. ಆ ಸ್ಕ್ರೀನ್‌ಶಾಟ್ ಅನ್ನು jounaidnadirmed@gmail.com ಗೆ ಇಮೇಲ್ ಮಾಡಿ ಮತ್ತು ನಿಮ್ಮ ಅನನ್ಯ ಖಾತೆಯ ಬಳಕೆದಾರಹೆಸರನ್ನು ನನಗೆ ತಿಳಿಸಿ: '{username}' ಹಾಗಾಗಿ ಯಾರು ಪಾವತಿಸಿದ್ದಾರೆಂದು ನನಗೆ ತಿಳಿದಿದೆ.\n4. ಈ ಸಾಧನದಲ್ಲಿ ನಿಮ್ಮ ವಿನಂತಿಯನ್ನು ಉಳಿಸಲು ಕೆಳಗಿನ ಬಾಕ್ಸ್‌ನಲ್ಲಿ ಏನನ್ನಾದರೂ ಟೈಪ್ ಮಾಡಿ:",
+    "supportRequestHint": "ನಿಮ್ಮ ಹೆಸರು ಅಥವಾ ವಹಿವಾಟಿನ ಮಾಹಿತಿಯನ್ನು ಇಲ್ಲಿ ಟೈಪ್ ಮಾಡಿ...",
+    "@supportWithSats": {
+        "placeholders": {
+            "amount": {
+                "type": "String"
+            }
+        }
+    },
+    "@unlockInstructions": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
     }
-  },
-
-  "copyDigitsHint": "5 ಅಂಕೆಗಳನ್ನು ಕಾಪಿ ಮಾಡಿ",
-  "codeMismatchNotice": "ಕೋಡ್ ಹೊಂದಿಕೆಯಾಗುತ್ತಿಲ್ಲ. ನಿಮ್ಮ ಮಾಸ್ಟರ್ ಪಾಸ್‌ವರ್ಡ್ ನಮೂದಿಸಿ ಅಥವಾ 10 ನಿಮಿಷ ಕಾಯಿರಿ.",
-  "accountPasswordLabel": "ಖಾತೆಯ ಪಾಸ್‌ವರ್ಡ್",
-  "deleteEverythingPermanently": "ಎಲ್ಲವನ್ನೂ ಶಾಶ್ವತವಾಗಿ ಅಳಿಸಿ",
-  "escapeAndPurgeDeviceData": "ನಿರ್ಗಮಿಸಿ ಮತ್ತು ಡೇಟಾವನ್ನು ಅಳಿಸಿ",
-
-  "addContact": "ಸಂಪರ್ಕವನ್ನು ಸೇರಿಸಿ",
-  "addContactConfirmation": "ಈ ಸಂಪರ್ಕವನ್ನು ಸೇರಿಸಬೇಕೆ?",
-  "noMessagesYet": "ಇನ್ನೂ ಯಾವುದೇ ಸಂದೇಶಗಳಿಲ್ಲ",
-  "addNewContact": "ಹೊಸ ಸಂಪರ್ಕ",
-  "usernameLabel": "ಬಳಕೆದಾರ ಹೆಸರು",
-  "nicknameOptionalLabel": "ಅಡ್ಡಹೆಸರು (ಐಚ್ಛಿಕ)",
-  "add": "ಸೇರಿಸಿ",
-  "usernameCannotBeEmpty": "ಬಳಕೆದಾರ ಹೆಸರು ಅಗತ್ಯವಿದೆ",
-
-  "contactAlreadyExists": "ಸಂಪರ್ಕ '{name}' ಈಗಾಗಲೇ ಅಸ್ತಿತ್ವದಲ್ಲಿದೆ.",
-  "@contactAlreadyExists": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "userNotFoundOnRegistry": "ಬಳಕೆದಾರ '{name}' ಕಂಡುಬಂದಿಲ್ಲ. ಹಂಚಿಕೆಯ ರಹಸ್ಯ ಲಭ್ಯವಿಲ್ಲ.",
-  "@userNotFoundOnRegistry": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "successfullyAddedContact": "{name} ಅನ್ನು ಸೇರಿಸಲಾಗಿದೆ!",
-  "@successfullyAddedContact": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "contacts": "ಸಂಪರ್ಕಗಳು",
-  "noContactsYet": "ಇನ್ನೂ ಯಾವುದೇ ಸಂಪರ್ಕಗಳಿಲ್ಲ",
-
-  "securityLockoutActive": "ಭದ್ರತಾ ಲಾಕ್‌ಔಟ್",
-  "tooManyAttemptsFrozen": "ತುಂಬಾ ಹೆಚ್ಚು ಪ್ರಯತ್ನಗಳು. {minutes} ನಿಮಿಷಗಳ ಕಾಲ ಲಾಕ್ ಮಾಡಲಾಗಿದೆ.",
-  "@tooManyAttemptsFrozen": {
-    "placeholders": {
-      "minutes": {
-        "type": "int"
-      }
-    }
-  },
-
-  "acknowledge": "ದೃಢೀಕರಿಸಿ",
-  "accessBlocked": "ಪ್ರವೇಶವನ್ನು ನಿರ್ಬಂಧಿಸಲಾಗಿದೆ",
-  "accessSuspended": "5 ಬಾರಿ ತಪ್ಪಾಗಿ ಹೊಂದಿಕೆಯಾಗಿದೆ. {minutes} ನಿಮಿಷಗಳ ಕಾಲ ಪ್ರವೇಶವನ್ನು ಸ್ಥಗಿತಗೊಳಿಸಲಾಗಿದೆ.",
-  "@accessSuspended": {
-    "placeholders": {
-      "minutes": {
-        "type": "int"
-      }
-    }
-  },
-
-  "ok": "ಸರಿ",
-
-  "unlockSecureNode": "ಅನ್‌ಲಾಕ್ ಮಾಡಿ: {username}",
-  "@unlockSecureNode": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "verificationMetricsRemaining": "ಉಳಿದಿರುವ ಪ್ರಯತ್ನಗಳು: {count}",
-  "@verificationMetricsRemaining": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
-
-  "secureKeyPasscode": "ಭದ್ರತಾ ಪಾಸ್‌ಕೋಡ್",
-  "warningHardwareLockout": "ಎಚ್ಚರಿಕೆ: ಮುಂದಿನ ವೈಫಲ್ಯವು ಭದ್ರತೆಯನ್ನು ಲಾಕ್ ಮಾಡುತ್ತದೆ.",
-  "abort": "ರದ್ದುಮಾಡಿ",
-  "authenticate": "ದೃಢೀಕರಿಸಿ",
-
-  "searchPipelinesHint": "ಸುರಕ್ಷಿತ ಸಂಪರ್ಕಗಳನ್ನು ಹುಡುಕಿ...",
-  "zeroPipelinesDiscovered": "ಯಾವುದೇ ಸಂಪರ್ಕಗಳು ಕಂಡುಬಂದಿಲ್ಲ.",
-  "processingDecryption": "ಡೀಕ್ರಿಪ್ಟ್ ಮಾಡಲಾಗುತ್ತಿದೆ...",
-  "decrypting": "ಡೀಕ್ರಿಪ್ಟ್ ಮಾಡಲಾಗುತ್ತಿದೆ...",
-  "decryptionError": "[ಡೀಕ್ರಿಪ್ಶನ್ ದೋಷ]",
-  "cryptContainerSecure": "CRYPT ಕಂಟೇನರ್ ಸುರಕ್ಷಿತವಾಗಿದೆ",
-
-  "connectAnAccount": "ಖಾತೆಯನ್ನು ಸಂಪರ್ಕಿಸಿ",
-  "username": "ಬಳಕೆದಾರ ಹೆಸರು",
-  "password": "ಪಾಸ್‌ವರ್ಡ್",
-  "enterMasterSecurityPassword": "ನಿಮ್ಮ ಮಾಸ್ಟರ್ ಪಾಸ್‌ವರ್ಡ್ ನಮೂದಿಸಿ",
-  "pleaseFillAllFields": "ಎಲ್ಲಾ ಕ್ಷೇತ್ರಗಳನ್ನು ಭರ್ತಿ ಮಾಡಿ",
-  "wrongUsernameOrPassword": "ತಪ್ಪಾದ ಬಳಕೆದಾರ ಹೆಸರು ಅಥವಾ ಪಾಸ್‌ವರ್ಡ್",
-
-  "loginError": "ಲಾಗಿನ್ ದೋಷ: {error}",
-  "@loginError": {
-    "placeholders": {
-      "error": {
-        "type": "String"
-      }
-    }
-  },
-
-  "dontHaveAnAccountSignUp": "ಖಾತೆ ಇಲ್ಲವೇ? ಸೈನ್ ಅಪ್ ಮಾಡಿ",
-  "myIdentity": "ನನ್ನ ಗುರುತು",
-  "scanToAddMe": "ನನ್ನನ್ನು ಸೇರಿಸಲು ಸ್ಕ್ಯಾನ್ ಮಾಡಿ",
-  "shareProfileLink": "ಪ್ರೊಫೈಲ್ ಹಂಚಿಕೊಳ್ಳಿ",
-  "addMeOnCrypt": "ನನ್ನನ್ನು CRYPT ನಲ್ಲಿ ಸೇರಿಸಿ!\n\n{link}",
-
-  "@addMeOnCrypt": {
-    "placeholders": {
-      "link": {
-        "type": "String"
-      }
-    }
-  },
-
-  "scanQr": "QR ಸ್ಕ್ಯಾನ್ ಮಾಡಿ",
-  "invalidCryptQrFormat": "ಅಮಾನ್ಯ CRYPT QR ಕೋಡ್.",
-  "userScanned": "ಬಳಕೆದಾರರನ್ನು ಸ್ಕ್ಯಾನ್ ಮಾಡಲಾಗಿದೆ!",
-  "addingUser": "{username} ಅನ್ನು ಸೇರಿಸಲಾಗುತ್ತಿದೆ...",
-
-  "@addingUser": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "defaultUser": "ಬಳಕೆದಾರ",
-  "createAccount": "ಖಾತೆಯನ್ನು ರಚಿಸಿ",
-  "keepPasswordSecureHint": "ಅದನ್ನು ಸುರಕ್ಷಿತವಾಗಿಡಿ. ಪಾಸ್‌ವರ್ಡ್ ಅನ್ನು ಬದಲಾಯಿಸಲಾಗುವುದಿಲ್ಲ.",
-  "pleaseFillInAllFields": "ಎಲ್ಲಾ ಕ್ಷೇತ್ರಗಳನ್ನು ಭರ್ತಿ ಮಾಡಿ",
-  "usernameExceedsLimit": "ಬಳಕೆದಾರ ಹೆಸರು: ಗರಿಷ್ಠ 20 ಅಕ್ಷರಗಳು",
-  "invalidUsernameCharacters": "ಅಕ್ಷರಗಳು, ಸಂಖ್ಯೆಗಳು, _ ಅಥವಾ - ಮಾತ್ರ ಬಳಸಿ.",
-  "weakPasswordNotice": "8+ ಅಕ್ಷರಗಳು, 1 ಸಂಖ್ಯೆ ಮತ್ತು 1 ದೊಡ್ಡ ಅಕ್ಷರವನ್ನು ಬಳಸಿ.",
-  "unableToGenerateUniqueUsername": "ಅನನ್ಯ ಬಳಕೆದಾರ ಹೆಸರನ್ನು ರಚಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.",
-
-  "accountCreated": "ಖಾತೆ ರಚಿಸಲಾಗಿದೆ",
-  "yourUsernameIs": "ನಿಮ್ಮ ಬಳಕೆದಾರ ಹೆಸರು:\n\n{username}",
-  "@yourUsernameIs": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "usernameTakenAssignedTag": "ಬಳಕೆದಾರ ಹೆಸರು '{chosen}' ಈಗಾಗಲೇ ಬಳಕೆಯಲ್ಲಿದೆ.\n\nನಿಮ್ಮ ಬಳಕೆದಾರ ಹೆಸರು:\n\n{assigned}\n\nಲಾಗಿನ್ ಮಾಡಲು ಇದನ್ನು ಉಳಿಸಿಕೊಳ್ಳಿ.",
-  "@usernameTakenAssignedTag": {
-    "placeholders": {
-      "chosen": {
-        "type": "String"
-      },
-      "assigned": {
-        "type": "String"
-      }
-    }
-  },
-
-  "continueText": "ಮುಂದುವರಿಸಿ",
-
-  "failedToGenerateIdentity": "ಗುರುತನ್ನು ರಚಿಸಲು ವಿಫಲವಾಗಿದೆ: {error}",
-  "@failedToGenerateIdentity": {
-    "placeholders": {
-      "error": {
-        "type": "String"
-      }
-    }
-  },
-
-  "welcomeToCrypt": "CRYPT ಗೆ ಸ್ವಾಗತ",
-  "signupDescription": "P2P ಕೀಗಳನ್ನು ರಚಿಸಲು ಬಳಕೆದಾರ ಹೆಸರು ಮತ್ತು ಪಾಸ್‌ವರ್ಡ್ ರಚಿಸಿ.",
-  "chooseAUsername": "ಬಳಕೆದಾರ ಹೆಸರನ್ನು ಆಯ್ಕೆಮಾಡಿ",
-  "usernameHelperText": "ನಿಮ್ಮ ನಿಜವಾದ ಹೆಸರನ್ನು ಬಳಸಬೇಡಿ. ಈಗಾಗಲೇ ಬಳಕೆಯಲ್ಲಿದ್ದರೆ ಒಂದು ಪ್ರತ್ಯಯವನ್ನು ಸೇರಿಸಲಾಗುತ್ತದೆ.",
-  "masterAuthenticationRequired": "ಮಾಸ್ಟರ್ ದೃಢೀಕರಣ",
-  "verify": "ಪರಿಶೀಲಿಸಿ",
-  "darkThemeMode": "ಡಾರ್ಕ್ ಥೀಮ್",
-  "secureConversations": "ಸುರಕ್ಷಿತ ಸಂಭಾಷಣೆಗಳು",
-  "noActiveConversations": "ಯಾವುದೇ ಸಕ್ರಿಯ ಚಾಟ್‌ಗಳಿಲ್ಲ. ಲಾಕ್‌ಗಳನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಲು ಒಂದನ್ನು ಪ್ರಾರಂಭಿಸಿ.",
-  "logout": "ಲಾಗ್ ಔಟ್",
-  "wipeDeviceAndEscape": "ಸಾಧನವನ್ನು ಅಳಿಸಿ",
-  "falsePassword": "ತಪ್ಪಾದ ಪಾಸ್‌ವರ್ಡ್",
-
-  "accessSuspendedTimer": "ಪ್ರವೇಶವನ್ನು ಸ್ಥಗಿತಗೊಳಿಸಲಾಗಿದೆ. {time} ನಂತರ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
-  "@accessSuspendedTimer": {
-    "placeholders": {
-      "time": {
-        "type": "String"
-      }
-    }
-  },
-
-  "selectSecureLockMethod": "ಲಾಕ್ ವಿಧಾನವನ್ನು ಆಯ್ಕೆಮಾಡಿ",
-  "selectSecureLockDescription": "ಫಿಂಗರ್‌ಪ್ರಿಂಟ್ ಅಥವಾ 4-ಅಂಕಿಯ PIN ನಿಂದ ಲಾಕ್ ಮಾಡಬೇಕೆ?",
-  "fourDigitPin": "4-ಅಂಕಿಯ PIN",
-  "fingerprintUnlock": "ಫಿಂಗರ್‌ಪ್ರಿಂಟ್ 🔓",
-  "supportSoloDeveloper": "ಡೆವಲಪರ್ ಅನ್ನು ಬೆಂಬಲಿಸಿ",
-  "maybeLater": "ಬಹುಶಃ ನಂತರ",
-  "submitProof": "ಪುರಾವೆಯನ್ನು ಸಲ್ಲಿಸಿ",
-  "couldNotOpenWallet": "ವಾಲೆಟ್ ತೆರೆಯಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ಕೆಳಗಿನ ಕೋಡ್ ಅನ್ನು ಕಾಪಿ ಮಾಡಿ.",
-  "proofSubmittedSnackbar": "ಪುರಾವೆ ಸಲ್ಲಿಸಲಾಗಿದೆ. ಹಸ್ತಚಾಲಿತ ಪರಿಶೀಲನೆ: 24–48 ಗಂಟೆಗಳು (ವಾರಾಂತ್ಯಗಳನ್ನು ಹೊರತುಪಡಿಸಿ)."
 }

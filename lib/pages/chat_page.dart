@@ -97,6 +97,7 @@ class _ChatPageState extends State<ChatPage> {
   bool _isPendingRetryRunning = false;
 
   bool _isConnectionAttemptRunning = false;
+  bool _hasConnectedOnce = false;
 
   static const int _pageSize = 20;
 
@@ -418,6 +419,9 @@ class _ChatPageState extends State<ChatPage> {
 
     _isConnectionAttemptRunning = true;
 
+    await _resetConnectionResources();
+    _hasConnectedOnce = false;
+
     if (mounted && !_disposed) {
       setState(() {
         _isConnecting = true;
@@ -451,7 +455,7 @@ class _ChatPageState extends State<ChatPage> {
       _webrtc.onConnectionFailed = () {
         debugPrint("=== ChatPage: WebRTC connection failed ===");
 
-        _markConnectionFailed();
+        _markConnectionFailed(force: true);
       };
 
       if (!mounted || _disposed) return;
@@ -474,6 +478,7 @@ class _ChatPageState extends State<ChatPage> {
 
           if (state == RTCDataChannelState.RTCDataChannelOpen) {
             _connectionFailed = false;
+            _hasConnectedOnce = true;
           }
         });
 
@@ -506,6 +511,10 @@ class _ChatPageState extends State<ChatPage> {
 
           // Immediately retry instead of waiting 5 seconds.
           unawaited(_retryPendingMessages());
+        } else if (_hasConnectedOnce &&
+            (state == RTCDataChannelState.RTCDataChannelClosed ||
+                state == RTCDataChannelState.RTCDataChannelClosing)) {
+          unawaited(_handleConnectionDrop());
         }
       };
 
@@ -567,7 +576,7 @@ class _ChatPageState extends State<ChatPage> {
         "$e\n$stack",
       );
 
-      _markConnectionFailed();
+      _markConnectionFailed(force: true);
     } finally {
       _isConnectionAttemptRunning = false;
     }
@@ -735,8 +744,8 @@ class _ChatPageState extends State<ChatPage> {
     _connectionTimeoutTimer = Timer(_connectionTimeout, _markConnectionFailed);
   }
 
-  void _markConnectionFailed() {
-    if (_disposed || !mounted || _isP2PActive) return;
+  void _markConnectionFailed({bool force = false}) {
+    if (_disposed || !mounted || (!force && _isP2PActive)) return;
 
     _connectionTimeoutTimer?.cancel();
     _connectionTimeoutTimer = null;
@@ -754,6 +763,42 @@ class _ChatPageState extends State<ChatPage> {
     _connectionTimeoutTimer = null;
 
     unawaited(_connect());
+  }
+
+  Future<void> _resetConnectionResources() async {
+    _connectionTimeoutTimer?.cancel();
+    _connectionTimeoutTimer = null;
+
+    await _signalingSubscription?.cancel();
+    _signalingSubscription = null;
+
+    _webrtc.onMessage = null;
+    _webrtc.onIceCandidate = null;
+    _webrtc.onDataChannelState = null;
+    _webrtc.onConnectionFailed = null;
+
+    await _webrtc.dispose();
+
+    if (!mounted || _disposed) return;
+
+    setState(() {
+      _channelState = RTCDataChannelState.RTCDataChannelClosed;
+      _isConnecting = true;
+      _connectionFailed = false;
+    });
+  }
+
+  Future<void> _handleConnectionDrop() async {
+    if (_disposed || !mounted) return;
+
+    _webrtc.onMessage = null;
+    _webrtc.onIceCandidate = null;
+    _webrtc.onDataChannelState = null;
+    _webrtc.onConnectionFailed = null;
+
+    await _webrtc.dispose();
+
+    _markConnectionFailed(force: true);
   }
 
   // ============================================================
@@ -1082,28 +1127,6 @@ class _ChatPageState extends State<ChatPage> {
       // --------------------------------------------------------
 
       if (incomingPubKeyBase64 != widget.conversation.publicSigningKey) {
-        debugPrint("========== SIGNING KEY MISMATCH ==========");
-
-        debugPrint("Incoming key:");
-
-        debugPrint(incomingPubKeyBase64);
-
-        debugPrint("Trusted conversation key:");
-
-        debugPrint(widget.conversation.publicSigningKey);
-
-        debugPrint(
-          "Incoming length: "
-          "${incomingPubKeyBase64.length}",
-        );
-
-        debugPrint(
-          "Trusted length: "
-          "${widget.conversation.publicSigningKey.length}",
-        );
-
-        debugPrint("===========================================");
-
         return;
       }
 
@@ -1815,10 +1838,11 @@ class _ChatPageState extends State<ChatPage> {
     _isPendingRetryRunning = false;
 
     _webrtc.onMessage = null;
-
     _webrtc.onIceCandidate = null;
     _webrtc.onDataChannelState = null;
     _webrtc.onConnectionFailed = null;
+
+    unawaited(_webrtc.dispose());
 
     /*
      * Remove plaintext from memory.
@@ -1855,7 +1879,11 @@ class _ChatPageState extends State<ChatPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.conversation.username),
+        title: Text(
+          widget.conversation.username,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 12),
@@ -1877,7 +1905,7 @@ class _ChatPageState extends State<ChatPage> {
                     _isP2PActive
                         ? l10n.p2p
                         : _connectionFailed
-                        ? 'Connection failed'
+                        ? l10n.connectionFailed
                         : l10n.connecting,
                     style: const TextStyle(fontSize: 12),
                   ),
@@ -1897,19 +1925,19 @@ class _ChatPageState extends State<ChatPage> {
               width: double.infinity,
               padding: const EdgeInsets.symmetric(vertical: 6),
               color: (_connectionFailed ? Colors.red : Colors.orange)
-                  .withOpacity(0.15),
+                  .withValues(alpha: 0.15),
               child: Center(
                 child: _connectionFailed
                     ? Column(
                         children: [
-                          const Text(
-                            'Connection failed. Both devices must be online with CRYPT open to connect.',
+                          Text(
+                            l10n.connectionFailedDetails,
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 12),
                           ),
                           TextButton(
                             onPressed: _retryConnection,
-                            child: const Text('Retry'),
+                            child: Text(l10n.retry),
                           ),
                         ],
                       )

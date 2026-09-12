@@ -8,26 +8,15 @@ class ConversationService {
   static const String _storageKey = "conversations";
 
   Future<List<Conversation>> getConversations() async {
-    final prefs =
-        await SharedPreferences.getInstance();
+    final prefs = await SharedPreferences.getInstance();
 
-    final data =
-        prefs.getStringList(_storageKey) ?? [];
+    final data = prefs.getStringList(_storageKey) ?? [];
 
     final conversations = data
-        .map(
-          (e) => Conversation.fromJson(
-            jsonDecode(e),
-          ),
-        )
+        .map((e) => Conversation.fromJson(jsonDecode(e)))
         .toList();
 
-    conversations.sort(
-      (a, b) =>
-          b.lastMessageAt.compareTo(
-        a.lastMessageAt,
-      ),
-    );
+    conversations.sort((a, b) => b.lastMessageAt.compareTo(a.lastMessageAt));
 
     return conversations;
   }
@@ -36,107 +25,75 @@ class ConversationService {
   Future<Conversation?> findConversationByPublicKey(
     String publicEncryptionKey,
   ) async {
-    final conversations =
-        await getConversations();
+    final conversations = await getConversations();
 
     try {
       return conversations.firstWhere(
-        (c) =>
-            c.publicEncryptionKey ==
-            publicEncryptionKey,
+        (c) => c.publicEncryptionKey == publicEncryptionKey,
       );
     } catch (_) {
       return null;
     }
   }
 
-  Future<void> saveConversations(
-    List<Conversation> conversations,
-  ) async {
-    final prefs =
-        await SharedPreferences.getInstance();
+  Future<void> saveConversations(List<Conversation> conversations) async {
+    final prefs = await SharedPreferences.getInstance();
 
     await prefs.setStringList(
       _storageKey,
-      conversations
-          .map(
-            (e) => jsonEncode(
-              e.toJson(),
-            ),
-          )
-          .toList(),
+      conversations.map((e) => jsonEncode(e.toJson())).toList(),
     );
   }
 
-  Future<void> addConversation(
-    Conversation conversation,
-  ) async {
-    final conversations =
-        await getConversations();
+  Future<bool> addConversation(Conversation conversation) async {
+    final conversations = await getConversations();
 
     final exists = conversations.any(
-      (c) =>
-          c.publicEncryptionKey ==
-          conversation.publicEncryptionKey,
+      (c) => c.publicEncryptionKey == conversation.publicEncryptionKey,
     );
 
     if (exists) {
-      return;
+      return false;
     }
 
     conversations.add(conversation);
 
-    await saveConversations(
-      conversations,
-    );
+    await saveConversations(conversations);
+
+    return true;
   }
 
-  Future<void> deleteConversation(
-    String conversationId,
-  ) async {
-    final conversations =
-        await getConversations();
+  Future<void> deleteConversation(String conversationId) async {
+    final conversations = await getConversations();
 
-    conversations.removeWhere(
-      (c) => c.id == conversationId,
-    );
+    conversations.removeWhere((c) => c.id == conversationId);
 
-    await saveConversations(
-      conversations,
-    );
+    await saveConversations(conversations);
   }
 
-  Future<void> updateConversation(
-    Conversation conversation,
-  ) async {
-    final conversations =
-        await getConversations();
+  Future<bool> updateConversation(Conversation conversation) async {
+    final conversations = await getConversations();
 
-    final index = conversations.indexWhere(
-      (c) => c.id == conversation.id,
-    );
+    final index = conversations.indexWhere((c) => c.id == conversation.id);
 
     if (index == -1) {
-      return;
+      return false;
     }
 
     conversations[index] = conversation;
 
-    await saveConversations(
-      conversations,
-    );
+    await saveConversations(conversations);
+
+    return true;
   }
 
   Future<void> updateLastMessage({
     required String conversationId,
     required String lastMessage,
   }) async {
-    final conversations =
-        await getConversations();
+    final conversations = await getConversations();
 
-    final index = conversations.indexWhere(
-      (c) => c.id == conversationId,
-    );
+    final index = conversations.indexWhere((c) => c.id == conversationId);
 
     if (index == -1) {
       return;
@@ -144,26 +101,18 @@ class ConversationService {
 
     final current = conversations[index];
 
-    conversations[index] =
-        current.copyWith(
+    conversations[index] = current.copyWith(
       lastMessage: lastMessage,
       lastMessageAt: DateTime.now(),
     );
 
-    await saveConversations(
-      conversations,
-    );
+    await saveConversations(conversations);
   }
 
-  Future<void> increaseUnread(
-    String conversationId,
-  ) async {
-    final conversations =
-        await getConversations();
+  Future<void> increaseUnread(String conversationId) async {
+    final conversations = await getConversations();
 
-    final index = conversations.indexWhere(
-      (c) => c.id == conversationId,
-    );
+    final index = conversations.indexWhere((c) => c.id == conversationId);
 
     if (index == -1) {
       return;
@@ -171,26 +120,17 @@ class ConversationService {
 
     final current = conversations[index];
 
-    conversations[index] =
-        current.copyWith(
-      unreadCount:
-          current.unreadCount + 1,
+    conversations[index] = current.copyWith(
+      unreadCount: current.unreadCount + 1,
     );
 
-    await saveConversations(
-      conversations,
-    );
+    await saveConversations(conversations);
   }
 
-  Future<void> clearUnread(
-    String conversationId,
-  ) async {
-    final conversations =
-        await getConversations();
+  Future<void> clearUnread(String conversationId) async {
+    final conversations = await getConversations();
 
-    final index = conversations.indexWhere(
-      (c) => c.id == conversationId,
-    );
+    final index = conversations.indexWhere((c) => c.id == conversationId);
 
     if (index == -1) {
       return;
@@ -198,13 +138,8 @@ class ConversationService {
 
     final current = conversations[index];
 
-    conversations[index] =
-        current.copyWith(
-      unreadCount: 0,
-    );
+    conversations[index] = current.copyWith(unreadCount: 0);
 
-    await saveConversations(
-      conversations,
-    );
+    await saveConversations(conversations);
   }
 }

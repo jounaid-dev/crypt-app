@@ -12,6 +12,119 @@ class AppLocalizationsSw extends AppLocalizations {
   String get appName => 'CRYPT';
 
   @override
+  String get termsAndConditions => 'Vigezo &amp; Masharti';
+
+  @override
+  String get settingsTermsAndConditions => 'Vigezo &amp; Masharti';
+
+  @override
+  String get termsIntro =>
+      'CRYPT ni programu ya hatua za mwanzo kwa ajili ya kuunganisha watu moja kwa moja kwa ajili ya mazungumzo. Una jukumu la kutumia programu ipasavyo na kuweka vitambulisho vya akaunti yako salama.';
+
+  @override
+  String get termsConnectivity =>
+      'CRYPT hutumia huduma za mtandaoni kusaidia vifaa kugundua na kuanzisha muunganisho. Upatikanaji na mwenendo wa muunganisho unaweza kubadilika kadiri programu inavyoendelea. Tafadhali usitegemee CRYPT kama njia yako pekee ya mawasiliano.';
+
+  @override
+  String get termsAgreement =>
+      'Kwa kuendelea, unathibitisha kwamba umesoma na unakubali kutumia fumbo chini YA masharti haya.';
+
+  @override
+  String get agreeTerms => 'Ninakubali vigezo na masharti';
+
+  @override
+  String get agreeAndContinue => 'Kubali na uendelee';
+
+  @override
+  String get beforeYouStart => 'Vidokezo kabla ya kuanza ';
+
+  @override
+  String get connected => 'Imeunganishwa';
+
+  @override
+  String get connectFirstThenChat => 'Unganisha kwanza, kisha gumzo';
+
+  @override
+  String get betaIntro =>
+      'CRYPT ni toleo la awali la beta, kwa hivyo tukio linaweza kuboreshwa katika matoleo ya baadaye.';
+
+  @override
+  String get walkieTalkieExplanation =>
+      'CRYPT inafanya kazi kama walkie-talkie: watu wote wawili wanahitaji kuwa mtandaoni na kuwa na CRYPT wazi wakati huo huo ili kuanzisha muunganisho.';
+
+  @override
+  String get howToUseCrypt =>
+      'Jinsi ya kutumia FUMBO:\n1. Changanua msimbo wa siri wa QR WA mtu mwingine.\n2. Watu wote wawili wanahitaji FUMBO wazi na mtandaoni.\n3. Subiri wakati FUMBO linaanzisha muunganisho wa P2P.\n4. Subiri hali ya \"Kuunganisha...\" ipotee na muunganisho uanzishwe.\n5. Mara baada ya kuunganishwa, unaweza kuanza kuzungumza.';
+
+  @override
+  String get messageStorageExplanation =>
+      'Ujumbe wako umeundwa kusafiri moja kwa moja kati ya vifaa vilivyounganishwa. CRYPT haihifadhi ujumbe wako wa gumzo kwenye seva zetu. Seva kwa sasa husaidia na muunganisho na ishara, na historia ya gumzo haijahifadhiwa kwenye seva. Ikiwa mtu mwingine yuko nje ya mtandao, muunganisho wa sasa wa P2P hauwezi kuanzishwa.';
+
+  @override
+  String get settingsAndSupportExplanation =>
+      'Tembelea Mipangilio ili kufanya tukio lako la KISIRI liwe mahususi. Machaguo zaidi ya marekebisho yanakuja hivi karibuni.\n\nUngependa kuunga mkono USIMBUAJI? Unaweza kupata chaguo la mchango katika Mipangilio.';
+
+  @override
+  String get saving => 'Akiba';
+
+  @override
+  String get continueToCrypt => 'Endelea kupiga KELELE';
+
+  @override
+  String get showSplashScreen => 'Onyesha skrini ya kupeperusha';
+
+  @override
+  String get retry => 'Jaribu tena';
+
+  @override
+  String get connectionFailed => 'Muunganisho umeshindwa';
+
+  @override
+  String get connectionFailedDetails =>
+      'Muunganisho umeshindikana. Vifaa vyote viwili lazima viwe mtandaoni na FUMBO limefunguliwa ili kuunganishwa.';
+
+  @override
+  String get gallery => 'Kihifadhi';
+
+  @override
+  String get alignQrCode => 'PANGILIA MSIMBO WA QR';
+
+  @override
+  String get scanFromGallery => 'CHANGANUA KUTOKA KWENYE NYUMBA YA SANAA';
+
+  @override
+  String get couldNotScanImage => 'Haikuweza kuchanganua picha.';
+
+  @override
+  String couldNotShareQrCode(String error) {
+    return 'Haikuweza kushiriki msimbo wa QR: $error';
+  }
+
+  @override
+  String newContact(String username) {
+    return 'Anwani mpya: $username';
+  }
+
+  @override
+  String get publicEncryptionKeyMissing =>
+      'Ufunguo wako wa usimbaji fiche wa umma haupo.';
+
+  @override
+  String get contactEncryptionKeyMissing =>
+      'Ufunguo wa usimbaji fiche wa mawasiliano haupo.';
+
+  @override
+  String get localEncryptionKeyMissing =>
+      'Ufunguo wa usimbaji fiche wa eneo husika haupo.';
+
+  @override
+  String get noQrCodeFound =>
+      'Hakuna msimbo wa QR unaopatikana kwenye picha hii.';
+
+  @override
+  String get shareQrCode => 'Shiriki Msimbo wa QR';
+
+  @override
   String get welcome => 'Karibu';
 
   @override
@@ -370,6 +483,75 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get supportSoloDeveloper => 'Msaidie msanidi programu huru';
+
+  @override
+  String get supportIntro =>
+      'Habari! 👋 Mimi ni msanidi wa solo ninafanya kazi kwa bidii kwenye CRYPT. Sina bajeti au ufadhili wa shirika. Ninategemea kabisa uaminifu wako na huruma yako ili kuendelea kuboresha programu na kukuhakikishia HAKUNA MATANGAZO MILELE.';
+
+  @override
+  String get chooseSupportAmount => 'Chagua Bei Yako (Slaidi ili kuauni):';
+
+  @override
+  String get poorGang => 'Mimi ni genge masikini 🥀✌️';
+
+  @override
+  String get launchOfferMinimum => 'Zindua Kima cha Chini cha Ofa 🚀';
+
+  @override
+  String get buyMeCoffee => 'Ninunulie Kahawa ☕';
+
+  @override
+  String get superSupporter => 'Msaidizi Mkuu 🔥';
+
+  @override
+  String get feature => 'Kipengele';
+
+  @override
+  String get freeTier => 'Kiwango cha Bure';
+
+  @override
+  String get premium => 'Ya kipekee';
+
+  @override
+  String get chatLocks => 'Kufuli za Gumzo';
+
+  @override
+  String get maxOneRoom => 'Upeo wa Chumba 1';
+
+  @override
+  String get unlimited => 'Bila kikomo';
+
+  @override
+  String get biometrics => 'Biometriska';
+
+  @override
+  String get disabled => '🚫 Walemavu';
+
+  @override
+  String supportWithSats(String amount) {
+    return 'Usaidizi wa sati $amount (Phoenix)';
+  }
+
+  @override
+  String get boltOffer => '⚡ Ofa ya malipo ya BOLT12 • Gusa ili unakili';
+
+  @override
+  String get boltOfferCopied => 'Ofa ya malipo ya BOLT12 imenakiliwa';
+
+  @override
+  String get tapToCopyBoltOffer => 'Gusa ili unakili toleo la malipo la BOLT12';
+
+  @override
+  String get simpleInstructionsToUnlock => '📬 Maagizo Rahisi ya Kufungua:';
+
+  @override
+  String unlockInstructions(String username) {
+    return '1. Lipa kwa kutumia Phoenix Wallet kwenye Android (7,500 kima cha chini zaidi ili ufungue — mengi zaidi yanathaminiwa kila wakati).\n2. Piga picha ya skrini ya skrini iliyofanikiwa ya uthibitishaji wa muamala.\n3. Tuma barua pepe hiyo picha ya skrini kwa jounaidnadirmed@gmail.com na uniambie jina lako la mtumiaji la kipekee la akaunti: \'$username\' ili nijue ni nani aliyelipa.\n4. Andika chochote katika kisanduku kilicho hapa chini ili kuhifadhi ombi lako kwenye kifaa hiki:';
+  }
+
+  @override
+  String get supportRequestHint =>
+      'Andika jina lako au maelezo ya muamala hapa...';
 
   @override
   String get maybeLater => 'Labda baadaye';

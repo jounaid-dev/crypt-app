@@ -3,6 +3,15 @@ plugins {
     id("dev.flutter.flutter-gradle-plugin")
 }
 
+val releaseKeystoreFile =
+    project.findProperty("CRYPT_KEYSTORE_FILE") as String?
+val releaseKeystorePassword =
+    project.findProperty("CRYPT_KEYSTORE_PASSWORD") as String?
+val releaseKeyAlias =
+    project.findProperty("CRYPT_KEY_ALIAS") as String?
+val releaseKeyPassword =
+    project.findProperty("CRYPT_KEY_PASSWORD") as String?
+
 android {
     namespace = "com.khas.crypt"
     compileSdk = flutter.compileSdkVersion
@@ -21,9 +30,24 @@ android {
         versionName = flutter.versionName
     }
 
+    signingConfigs {
+        create("release") {
+            if (releaseKeystoreFile != null &&
+                releaseKeystorePassword != null &&
+                releaseKeyAlias != null &&
+                releaseKeyPassword != null
+            ) {
+                storeFile = file(releaseKeystoreFile!!)
+                storePassword = releaseKeystorePassword
+                keyAlias = releaseKeyAlias
+                keyPassword = releaseKeyPassword
+            }
+        }
+    }
+
     buildTypes {
         release {
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = signingConfigs.getByName("release")
         }
     }
 }

@@ -1,259 +1,301 @@
 {
-  "@@locale": "pl",
-
-  "appName": "CRYPT",
-  "welcome": "Witamy",
-  "login": "Zaloguj się",
-  "signup": "Zarejestruj się",
-  "settings": "Ustawienia",
-  "chats": "Czaty",
-  "typeMessage": "Napisz wiadomość...",
-  "send": "Wyślij",
-
-  "p2p": "P2P",
-  "connecting": "Łączenie...",
-  "connectingP2p": "Łączenie z P2P...",
-  "p2pConnectionNotReady": "Połączenie P2P nie jest gotowe.",
-
-  "searchLanguage": "Szukaj języka...",
-  "language": "Język",
-
-  "forceEscapeSignOutTitle": "WYMUSIĆ AWARYJNE WYLOGOWANIE?",
-  "forceEscapeSignOutContent": "OSTRZEŻENIE: Wykonanie tej akcji spowoduje całkowite usunięcie wszystkich danych z tego urządzenia.",
-  "cancel": "Anuluj",
-  "wipeDevice": "WYCZYŚĆ URZĄDZENIE",
-
-  "accountDestructionAlertTitle": "ALERT DESTRUKCJI KONTA",
-  "accountDestructionWarning": "OSTRZEŻENIE: Ta akcja usuwa wszystkie Twoje dane z tego urządzenia. Po połączeniu z Internetem spowoduje to uruchomienie zdalnego polecenia samozniszczenia. Każda wiadomość wysłana z Twojego unikalnego identyfikatora użytkownika zostanie trwale wymazana z pamięci wszystkich peerów.",
-  "accountDestructionCriticalNotice": "KRYTYCZNE: Jeśli błędnie wpiszesz te liczby weryfikacyjne, system zostanie zablokowany. Aby go odblokować, musisz podać swoje główne hasło do konta lub użyć awaryjnego luku ewakuacyjnego, który natychmiast całkowicie czyści dane tego urządzenia.",
-
-  "verificationSecurityKey": "Weryfikacyjny klucz bezpieczeństwa: {code}",
-  "@verificationSecurityKey": {
-    "placeholders": {
-      "code": {
-        "type": "String"
-      }
+    "@@locale": "pl",
+    "appName": "CRYPT",
+    "welcome": "Witamy",
+    "login": "Zaloguj się",
+    "signup": "Zarejestruj się",
+    "settings": "Ustawienia",
+    "chats": "Czaty",
+    "typeMessage": "Napisz wiadomość...",
+    "send": "Wyślij",
+    "p2p": "P2P",
+    "connecting": "Łączenie...",
+    "connectingP2p": "Łączenie z P2P...",
+    "p2pConnectionNotReady": "Połączenie P2P nie jest gotowe.",
+    "searchLanguage": "Szukaj języka...",
+    "language": "Język",
+    "forceEscapeSignOutTitle": "WYMUSIĆ AWARYJNE WYLOGOWANIE?",
+    "forceEscapeSignOutContent": "OSTRZEŻENIE: Wykonanie tej akcji spowoduje całkowite usunięcie wszystkich danych z tego urządzenia.",
+    "cancel": "Anuluj",
+    "wipeDevice": "WYCZYŚĆ URZĄDZENIE",
+    "accountDestructionAlertTitle": "ALERT DESTRUKCJI KONTA",
+    "accountDestructionWarning": "OSTRZEŻENIE: Ta akcja usuwa wszystkie Twoje dane z tego urządzenia. Po połączeniu z Internetem spowoduje to uruchomienie zdalnego polecenia samozniszczenia. Każda wiadomość wysłana z Twojego unikalnego identyfikatora użytkownika zostanie trwale wymazana z pamięci wszystkich peerów.",
+    "accountDestructionCriticalNotice": "KRYTYCZNE: Jeśli błędnie wpiszesz te liczby weryfikacyjne, system zostanie zablokowany. Aby go odblokować, musisz podać swoje główne hasło do konta lub użyć awaryjnego luku ewakuacyjnego, który natychmiast całkowicie czyści dane tego urządzenia.",
+    "verificationSecurityKey": "Weryfikacyjny klucz bezpieczeństwa: {code}",
+    "@verificationSecurityKey": {
+        "placeholders": {
+            "code": {
+                "type": "String"
+            }
+        }
+    },
+    "copyDigitsHint": "Skopiuj 5 powyższych cyfr",
+    "codeMismatchNotice": "Niezgodność kodu! Wprowadź hasło główne, aby zastąpić blokadę, lub zaakceptuj 10-minutową blokadę.",
+    "accountPasswordLabel": "Hasło konta",
+    "deleteEverythingPermanently": "USUŃ WSZYSTKO NA STAŁE",
+    "escapeAndPurgeDeviceData": "Ewakuacja i czyszczenie danych urządzenia",
+    "addContact": "Dodaj kontakt",
+    "addContactConfirmation": "Czy chcesz dodać ten kontakt?",
+    "noMessagesYet": "Brak wiadomości",
+    "addNewContact": "Dodaj nowy kontakt",
+    "usernameLabel": "Nazwa użytkownika",
+    "nicknameOptionalLabel": "Pseudonim (Opcjonalnie)",
+    "add": "Dodaj",
+    "usernameCannotBeEmpty": "Nazwa użytkownika nie może być pusta",
+    "contactAlreadyExists": "Kontakt „{name}” znajduje się już w Twojej książce adresowej.",
+    "@contactAlreadyExists": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "userNotFoundOnRegistry": "Użytkownik „{name}” nie został znaleziony w rejestrze sieciowym. Nie można utworzyć wspólnego sekretu.",
+    "@userNotFoundOnRegistry": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "successfullyAddedContact": "Pomyślnie dodano użytkownika {name}!",
+    "@successfullyAddedContact": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "contacts": "Kontakty",
+    "noContactsYet": "Brak kontaktów",
+    "securityLockoutActive": "Blokada bezpieczeństwa aktywna",
+    "tooManyAttemptsFrozen": "Zbyt wiele nieudanych prób. Zablokowano na {minutes} min.",
+    "@tooManyAttemptsFrozen": {
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "acknowledge": "Potwierdź",
+    "accessBlocked": "Dostęp zablokowany",
+    "accessSuspended": "5 błędnych weryfikacji. Dostęp zostaje zawieszony na kolejne {minutes} min.",
+    "@accessSuspended": {
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "ok": "OK",
+    "unlockSecureNode": "Odblokuj bezpieczny węzeł: {username}",
+    "@unlockSecureNode": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "verificationMetricsRemaining": "Pozostałe próby weryfikacji: {count}.",
+    "@verificationMetricsRemaining": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "secureKeyPasscode": "Hasło bezpiecznego klucza",
+    "warningHardwareLockout": "OSTRZEŻENIE: Kolejna niezgodność systemowa uruchomi sprzętową blokadę bezpieczeństwa.",
+    "abort": "Anuluj",
+    "authenticate": "Uwierzytelnij",
+    "searchPipelinesHint": "Zapytanie o aktywne bezpieczne kanały...",
+    "zeroPipelinesDiscovered": "Nie wykryto pasujących kanałów komunikacyjnych.",
+    "processingDecryption": "Przetwarzanie odszyfrowywania...",
+    "decrypting": "Odszyfrowywanie...",
+    "decryptionError": "[Błąd odszyfrowywania]",
+    "cryptContainerSecure": "KONTENER CRYPT BEZPIECZNY",
+    "connectAnAccount": "Połącz konto",
+    "username": "Nazwa użytkownika",
+    "password": "Hasło",
+    "enterMasterSecurityPassword": "Wprowadź swoje główne hasło bezpieczeństwa",
+    "pleaseFillAllFields": "Proszę wypełnić wszystkie pola",
+    "wrongUsernameOrPassword": "Nieprawidłowa nazwa użytkownika lub hasło",
+    "loginError": "Błąd logowania: {error}",
+    "@loginError": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "dontHaveAnAccountSignUp": "Nie masz konta? Zarejestruj się",
+    "myIdentity": "Moja tożsamość",
+    "scanToAddMe": "Zeskanuj, aby mnie dodać",
+    "shareProfileLink": "Udostępnij link do profilu",
+    "addMeOnCrypt": "Dodaj mnie w CRYPT!\n\n{link}",
+    "@addMeOnCrypt": {
+        "placeholders": {
+            "link": {
+                "type": "String"
+            }
+        }
+    },
+    "scanQr": "Skanuj QR",
+    "invalidCryptQrFormat": "Nieprawidłowy format kodu QR CRYPT.",
+    "userScanned": "Użytkownik zeskanowany!",
+    "addingUser": "Dodawanie {username}...",
+    "@addingUser": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "defaultUser": "Użytkownik",
+    "createAccount": "Utwórz konto",
+    "keepPasswordSecureHint": "Zachowaj je w bezpiecznym miejscu. Hasła nie można zmienić.",
+    "pleaseFillInAllFields": "Proszę wypełnić wszystkie pola",
+    "usernameExceedsLimit": "Nazwa użytkownika nie może przekraczać 20 znaków",
+    "invalidUsernameCharacters": "Nazwa użytkownika może zawierać tylko litery, cyfry, podkreślenia i myślniki",
+    "weakPasswordNotice": "Hasło musi mieć co najmniej 8 znaków, zawierać cyfrę i wielką literę",
+    "unableToGenerateUniqueUsername": "Nie można wygenerować unikalnej nazwy użytkownika.",
+    "accountCreated": "Konto zostało utworzone",
+    "yourUsernameIs": "Twoja nazwa użytkownika to:\n\n{username}",
+    "@yourUsernameIs": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "usernameTakenAssignedTag": "Nazwa użytkownika „{chosen}” jest już zajęta.\n\nTwoja przypisana nazwa użytkownika to:\n\n{assigned}\n\nZapamiętaj ją, będzie potrzebna do logowania.",
+    "@usernameTakenAssignedTag": {
+        "placeholders": {
+            "chosen": {
+                "type": "String"
+            },
+            "assigned": {
+                "type": "String"
+            }
+        }
+    },
+    "continueText": "Kontynuuj",
+    "failedToGenerateIdentity": "Nie udało się wygenerować bezpiecznej tożsamości: {error}",
+    "@failedToGenerateIdentity": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "welcomeToCrypt": "Witamy w CRYPT",
+    "signupDescription": "Wprowadź nazwę użytkownika i hasło, aby zainicjować klucze szyfrowania peer-to-peer (P2P).",
+    "chooseAUsername": "Wybierz nazwę użytkownika",
+    "usernameHelperText": "Nie używaj swojego prawdziwego nazwiska. Jeśli nazwa użytkownika jest zajęta, automatycznie dodamy unikalny sufiks.",
+    "masterAuthenticationRequired": "Wymagane uwierzytelnienie główne",
+    "verify": "Weryfikuj",
+    "darkThemeMode": "Tryb ciemnego motywu",
+    "secureConversations": "Bezpieczne rozmowy",
+    "noActiveConversations": "Nie znaleziono aktywnych rozmów. Rozpocznij najpierw rozmowę, aby zastosować niestandardowe blokady bezpieczeństwa.",
+    "logout": "Wyloguj się",
+    "wipeDeviceAndEscape": "WYCZYŚĆ URZĄDZENIE",
+    "falsePassword": "Nieprawidłowe hasło",
+    "accessSuspendedTimer": "Dostęp zawieszony ze względów bezpieczeństwa. Spróbuj ponownie za {time}.",
+    "@accessSuspendedTimer": {
+        "placeholders": {
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "selectSecureLockMethod": "Wybierz metodę bezpiecznej blokady",
+    "selectSecureLockDescription": "Czy chcesz zablokować ten pokój rozmów za pomocą biometrii odcisku palca urządzenia czy standardowego 4-cyfrowego kodu PIN?",
+    "fourDigitPin": "4-cyfrowy PIN",
+    "fingerprintUnlock": "Odcisk palca 🔓",
+    "supportSoloDeveloper": "Wesprzyj niezależnego programistę",
+    "maybeLater": "Może później",
+    "submitProof": "Prześlij dowód",
+    "couldNotOpenWallet": "Nie można automatycznie otworzyć portfela. Skopiuj poniższy kod tekstowy.",
+    "proofSubmittedSnackbar": "Dowód został przesłany! Weryfikacja ręczna trwa 24-48 godzin (z wyłączeniem weekendów). Możesz dalej normalnie korzystać z aplikacji!",
+    "termsAndConditions": "Warunki",
+    "settingsTermsAndConditions": "Warunki",
+    "termsIntro": "CRYPT to aplikacja na wczesnym etapie do bezpośredniego łączenia ludzi w celu prowadzenia rozmów. Ponosisz odpowiedzialność za prawidłowe korzystanie z aplikacji i za bezpieczeństwo danych logowania do konta.",
+    "termsConnectivity": "CRYPT korzysta z usług online, aby pomóc urządzeniom w odkrywaniu i nawiązywaniu połączeń. Dostępność i zachowanie połączeń mogą ulec zmianie w miarę rozwoju aplikacji. Proszę nie polegać na KRYPCIE jako jedynym środku komunikacji.",
+    "termsAgreement": "Kontynuując, potwierdzasz, że przeczytałeś i zgadzasz się na korzystanie z KRYPT zgodnie z niniejszymi warunkami.",
+    "agreeTerms": "Akceptuję zasady i warunki",
+    "agreeAndContinue": "Wyraź zgodę i kontynuuj",
+    "beforeYouStart": "Zanim zaczniesz",
+    "connected": "Połączono",
+    "connectFirstThenChat": "Najpierw połącz się, a następnie porozmawiaj",
+    "betaIntro": "CRYPT to wczesna wersja beta, więc korzystanie z niej może się poprawić w przyszłych wersjach.",
+    "walkieTalkieExplanation": "KRYPTA działa jak krótkofalówka: obie osoby muszą być online i mieć KRYPTĘ otwartą w tym samym czasie, aby nawiązać połączenie.",
+    "howToUseCrypt": "Jak korzystać z KRYPT:\n1. Zeskanuj kod QR KRYPT drugiej osoby.\n2. Obie osoby potrzebują KRYPTY otwartej i online.\n3. Poczekaj, aż KRYPTA nawiąże połączenie P2P.\n4. Poczekaj, aż stan „Łączenie...” zniknie i połączenie zostanie nawiązane.\n5. Po nawiązaniu połączenia możesz rozpocząć rozmowę.",
+    "messageStorageExplanation": "Wiadomości są przeznaczone do przesyłania bezpośrednio między podłączonymi urządzeniami. CRYPT nie przechowuje Twoich wiadomości na czacie na naszych serwerach. Serwer obecnie pomaga w połączeniu i sygnalizacji, a historia czatu nie jest przechowywana na serwerze. Jeśli druga osoba jest offline, nie można nawiązać bieżącego połączenia P2P.",
+    "settingsAndSupportExplanation": "Przejdź do ustawień, aby dostosować KRYPTĘ. Wkrótce pojawi się więcej opcji dostosowywania.\n\nChcesz obsługiwać KRYPTĘ? Opcję darowizny znajdziesz w Ustawieniach.",
+    "saving": "Zapisywanie...",
+    "continueToCrypt": "Przejdź do KRYPTY",
+    "showSplashScreen": "Pokazuj ekran tytułowy.",
+    "retry": "Jeszcze raz",
+    "connectionFailed": "Połączenie nie powiodło się",
+    "connectionFailedDetails": "Połączenie nie powiodło się. Oba urządzenia muszą być online z otwartą KRYPTĄ, aby się połączyć.",
+    "gallery": "Galeria",
+    "alignQrCode": "WYRÓWNAJ KOD QR",
+    "scanFromGallery": "SKANUJ Z GALERII",
+    "couldNotScanImage": "Nie można zeskanować obrazu.",
+    "couldNotShareQrCode": "Nie można udostępnić kodu QR: {error}",
+    "newContact": "Nowy kontakt: {username}",
+    "publicEncryptionKeyMissing": "Brak publicznego klucza szyfrowania.",
+    "contactEncryptionKeyMissing": "Brak klucza szyfrowania kontaktu.",
+    "localEncryptionKeyMissing": "Brak lokalnego klucza szyfrowania.",
+    "noQrCodeFound": "Nie znaleziono kodu QR na tym obrazie.",
+    "shareQrCode": "Udostępnij kod QR",
+    "@couldNotShareQrCode": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "@newContact": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "supportIntro": "Hej! 👋 Jestem samotnym programistą ciężko pracującym nad CRYPT. Nie mam budżetu ani środków finansowych firmy. Polegam całkowicie na Twojej uczciwości i empatii, aby stale ulepszać aplikację i gwarantować BEZ REKLAM NA ZAWSZE.",
+    "chooseSupportAmount": "Wybierz swoją cenę (przesuń do wsparcia):",
+    "poorGang": "Jestem biedną bandą 🥀✌️",
+    "launchOfferMinimum": "Uruchom ofertę minimalną 🚀",
+    "buyMeCoffee": "Kup mi kawę ☕",
+    "superSupporter": "Super Support 🔥",
+    "feature": "Funkcja",
+    "freeTier": "Poziom bezpłatny",
+    "premium": "Premia",
+    "chatLocks": "Blokady czatu",
+    "maxOneRoom": "Maks. 1 pokój",
+    "unlimited": "Nieograniczony",
+    "biometrics": "Biometria",
+    "disabled": "🚫 Niepełnosprawni",
+    "supportWithSats": "Wesprzyj kwotą {amount} sats (Phoenix)",
+    "boltOffer": "⚡ Oferta płatności BOLT12 • Kliknij, aby skopiować",
+    "boltOfferCopied": "Oferta płatności BOLT12 została skopiowana",
+    "tapToCopyBoltOffer": "Kliknij, aby skopiować ofertę płatności BOLT12",
+    "simpleInstructionsToUnlock": "📬 Proste instrukcje odblokowania:",
+    "unlockInstructions": "1. Płać za pomocą portfela Phoenix na Androidzie (minimum 7500 do odblokowania — zawsze mile widziane więcej).\n2. Zrób zrzut ekranu ekranu potwierdzenia udanej transakcji.\n3. Wyślij ten zrzut ekranu e-mailem na adres jounaidnadirmed@gmail.com i podaj unikalną nazwę użytkownika swojego konta: „{username}”, abym wiedział, kto zapłacił.\n4. Wpisz cokolwiek w polu poniżej, aby zapisać żądanie na tym urządzeniu:",
+    "supportRequestHint": "Wpisz tutaj swoje imię i nazwisko lub informacje o transakcji...",
+    "@supportWithSats": {
+        "placeholders": {
+            "amount": {
+                "type": "String"
+            }
+        }
+    },
+    "@unlockInstructions": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
     }
-  },
-
-  "copyDigitsHint": "Skopiuj 5 powyższych cyfr",
-  "codeMismatchNotice": "Niezgodność kodu! Wprowadź hasło główne, aby zastąpić blokadę, lub zaakceptuj 10-minutową blokadę.",
-  "accountPasswordLabel": "Hasło konta",
-  "deleteEverythingPermanently": "USUŃ WSZYSTKO NA STAŁE",
-  "escapeAndPurgeDeviceData": "Ewakuacja i czyszczenie danych urządzenia",
-
-  "addContact": "Dodaj kontakt",
-  "addContactConfirmation": "Czy chcesz dodać ten kontakt?",
-  "noMessagesYet": "Brak wiadomości",
-  "addNewContact": "Dodaj nowy kontakt",
-  "usernameLabel": "Nazwa użytkownika",
-  "nicknameOptionalLabel": "Pseudonim (Opcjonalnie)",
-  "add": "Dodaj",
-  "usernameCannotBeEmpty": "Nazwa użytkownika nie może być pusta",
-
-  "contactAlreadyExists": "Kontakt „{name}” znajduje się już w Twojej książce adresowej.",
-  "@contactAlreadyExists": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "userNotFoundOnRegistry": "Użytkownik „{name}” nie został znaleziony w rejestrze sieciowym. Nie można utworzyć wspólnego sekretu.",
-  "@userNotFoundOnRegistry": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "successfullyAddedContact": "Pomyślnie dodano użytkownika {name}!",
-  "@successfullyAddedContact": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "contacts": "Kontakty",
-  "noContactsYet": "Brak kontaktów",
-
-  "securityLockoutActive": "Blokada bezpieczeństwa aktywna",
-  "tooManyAttemptsFrozen": "Zbyt wiele nieudanych prób. Zablokowano na {minutes} min.",
-  "@tooManyAttemptsFrozen": {
-    "placeholders": {
-      "minutes": {
-        "type": "int"
-      }
-    }
-  },
-
-  "acknowledge": "Potwierdź",
-  "accessBlocked": "Dostęp zablokowany",
-
-  "accessSuspended": "5 błędnych weryfikacji. Dostęp zostaje zawieszony na kolejne {minutes} min.",
-  "@accessSuspended": {
-    "placeholders": {
-      "minutes": {
-        "type": "int"
-      }
-    }
-  },
-
-  "ok": "OK",
-
-  "unlockSecureNode": "Odblokuj bezpieczny węzeł: {username}",
-  "@unlockSecureNode": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "verificationMetricsRemaining": "Pozostałe próby weryfikacji: {count}.",
-  "@verificationMetricsRemaining": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
-
-  "secureKeyPasscode": "Hasło bezpiecznego klucza",
-  "warningHardwareLockout": "OSTRZEŻENIE: Kolejna niezgodność systemowa uruchomi sprzętową blokadę bezpieczeństwa.",
-  "abort": "Anuluj",
-  "authenticate": "Uwierzytelnij",
-
-  "searchPipelinesHint": "Zapytanie o aktywne bezpieczne kanały...",
-  "zeroPipelinesDiscovered": "Nie wykryto pasujących kanałów komunikacyjnych.",
-  "processingDecryption": "Przetwarzanie odszyfrowywania...",
-  "decrypting": "Odszyfrowywanie...",
-  "decryptionError": "[Błąd odszyfrowywania]",
-  "cryptContainerSecure": "KONTENER CRYPT BEZPIECZNY",
-
-  "connectAnAccount": "Połącz konto",
-  "username": "Nazwa użytkownika",
-  "password": "Hasło",
-  "enterMasterSecurityPassword": "Wprowadź swoje główne hasło bezpieczeństwa",
-  "pleaseFillAllFields": "Proszę wypełnić wszystkie pola",
-  "wrongUsernameOrPassword": "Nieprawidłowa nazwa użytkownika lub hasło",
-
-  "loginError": "Błąd logowania: {error}",
-  "@loginError": {
-    "placeholders": {
-      "error": {
-        "type": "String"
-      }
-    }
-  },
-
-  "dontHaveAnAccountSignUp": "Nie masz konta? Zarejestruj się",
-
-  "myIdentity": "Moja tożsamość",
-  "scanToAddMe": "Zeskanuj, aby mnie dodać",
-  "shareProfileLink": "Udostępnij link do profilu",
-
-  "addMeOnCrypt": "Dodaj mnie w CRYPT!\n\n{link}",
-  "@addMeOnCrypt": {
-    "placeholders": {
-      "link": {
-        "type": "String"
-      }
-    }
-  },
-
-  "scanQr": "Skanuj QR",
-  "invalidCryptQrFormat": "Nieprawidłowy format kodu QR CRYPT.",
-  "userScanned": "Użytkownik zeskanowany!",
-
-  "addingUser": "Dodawanie {username}...",
-  "@addingUser": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "defaultUser": "Użytkownik",
-  "createAccount": "Utwórz konto",
-  "keepPasswordSecureHint": "Zachowaj je w bezpiecznym miejscu. Hasła nie można zmienić.",
-  "pleaseFillInAllFields": "Proszę wypełnić wszystkie pola",
-  "usernameExceedsLimit": "Nazwa użytkownika nie może przekraczać 20 znaków",
-  "invalidUsernameCharacters": "Nazwa użytkownika może zawierać tylko litery, cyfry, podkreślenia i myślniki",
-  "weakPasswordNotice": "Hasło musi mieć co najmniej 8 znaków, zawierać cyfrę i wielką literę",
-  "unableToGenerateUniqueUsername": "Nie można wygenerować unikalnej nazwy użytkownika.",
-
-  "accountCreated": "Konto zostało utworzone",
-
-  "yourUsernameIs": "Twoja nazwa użytkownika to:\n\n{username}",
-  "@yourUsernameIs": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "usernameTakenAssignedTag": "Nazwa użytkownika „{chosen}” jest już zajęta.\n\nTwoja przypisana nazwa użytkownika to:\n\n{assigned}\n\nZapamiętaj ją, będzie potrzebna do logowania.",
-  "@usernameTakenAssignedTag": {
-    "placeholders": {
-      "chosen": {
-        "type": "String"
-      },
-      "assigned": {
-        "type": "String"
-      }
-    }
-  },
-
-  "continueText": "Kontynuuj",
-
-  "failedToGenerateIdentity": "Nie udało się wygenerować bezpiecznej tożsamości: {error}",
-  "@failedToGenerateIdentity": {
-    "placeholders": {
-      "error": {
-        "type": "String"
-      }
-    }
-  },
-
-  "welcomeToCrypt": "Witamy w CRYPT",
-  "signupDescription": "Wprowadź nazwę użytkownika i hasło, aby zainicjować klucze szyfrowania peer-to-peer (P2P).",
-  "chooseAUsername": "Wybierz nazwę użytkownika",
-  "usernameHelperText": "Nie używaj swojego prawdziwego nazwiska. Jeśli nazwa użytkownika jest zajęta, automatycznie dodamy unikalny sufiks.",
-
-  "masterAuthenticationRequired": "Wymagane uwierzytelnienie główne",
-  "verify": "Weryfikuj",
-  "darkThemeMode": "Tryb ciemnego motywu",
-  "secureConversations": "Bezpieczne rozmowy",
-  "noActiveConversations": "Nie znaleziono aktywnych rozmów. Rozpocznij najpierw rozmowę, aby zastosować niestandardowe blokady bezpieczeństwa.",
-  "logout": "Wyloguj się",
-  "wipeDeviceAndEscape": "WYCZYŚĆ URZĄDZENIE",
-
-  "falsePassword": "Nieprawidłowe hasło",
-
-  "accessSuspendedTimer": "Dostęp zawieszony ze względów bezpieczeństwa. Spróbuj ponownie za {time}.",
-  "@accessSuspendedTimer": {
-    "placeholders": {
-      "time": {
-        "type": "String"
-      }
-    }
-  },
-
-  "selectSecureLockMethod": "Wybierz metodę bezpiecznej blokady",
-  "selectSecureLockDescription": "Czy chcesz zablokować ten pokój rozmów za pomocą biometrii odcisku palca urządzenia czy standardowego 4-cyfrowego kodu PIN?",
-  "fourDigitPin": "4-cyfrowy PIN",
-  "fingerprintUnlock": "Odcisk palca 🔓",
-
-  "supportSoloDeveloper": "Wesprzyj niezależnego programistę",
-  "maybeLater": "Może później",
-  "submitProof": "Prześlij dowód",
-  "couldNotOpenWallet": "Nie można automatycznie otworzyć portfela. Skopiuj poniższy kod tekstowy.",
-  "proofSubmittedSnackbar": "Dowód został przesłany! Weryfikacja ręczna trwa 24-48 godzin (z wyłączeniem weekendów). Możesz dalej normalnie korzystać z aplikacji!"
 }

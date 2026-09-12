@@ -12,6 +12,118 @@ class AppLocalizationsPt extends AppLocalizations {
   String get appName => 'CRYPT';
 
   @override
+  String get termsAndConditions => 'Termos e Condições';
+
+  @override
+  String get settingsTermsAndConditions => 'Termos e Condições';
+
+  @override
+  String get termsIntro =>
+      'CRYPT é uma aplicação em estágio inicial para conectar pessoas diretamente para conversas. Você é responsável por usar o aplicativo de forma adequada e por manter as credenciais da sua conta seguras.';
+
+  @override
+  String get termsConnectivity =>
+      'A CRYPT usa serviços online para ajudar os dispositivos a descobrir e estabelecer conexões. O comportamento de disponibilidade e conexão pode mudar à medida que o aplicativo se desenvolve. Por favor, não confie na CRIPTA como seu único meio de comunicação.';
+
+  @override
+  String get termsAgreement =>
+      'Ao continuar, você confirma que leu e concorda em usar CRYPT sob estes termos.';
+
+  @override
+  String get agreeTerms => 'Concordo com os termos e condições';
+
+  @override
+  String get agreeAndContinue => 'Aceitar e continuar';
+
+  @override
+  String get beforeYouStart => 'Antes de começar';
+
+  @override
+  String get connected => 'Conectado';
+
+  @override
+  String get connectFirstThenChat => 'Ligue-se primeiro e depois converse';
+
+  @override
+  String get betaIntro =>
+      'CRYPT é uma versão beta inicial, portanto, a experiência pode melhorar em versões futuras.';
+
+  @override
+  String get walkieTalkieExplanation =>
+      'A CRIPTA funciona como um walkie-talkie: ambas as pessoas precisam estar online e ter a CRIPTA aberta ao mesmo tempo para estabelecer a conexão.';
+
+  @override
+  String get howToUseCrypt =>
+      'Como usar a CRIPTA:\n1. Digitalize o código QR da CRIPTA da outra pessoa.\n2. Ambas as pessoas precisam de CRIPTA aberta e online.\n3. Aguarde enquanto a CRYPT estabelece a conexão P2P.\n4. Aguarde até que o estado \"Conectando...\" desapareça e a conexão seja estabelecida.\n5. Uma vez ligado, pode começar a conversar.';
+
+  @override
+  String get messageStorageExplanation =>
+      'As suas mensagens foram concebidas para viajar diretamente entre dispositivos ligados. A CRYPT não armazena as suas mensagens de chat nos nossos servidores. No momento, o servidor ajuda com a conexão e a sinalização, e o histórico de conversas não é armazenado no servidor. Se a outra pessoa estiver offline, a ligação P2P atual não pode ser estabelecida.';
+
+  @override
+  String get settingsAndSupportExplanation =>
+      'Visite Definições para personalizar a sua experiência de CRIPTA. Mais opções de personalização estão por vir em breve.\n\nQuer apoiar a CRYPT? Pode encontrar a opção de donativo em Definições.';
+
+  @override
+  String get saving => 'Salvando...';
+
+  @override
+  String get continueToCrypt => 'Continuar para a CRIPTA';
+
+  @override
+  String get showSplashScreen => 'Mostrar o ecrã inicial';
+
+  @override
+  String get retry => 'Tentar novamente';
+
+  @override
+  String get connectionFailed => 'Falha na ligação';
+
+  @override
+  String get connectionFailedDetails =>
+      'A ligação falhou. Ambos os dispositivos devem estar online com a CRIPTA aberta para se ligarem.';
+
+  @override
+  String get gallery => 'Galeria';
+
+  @override
+  String get alignQrCode => 'ALINHAR CÓDIGO QR';
+
+  @override
+  String get scanFromGallery => 'DIGITALIZAR DA GALERIA';
+
+  @override
+  String get couldNotScanImage => 'Não foi possível digitalizar a imagem.';
+
+  @override
+  String couldNotShareQrCode(String error) {
+    return 'Não foi possível partilhar o código QR: $error';
+  }
+
+  @override
+  String newContact(String username) {
+    return 'Novo contacto: $username';
+  }
+
+  @override
+  String get publicEncryptionKeyMissing =>
+      'A sua chave de encriptação pública está em falta.';
+
+  @override
+  String get contactEncryptionKeyMissing =>
+      'A chave de encriptação de contacto está em falta.';
+
+  @override
+  String get localEncryptionKeyMissing =>
+      'A chave de encriptação local está em falta.';
+
+  @override
+  String get noQrCodeFound => 'Nenhum código QR encontrado nesta imagem.';
+
+  @override
+  String get shareQrCode => 'Partilhar código QR';
+
+  @override
   String get welcome => 'Bem-vindo';
 
   @override
@@ -367,6 +479,78 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get supportSoloDeveloper => 'Apoiar um Desenvolvedor Solo';
+
+  @override
+  String get supportIntro =>
+      'Ei! 👋 Sou um desenvolvedor solo trabalhando duro no CRYPT. Não tenho orçamento nem financiamento corporativo. Confio inteiramente na sua honestidade e empatia para continuar melhorando o aplicativo e garantir SEM ANÚNCIOS PARA SEMPRE.';
+
+  @override
+  String get chooseSupportAmount =>
+      'Escolha o seu preço (deslize para apoiar):';
+
+  @override
+  String get poorGang => 'Eu sou pobre galera 🥀✌️';
+
+  @override
+  String get launchOfferMinimum => 'Oferta Mínima de Lançamento 🚀';
+
+  @override
+  String get buyMeCoffee => 'Compre um café para mim ☕';
+
+  @override
+  String get superSupporter => 'Super Apoiador 🔥';
+
+  @override
+  String get feature => 'Recurso';
+
+  @override
+  String get freeTier => 'Nível gratuito';
+
+  @override
+  String get premium => 'Prêmio';
+
+  @override
+  String get chatLocks => 'Bloqueios de bate-papo';
+
+  @override
+  String get maxOneRoom => 'Máximo de 1 quarto';
+
+  @override
+  String get unlimited => 'Ilimitado';
+
+  @override
+  String get biometrics => 'Biometria';
+
+  @override
+  String get disabled => '🚫 Desativado';
+
+  @override
+  String supportWithSats(String amount) {
+    return 'Suporte com $amount sats (Phoenix)';
+  }
+
+  @override
+  String get boltOffer => '⚡ Oferta de pagamento BOLT12 • Toque para copiar';
+
+  @override
+  String get boltOfferCopied => 'Oferta de pagamento BOLT12 copiada';
+
+  @override
+  String get tapToCopyBoltOffer =>
+      'Toque para copiar a oferta de pagamento BOLT12';
+
+  @override
+  String get simpleInstructionsToUnlock =>
+      '📬 Instruções simples para desbloquear:';
+
+  @override
+  String unlockInstructions(String username) {
+    return '1. Pague usando Phoenix Wallet no Android (mínimo de 7.500 para desbloquear – mais é sempre apreciado).\n2. Faça uma captura de tela da tela de confirmação da transação bem-sucedida.\n3. Envie essa captura de tela por e-mail para jounaidnadirmed@gmail.com e diga-me o nome de usuário exclusivo da sua conta: \'$username\' para que eu saiba quem pagou.\n4. Digite qualquer coisa na caixa abaixo para salvar sua solicitação neste dispositivo:';
+  }
+
+  @override
+  String get supportRequestHint =>
+      'Digite seu nome ou informações da transação aqui...';
 
   @override
   String get maybeLater => 'Talvez Mais Tarde';

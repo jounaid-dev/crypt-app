@@ -1,252 +1,301 @@
 {
-  "@@locale": "ha",
-
-  "appName": "CRYPT",
-  "welcome": "Barka da Zuwa",
-  "login": "Shiga",
-  "signup": "Yi Rajista",
-  "settings": "Saituna",
-  "chats": "Tattaunawa",
-  "typeMessage": "Rubuta saƙo...",
-  "send": "Aika",
-
-  "p2p": "P2P",
-  "connecting": "Ana haɗawa...",
-  "connectingP2p": "Ana haɗawa da P2P...",
-  "p2pConnectionNotReady": "P2P bai shirya ba.",
-
-  "searchLanguage": "Nemi harshe...",
-  "language": "Harshe",
-
-  "forceEscapeSignOutTitle": "TILASTA FITAR GAGGawa?",
-  "forceEscapeSignOutContent": "GARƘADI: Yin hakan zai goge duk wani bayanai gaba ɗaya daga wannan na'ura.",
-  "cancel": "Soke",
-  "wipeDevice": "GOGE NA'URA",
-
-  "accountDestructionAlertTitle": "GARGADI GAME DA RUSHE ASUSU",
-  "accountDestructionWarning": "GARƘADI: Wannan mataki zai goge dukkan bayanan ku daga wannan na'ura. Lokacin da kuke da alaƙa da Intanet, hakan zai haifar da umarnin lalata kai na nesa. Kowane saƙo da aka aika daga keɓantaccen ID na Mai amfani za a goge shi na dindindin daga duk tunanin abokan hulɗa.",
-  "accountDestructionCriticalNotice": "MAHIMMI: Idan kun rubuta waɗannan lambobin tabbatarwa ba daidai ba, tsarin zai kulle. Don buɗe shi, dole ne ku samar da Babban Kalmar Sirri ta Asusun ku, ko amfani da hanyar fita ta gaggawa wacce ke share dukkan bayanan na'urar nan take.",
-
-  "verificationSecurityKey": "Mabuɗin Tsaron Tabbatarwa: {code}",
-  "@verificationSecurityKey": {
-    "placeholders": {
-      "code": {
-        "type": "String"
-      }
+    "@@locale": "ha",
+    "appName": "CRYPT",
+    "welcome": "Barka da Zuwa",
+    "login": "Shiga",
+    "signup": "Yi Rajista",
+    "settings": "Saituna",
+    "chats": "Tattaunawa",
+    "typeMessage": "Rubuta saƙo...",
+    "send": "Aika",
+    "p2p": "P2P",
+    "connecting": "Ana haɗawa...",
+    "connectingP2p": "Ana haɗawa da P2P...",
+    "p2pConnectionNotReady": "P2P bai shirya ba.",
+    "searchLanguage": "Nemi harshe...",
+    "language": "Harshe",
+    "forceEscapeSignOutTitle": "TILASTA FITAR GAGGawa?",
+    "forceEscapeSignOutContent": "GARƘADI: Yin hakan zai goge duk wani bayanai gaba ɗaya daga wannan na'ura.",
+    "cancel": "Soke",
+    "wipeDevice": "GOGE NA'URA",
+    "accountDestructionAlertTitle": "GARGADI GAME DA RUSHE ASUSU",
+    "accountDestructionWarning": "GARƘADI: Wannan mataki zai goge dukkan bayanan ku daga wannan na'ura. Lokacin da kuke da alaƙa da Intanet, hakan zai haifar da umarnin lalata kai na nesa. Kowane saƙo da aka aika daga keɓantaccen ID na Mai amfani za a goge shi na dindindin daga duk tunanin abokan hulɗa.",
+    "accountDestructionCriticalNotice": "MAHIMMI: Idan kun rubuta waɗannan lambobin tabbatarwa ba daidai ba, tsarin zai kulle. Don buɗe shi, dole ne ku samar da Babban Kalmar Sirri ta Asusun ku, ko amfani da hanyar fita ta gaggawa wacce ke share dukkan bayanan na'urar nan take.",
+    "verificationSecurityKey": "Mabuɗin Tsaron Tabbatarwa: {code}",
+    "@verificationSecurityKey": {
+        "placeholders": {
+            "code": {
+                "type": "String"
+            }
+        }
+    },
+    "copyDigitsHint": "Kwafi lambobi 5 na sama",
+    "codeMismatchNotice": "Lambar Ba Ta Dace Ba! Shigar da Babban Kalmar Sirri don soke ko fuskanci Kullewa na Minti 10:",
+    "accountPasswordLabel": "Kalmar Sirri ta Asusun",
+    "deleteEverythingPermanently": "GOGE KOWANE ABU NA DINDINDIN",
+    "escapeAndPurgeDeviceData": "Fita & Share Bayanan Na'ura",
+    "addContact": "Ƙara Lambar Tuntuɓi",
+    "addContactConfirmation": "Shin kuna son ƙara wannan lambar tuntuɓar?",
+    "noMessagesYet": "Babu saƙonni tukunna",
+    "addNewContact": "Ƙara Sabuwar Lamba",
+    "usernameLabel": "Sunan mai amfani",
+    "nicknameOptionalLabel": "Inkiya (Na Zabi)",
+    "add": "Ƙara",
+    "usernameCannotBeEmpty": "Sunan mai amfani ba zai iya kasancewa tupu ba",
+    "contactAlreadyExists": "Lambar tuntuɓar '{name}' tana cikin littafin adireshi na ku riga.",
+    "@contactAlreadyExists": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "userNotFoundOnRegistry": "Ba a sami mai amfani '{name}' a cikin rajistar hanyar sadarwa ba. Ba za a iya samar da asirin raba kaddara ba.",
+    "@userNotFoundOnRegistry": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "successfullyAddedContact": "An yi nasarar ƙara {name}!",
+    "@successfullyAddedContact": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "contacts": "Lambobi",
+    "noContactsYet": "Babu lambobi tukunna",
+    "securityLockoutActive": "Kullewar Tsaro Tana Aiki",
+    "tooManyAttemptsFrozen": "Yawan gwaji mara kyau. An dakatar da ku na tsadin mintuna {minutes}.",
+    "@tooManyAttemptsFrozen": {
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "acknowledge": "Yarda",
+    "accessBlocked": "An Kulle Hanyar Shiga",
+    "accessSuspended": "An sami kuskuren tabbatarwa har sau 5. An dakatar da damar shiga na tsawon mintuna {minutes} masu zuwa.",
+    "@accessSuspended": {
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "ok": "Lafiya",
+    "unlockSecureNode": "Buɗe Kullin Tsaro: {username}",
+    "@unlockSecureNode": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "verificationMetricsRemaining": "Sauran ma'aunin tabbatarwa: Gwaji {count}.",
+    "@verificationMetricsRemaining": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "secureKeyPasscode": "Lambar Sirri ta Mabuɗin Tsaro",
+    "warningHardwareLockout": "GARƘADI: Rashin dacewar tsari na gaba zai haifar da kullewar tsaro ta kayan aiki.",
+    "abort": "Soke",
+    "authenticate": "Tabbatar da Shaidarka",
+    "searchPipelinesHint": "Bincika hanyoyin sadarwa amintattu da ke aiki...",
+    "zeroPipelinesDiscovered": "Babu wasu hanyoyin sadarwa masu dacewa da aka gano.",
+    "processingDecryption": "Ana sarrafa buɗe sirrin...",
+    "decrypting": "Ana buɗe sirrin...",
+    "decryptionError": "[Kuskuren Buɗe Sirrin]",
+    "cryptContainerSecure": "AKWANTIN CRYPT CIKIN TSARO YAKE",
+    "connectAnAccount": "Haɗa Asusun",
+    "username": "Sunan mai amfani",
+    "password": "Kalmar sirri",
+    "enterMasterSecurityPassword": "Shigar da babban kalmar sirri ta tsaro",
+    "pleaseFillAllFields": "Tafadhali cika dukkan wurare",
+    "wrongUsernameOrPassword": "Sunan mai amfani ko kalmar sirri ba daidai ba",
+    "loginError": "Kuskuren shiga: {error}",
+    "@loginError": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "dontHaveAnAccountSignUp": "Ba ku da asusu? Yi rajista",
+    "myIdentity": "Shaidata ta Keɓance",
+    "scanToAddMe": "Bincika QR code don ƙara ni",
+    "shareProfileLink": "Raba Haɗin Bayanan Labari",
+    "addMeOnCrypt": "Ƙara ni a CRYPT!\n\n{link}",
+    "@addMeOnCrypt": {
+        "placeholders": {
+            "link": {
+                "type": "String"
+            }
+        }
+    },
+    "scanQr": "Duba QR",
+    "invalidCryptQrFormat": "Tsarin Lambar QR ta CRYPT ba daidai ba ne.",
+    "userScanned": "An bincika Mai amfani!",
+    "addingUser": "Ana ƙara {username}...",
+    "@addingUser": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "defaultUser": "Mai amfani",
+    "createAccount": "Ƙirƙiri Asusun",
+    "keepPasswordSecureHint": "Kiyaye shi da kyau, ba za a iya canza kalmar sirri daga baya ba",
+    "pleaseFillInAllFields": "Tafadhali cika kowane sashe",
+    "usernameExceedsLimit": "Sunan mai amfani ba zai iya wuce haruffa 20 ba",
+    "invalidUsernameCharacters": "Sunan mai amfani zai iya ƙunsar haruffa, lambobi, layukan ƙasa, da dashi kawai",
+    "weakPasswordNotice": "Dole ne kalmar sirri ta kasance haruffa 8+, haɗa da lamba da babban harafi",
+    "unableToGenerateUniqueUsername": "Ba za a iya samar da sunan mai amfani na musamman ba.",
+    "accountCreated": "An Ƙirƙiri Asusun",
+    "yourUsernameIs": "Sunan mai amfani na ku shine:\n\n{username}",
+    "@yourUsernameIs": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "usernameTakenAssignedTag": "An riga an ɗauki sunan mai amfani '{chosen}'.\n\nSunan mai amfani na ku shine:\n\n{assigned}\n\nTafadhali tuna shi. Kuna buƙatarsa don shiga.",
+    "@usernameTakenAssignedTag": {
+        "placeholders": {
+            "chosen": {
+                "type": "String"
+            },
+            "assigned": {
+                "type": "String"
+            }
+        }
+    },
+    "continueText": "Ci gaba",
+    "failedToGenerateIdentity": "An kasa samar da amintacciyar shaida: {error}",
+    "@failedToGenerateIdentity": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "welcomeToCrypt": "Barka da zuwa CRYPT",
+    "signupDescription": "Shigar da sunan mai amfani da kalmar sirri don fara mabuɗan ɓonye sirrin ku na aboki-da-aboki (P2P).",
+    "chooseAUsername": "Zaɓi sunan mai amfani",
+    "usernameHelperText": "Kada ku yi amfani da ainihin sunanku. Idan an ɗauki sunan mai amfani, za mu ƙara ƙari na musamman ta atomatik.",
+    "masterAuthenticationRequired": "Ana Bukatar Babban Tabbatarwa",
+    "verify": "Tabbatar",
+    "darkThemeMode": "Yanayin Jigo Mai Duhu",
+    "secureConversations": "Tattaunawa Amintattu",
+    "noActiveConversations": "Ba a sami tattaunawa mai aiki ba. Fara tattaunawa tukunna don amfani da keɓaɓɓen kulle tsaro.",
+    "logout": "Fita",
+    "wipeDeviceAndEscape": "GOGE NA'URA & GUDU",
+    "falsePassword": "Kalmar Sirri ta Karya",
+    "accessSuspendedTimer": "An dakatar da damar shiga don kariya ta tsaro. Sake gwadawa bayan {time}.",
+    "@accessSuspendedTimer": {
+        "placeholders": {
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "selectSecureLockMethod": "Zaɓi Hanyar Kulle Amintacciya",
+    "selectSecureLockDescription": "Shin kuna son kulle wannan ɗakin tattaunawa ta amfani da Shaidar Yatsa ta na'ura ko daidaitaccen lambar PIN ta Tarakimu 4?",
+    "fourDigitPin": "PIN na Tarakimu 4",
+    "fingerprintUnlock": "Binciken Yatsa 🔓",
+    "supportSoloDeveloper": "Taimaka wa Mai Haɓaka Shirye-shirye Solo",
+    "maybeLater": "Wataƙila Daga Baya",
+    "submitProof": "Wasilisha Shaidar Tabbatarwa",
+    "couldNotOpenWallet": "An kasa buɗe walat ta atomatik. Tafadhali kwafi muryar lambar rubutu da ke ƙasa a maimakon haka.",
+    "proofSubmittedSnackbar": "An wasilisha shaidar! Bita ta hannu tana ɗaukar sa'o'i 24-48 (banda karshen mako). Kuna iya ci gaba da amfani da aikace-aikacen kamar yadda kuka saba!",
+    "termsAndConditions": "Sharuɗɗa & Sharuɗɗa",
+    "settingsTermsAndConditions": "Sharuɗɗa & Sharuɗɗa",
+    "termsIntro": "CRYPT aikace-aikacen farko ne don haɗa mutane kai tsaye don tattaunawa. Kai ne ke da alhakin amfani da aikace-aikacen yadda ya kamata da kuma kiyaye amincin bayanan asusun ku.",
+    "termsConnectivity": "CRYPT tana amfani da sabis na kan layi don taimakawa na'urori ganowa da kafa haɗin gwiwa. Kasancewa da halayen haɗin kai na iya canzawa yayin da aikace-aikacen ke haɓaka. Da fatan kar a dogara da CRYPT a matsayin hanyar sadarwar ku kawai.",
+    "termsAgreement": "Ta ci gaba, kun tabbatar da cewa kun karanta kuma kun yarda kuyi amfani da CRYPT a ƙarƙashin waɗannan sharuɗɗan.",
+    "agreeTerms": "Na yarda da Sharuɗɗa & Sharuɗɗa",
+    "agreeAndContinue": "Yarda da ci gaba",
+    "beforeYouStart": "Kafin Ka Fara",
+    "connected": "An haɗa",
+    "connectFirstThenChat": "Haɗa farko, sannan hira",
+    "betaIntro": "CRYPT sigar beta ce ta farko, don haka ƙwarewar na iya haɓakawa a sigar gaba.",
+    "walkieTalkieExplanation": "CRYPT tana aiki kamar walkie-talkie: duka mutane biyu suna buƙatar kasancewa akan layi kuma a buɗe CRYPT a lokaci guda don kafa haɗin.",
+    "howToUseCrypt": "Yadda ake amfani da CRYPT:\n1. Duba lambar CRYPT QR na wani.\n2. Duk mutanen biyu suna buƙatar CRYPT a buɗe kuma a kan layi.\n3. Jira yayin da CRYPT ke kafa haɗin P2P.\n4. Jira har sai an kafa haɗin.\n5. Da zarar an haɗa, za ku iya fara hira.",
+    "messageStorageExplanation": "An tsara saƙonninku don tafiya kai tsaye tsakanin na'urorin da aka haɗa. CRYPT ba ya adana saƙonnin taɗi a kan sabar mu. Sabar a halin yanzu tana taimakawa tare da haɗi da sigina, kuma ba a adana tarihin taɗi akan sabar. Idan ɗayan yana layi, ba za a iya kafa haɗin P2P na yanzu ba.",
+    "settingsAndSupportExplanation": "Ziyarci Saituna don keɓance ƙwarewar CRYPT ɗin ku. Ƙarin zaɓuɓɓukan gyare-gyare suna zuwa nan ba da jimawa ba.\n\nKuna son tallafawa CRYPT? Kuna iya nemo zaɓin gudummawa a cikin Saituna.",
+    "saving": "Ana ajiyewa...",
+    "continueToCrypt": "Ci gaba zuwa CRYPT",
+    "showSplashScreen": "Nuna allon fantsama",
+    "retry": "Sake gwadawa",
+    "connectionFailed": "Haɗin ya gaza",
+    "connectionFailedDetails": "Haɗin ya gaza. Duk na'urorin dole ne su kasance kan layi tare da buɗe CRYPT don haɗawa.",
+    "gallery": "Hoton zane",
+    "alignQrCode": "DORA CODE QR",
+    "scanFromGallery": "Duba daga kundin hotuna",
+    "couldNotScanImage": "An kasa duba hoto.",
+    "couldNotShareQrCode": "An kasa raba lambar QR: {error}",
+    "newContact": "Sabuwar lamba: {username}",
+    "publicEncryptionKeyMissing": "Maɓallin ɓoyewar jama'a ya ɓace.",
+    "contactEncryptionKeyMissing": "Maɓallin ɓoyayyen lamba ya ɓace.",
+    "localEncryptionKeyMissing": "Maɓallin ɓoye na gida ya ɓace.",
+    "noQrCodeFound": "Ba a sami lambar QR a wannan hoton ba.",
+    "shareQrCode": "Raba lambar QR",
+    "@couldNotShareQrCode": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "@newContact": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "supportIntro": "Kai! 👋 Ni mai haɓakawa ne kawai wanda ke aiki tuƙuru akan CRYPT. Ba ni da kasafin kuɗi ko kuɗin kamfani. Na dogara gaba ɗaya ga gaskiyar ku da jin daɗin ku don ci gaba da haɓaka app ɗin kuma in ba da garantin BABU ADS HAR ABADA.",
+    "chooseSupportAmount": "Zaɓi Farashin ku (Maɗaukaki don tallafawa):",
+    "poorGang": "Ni talaka ne 🥀✌️",
+    "launchOfferMinimum": "Ƙaddamar da Mafi ƙarancin 🚀",
+    "buyMeCoffee": "Sayi Min Kofi ☕",
+    "superSupporter": "Babban mai tallafi 🔥",
+    "feature": "Siffar",
+    "freeTier": "Matakin Kyauta",
+    "premium": "Na musamman",
+    "chatLocks": "Makullan Taɗi",
+    "maxOneRoom": "Max 1 Daki",
+    "unlimited": "Babu iyaka",
+    "biometrics": "Kwayoyin halitta",
+    "disabled": "🚫 Nakasa",
+    "supportWithSats": "Tallafa da sats {amount} (Phoenix)",
+    "boltOffer": "⚡ tayin biyan BOLT12 • Matsa don kwafi",
+    "boltOfferCopied": "An kwafi tayin biyan kuɗi na BOLT12",
+    "tapToCopyBoltOffer": "Matsa don kwafe tayin biyan kuɗi na BOLT12",
+    "simpleInstructionsToUnlock": "📬 Sauƙaƙan Umarni don Buɗe:",
+    "unlockInstructions": "1. Biya ta amfani da Phoenix Wallet akan Android (ƙananan 7,500 don buɗewa - ƙarin ana godiya koyaushe).\n2. Ɗauki hoton allo na nasarar tabbatar da ciniki.\n3. Email that screenshot zuwa jounaidnadirmed@gmail.com kuma gaya mani sunan mai amfani na asusunka na musamman: '{username}' don sanin wanda ya biya.\n4. Rubuta wani abu a cikin akwatin da ke ƙasa don adana buƙatarku akan wannan na'urar:",
+    "supportRequestHint": "Buga sunan ku ko bayanin ciniki a nan...",
+    "@supportWithSats": {
+        "placeholders": {
+            "amount": {
+                "type": "String"
+            }
+        }
+    },
+    "@unlockInstructions": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
     }
-  },
-
-  "copyDigitsHint": "Kwafi lambobi 5 na sama",
-  "codeMismatchNotice": "Lambar Ba Ta Dace Ba! Shigar da Babban Kalmar Sirri don soke ko fuskanci Kullewa na Minti 10:",
-  "accountPasswordLabel": "Kalmar Sirri ta Asusun",
-  "deleteEverythingPermanently": "GOGE KOWANE ABU NA DINDINDIN",
-  "escapeAndPurgeDeviceData": "Fita & Share Bayanan Na'ura",
-
-  "addContact": "Ƙara Lambar Tuntuɓi",
-  "addContactConfirmation": "Shin kuna son ƙara wannan lambar tuntuɓar?",
-  "noMessagesYet": "Babu saƙonni tukunna",
-  "addNewContact": "Ƙara Sabuwar Lamba",
-  "usernameLabel": "Sunan mai amfani",
-  "nicknameOptionalLabel": "Inkiya (Na Zabi)",
-  "add": "Ƙara",
-  "usernameCannotBeEmpty": "Sunan mai amfani ba zai iya kasancewa tupu ba",
-
-  "contactAlreadyExists": "Lambar tuntuɓar '{name}' tana cikin littafin adireshi na ku riga.",
-  "@contactAlreadyExists": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "userNotFoundOnRegistry": "Ba a sami mai amfani '{name}' a cikin rajistar hanyar sadarwa ba. Ba za a iya samar da asirin raba kaddara ba.",
-  "@userNotFoundOnRegistry": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "successfullyAddedContact": "An yi nasarar ƙara {name}!",
-  "@successfullyAddedContact": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "contacts": "Lambobi",
-  "noContactsYet": "Babu lambobi tukunna",
-
-  "securityLockoutActive": "Kullewar Tsaro Tana Aiki",
-  "tooManyAttemptsFrozen": "Yawan gwaji mara kyau. An dakatar da ku na tsadin mintuna {minutes}.",
-  "@tooManyAttemptsFrozen": {
-    "placeholders": {
-      "minutes": {
-        "type": "int"
-      }
-    }
-  },
-
-  "acknowledge": "Yarda",
-  "accessBlocked": "An Kulle Hanyar Shiga",
-  "accessSuspended": "An sami kuskuren tabbatarwa har sau 5. An dakatar da damar shiga na tsawon mintuna {minutes} masu zuwa.",
-  "@accessSuspended": {
-    "placeholders": {
-      "minutes": {
-        "type": "int"
-      }
-    }
-  },
-
-  "ok": "Lafiya",
-  "unlockSecureNode": "Buɗe Kullin Tsaro: {username}",
-  "@unlockSecureNode": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "verificationMetricsRemaining": "Sauran ma'aunin tabbatarwa: Gwaji {count}.",
-  "@verificationMetricsRemaining": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
-
-  "secureKeyPasscode": "Lambar Sirri ta Mabuɗin Tsaro",
-  "warningHardwareLockout": "GARƘADI: Rashin dacewar tsari na gaba zai haifar da kullewar tsaro ta kayan aiki.",
-  "abort": "Soke",
-  "authenticate": "Tabbatar da Shaidarka",
-
-  "searchPipelinesHint": "Bincika hanyoyin sadarwa amintattu da ke aiki...",
-  "zeroPipelinesDiscovered": "Babu wasu hanyoyin sadarwa masu dacewa da aka gano.",
-  "processingDecryption": "Ana sarrafa buɗe sirrin...",
-  "decrypting": "Ana buɗe sirrin...",
-  "decryptionError": "[Kuskuren Buɗe Sirrin]",
-  "cryptContainerSecure": "AKWANTIN CRYPT CIKIN TSARO YAKE",
-
-  "connectAnAccount": "Haɗa Asusun",
-  "username": "Sunan mai amfani",
-  "password": "Kalmar sirri",
-  "enterMasterSecurityPassword": "Shigar da babban kalmar sirri ta tsaro",
-  "pleaseFillAllFields": "Tafadhali cika dukkan wurare",
-  "wrongUsernameOrPassword": "Sunan mai amfani ko kalmar sirri ba daidai ba",
-
-  "loginError": "Kuskuren shiga: {error}",
-  "@loginError": {
-    "placeholders": {
-      "error": {
-        "type": "String"
-      }
-    }
-  },
-
-  "dontHaveAnAccountSignUp": "Ba ku da asusu? Yi rajista",
-  "myIdentity": "Shaidata ta Keɓance",
-  "scanToAddMe": "Bincika QR code don ƙara ni",
-  "shareProfileLink": "Raba Haɗin Bayanan Labari",
-
-  "addMeOnCrypt": "Ƙara ni a CRYPT!\n\n{link}",
-  "@addMeOnCrypt": {
-    "placeholders": {
-      "link": {
-        "type": "String"
-      }
-    }
-  },
-
-  "scanQr": "Duba QR",
-  "invalidCryptQrFormat": "Tsarin Lambar QR ta CRYPT ba daidai ba ne.",
-  "userScanned": "An bincika Mai amfani!",
-  "addingUser": "Ana ƙara {username}...",
-
-  "@addingUser": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "defaultUser": "Mai amfani",
-  "createAccount": "Ƙirƙiri Asusun",
-  "keepPasswordSecureHint": "Kiyaye shi da kyau, ba za a iya canza kalmar sirri daga baya ba",
-  "pleaseFillInAllFields": "Tafadhali cika kowane sashe",
-  "usernameExceedsLimit": "Sunan mai amfani ba zai iya wuce haruffa 20 ba",
-  "invalidUsernameCharacters": "Sunan mai amfani zai iya ƙunsar haruffa, lambobi, layukan ƙasa, da dashi kawai",
-  "weakPasswordNotice": "Dole ne kalmar sirri ta kasance haruffa 8+, haɗa da lamba da babban harafi",
-  "unableToGenerateUniqueUsername": "Ba za a iya samar da sunan mai amfani na musamman ba.",
-  "accountCreated": "An Ƙirƙiri Asusun",
-
-  "yourUsernameIs": "Sunan mai amfani na ku shine:\n\n{username}",
-  "@yourUsernameIs": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "usernameTakenAssignedTag": "An riga an ɗauki sunan mai amfani '{chosen}'.\n\nSunan mai amfani na ku shine:\n\n{assigned}\n\nTafadhali tuna shi. Kuna buƙatarsa don shiga.",
-  "@usernameTakenAssignedTag": {
-    "placeholders": {
-      "chosen": {
-        "type": "String"
-      },
-      "assigned": {
-        "type": "String"
-      }
-    }
-  },
-
-  "continueText": "Ci gaba",
-
-  "failedToGenerateIdentity": "An kasa samar da amintacciyar shaida: {error}",
-  "@failedToGenerateIdentity": {
-    "placeholders": {
-      "error": {
-        "type": "String"
-      }
-    }
-  },
-
-  "welcomeToCrypt": "Barka da zuwa CRYPT",
-  "signupDescription": "Shigar da sunan mai amfani da kalmar sirri don fara mabuɗan ɓonye sirrin ku na aboki-da-aboki (P2P).",
-  "chooseAUsername": "Zaɓi sunan mai amfani",
-  "usernameHelperText": "Kada ku yi amfani da ainihin sunanku. Idan an ɗauki sunan mai amfani, za mu ƙara ƙari na musamman ta atomatik.",
-  "masterAuthenticationRequired": "Ana Bukatar Babban Tabbatarwa",
-  "verify": "Tabbatar",
-  "darkThemeMode": "Yanayin Jigo Mai Duhu",
-  "secureConversations": "Tattaunawa Amintattu",
-  "noActiveConversations": "Ba a sami tattaunawa mai aiki ba. Fara tattaunawa tukunna don amfani da keɓaɓɓen kulle tsaro.",
-  "logout": "Fita",
-  "wipeDeviceAndEscape": "GOGE NA'URA & GUDU",
-  "falsePassword": "Kalmar Sirri ta Karya",
-
-  "accessSuspendedTimer": "An dakatar da damar shiga don kariya ta tsaro. Sake gwadawa bayan {time}.",
-  "@accessSuspendedTimer": {
-    "placeholders": {
-      "time": {
-        "type": "String"
-      }
-    }
-  },
-
-  "selectSecureLockMethod": "Zaɓi Hanyar Kulle Amintacciya",
-  "selectSecureLockDescription": "Shin kuna son kulle wannan ɗakin tattaunawa ta amfani da Shaidar Yatsa ta na'ura ko daidaitaccen lambar PIN ta Tarakimu 4?",
-  "fourDigitPin": "PIN na Tarakimu 4",
-  "fingerprintUnlock": "Binciken Yatsa 🔓",
-  "supportSoloDeveloper": "Taimaka wa Mai Haɓaka Shirye-shirye Solo",
-  "maybeLater": "Wataƙila Daga Baya",
-  "submitProof": "Wasilisha Shaidar Tabbatarwa",
-  "couldNotOpenWallet": "An kasa buɗe walat ta atomatik. Tafadhali kwafi muryar lambar rubutu da ke ƙasa a maimakon haka.",
-  "proofSubmittedSnackbar": "An wasilisha shaidar! Bita ta hannu tana ɗaukar sa'o'i 24-48 (banda karshen mako). Kuna iya ci gaba da amfani da aikace-aikacen kamar yadda kuka saba!"
 }

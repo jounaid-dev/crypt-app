@@ -1,255 +1,301 @@
 {
-  "@@locale": "ru",
-
-  "appName": "CRYPT",
-  "welcome": "Добро пожаловать",
-  "login": "Войти",
-  "signup": "Зарегистрироваться",
-  "settings": "Настройки",
-  "chats": "Чаты",
-  "typeMessage": "Введите сообщение...",
-  "send": "Отправить",
-  "p2p": "P2P",
-  "connecting": "Подключение...",
-  "connectingP2p": "Подключение к P2P...",
-  "p2pConnectionNotReady": "P2P не готов.",
-  "searchLanguage": "Поиск языка...",
-  "language": "Язык",
-
-  "forceEscapeSignOutTitle": "ПРИНУДИТЕЛЬНЫЙ АВАРИЙНЫЙ ВЫХОД?",
-  "forceEscapeSignOutContent": "ВНИМАНИЕ: Это действие полностью удалит все данные с этого устройства.",
-  "cancel": "Отмена",
-  "wipeDevice": "ОЧИСТИТЬ УСТРОЙСТВО",
-
-  "accountDestructionAlertTitle": "ПРЕДУПРЕЖДЕНИЕ ОБ УДАЛЕНИИ АККАУНТА",
-  "accountDestructionWarning": "ВНИМАНИЕ: Это действие удалит все ваши данные с этого устройства. После подключения к Интернету будет активирована команда удаленного самоуничтожения. Все сообщения, отправленные с вашего уникального ID пользователя, будут навсегда удалены из памяти всех пиров.",
-
-  "accountDestructionCriticalNotice": "КРИТИЧЕСКИ ВАЖНО: Если вы неправильно введете эти проверочные цифры, система будет заблокирована. Чтобы разблокировать ее, необходимо ввести главный пароль аккаунта или использовать аварийный выход, который немедленно полностью очистит данные на этом устройстве.",
-
-  "verificationSecurityKey": "Ключ безопасности проверки: {code}",
-  "@verificationSecurityKey": {
-    "placeholders": {
-      "code": {
-        "type": "String"
-      }
+    "@@locale": "ru",
+    "appName": "CRYPT",
+    "welcome": "Добро пожаловать",
+    "login": "Войти",
+    "signup": "Зарегистрироваться",
+    "settings": "Настройки",
+    "chats": "Чаты",
+    "typeMessage": "Введите сообщение...",
+    "send": "Отправить",
+    "p2p": "P2P",
+    "connecting": "Подключение...",
+    "connectingP2p": "Подключение к P2P...",
+    "p2pConnectionNotReady": "P2P не готов.",
+    "searchLanguage": "Поиск языка...",
+    "language": "Язык",
+    "forceEscapeSignOutTitle": "ПРИНУДИТЕЛЬНЫЙ АВАРИЙНЫЙ ВЫХОД?",
+    "forceEscapeSignOutContent": "ВНИМАНИЕ: Это действие полностью удалит все данные с этого устройства.",
+    "cancel": "Отмена",
+    "wipeDevice": "ОЧИСТИТЬ УСТРОЙСТВО",
+    "accountDestructionAlertTitle": "ПРЕДУПРЕЖДЕНИЕ ОБ УДАЛЕНИИ АККАУНТА",
+    "accountDestructionWarning": "ВНИМАНИЕ: Это действие удалит все ваши данные с этого устройства. После подключения к Интернету будет активирована команда удаленного самоуничтожения. Все сообщения, отправленные с вашего уникального ID пользователя, будут навсегда удалены из памяти всех пиров.",
+    "accountDestructionCriticalNotice": "КРИТИЧЕСКИ ВАЖНО: Если вы неправильно введете эти проверочные цифры, система будет заблокирована. Чтобы разблокировать ее, необходимо ввести главный пароль аккаунта или использовать аварийный выход, который немедленно полностью очистит данные на этом устройстве.",
+    "verificationSecurityKey": "Ключ безопасности проверки: {code}",
+    "@verificationSecurityKey": {
+        "placeholders": {
+            "code": {
+                "type": "String"
+            }
+        }
+    },
+    "copyDigitsHint": "Скопируйте 5 цифр выше",
+    "codeMismatchNotice": "Код не совпадает. Введите главный пароль для обхода блокировки или подождите 10 минут.",
+    "accountPasswordLabel": "Пароль аккаунта",
+    "deleteEverythingPermanently": "УДАЛИТЬ ВСЁ НАВСЕГДА",
+    "escapeAndPurgeDeviceData": "Выйти и очистить данные устройства",
+    "addContact": "Добавить контакт",
+    "addContactConfirmation": "Добавить этот контакт?",
+    "noMessagesYet": "Сообщений пока нет",
+    "addNewContact": "Добавить новый контакт",
+    "usernameLabel": "Имя пользователя",
+    "nicknameOptionalLabel": "Псевдоним (необязательно)",
+    "add": "Добавить",
+    "usernameCannotBeEmpty": "Имя пользователя не может быть пустым",
+    "contactAlreadyExists": "Контакт «{name}» уже есть в вашей адресной книге.",
+    "@contactAlreadyExists": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "userNotFoundOnRegistry": "Пользователь «{name}» не найден в сетевом реестре. Невозможно создать общий секрет.",
+    "@userNotFoundOnRegistry": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "successfullyAddedContact": "Контакт {name} успешно добавлен!",
+    "@successfullyAddedContact": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "contacts": "Контакты",
+    "noContactsYet": "Контактов пока нет",
+    "securityLockoutActive": "Активна блокировка безопасности",
+    "tooManyAttemptsFrozen": "Слишком много неверных попыток. Доступ заблокирован на {minutes} мин.",
+    "@tooManyAttemptsFrozen": {
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "acknowledge": "Понятно",
+    "accessBlocked": "Доступ заблокирован",
+    "accessSuspended": "5 неверных проверок. Доступ приостановлен на следующие {minutes} минут.",
+    "@accessSuspended": {
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "ok": "ОК",
+    "unlockSecureNode": "Разблокировать защищенный узел: {username}",
+    "@unlockSecureNode": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "verificationMetricsRemaining": "Осталось попыток проверки: {count}",
+    "@verificationMetricsRemaining": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "secureKeyPasscode": "Код доступа к ключу безопасности",
+    "warningHardwareLockout": "ВНИМАНИЕ: Следующая ошибка приведет к блокировке системы безопасности.",
+    "abort": "Отмена",
+    "authenticate": "Аутентифицировать",
+    "searchPipelinesHint": "Поиск активных защищенных соединений...",
+    "zeroPipelinesDiscovered": "Подходящих соединений не найдено.",
+    "processingDecryption": "Расшифровка...",
+    "decrypting": "Расшифровка...",
+    "decryptionError": "[Ошибка расшифровки]",
+    "cryptContainerSecure": "КОНТЕЙНЕР CRYPT ЗАЩИЩЕН",
+    "connectAnAccount": "Подключить аккаунт",
+    "username": "Имя пользователя",
+    "password": "Пароль",
+    "enterMasterSecurityPassword": "Введите главный пароль безопасности",
+    "pleaseFillAllFields": "Пожалуйста, заполните все поля",
+    "wrongUsernameOrPassword": "Неверное имя пользователя или пароль",
+    "loginError": "Ошибка входа: {error}",
+    "@loginError": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "dontHaveAnAccountSignUp": "Нет аккаунта? Зарегистрироваться",
+    "myIdentity": "Моя личность",
+    "scanToAddMe": "Сканируйте, чтобы добавить меня",
+    "shareProfileLink": "Поделиться ссылкой на профиль",
+    "addMeOnCrypt": "Добавьте меня в CRYPT!\n\n{link}",
+    "@addMeOnCrypt": {
+        "placeholders": {
+            "link": {
+                "type": "String"
+            }
+        }
+    },
+    "scanQr": "Сканировать QR",
+    "invalidCryptQrFormat": "Неверный формат QR-кода CRYPT.",
+    "userScanned": "Пользователь отсканирован!",
+    "addingUser": "Добавление {username}...",
+    "@addingUser": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "defaultUser": "Пользователь",
+    "createAccount": "Создать аккаунт",
+    "keepPasswordSecureHint": "Храните его в безопасном месте. Пароль нельзя изменить.",
+    "pleaseFillInAllFields": "Пожалуйста, заполните все поля",
+    "usernameExceedsLimit": "Имя пользователя не может содержать более 20 символов",
+    "invalidUsernameCharacters": "Имя пользователя может содержать только буквы, цифры, символы подчеркивания и дефисы",
+    "weakPasswordNotice": "Пароль должен содержать не менее 8 символов, включая цифру и заглавную букву",
+    "unableToGenerateUniqueUsername": "Не удалось создать уникальное имя пользователя.",
+    "accountCreated": "Аккаунт создан",
+    "yourUsernameIs": "Ваше имя пользователя:\n\n{username}",
+    "@yourUsernameIs": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "usernameTakenAssignedTag": "Имя пользователя «{chosen}» уже занято.\n\nВаше имя пользователя:\n\n{assigned}\n\nЗапомните его. Оно понадобится для входа.",
+    "@usernameTakenAssignedTag": {
+        "placeholders": {
+            "chosen": {
+                "type": "String"
+            },
+            "assigned": {
+                "type": "String"
+            }
+        }
+    },
+    "continueText": "Продолжить",
+    "failedToGenerateIdentity": "Не удалось создать защищенную личность: {error}",
+    "@failedToGenerateIdentity": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "welcomeToCrypt": "Добро пожаловать в CRYPT",
+    "signupDescription": "Создайте имя пользователя и пароль для генерации ключей P2P-шифрования.",
+    "chooseAUsername": "Выберите имя пользователя",
+    "usernameHelperText": "Не используйте настоящее имя. Если имя пользователя уже занято, мы автоматически добавим уникальный суффикс.",
+    "masterAuthenticationRequired": "Требуется главная аутентификация",
+    "verify": "Проверить",
+    "darkThemeMode": "Темная тема",
+    "secureConversations": "Защищенные разговоры",
+    "noActiveConversations": "Нет активных разговоров. Начните разговор, чтобы включить блокировки безопасности.",
+    "logout": "Выйти",
+    "wipeDeviceAndEscape": "ОЧИСТИТЬ УСТРОЙСТВО И ВЫЙТИ",
+    "falsePassword": "Неверный пароль",
+    "accessSuspendedTimer": "Доступ приостановлен в целях безопасности. Повторите попытку через {time}.",
+    "@accessSuspendedTimer": {
+        "placeholders": {
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "selectSecureLockMethod": "Выберите способ безопасной блокировки",
+    "selectSecureLockDescription": "Хотите заблокировать этот разговор с помощью отпечатка пальца устройства или стандартного 4-значного PIN-кода?",
+    "fourDigitPin": "4-значный PIN-код",
+    "fingerprintUnlock": "Отпечаток пальца 🔓",
+    "supportSoloDeveloper": "Поддержать независимого разработчика",
+    "maybeLater": "Возможно, позже",
+    "submitProof": "Отправить подтверждение",
+    "couldNotOpenWallet": "Не удалось автоматически открыть кошелек. Скопируйте текстовый код ниже.",
+    "proofSubmittedSnackbar": "Подтверждение отправлено. Ручная проверка занимает 24–48 часов (за исключением выходных). Вы можете продолжать пользоваться приложением в обычном режиме.",
+    "termsAndConditions": "Условия",
+    "settingsTermsAndConditions": "Условия",
+    "termsIntro": "CRYPT - это приложение на ранней стадии для подключения людей непосредственно к разговорам. Вы несете ответственность за надлежащее использование приложения и обеспечение безопасности учетных данных.",
+    "termsConnectivity": "CRYPT использует онлайн-сервисы, чтобы помочь устройствам находить и устанавливать соединения. Доступность и поведение подключения могут меняться по мере развития приложения. Пожалуйста, не полагайтесь на КРИПТУ как на единственное средство связи.",
+    "termsAgreement": "Продолжая, вы подтверждаете, что прочитали и согласны использовать CRYPT в соответствии с настоящими условиями.",
+    "agreeTerms": "Я принимаю условия пользовательского соглашения",
+    "agreeAndContinue": "Согласиться и продолжить",
+    "beforeYouStart": "Перед началом:",
+    "connected": "Подключено",
+    "connectFirstThenChat": "Сначала подключитесь, а затем пообщайтесь",
+    "betaIntro": "CRYPT - это ранняя бета-версия, поэтому опыт может улучшиться в будущих версиях.",
+    "walkieTalkieExplanation": "CRYPT работает как рация: оба человека должны быть онлайн и иметь КРИПТУ, открытую одновременно, чтобы установить соединение.",
+    "howToUseCrypt": "Как использовать CRYPT:\n1. Отсканируйте QR-код КРИПТЫ другого человека.\n2. Оба человека нуждаются в КРИПТЕ, открытой и онлайн.\n3. Подождите, пока CRYPT установит P2P-соединение.\n4. Дождитесь исчезновения состояния «Подключение...» и установления соединения.\n5. После подключения вы можете начать чат.",
+    "messageStorageExplanation": "Ваши сообщения предназначены для передачи непосредственно между подключенными устройствами. CRYPT не хранит ваши сообщения в чате на наших серверах. Сервер в настоящее время помогает с подключением и сигнализацией, а история чата не хранится на сервере. Если другой человек не в сети, текущее P2P-соединение не может быть установлено.",
+    "settingsAndSupportExplanation": "Откройте «Настройки», чтобы настроить опыт работы с КРИПТОЙ. В ближайшее время появятся дополнительные варианты настройки.\n\nХотите поддержать CRYPT? Вариант пожертвования можно найти в Настройках.",
+    "saving": "Сохранение...",
+    "continueToCrypt": "Продолжить криптографию",
+    "showSplashScreen": "Отображать экран заставки",
+    "retry": "Повторить попытку",
+    "connectionFailed": "Подключение не выполнено",
+    "connectionFailedDetails": "Не удалось подключиться. Для подключения оба устройства должны быть подключены к сети с открытой КРИПТОЙ.",
+    "gallery": "Галерея",
+    "alignQrCode": "ВЫРОВНЯТЬ QR-КОД",
+    "scanFromGallery": "из галереи",
+    "couldNotScanImage": "Не удалось отсканировать изображение.",
+    "couldNotShareQrCode": "Не удалось поделиться QR-кодом: {error}",
+    "newContact": "Новый контакт: {username}",
+    "publicEncryptionKeyMissing": "Отсутствует открытый ключ шифрования.",
+    "contactEncryptionKeyMissing": "Отсутствует ключ шифрования контактов.",
+    "localEncryptionKeyMissing": "Отсутствует локальный ключ шифрования.",
+    "noQrCodeFound": "На этом изображении нет QR-кода.",
+    "shareQrCode": "Поделиться с помощью QR-кода",
+    "@couldNotShareQrCode": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "@newContact": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "supportIntro": "Привет! 👋 Я индивидуальный разработчик, усердно работающий над CRYPT. У меня нет ни бюджета, ни корпоративного финансирования. Я полностью полагаюсь на вашу честность и сочувствие, чтобы продолжать улучшать приложение и гарантировать отсутствие рекламы НАВСЕГДА.",
+    "chooseSupportAmount": "Выберите свою цену (Слайд для поддержки):",
+    "poorGang": "Я бедная банда 🥀✌️",
+    "launchOfferMinimum": "Минимум стартового предложения 🚀",
+    "buyMeCoffee": "Купи мне кофе ☕",
+    "superSupporter": "Супер сторонник 🔥",
+    "feature": "Особенность",
+    "freeTier": "Уровень бесплатного пользования",
+    "premium": "Премиум",
+    "chatLocks": "Блокировки чата",
+    "maxOneRoom": "Макс. 1 комната",
+    "unlimited": "Безлимитный",
+    "biometrics": "Биометрия",
+    "disabled": "🚫 Инвалид",
+    "supportWithSats": "Поддержка с помощью спутников: {amount} (Феникс)",
+    "boltOffer": "⚡ Предложение по оплате BOLT12 • Нажмите, чтобы скопировать",
+    "boltOfferCopied": "Предложение по оплате BOLT12 скопировано.",
+    "tapToCopyBoltOffer": "Нажмите, чтобы скопировать предложение оплаты BOLT12",
+    "simpleInstructionsToUnlock": "📬 Простые инструкции по разблокировке:",
+    "unlockInstructions": "1. Оплатите с помощью Phoenix Wallet на Android (минимум 7500 для разблокировки — всегда ценится больше).\n2. Сделайте снимок экрана подтверждения успешной транзакции.\n3. Отправьте этот снимок экрана по адресу jounaidnadirmed@gmail.com и сообщите мне свое уникальное имя пользователя учетной записи: «{username}», чтобы я знал, кто заплатил.\n4. Введите что-нибудь в поле ниже, чтобы сохранить запрос на этом устройстве:",
+    "supportRequestHint": "Введите здесь свое имя или информацию о транзакции...",
+    "@supportWithSats": {
+        "placeholders": {
+            "amount": {
+                "type": "String"
+            }
+        }
+    },
+    "@unlockInstructions": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
     }
-  },
-
-  "copyDigitsHint": "Скопируйте 5 цифр выше",
-  "codeMismatchNotice": "Код не совпадает. Введите главный пароль для обхода блокировки или подождите 10 минут.",
-  "accountPasswordLabel": "Пароль аккаунта",
-  "deleteEverythingPermanently": "УДАЛИТЬ ВСЁ НАВСЕГДА",
-  "escapeAndPurgeDeviceData": "Выйти и очистить данные устройства",
-
-  "addContact": "Добавить контакт",
-  "addContactConfirmation": "Добавить этот контакт?",
-  "noMessagesYet": "Сообщений пока нет",
-  "addNewContact": "Добавить новый контакт",
-  "usernameLabel": "Имя пользователя",
-  "nicknameOptionalLabel": "Псевдоним (необязательно)",
-  "add": "Добавить",
-  "usernameCannotBeEmpty": "Имя пользователя не может быть пустым",
-
-  "contactAlreadyExists": "Контакт «{name}» уже есть в вашей адресной книге.",
-  "@contactAlreadyExists": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "userNotFoundOnRegistry": "Пользователь «{name}» не найден в сетевом реестре. Невозможно создать общий секрет.",
-  "@userNotFoundOnRegistry": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "successfullyAddedContact": "Контакт {name} успешно добавлен!",
-  "@successfullyAddedContact": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "contacts": "Контакты",
-  "noContactsYet": "Контактов пока нет",
-  "securityLockoutActive": "Активна блокировка безопасности",
-
-  "tooManyAttemptsFrozen": "Слишком много неверных попыток. Доступ заблокирован на {minutes} мин.",
-  "@tooManyAttemptsFrozen": {
-    "placeholders": {
-      "minutes": {
-        "type": "int"
-      }
-    }
-  },
-
-  "acknowledge": "Понятно",
-  "accessBlocked": "Доступ заблокирован",
-
-  "accessSuspended": "5 неверных проверок. Доступ приостановлен на следующие {minutes} минут.",
-  "@accessSuspended": {
-    "placeholders": {
-      "minutes": {
-        "type": "int"
-      }
-    }
-  },
-
-  "ok": "ОК",
-
-  "unlockSecureNode": "Разблокировать защищенный узел: {username}",
-  "@unlockSecureNode": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "verificationMetricsRemaining": "Осталось попыток проверки: {count}",
-  "@verificationMetricsRemaining": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
-
-  "secureKeyPasscode": "Код доступа к ключу безопасности",
-  "warningHardwareLockout": "ВНИМАНИЕ: Следующая ошибка приведет к блокировке системы безопасности.",
-  "abort": "Отмена",
-  "authenticate": "Аутентифицировать",
-
-  "searchPipelinesHint": "Поиск активных защищенных соединений...",
-  "zeroPipelinesDiscovered": "Подходящих соединений не найдено.",
-  "processingDecryption": "Расшифровка...",
-  "decrypting": "Расшифровка...",
-  "decryptionError": "[Ошибка расшифровки]",
-  "cryptContainerSecure": "КОНТЕЙНЕР CRYPT ЗАЩИЩЕН",
-
-  "connectAnAccount": "Подключить аккаунт",
-  "username": "Имя пользователя",
-  "password": "Пароль",
-  "enterMasterSecurityPassword": "Введите главный пароль безопасности",
-  "pleaseFillAllFields": "Пожалуйста, заполните все поля",
-  "wrongUsernameOrPassword": "Неверное имя пользователя или пароль",
-
-  "loginError": "Ошибка входа: {error}",
-  "@loginError": {
-    "placeholders": {
-      "error": {
-        "type": "String"
-      }
-    }
-  },
-
-  "dontHaveAnAccountSignUp": "Нет аккаунта? Зарегистрироваться",
-  "myIdentity": "Моя личность",
-  "scanToAddMe": "Сканируйте, чтобы добавить меня",
-  "shareProfileLink": "Поделиться ссылкой на профиль",
-
-  "addMeOnCrypt": "Добавьте меня в CRYPT!\n\n{link}",
-  "@addMeOnCrypt": {
-    "placeholders": {
-      "link": {
-        "type": "String"
-      }
-    }
-  },
-
-  "scanQr": "Сканировать QR",
-  "invalidCryptQrFormat": "Неверный формат QR-кода CRYPT.",
-  "userScanned": "Пользователь отсканирован!",
-
-  "addingUser": "Добавление {username}...",
-  "@addingUser": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "defaultUser": "Пользователь",
-  "createAccount": "Создать аккаунт",
-  "keepPasswordSecureHint": "Храните его в безопасном месте. Пароль нельзя изменить.",
-  "pleaseFillInAllFields": "Пожалуйста, заполните все поля",
-  "usernameExceedsLimit": "Имя пользователя не может содержать более 20 символов",
-  "invalidUsernameCharacters": "Имя пользователя может содержать только буквы, цифры, символы подчеркивания и дефисы",
-  "weakPasswordNotice": "Пароль должен содержать не менее 8 символов, включая цифру и заглавную букву",
-  "unableToGenerateUniqueUsername": "Не удалось создать уникальное имя пользователя.",
-
-  "accountCreated": "Аккаунт создан",
-
-  "yourUsernameIs": "Ваше имя пользователя:\n\n{username}",
-  "@yourUsernameIs": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "usernameTakenAssignedTag": "Имя пользователя «{chosen}» уже занято.\n\nВаше имя пользователя:\n\n{assigned}\n\nЗапомните его. Оно понадобится для входа.",
-  "@usernameTakenAssignedTag": {
-    "placeholders": {
-      "chosen": {
-        "type": "String"
-      },
-      "assigned": {
-        "type": "String"
-      }
-    }
-  },
-
-  "continueText": "Продолжить",
-
-  "failedToGenerateIdentity": "Не удалось создать защищенную личность: {error}",
-  "@failedToGenerateIdentity": {
-    "placeholders": {
-      "error": {
-        "type": "String"
-      }
-    }
-  },
-
-  "welcomeToCrypt": "Добро пожаловать в CRYPT",
-  "signupDescription": "Создайте имя пользователя и пароль для генерации ключей P2P-шифрования.",
-  "chooseAUsername": "Выберите имя пользователя",
-  "usernameHelperText": "Не используйте настоящее имя. Если имя пользователя уже занято, мы автоматически добавим уникальный суффикс.",
-
-  "masterAuthenticationRequired": "Требуется главная аутентификация",
-  "verify": "Проверить",
-  "darkThemeMode": "Темная тема",
-  "secureConversations": "Защищенные разговоры",
-  "noActiveConversations": "Нет активных разговоров. Начните разговор, чтобы включить блокировки безопасности.",
-  "logout": "Выйти",
-  "wipeDeviceAndEscape": "ОЧИСТИТЬ УСТРОЙСТВО И ВЫЙТИ",
-  "falsePassword": "Неверный пароль",
-
-  "accessSuspendedTimer": "Доступ приостановлен в целях безопасности. Повторите попытку через {time}.",
-  "@accessSuspendedTimer": {
-    "placeholders": {
-      "time": {
-        "type": "String"
-      }
-    }
-  },
-
-  "selectSecureLockMethod": "Выберите способ безопасной блокировки",
-  "selectSecureLockDescription": "Хотите заблокировать этот разговор с помощью отпечатка пальца устройства или стандартного 4-значного PIN-кода?",
-  "fourDigitPin": "4-значный PIN-код",
-  "fingerprintUnlock": "Отпечаток пальца 🔓",
-  "supportSoloDeveloper": "Поддержать независимого разработчика",
-  "maybeLater": "Возможно, позже",
-  "submitProof": "Отправить подтверждение",
-  "couldNotOpenWallet": "Не удалось автоматически открыть кошелек. Скопируйте текстовый код ниже.",
-  "proofSubmittedSnackbar": "Подтверждение отправлено. Ручная проверка занимает 24–48 часов (за исключением выходных). Вы можете продолжать пользоваться приложением в обычном режиме."
 }

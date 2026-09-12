@@ -40,7 +40,6 @@ class HiveStorageService {
     }
 
     await _box?.put(_migrationFlagKey, true);
-    await prefs.clear(); // Free up legacy storage
     debugPrint('[HiveStorage] Migration completed successfully.');
   }
 

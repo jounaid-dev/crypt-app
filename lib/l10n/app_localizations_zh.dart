@@ -12,6 +12,112 @@ class AppLocalizationsZh extends AppLocalizations {
   String get appName => 'CRYPT';
 
   @override
+  String get termsAndConditions => '条款与条件';
+
+  @override
+  String get settingsTermsAndConditions => '条款与条件';
+
+  @override
+  String get termsIntro =>
+      'CRYPT 是一款处于早期阶段、用于让人们直接进行交流的应用。您需要对正确使用应用并保护账户凭据负责。';
+
+  @override
+  String get termsConnectivity =>
+      'CRYPT 使用在线服务帮助设备发现彼此并建立连接。随着应用的发展，可用性和连接行为可能会改变。请不要将 CRYPT 作为唯一的通信方式。';
+
+  @override
+  String get termsAgreement => '继续操作即表示您确认已阅读并同意在这些条款下使用 CRYPT。';
+
+  @override
+  String get agreeTerms => '我同意条款与条件';
+
+  @override
+  String get agreeAndContinue => '同意并继续';
+
+  @override
+  String get beforeYouStart => '开始之前';
+
+  @override
+  String get connected => '已连接';
+
+  @override
+  String get connectFirstThenChat => '先连接，再聊天';
+
+  @override
+  String get betaIntro => 'CRYPT 是早期测试版，因此未来版本可能会改善使用体验。';
+
+  @override
+  String get walkieTalkieExplanation =>
+      'CRYPT 的工作方式类似对讲机：双方都需要在线并同时打开 CRYPT 才能建立连接。';
+
+  @override
+  String get howToUseCrypt =>
+      '如何使用 CRYPT：\n1. 扫描对方的 CRYPT 二维码。\n2. 双方都需要打开 CRYPT 并保持在线。\n3. 等待 CRYPT 建立 P2P 连接。\n4. 等待“正在连接...”状态消失并建立连接。\n5. 连接后即可开始聊天。';
+
+  @override
+  String get messageStorageExplanation =>
+      '您的消息设计为在已连接的设备之间直接传输。CRYPT 不会将聊天消息存储在我们的服务器上。服务器目前帮助处理连接和信令，聊天记录不会存储在服务器上。如果对方离线，则无法建立当前的 P2P 连接。';
+
+  @override
+  String get settingsAndSupportExplanation =>
+      '访问设置以自定义 CRYPT 体验。更多自定义选项即将推出。\n\n想支持 CRYPT？您可以在设置中找到捐赠选项。';
+
+  @override
+  String get saving => '正在保存...';
+
+  @override
+  String get continueToCrypt => '继续使用 CRYPT';
+
+  @override
+  String get showSplashScreen => '显示启动画面';
+
+  @override
+  String get retry => '重试';
+
+  @override
+  String get connectionFailed => '连接失败';
+
+  @override
+  String get connectionFailedDetails => '连接失败。两台设备都必须在线并打开 CRYPT 才能连接。';
+
+  @override
+  String get gallery => '图库';
+
+  @override
+  String get alignQrCode => '对齐二维码';
+
+  @override
+  String get scanFromGallery => '从图库扫描';
+
+  @override
+  String get couldNotScanImage => '无法扫描图像。';
+
+  @override
+  String couldNotShareQrCode(String error) {
+    return '无法分享二维码：$error';
+  }
+
+  @override
+  String newContact(String username) {
+    return '新联系人：$username';
+  }
+
+  @override
+  String get publicEncryptionKeyMissing => '缺少您的公共加密密钥。';
+
+  @override
+  String get contactEncryptionKeyMissing => '缺少联系人的加密密钥。';
+
+  @override
+  String get localEncryptionKeyMissing => '缺少本地加密密钥。';
+
+  @override
+  String get noQrCodeFound => '在此图像中未找到二维码。';
+
+  @override
+  String get shareQrCode => '分享二维码';
+
+  @override
   String get welcome => '欢迎';
 
   @override
@@ -355,6 +461,74 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get supportSoloDeveloper => '支持独立开发者';
+
+  @override
+  String get supportIntro =>
+      '嘿！ 👋 我是一名致力于 CRYPT 的独立开发者。我没有预算或公司资金。我完全依靠您的诚实和同理心来不断改进应用程序并保证永远没有广告。';
+
+  @override
+  String get chooseSupportAmount => '选择您的价格（滑动至支持）：';
+
+  @override
+  String get poorGang => '我是穷小子🥀✌️';
+
+  @override
+  String get launchOfferMinimum => '推出最低优惠🚀';
+
+  @override
+  String get buyMeCoffee => '请我喝杯咖啡☕';
+
+  @override
+  String get superSupporter => '超级支持者🔥';
+
+  @override
+  String get feature => '特征';
+
+  @override
+  String get freeTier => '免费套餐';
+
+  @override
+  String get premium => '优质的';
+
+  @override
+  String get chatLocks => '聊天锁';
+
+  @override
+  String get maxOneRoom => '最多 1 间客房';
+
+  @override
+  String get unlimited => '无限';
+
+  @override
+  String get biometrics => '生物识别技术';
+
+  @override
+  String get disabled => '🚫 残疾人';
+
+  @override
+  String supportWithSats(String amount) {
+    return '支持 $amount sats (Phoenix)';
+  }
+
+  @override
+  String get boltOffer => '⚡ BOLT12 付款优惠• 点击复制';
+
+  @override
+  String get boltOfferCopied => '已复制 BOLT12 付款报价';
+
+  @override
+  String get tapToCopyBoltOffer => '点击复制 BOLT12 付款报价';
+
+  @override
+  String get simpleInstructionsToUnlock => '📬简单的解锁说明：';
+
+  @override
+  String unlockInstructions(String username) {
+    return '1. 使用 Android 上的 Phoenix Wallet 进行支付（至少解锁 7,500 个 - 更多总是感激）。\n2. 截取您成功交易确认屏幕的屏幕截图。\n3. 通过电子邮件将该屏幕截图发送至 jounaidnadirmed@gmail.com 并告诉我您的唯一帐户用户名：“$username”，以便我知道谁付款。\n4. 在下面的框中输入任何内容以将您的请求保存到该设备上：';
+  }
+
+  @override
+  String get supportRequestHint => '在此输入您的姓名或交易信息...';
 
   @override
   String get maybeLater => '稍后再说';

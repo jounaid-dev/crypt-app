@@ -12,6 +12,116 @@ class AppLocalizationsGu extends AppLocalizations {
   String get appName => 'CRYPT';
 
   @override
+  String get termsAndConditions => 'નિયમો અને શરતો';
+
+  @override
+  String get settingsTermsAndConditions => 'નિયમો અને શરતો';
+
+  @override
+  String get termsIntro =>
+      'CRYPT એ લોકોને વાતચીત માટે સીધા જોડવા માટેની પ્રારંભિક તબક્કાની એપ્લિકેશન છે. એપ્લિકેશનનો યોગ્ય ઉપયોગ કરવા અને તમારા એકાઉન્ટ ઓળખપત્રોને સુરક્ષિત રાખવા માટે તમે જવાબદાર છો.';
+
+  @override
+  String get termsConnectivity =>
+      'CRYPT ઉપકરણોને શોધવા અને જોડાણો સ્થાપિત કરવામાં મદદ કરવા માટે ઑનલાઇન સેવાઓનો ઉપયોગ કરે છે. ઉપલબ્ધતા અને જોડાણની વર્તણૂક જેમ જેમ એપ્લિકેશન વિકસિત થાય છે તેમ તેમ બદલાઈ શકે છે. કૃપા કરીને તમારા સંદેશાવ્યવહારના એકમાત્ર માધ્યમ તરીકે CRYPT પર આધાર રાખશો નહીં.';
+
+  @override
+  String get termsAgreement =>
+      'ચાલુ રાખીને, તમે પુષ્ટિ કરો છો કે તમે આ શરતો હેઠળ CRYPT નો ઉપયોગ કરવા માટે વાંચ્યું છે અને સંમત છો.';
+
+  @override
+  String get agreeTerms => 'હું નિયમો અને શરતોથી સંમત છું';
+
+  @override
+  String get agreeAndContinue => 'સંમત થાઓ અને ચાલુ રાખો';
+
+  @override
+  String get beforeYouStart => 'તમે પ્રારંભ કરો તે પહેલાં';
+
+  @override
+  String get connected => 'કનેક્ટેડ';
+
+  @override
+  String get connectFirstThenChat => 'પહેલા કનેક્ટ કરો, પછી ચેટ કરો';
+
+  @override
+  String get betaIntro =>
+      'CRYPT એ પ્રારંભિક બીટા સંસ્કરણ છે, તેથી ભાવિ સંસ્કરણોમાં અનુભવ સુધરી શકે છે.';
+
+  @override
+  String get walkieTalkieExplanation =>
+      'CRYPT વૉકી-ટૉકીની જેમ કામ કરે છે: કનેક્શન સ્થાપિત કરવા માટે બંને લોકો ઑનલાઇન હોવા જોઈએ અને એક જ સમયે CRYPT ખુલ્લું હોવું જરૂરી છે.';
+
+  @override
+  String get howToUseCrypt =>
+      'CRYPT નો ઉપયોગ કેવી રીતે કરવો:\n1. અન્ય વ્યક્તિનો CRYPT QR કોડ સ્કેન કરો.\n2. બંને લોકોને CRYPT ઓપન અને ઓનલાઈન જોઈએ છે.\n3. CRYPT P2P કનેક્શન સ્થાપિત કરે ત્યાં સુધી રાહ જુઓ.\n4. \"કનેક્ટિંગ...\" સ્થિતિ અદૃશ્ય થઈ જાય અને કનેક્શન સ્થાપિત થાય ત્યાં સુધી રાહ જુઓ.\n5. એકવાર કનેક્ટ થઈ ગયા પછી, તમે ચેટિંગ શરૂ કરી શકો છો.';
+
+  @override
+  String get messageStorageExplanation =>
+      'તમારા સંદેશાઓ સીધા કનેક્ટેડ ઉપકરણો વચ્ચે મુસાફરી કરવા માટે ડિઝાઇન કરવામાં આવ્યા છે. CRYPT તમારા ચેટ સંદેશાને અમારા સર્વર પર સંગ્રહિત કરતું નથી. સર્વર હાલમાં કનેક્શન અને સિગ્નલિંગમાં મદદ કરે છે, અને ચેટ ઇતિહાસ સર્વર પર સંગ્રહિત નથી. જો અન્ય વ્યક્તિ ઑફલાઇન હોય, તો વર્તમાન P2P કનેક્શન સ્થાપિત કરી શકાતું નથી.';
+
+  @override
+  String get settingsAndSupportExplanation =>
+      'તમારા CRYPT અનુભવને કસ્ટમાઇઝ કરવા માટે સેટિંગ્સની મુલાકાત લો. વધુ કસ્ટમાઇઝેશન વિકલ્પો ટૂંક સમયમાં આવી રહ્યા છે.\n\nCRYPT ને સપોર્ટ કરવા માંગો છો? તમે સેટિંગ્સમાં દાનનો વિકલ્પ શોધી શકો છો.';
+
+  @override
+  String get saving => 'સાચવી રહ્યું છે...';
+
+  @override
+  String get continueToCrypt => 'CRYPT પર ચાલુ રાખો';
+
+  @override
+  String get showSplashScreen => 'સ્પ્લેશ સ્ક્રીન બતાવો';
+
+  @override
+  String get retry => 'ફરી પ્રયાસ કરો';
+
+  @override
+  String get connectionFailed => 'કનેક્શન નિષ્ફળ થયું';
+
+  @override
+  String get connectionFailedDetails =>
+      'કનેક્શન નિષ્ફળ થયું. કનેક્ટ થવા માટે બંને ઉપકરણો CRYPT સાથે ઓનલાઈન હોવા જોઈએ.';
+
+  @override
+  String get gallery => 'ગેલેરી';
+
+  @override
+  String get alignQrCode => 'QR કોડ સંરેખિત કરો';
+
+  @override
+  String get scanFromGallery => 'ગેલેરીમાંથી સ્કેન કરો';
+
+  @override
+  String get couldNotScanImage => 'છબી સ્કેન કરી શકાઈ નથી.';
+
+  @override
+  String couldNotShareQrCode(String error) {
+    return 'QR કોડ શેર કરી શકાયો નથી: $error';
+  }
+
+  @override
+  String newContact(String username) {
+    return 'નવો સંપર્ક: $username';
+  }
+
+  @override
+  String get publicEncryptionKeyMissing =>
+      'તમારી સાર્વજનિક એન્ક્રિપ્શન કી ખૂટે છે.';
+
+  @override
+  String get contactEncryptionKeyMissing => 'સંપર્ક એન્ક્રિપ્શન કી ખૂટે છે.';
+
+  @override
+  String get localEncryptionKeyMissing => 'સ્થાનિક એન્ક્રિપ્શન કી ખૂટે છે.';
+
+  @override
+  String get noQrCodeFound => 'આ છબીમાં કોઈ QR કોડ મળ્યો નથી.';
+
+  @override
+  String get shareQrCode => 'QR કોડ શેર કરો';
+
+  @override
   String get welcome => 'સ્વાગત છે';
 
   @override
@@ -366,6 +476,76 @@ class AppLocalizationsGu extends AppLocalizations {
 
   @override
   String get supportSoloDeveloper => 'ડેવલપરને સપોર્ટ કરો';
+
+  @override
+  String get supportIntro =>
+      'અરે! 👋 હું CRYPT પર સખત મહેનત કરતો સોલો ડેવલપર છું. મારી પાસે બજેટ કે કોર્પોરેટ ફંડિંગ નથી. હું એપમાં સુધારો કરવાનું ચાલુ રાખવા માટે તમારી પ્રામાણિકતા અને સહાનુભૂતિ પર સંપૂર્ણપણે આધાર રાખું છું અને કાયમ કોઈ જાહેરાત નહીં કરવાની ખાતરી આપું છું.';
+
+  @override
+  String get chooseSupportAmount =>
+      'તમારી કિંમત પસંદ કરો (સમર્થન માટે સ્લાઇડ કરો):';
+
+  @override
+  String get poorGang => 'હું ગરીબ ગેંગ છું 🥀✌️';
+
+  @override
+  String get launchOfferMinimum => 'લોંચ ઓફર ન્યૂનતમ 🚀';
+
+  @override
+  String get buyMeCoffee => 'મને કોફી ખરીદો ☕';
+
+  @override
+  String get superSupporter => 'સુપર સપોર્ટર 🔥';
+
+  @override
+  String get feature => 'લક્ષણ';
+
+  @override
+  String get freeTier => 'મફત ટાયર';
+
+  @override
+  String get premium => 'પ્રીમિયમ';
+
+  @override
+  String get chatLocks => 'ચેટ લૉક્સ';
+
+  @override
+  String get maxOneRoom => 'મહત્તમ 1 રૂમ';
+
+  @override
+  String get unlimited => 'અમર્યાદિત';
+
+  @override
+  String get biometrics => 'બાયોમેટ્રિક્સ';
+
+  @override
+  String get disabled => '🚫 અક્ષમ';
+
+  @override
+  String supportWithSats(String amount) {
+    return '$amount sats સાથે સપોર્ટ (ફોનિક્સ)';
+  }
+
+  @override
+  String get boltOffer => '⚡ BOLT12 ચુકવણી ઓફર • કૉપિ કરવા માટે ટૅપ કરો';
+
+  @override
+  String get boltOfferCopied => 'BOLT12 ચુકવણી ઓફર કૉપિ કરી';
+
+  @override
+  String get tapToCopyBoltOffer => 'BOLT12 પેમેન્ટ ઑફર કૉપિ કરવા માટે ટૅપ કરો';
+
+  @override
+  String get simpleInstructionsToUnlock => '📬 અનલૉક કરવા માટેની સરળ સૂચનાઓ:';
+
+  @override
+  String unlockInstructions(String username) {
+    return '1. Android પર Phoenix Wallet નો ઉપયોગ કરીને ચૂકવણી કરો (અનલૉક કરવા માટે ન્યૂનતમ 7,500 — વધુની હંમેશા પ્રશંસા કરવામાં આવે છે).\n2. તમારી સફળ ટ્રાન્ઝેક્શન કન્ફર્મેશન સ્ક્રીનનો સ્ક્રીનશોટ લો.\n3. તે સ્ક્રીનશોટ jounaidnadirmed@gmail.com પર ઈમેઈલ કરો અને મને તમારું અનન્ય એકાઉન્ટ યુઝરનામ જણાવો: \'$username\' જેથી મને ખબર પડે કે કોણે ચૂકવણી કરી.\n4. આ ઉપકરણ પર તમારી વિનંતી સાચવવા માટે નીચેના બોક્સમાં કંઈપણ લખો:';
+  }
+
+  @override
+  String get supportRequestHint =>
+      'તમારું નામ અથવા વ્યવહારની માહિતી અહીં લખો...';
 
   @override
   String get maybeLater => 'કદાચ પછી';

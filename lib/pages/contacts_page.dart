@@ -49,6 +49,8 @@ class _ContactsPageState extends State<ContactsPage> {
   }
 
   Future<void> openConversation(Contact contact) async {
+    final l10n = AppLocalizations.of(context)!;
+
     // --------------------------------------------------
     // FIND EXISTING CONVERSATION
     // --------------------------------------------------
@@ -79,10 +81,8 @@ class _ContactsPageState extends State<ContactsPage> {
         if (!mounted) return;
 
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text(
-              "Your public encryption key is missing.",
-            ),
+          SnackBar(
+            content: Text(l10n.publicEncryptionKeyMissing),
           ),
         );
 
@@ -96,10 +96,8 @@ class _ContactsPageState extends State<ContactsPage> {
         if (!mounted) return;
 
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text(
-              "Contact encryption key is missing.",
-            ),
+          SnackBar(
+            content: Text(l10n.contactEncryptionKeyMissing),
           ),
         );
 

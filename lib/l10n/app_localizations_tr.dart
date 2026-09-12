@@ -12,6 +12,115 @@ class AppLocalizationsTr extends AppLocalizations {
   String get appName => 'CRYPT';
 
   @override
+  String get termsAndConditions => 'Şartlar ve Koşullar';
+
+  @override
+  String get settingsTermsAndConditions => 'Şartlar ve Koşullar';
+
+  @override
+  String get termsIntro =>
+      'CRYPT, insanları doğrudan sohbet etmek üzere birbirine bağlayan erken aşamadaki bir uygulamadır. Uygulamayı uygun şekilde kullanmaktan ve hesap bilgilerinizin güvenliğini sağlamaktan siz sorumlusunuz.';
+
+  @override
+  String get termsConnectivity =>
+      'CRYPT, cihazların birbirini bulmasına ve bağlantı kurmasına yardımcı olmak için çevrimiçi hizmetleri kullanır. Uygulama geliştikçe kullanılabilirlik ve bağlantı davranışı değişebilir. Lütfen iletişim için tek aracınız olarak CRYPT\'e güvenmeyin.';
+
+  @override
+  String get termsAgreement =>
+      'Devam ederek bu şartları okuduğunuzu ve CRYPT\'i bu şartlara uygun şekilde kullanmayı kabul ettiğinizi onaylarsınız.';
+
+  @override
+  String get agreeTerms => 'Şartlar ve Koşulları kabul ediyorum';
+
+  @override
+  String get agreeAndContinue => 'Kabul et ve devam et';
+
+  @override
+  String get beforeYouStart => 'Başlamadan Önce';
+
+  @override
+  String get connected => 'Bağlandı';
+
+  @override
+  String get connectFirstThenChat => 'Önce bağlanın, sonra sohbet edin';
+
+  @override
+  String get betaIntro =>
+      'CRYPT erken beta sürümündedir; bu nedenle deneyim gelecekteki sürümlerde geliştirilebilir.';
+
+  @override
+  String get walkieTalkieExplanation =>
+      'CRYPT telsiz gibi çalışır: bağlantı kurmak için iki kişinin de çevrimiçi olması ve CRYPT\'i aynı anda açık tutması gerekir.';
+
+  @override
+  String get howToUseCrypt =>
+      'CRYPT nasıl kullanılır:\n1. Diğer kişinin CRYPT QR kodunu tarayın.\n2. Her iki kişinin de CRYPT\'i açık ve çevrimiçi olmalıdır.\n3. CRYPT P2P bağlantısını kurarken bekleyin.\n4. “Bağlanıyor...” durumunun kaybolmasını ve bağlantının kurulmasını bekleyin.\n5. Bağlandıktan sonra sohbete başlayabilirsiniz.';
+
+  @override
+  String get messageStorageExplanation =>
+      'Mesajlarınız bağlı cihazlar arasında doğrudan gönderilmek üzere tasarlanmıştır. CRYPT sohbet mesajlarınızı sunucularımızda saklamaz. Sunucu şu anda bağlantı ve sinyalleşmeye yardımcı olur; sohbet geçmişi sunucuda tutulmaz. Diğer kişi çevrimdışıysa mevcut P2P bağlantısı kurulamaz.';
+
+  @override
+  String get settingsAndSupportExplanation =>
+      'CRYPT deneyiminizi özelleştirmek için Ayarlar\'ı ziyaret edin. Yakında daha fazla özelleştirme seçeneği sunulacaktır.\n\nCRYPT\'i desteklemek ister misiniz? Bağış seçeneğini Ayarlar\'da bulabilirsiniz.';
+
+  @override
+  String get saving => 'Kaydediliyor...';
+
+  @override
+  String get continueToCrypt => 'CRYPT\'e devam et';
+
+  @override
+  String get showSplashScreen => 'Açılış ekranını göster';
+
+  @override
+  String get retry => 'Tekrar Dene';
+
+  @override
+  String get connectionFailed => 'Bağlantı başarısız';
+
+  @override
+  String get connectionFailedDetails =>
+      'Bağlantı başarısız. Bağlanmak için her iki cihaz da çevrimiçi olmalı ve CRYPT açık olmalıdır.';
+
+  @override
+  String get gallery => 'Galeri';
+
+  @override
+  String get alignQrCode => 'QR KODUNU HİZALA';
+
+  @override
+  String get scanFromGallery => 'GALERİDEN TARA';
+
+  @override
+  String get couldNotScanImage => 'Görüntü taranamadı.';
+
+  @override
+  String couldNotShareQrCode(String error) {
+    return 'QR kodu paylaşılamadı: $error';
+  }
+
+  @override
+  String newContact(String username) {
+    return 'Yeni kişi: $username';
+  }
+
+  @override
+  String get publicEncryptionKeyMissing => 'Genel şifreleme anahtarınız eksik.';
+
+  @override
+  String get contactEncryptionKeyMissing => 'Kişinin şifreleme anahtarı eksik.';
+
+  @override
+  String get localEncryptionKeyMissing => 'Yerel şifreleme anahtarı eksik.';
+
+  @override
+  String get noQrCodeFound => 'Bu görüntüde QR kodu bulunamadı.';
+
+  @override
+  String get shareQrCode => 'QR Kodunu Paylaş';
+
+  @override
   String get welcome => 'Hoş Geldiniz';
 
   @override
@@ -366,6 +475,77 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get supportSoloDeveloper => 'Geliştiriciyi Destekle';
+
+  @override
+  String get supportIntro =>
+      'Hey! 👋 Ben CRYPT üzerinde yoğun şekilde çalışan solo bir geliştiriciyim. Bütçem ya da kurumsal finansmanım yok. Uygulamayı geliştirmeye devam etmek ve SONSUZA KADAR REKLAM YOK olacağını garanti etmek için tamamen dürüstlüğünüze ve empatinize güveniyorum.';
+
+  @override
+  String get chooseSupportAmount => 'Fiyatınızı Seçin (Destek için kaydırın):';
+
+  @override
+  String get poorGang => 'Ben fakir çeteyim 🥀✌️';
+
+  @override
+  String get launchOfferMinimum => 'Minimum Teklifi Başlat 🚀';
+
+  @override
+  String get buyMeCoffee => 'Bana Bir Kahve Al ☕';
+
+  @override
+  String get superSupporter => 'Süper Destekçi 🔥';
+
+  @override
+  String get feature => 'Özellik';
+
+  @override
+  String get freeTier => 'Ücretsiz Katman';
+
+  @override
+  String get premium => 'prim';
+
+  @override
+  String get chatLocks => 'Sohbet Kilitleri';
+
+  @override
+  String get maxOneRoom => 'Maksimum 1 Oda';
+
+  @override
+  String get unlimited => 'Sınırsız';
+
+  @override
+  String get biometrics => 'Biyometri';
+
+  @override
+  String get disabled => '🚫 Engelli';
+
+  @override
+  String supportWithSats(String amount) {
+    return '$amount satoshi (Phoenix) desteği';
+  }
+
+  @override
+  String get boltOffer => '⚡ BOLT12 ödeme teklifi • Kopyalamak için dokunun';
+
+  @override
+  String get boltOfferCopied => 'BOLT12 ödeme teklifi kopyalandı';
+
+  @override
+  String get tapToCopyBoltOffer =>
+      'BOLT12 ödeme teklifini kopyalamak için dokunun';
+
+  @override
+  String get simpleInstructionsToUnlock =>
+      '📬 Kilidini Açmak İçin Basit Talimatlar:';
+
+  @override
+  String unlockInstructions(String username) {
+    return '1. Android\'de Phoenix Cüzdanını kullanarak ödeme yapın (kilidi açmak için minimum 7.500; daha fazlası her zaman memnuniyetle karşılanır).\n2. Başarılı işlem onay ekranınızın ekran görüntüsünü alın.\n3. Bu ekran görüntüsünü jounaidnadirmed@gmail.com adresine e-postayla gönderin ve bana benzersiz hesap kullanıcı adınızı söyleyin: \'$username\', böylece kimin ödediğini bileyim.\n4. İsteğinizi bu cihaza kaydetmek için aşağıdaki kutuya herhangi bir şey yazın:';
+  }
+
+  @override
+  String get supportRequestHint =>
+      'Adınızı veya işlem bilgilerinizi buraya yazın...';
 
   @override
   String get maybeLater => 'Belki Daha Sonra';

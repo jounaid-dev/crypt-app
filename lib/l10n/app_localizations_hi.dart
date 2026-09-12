@@ -12,6 +12,118 @@ class AppLocalizationsHi extends AppLocalizations {
   String get appName => 'CRYPT';
 
   @override
+  String get termsAndConditions => 'नियम एवं शर्तें';
+
+  @override
+  String get settingsTermsAndConditions => 'नियम एवं शर्तें';
+
+  @override
+  String get termsIntro =>
+      'CRYPT लोगों को बातचीत के लिए सीधे जोड़ने के लिए एक प्रारंभिक चरण का एप्लिकेशन है। आप एप्लिकेशन का उचित उपयोग करने और अपने खाते के क्रेडेंशियल्स को सुरक्षित रखने के लिए जिम्मेदार हैं।';
+
+  @override
+  String get termsConnectivity =>
+      'CRYPT उपकरणों को खोजने और कनेक्शन स्थापित करने में मदद करने के लिए ऑनलाइन सेवाओं का उपयोग करता है। एप्लिकेशन विकसित होते ही उपलब्धता और कनेक्शन व्यवहार बदल सकता है। कृपया संचार के एकमात्र साधन के रूप में CRYPT पर भरोसा न करें।';
+
+  @override
+  String get termsAgreement =>
+      'जारी रखकर, आप पुष्टि करते हैं कि आपने पढ़ लिया है और इन शर्तों के तहत CRYPT का उपयोग करने के लिए सहमत हैं।';
+
+  @override
+  String get agreeTerms => 'मैं नियमों और शर्तों से सहमत हूं';
+
+  @override
+  String get agreeAndContinue => 'सहमत हों और जारी रखें';
+
+  @override
+  String get beforeYouStart => 'आपके शुरू करने से पहले';
+
+  @override
+  String get connected => 'जुड़े हुए';
+
+  @override
+  String get connectFirstThenChat => 'पहले कनेक्ट करें, फिर चैट करें';
+
+  @override
+  String get betaIntro =>
+      'CRYPT एक प्रारंभिक बीटा संस्करण है, इसलिए भविष्य के संस्करणों में अनुभव में सुधार हो सकता है।';
+
+  @override
+  String get walkieTalkieExplanation =>
+      'CRYPT एक वॉकी-टॉकी की तरह काम करता है: कनेक्शन स्थापित करने के लिए दोनों लोगों का ऑनलाइन होना और CRYPT का एक ही समय में खुला होना आवश्यक है।';
+
+  @override
+  String get howToUseCrypt =>
+      'क्रिप्ट का उपयोग कैसे करें:\n1. दूसरे व्यक्ति का CRYPT QR कोड स्कैन करें।\n2. दोनों लोगों को CRYPT ओपन और ऑनलाइन चाहिए।\n3. CRYPT द्वारा P2P कनेक्शन स्थापित करने तक प्रतीक्षा करें।\n4. \"कनेक्टिंग...\" स्थिति के गायब होने और कनेक्शन स्थापित होने की प्रतीक्षा करें।\n5. एक बार कनेक्ट होने के बाद आप चैटिंग शुरू कर सकते हैं।';
+
+  @override
+  String get messageStorageExplanation =>
+      'आपके संदेश कनेक्टेड डिवाइसों के बीच सीधे यात्रा करने के लिए डिज़ाइन किए गए हैं। CRYPT आपके चैट संदेशों को हमारे सर्वर पर संग्रहीत नहीं करता है। सर्वर वर्तमान में कनेक्शन और सिग्नलिंग में मदद करता है, और चैट इतिहास सर्वर पर संग्रहीत नहीं होता है। यदि दूसरा व्यक्ति ऑफ़लाइन है, तो वर्तमान पी2पी कनेक्शन स्थापित नहीं किया जा सकता है।';
+
+  @override
+  String get settingsAndSupportExplanation =>
+      'अपने CRYPT अनुभव को अनुकूलित करने के लिए सेटिंग्स पर जाएँ। अधिक अनुकूलन विकल्प जल्द ही आ रहे हैं.\n\nक्या आप CRYPT का समर्थन करना चाहते हैं? आप सेटिंग में दान का विकल्प पा सकते हैं।';
+
+  @override
+  String get saving => 'सहेजा जा रहा है...';
+
+  @override
+  String get continueToCrypt => 'क्रिप्ट करना जारी रखें';
+
+  @override
+  String get showSplashScreen => 'स्प्लैश स्क्रीन दिखाएँ';
+
+  @override
+  String get retry => 'पुन: प्रयास करें';
+
+  @override
+  String get connectionFailed => 'कनेक्शन विफल';
+
+  @override
+  String get connectionFailedDetails =>
+      'कनेक्शन विफल। कनेक्ट करने के लिए दोनों डिवाइस ऑनलाइन होने चाहिए और CRYPT खुला होना चाहिए।';
+
+  @override
+  String get gallery => 'गैलरी';
+
+  @override
+  String get alignQrCode => 'QR कोड संरेखित करें';
+
+  @override
+  String get scanFromGallery => 'गैलरी से स्कैन करें';
+
+  @override
+  String get couldNotScanImage => 'छवि स्कैन नहीं कर सका.';
+
+  @override
+  String couldNotShareQrCode(String error) {
+    return 'QR कोड साझा नहीं किया जा सका: $error';
+  }
+
+  @override
+  String newContact(String username) {
+    return 'नया संपर्क: $username';
+  }
+
+  @override
+  String get publicEncryptionKeyMissing =>
+      'आपकी सार्वजनिक एन्क्रिप्शन कुंजी गुम है.';
+
+  @override
+  String get contactEncryptionKeyMissing =>
+      'संपर्क एन्क्रिप्शन कुंजी अनुपलब्ध है.';
+
+  @override
+  String get localEncryptionKeyMissing =>
+      'स्थानीय एन्क्रिप्शन कुंजी अनुपलब्ध है.';
+
+  @override
+  String get noQrCodeFound => 'इस छवि में कोई QR कोड नहीं मिला.';
+
+  @override
+  String get shareQrCode => 'QR कोड साझा करें';
+
+  @override
   String get welcome => 'स्वागत है';
 
   @override
@@ -364,6 +476,77 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get supportSoloDeveloper => 'सोलो डेवलपर को सपोर्ट करें';
+
+  @override
+  String get supportIntro =>
+      'अरे! 👋 मैं एक एकल डेवलपर हूं जो CRYPT पर कड़ी मेहनत कर रहा हूं। मेरे पास कोई बजट या कॉर्पोरेट फंडिंग नहीं है। मैं ऐप में सुधार जारी रखने और हमेशा के लिए कोई विज्ञापन नहीं होने की गारंटी देने के लिए पूरी तरह से आपकी ईमानदारी और सहानुभूति पर भरोसा करता हूं।';
+
+  @override
+  String get chooseSupportAmount => 'अपना मूल्य चुनें (समर्थन के लिए स्लाइड):';
+
+  @override
+  String get poorGang => 'मैं गरीब गैंग हूं 🥀✌️';
+
+  @override
+  String get launchOfferMinimum => 'लॉन्च ऑफर न्यूनतम 🚀';
+
+  @override
+  String get buyMeCoffee => 'मेरे लिए कॉफ़ी खरीदें ☕';
+
+  @override
+  String get superSupporter => 'सुपर सपोर्टर 🔥';
+
+  @override
+  String get feature => 'विशेषता';
+
+  @override
+  String get freeTier => 'फ्री टियर';
+
+  @override
+  String get premium => 'अधिमूल्य';
+
+  @override
+  String get chatLocks => 'चैट लॉक';
+
+  @override
+  String get maxOneRoom => 'अधिकतम 1 कमरा';
+
+  @override
+  String get unlimited => 'असीमित';
+
+  @override
+  String get biometrics => 'बॉयोमेट्रिक्स';
+
+  @override
+  String get disabled => '🚫 विकलांग';
+
+  @override
+  String supportWithSats(String amount) {
+    return '$amount सैट्स के साथ समर्थन (फीनिक्स)';
+  }
+
+  @override
+  String get boltOffer =>
+      '⚡ BOLT12 भुगतान प्रस्ताव • कॉपी करने के लिए टैप करें';
+
+  @override
+  String get boltOfferCopied => 'BOLT12 भुगतान प्रस्ताव की प्रतिलिपि बनाई गई';
+
+  @override
+  String get tapToCopyBoltOffer =>
+      'BOLT12 भुगतान प्रस्ताव की प्रतिलिपि बनाने के लिए टैप करें';
+
+  @override
+  String get simpleInstructionsToUnlock => '📬 अनलॉक करने के सरल निर्देश:';
+
+  @override
+  String unlockInstructions(String username) {
+    return '1. एंड्रॉइड पर फीनिक्स वॉलेट का उपयोग करके भुगतान करें (अनलॉक करने के लिए न्यूनतम 7,500 - अधिक की हमेशा सराहना की जाती है)।\n2. अपनी सफल लेनदेन पुष्टिकरण स्क्रीन का स्क्रीनशॉट लें।\n3. उस स्क्रीनशॉट को jounaidnadirmed@gmail.com पर ईमेल करें और मुझे अपना विशिष्ट खाता उपयोगकर्ता नाम बताएं: \'$username\' ताकि मैं जान सकूं कि भुगतान किसने किया।\n4. इस डिवाइस पर अपना अनुरोध सहेजने के लिए नीचे दिए गए बॉक्स में कुछ भी टाइप करें:';
+  }
+
+  @override
+  String get supportRequestHint =>
+      'अपना नाम या लेन-देन की जानकारी यहां टाइप करें...';
 
   @override
   String get maybeLater => 'बाद में';

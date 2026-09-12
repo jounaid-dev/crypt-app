@@ -6,8 +6,11 @@ import 'package:uuid/uuid.dart';
 import '../services/identity_service.dart';
 import '../services/account_service.dart';
 import '../services/cloud_identity_service.dart';
-import 'home_page.dart';
+import '../main.dart';
 import '../services/session_service.dart';
+import 'terms_and_conditions_page.dart';
+import 'beta_intro_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -17,16 +20,13 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
-  final TextEditingController _usernameController =
-      TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
 
-  final TextEditingController _passwordController =
-      TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   final IdentityService _identityService = IdentityService();
   final AccountService _accountService = AccountService();
-  final CloudIdentityService _cloudIdentityService =
-      CloudIdentityService();
+  final CloudIdentityService _cloudIdentityService = CloudIdentityService();
 
   bool _loading = false;
   bool _obscurePassword = true;
@@ -54,45 +54,38 @@ class _SignupPageState extends State<SignupPage> {
   Future<void> _handleSignup() async {
     final l10n = AppLocalizations.of(context)!;
 
-    final chosenUsername = _usernameController.text
-        .trim()
-        .replaceAll(RegExp(r'\s+'), '_');
+    final chosenUsername = _usernameController.text.trim().replaceAll(
+      RegExp(r'\s+'),
+      '_',
+    );
 
     final password = _passwordController.text.trim();
 
     if (chosenUsername.isEmpty || password.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(l10n.pleaseFillInAllFields),
-        ),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(l10n.pleaseFillInAllFields)));
       return;
     }
 
     if (chosenUsername.length > 20) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(l10n.usernameExceedsLimit),
-        ),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(l10n.usernameExceedsLimit)));
       return;
     }
 
     if (!_isValidUsername(chosenUsername)) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(l10n.invalidUsernameCharacters),
-        ),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(l10n.invalidUsernameCharacters)));
       return;
     }
 
     if (!_isPasswordStrong(password)) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(l10n.weakPasswordNotice),
-        ),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(l10n.weakPasswordNotice)));
       return;
     }
 
@@ -103,24 +96,18 @@ class _SignupPageState extends State<SignupPage> {
     try {
       String uniqueUsername = chosenUsername;
 
-      final exists =
-          await _cloudIdentityService.usernameExists(
-        chosenUsername,
-      );
+      final exists = await _cloudIdentityService.usernameExists(chosenUsername);
 
       if (exists) {
         bool found = false;
         final random = Random();
 
         for (int i = 0; i < 100; i++) {
-          final tag =
-              (random.nextInt(9000) + 1000).toString();
+          final tag = (random.nextInt(9000) + 1000).toString();
 
-          final candidate =
-              "${chosenUsername}_$tag";
+          final candidate = "${chosenUsername}_$tag";
 
-          final candidateExists =
-              await _cloudIdentityService.usernameExists(
+          final candidateExists = await _cloudIdentityService.usernameExists(
             candidate,
           );
 
@@ -132,14 +119,11 @@ class _SignupPageState extends State<SignupPage> {
         }
 
         if (!found) {
-          throw Exception(
-            l10n.unableToGenerateUniqueUsername,
-          );
+          throw Exception(l10n.unableToGenerateUniqueUsername);
         }
       }
 
-      final bundle =
-          await _identityService.generateAndStoreIdentity(
+      final bundle = await _identityService.generateAndStoreIdentity(
         uniqueUsername,
         password,
       );
@@ -169,10 +153,7 @@ class _SignupPageState extends State<SignupPage> {
           content: Text(
             uniqueUsername == chosenUsername
                 ? l10n.yourUsernameIs(uniqueUsername)
-                : l10n.usernameTakenAssignedTag(
-                    chosenUsername,
-                    uniqueUsername,
-                  ),
+                : l10n.usernameTakenAssignedTag(chosenUsername, uniqueUsername),
           ),
           actions: [
             TextButton(
@@ -185,18 +166,31 @@ class _SignupPageState extends State<SignupPage> {
 
       if (!mounted) return;
 
+      final agreed = await Navigator.push<bool>(
+        context,
+        MaterialPageRoute(builder: (_) => const TermsAndConditionsPage()),
+      );
+
+      if (agreed != true || !mounted) return;
+
+      final prefs = await SharedPreferences.getInstance();
+      final betaAcknowledged =
+          prefs.getBool('beta_intro_acknowledged') ?? false;
+
+      if (!mounted) return;
+
+      if (!betaAcknowledged) {
+        final acknowledged = await Navigator.push<bool>(
+          context,
+          MaterialPageRoute(builder: (_) => const BetaIntroPage()),
+        );
+        if (acknowledged != true || !mounted) return;
+      }
+
       SessionService.instance.unlock(password);
 
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (_) => HomePage(
-            uid: identity.publicEncryptionKey,
-          ),
-        ),
-        (route) => false,
-      );
-    } catch (e) {
+      CryptApp.restartStartup(context);
+    } catch (_) {
       if (!mounted) return;
 
       setState(() {
@@ -205,11 +199,7 @@ class _SignupPageState extends State<SignupPage> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(
-            l10n.failedToGenerateIdentity(
-              e.toString(),
-            ),
-          ),
+          content: Text(l10n.failedToGenerateIdentity(l10n.connectionFailed)),
         ),
       );
     } finally {
@@ -232,15 +222,12 @@ class _SignupPageState extends State<SignupPage> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
-    final String hintText =
-        _passwordController.text.isEmpty
-            ? l10n.keepPasswordSecureHint
-            : "";
+    final String hintText = _passwordController.text.isEmpty
+        ? l10n.keepPasswordSecureHint
+        : "";
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(l10n.createAccount),
-      ),
+      appBar: AppBar(title: Text(l10n.createAccount)),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -253,11 +240,7 @@ class _SignupPageState extends State<SignupPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(
-                  Icons.lock_person,
-                  size: 80,
-                  color: Colors.blue,
-                ),
+                const Icon(Icons.lock_person, size: 80, color: Colors.blue),
 
                 const SizedBox(height: 24),
 
@@ -275,10 +258,19 @@ class _SignupPageState extends State<SignupPage> {
                 Text(
                   l10n.signupDescription,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: Colors.grey,
-                    fontSize: 14,
-                  ),
+                  style: const TextStyle(color: Colors.grey, fontSize: 14),
+                ),
+
+                TextButton(
+                  onPressed: _loading
+                      ? null
+                      : () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const TermsAndConditionsPage(),
+                          ),
+                        ),
+                  child: Text(l10n.termsAndConditions),
                 ),
 
                 const SizedBox(height: 32),
@@ -321,8 +313,7 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                       onPressed: () {
                         setState(() {
-                          _obscurePassword =
-                              !_obscurePassword;
+                          _obscurePassword = !_obscurePassword;
                         });
                       },
                     ),
@@ -357,21 +348,18 @@ class _SignupPageState extends State<SignupPage> {
 
                 SizedBox(
                   width: double.infinity,
-                  height: 50,
                   child: FilledButton(
-                    onPressed:
-                        _loading ? null : _handleSignup,
+                    onPressed: _loading ? null : _handleSignup,
                     child: _loading
                         ? const SizedBox(
                             width: 22,
                             height: 22,
-                            child:
-                                CircularProgressIndicator(
+                            child: CircularProgressIndicator(
                               strokeWidth: 2.5,
                               color: Colors.white,
                             ),
                           )
-                        : Text(l10n.signup),
+                        : Text(l10n.signup, textAlign: TextAlign.center),
                   ),
                 ),
               ],

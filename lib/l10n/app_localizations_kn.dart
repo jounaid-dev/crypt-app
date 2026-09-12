@@ -12,6 +12,117 @@ class AppLocalizationsKn extends AppLocalizations {
   String get appName => 'CRYPT';
 
   @override
+  String get termsAndConditions => 'ನಿಯಮಗಳು ಮತ್ತು ಷರತ್ತುಗಳು';
+
+  @override
+  String get settingsTermsAndConditions => 'ನಿಯಮಗಳು ಮತ್ತು ಷರತ್ತುಗಳು';
+
+  @override
+  String get termsIntro =>
+      'CRYPT ಎನ್ನುವುದು ಸಂಭಾಷಣೆಗಳಿಗಾಗಿ ಜನರನ್ನು ನೇರವಾಗಿ ಸಂಪರ್ಕಿಸಲು ಆರಂಭಿಕ ಹಂತದ ಅಪ್ಲಿಕೇಶನ್ ಆಗಿದೆ. ಅಪ್ಲಿಕೇಶನ್ ಅನ್ನು ಸೂಕ್ತವಾಗಿ ಬಳಸಲು ಮತ್ತು ನಿಮ್ಮ ಖಾತೆಯ ರುಜುವಾತುಗಳನ್ನು ಸುರಕ್ಷಿತವಾಗಿರಿಸಲು ನೀವು ಜವಾಬ್ದಾರರಾಗಿರುತ್ತೀರಿ.';
+
+  @override
+  String get termsConnectivity =>
+      'ಸಾಧನಗಳನ್ನು ಅನ್ವೇಷಿಸಲು ಮತ್ತು ಸಂಪರ್ಕಗಳನ್ನು ಸ್ಥಾಪಿಸಲು ಸಹಾಯ ಮಾಡಲು CRYPT ಆನ್‌ಲೈನ್ ಸೇವೆಗಳನ್ನು ಬಳಸುತ್ತದೆ. ಅಪ್ಲಿಕೇಶನ್ ಅಭಿವೃದ್ಧಿಗೊಂಡಂತೆ ಲಭ್ಯತೆ ಮತ್ತು ಸಂಪರ್ಕದ ನಡವಳಿಕೆ ಬದಲಾಗಬಹುದು. ನಿಮ್ಮ ಏಕೈಕ ಸಂವಹನ ಸಾಧನವಾಗಿ CRYPT ಅನ್ನು ಅವಲಂಬಿಸಬೇಡಿ.';
+
+  @override
+  String get termsAgreement =>
+      'ಮುಂದುವರಿಸುವ ಮೂಲಕ, ನೀವು ಈ ನಿಯಮಗಳ ಅಡಿಯಲ್ಲಿ CRYPT ಅನ್ನು ಓದಿದ್ದೀರಿ ಮತ್ತು ಸಮ್ಮತಿಸುತ್ತೀರಿ ಎಂದು ನೀವು ಖಚಿತಪಡಿಸುತ್ತೀರಿ.';
+
+  @override
+  String get agreeTerms => 'ನಾನು ನಿಯಮಗಳು ಮತ್ತು ಷರತ್ತುಗಳಿಗೆ ಸಮ್ಮತಿಸುತ್ತೇನೆ';
+
+  @override
+  String get agreeAndContinue => 'ಒಪ್ಪಿಕೊಳ್ಳಿ ಮತ್ತು ಮುಂದುವರಿಸಿ';
+
+  @override
+  String get beforeYouStart => 'ನೀವು ಪ್ರಾರಂಭಿಸುವ ಮೊದಲು';
+
+  @override
+  String get connected => 'ಸಂಪರ್ಕಗೊಂಡಿದೆ';
+
+  @override
+  String get connectFirstThenChat => 'ಮೊದಲು ಸಂಪರ್ಕಿಸಿ, ನಂತರ ಚಾಟ್ ಮಾಡಿ';
+
+  @override
+  String get betaIntro =>
+      'CRYPT ಆರಂಭಿಕ ಬೀಟಾ ಆವೃತ್ತಿಯಾಗಿದೆ, ಆದ್ದರಿಂದ ಭವಿಷ್ಯದ ಆವೃತ್ತಿಗಳಲ್ಲಿ ಅನುಭವವು ಸುಧಾರಿಸಬಹುದು.';
+
+  @override
+  String get walkieTalkieExplanation =>
+      'CRYPT ವಾಕಿ-ಟಾಕಿಯಂತೆ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತದೆ: ಸಂಪರ್ಕವನ್ನು ಸ್ಥಾಪಿಸಲು ಇಬ್ಬರೂ ಆನ್‌ಲೈನ್‌ನಲ್ಲಿರಬೇಕು ಮತ್ತು CRYPT ಅನ್ನು ಒಂದೇ ಸಮಯದಲ್ಲಿ ತೆರೆದಿರಬೇಕು.';
+
+  @override
+  String get howToUseCrypt =>
+      'ಕ್ರಿಪ್ಟ್ ಅನ್ನು ಹೇಗೆ ಬಳಸುವುದು:\n1. ಇತರ ವ್ಯಕ್ತಿಯ CRYPT QR ಕೋಡ್ ಅನ್ನು ಸ್ಕ್ಯಾನ್ ಮಾಡಿ.\n2. ಇಬ್ಬರಿಗೂ CRYPT ಮುಕ್ತ ಮತ್ತು ಆನ್‌ಲೈನ್ ಅಗತ್ಯವಿದೆ.\n3. CRYPT P2P ಸಂಪರ್ಕವನ್ನು ಸ್ಥಾಪಿಸುವಾಗ ನಿರೀಕ್ಷಿಸಿ.\n4. \"ಸಂಪರ್ಕಿಸಲಾಗುತ್ತಿದೆ...\" ಸ್ಥಿತಿ ಕಣ್ಮರೆಯಾಗಲು ಮತ್ತು ಸಂಪರ್ಕವನ್ನು ಸ್ಥಾಪಿಸಲು ನಿರೀಕ್ಷಿಸಿ.\n5. ಸಂಪರ್ಕಗೊಂಡ ನಂತರ, ನೀವು ಚಾಟ್ ಮಾಡಲು ಪ್ರಾರಂಭಿಸಬಹುದು.';
+
+  @override
+  String get messageStorageExplanation =>
+      'ಸಂಪರ್ಕಿತ ಸಾಧನಗಳ ನಡುವೆ ನೇರವಾಗಿ ಪ್ರಯಾಣಿಸಲು ನಿಮ್ಮ ಸಂದೇಶಗಳನ್ನು ವಿನ್ಯಾಸಗೊಳಿಸಲಾಗಿದೆ. CRYPT ನಿಮ್ಮ ಚಾಟ್ ಸಂದೇಶಗಳನ್ನು ನಮ್ಮ ಸರ್ವರ್‌ಗಳಲ್ಲಿ ಸಂಗ್ರಹಿಸುವುದಿಲ್ಲ. ಸರ್ವರ್ ಪ್ರಸ್ತುತ ಸಂಪರ್ಕ ಮತ್ತು ಸಿಗ್ನಲಿಂಗ್‌ಗೆ ಸಹಾಯ ಮಾಡುತ್ತದೆ ಮತ್ತು ಚಾಟ್ ಇತಿಹಾಸವನ್ನು ಸರ್ವರ್‌ನಲ್ಲಿ ಸಂಗ್ರಹಿಸಲಾಗಿಲ್ಲ. ಇತರ ವ್ಯಕ್ತಿಯು ಆಫ್‌ಲೈನ್‌ನಲ್ಲಿದ್ದರೆ, ಪ್ರಸ್ತುತ P2P ಸಂಪರ್ಕವನ್ನು ಸ್ಥಾಪಿಸಲಾಗುವುದಿಲ್ಲ.';
+
+  @override
+  String get settingsAndSupportExplanation =>
+      'ನಿಮ್ಮ CRYPT ಅನುಭವವನ್ನು ಕಸ್ಟಮೈಸ್ ಮಾಡಲು ಸೆಟ್ಟಿಂಗ್‌ಗಳಿಗೆ ಭೇಟಿ ನೀಡಿ. ಹೆಚ್ಚಿನ ಗ್ರಾಹಕೀಕರಣ ಆಯ್ಕೆಗಳು ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿವೆ.\n\nCRYPT ಅನ್ನು ಬೆಂಬಲಿಸಲು ಬಯಸುವಿರಾ? ನೀವು ದೇಣಿಗೆ ಆಯ್ಕೆಯನ್ನು ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಕಾಣಬಹುದು.';
+
+  @override
+  String get saving => 'ಉಳಿಸಲಾಗುತ್ತಿದೆ...';
+
+  @override
+  String get continueToCrypt => 'CRYPT ಗೆ ಮುಂದುವರಿಯಿರಿ';
+
+  @override
+  String get showSplashScreen => 'ಸ್ಪ್ಲಾಶ್ ಪರದೆಯನ್ನು ತೋರಿಸಿ';
+
+  @override
+  String get retry => 'ಮರುಪ್ರಯತ್ನಿಸಿ';
+
+  @override
+  String get connectionFailed => 'ಸಂಪರ್ಕ ವಿಫಲವಾಗಿದೆ';
+
+  @override
+  String get connectionFailedDetails =>
+      'ಸಂಪರ್ಕ ವಿಫಲವಾಗಿದೆ. ಸಂಪರ್ಕಿಸಲು CRYPT ತೆರೆದಿರುವ ಎರಡೂ ಸಾಧನಗಳು ಆನ್‌ಲೈನ್‌ನಲ್ಲಿರಬೇಕು.';
+
+  @override
+  String get gallery => 'ಗ್ಯಾಲರಿ';
+
+  @override
+  String get alignQrCode => 'QR ಕೋಡ್ ಅನ್ನು ಹೊಂದಿಸಿ';
+
+  @override
+  String get scanFromGallery => 'ಗ್ಯಾಲರಿಯಿಂದ ಸ್ಕ್ಯಾನ್ ಮಾಡಿ';
+
+  @override
+  String get couldNotScanImage => 'ಚಿತ್ರವನ್ನು ಸ್ಕ್ಯಾನ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.';
+
+  @override
+  String couldNotShareQrCode(String error) {
+    return 'QR ಕೋಡ್ ಅನ್ನು ಹಂಚಿಕೊಳ್ಳಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ: $error';
+  }
+
+  @override
+  String newContact(String username) {
+    return 'ಹೊಸ ಸಂಪರ್ಕ: $username';
+  }
+
+  @override
+  String get publicEncryptionKeyMissing =>
+      'ನಿಮ್ಮ ಸಾರ್ವಜನಿಕ ಎನ್‌ಕ್ರಿಪ್ಶನ್ ಕೀ ಕಾಣೆಯಾಗಿದೆ.';
+
+  @override
+  String get contactEncryptionKeyMissing =>
+      'ಸಂಪರ್ಕ ಎನ್‌ಕ್ರಿಪ್ಶನ್ ಕೀ ಕಾಣೆಯಾಗಿದೆ.';
+
+  @override
+  String get localEncryptionKeyMissing => 'ಸ್ಥಳೀಯ ಎನ್‌ಕ್ರಿಪ್ಶನ್ ಕೀ ಕಾಣೆಯಾಗಿದೆ.';
+
+  @override
+  String get noQrCodeFound => 'ಈ ಚಿತ್ರದಲ್ಲಿ ಯಾವುದೇ QR ಕೋಡ್ ಕಂಡುಬಂದಿಲ್ಲ.';
+
+  @override
+  String get shareQrCode => 'QR ಕೋಡ್ ಹಂಚಿಕೊಳ್ಳಿ';
+
+  @override
   String get welcome => 'ಸ್ವಾಗತ';
 
   @override
@@ -365,6 +476,76 @@ class AppLocalizationsKn extends AppLocalizations {
 
   @override
   String get supportSoloDeveloper => 'ಡೆವಲಪರ್ ಅನ್ನು ಬೆಂಬಲಿಸಿ';
+
+  @override
+  String get supportIntro =>
+      'ಹೇ! 👋 ನಾನು ಒಬ್ಬ ಏಕವ್ಯಕ್ತಿ ಡೆವಲಪರ್ ಆಗಿದ್ದೇನೆ, CRYPT ನಲ್ಲಿ ಶ್ರಮಿಸುತ್ತಿದ್ದೇನೆ. ನನ್ನ ಬಳಿ ಬಜೆಟ್ ಅಥವಾ ಕಾರ್ಪೊರೇಟ್ ಫಂಡಿಂಗ್ ಇಲ್ಲ. ನಾನು ಸಂಪೂರ್ಣವಾಗಿ ನಿಮ್ಮ ಪ್ರಾಮಾಣಿಕತೆ ಮತ್ತು ಪರಾನುಭೂತಿಯ ಮೇಲೆ ಅವಲಂಬಿತವಾಗಿದ್ದೇನೆ ಮತ್ತು ಅಪ್ಲಿಕೇಶನ್ ಅನ್ನು ಸುಧಾರಿಸುವುದನ್ನು ಮುಂದುವರಿಸುತ್ತೇನೆ ಮತ್ತು ಯಾವುದೇ ಜಾಹೀರಾತುಗಳನ್ನು ಶಾಶ್ವತವಾಗಿ ಖಾತರಿಪಡಿಸುವುದಿಲ್ಲ.';
+
+  @override
+  String get chooseSupportAmount => 'ನಿಮ್ಮ ಬೆಲೆಯನ್ನು ಆರಿಸಿ (ಬೆಂಬಲಿಸಲು ಸ್ಲೈಡ್):';
+
+  @override
+  String get poorGang => 'ನಾನು ಬಡ ಗ್ಯಾಂಗ್ 🥀✌️';
+
+  @override
+  String get launchOfferMinimum => 'ಆಫರ್ ಕನಿಷ್ಠ 🚀 ಪ್ರಾರಂಭಿಸಿ';
+
+  @override
+  String get buyMeCoffee => 'ನನಗೆ ಕಾಫಿ ಖರೀದಿಸಿ ☕';
+
+  @override
+  String get superSupporter => 'ಸೂಪರ್ ಸಪೋರ್ಟರ್ 🔥';
+
+  @override
+  String get feature => 'ವೈಶಿಷ್ಟ್ಯ';
+
+  @override
+  String get freeTier => 'ಉಚಿತ ಶ್ರೇಣಿ';
+
+  @override
+  String get premium => 'ಪ್ರೀಮಿಯಂ';
+
+  @override
+  String get chatLocks => 'ಚಾಟ್ ಲಾಕ್‌ಗಳು';
+
+  @override
+  String get maxOneRoom => 'ಗರಿಷ್ಠ 1 ಕೊಠಡಿ';
+
+  @override
+  String get unlimited => 'ಅನಿಯಮಿತ';
+
+  @override
+  String get biometrics => 'ಬಯೋಮೆಟ್ರಿಕ್ಸ್';
+
+  @override
+  String get disabled => '🚫 ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ';
+
+  @override
+  String supportWithSats(String amount) {
+    return '$amount ಸ್ಯಾಟ್ಸ್‌ನೊಂದಿಗೆ ಬೆಂಬಲ (ಫೀನಿಕ್ಸ್)';
+  }
+
+  @override
+  String get boltOffer => '⚡ BOLT12 ಪಾವತಿ ಆಫರ್ • ನಕಲಿಸಲು ಟ್ಯಾಪ್ ಮಾಡಿ';
+
+  @override
+  String get boltOfferCopied => 'BOLT12 ಪಾವತಿ ಕೊಡುಗೆಯನ್ನು ನಕಲಿಸಲಾಗಿದೆ';
+
+  @override
+  String get tapToCopyBoltOffer =>
+      'BOLT12 ಪಾವತಿ ಕೊಡುಗೆಯನ್ನು ನಕಲಿಸಲು ಟ್ಯಾಪ್ ಮಾಡಿ';
+
+  @override
+  String get simpleInstructionsToUnlock => '📬 ಅನ್‌ಲಾಕ್ ಮಾಡಲು ಸರಳ ಸೂಚನೆಗಳು:';
+
+  @override
+  String unlockInstructions(String username) {
+    return '1. ಆಂಡ್ರಾಯ್ಡ್‌ನಲ್ಲಿ ಫೀನಿಕ್ಸ್ ವಾಲೆಟ್ ಬಳಸಿ ಪಾವತಿಸಿ (ಅನ್‌ಲಾಕ್ ಮಾಡಲು ಕನಿಷ್ಠ 7,500 - ಹೆಚ್ಚಿನದನ್ನು ಯಾವಾಗಲೂ ಪ್ರಶಂಸಿಸಲಾಗುತ್ತದೆ).\n2. ನಿಮ್ಮ ಯಶಸ್ವಿ ವಹಿವಾಟು ದೃಢೀಕರಣ ಪರದೆಯ ಸ್ಕ್ರೀನ್‌ಶಾಟ್ ತೆಗೆದುಕೊಳ್ಳಿ.\n3. ಆ ಸ್ಕ್ರೀನ್‌ಶಾಟ್ ಅನ್ನು jounaidnadirmed@gmail.com ಗೆ ಇಮೇಲ್ ಮಾಡಿ ಮತ್ತು ನಿಮ್ಮ ಅನನ್ಯ ಖಾತೆಯ ಬಳಕೆದಾರಹೆಸರನ್ನು ನನಗೆ ತಿಳಿಸಿ: \'$username\' ಹಾಗಾಗಿ ಯಾರು ಪಾವತಿಸಿದ್ದಾರೆಂದು ನನಗೆ ತಿಳಿದಿದೆ.\n4. ಈ ಸಾಧನದಲ್ಲಿ ನಿಮ್ಮ ವಿನಂತಿಯನ್ನು ಉಳಿಸಲು ಕೆಳಗಿನ ಬಾಕ್ಸ್‌ನಲ್ಲಿ ಏನನ್ನಾದರೂ ಟೈಪ್ ಮಾಡಿ:';
+  }
+
+  @override
+  String get supportRequestHint =>
+      'ನಿಮ್ಮ ಹೆಸರು ಅಥವಾ ವಹಿವಾಟಿನ ಮಾಹಿತಿಯನ್ನು ಇಲ್ಲಿ ಟೈಪ್ ಮಾಡಿ...';
 
   @override
   String get maybeLater => 'ಬಹುಶಃ ನಂತರ';

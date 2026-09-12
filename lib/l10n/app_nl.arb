@@ -1,255 +1,301 @@
 {
-  "@@locale": "nl",
-
-  "appName": "CRYPT",
-  "welcome": "Welkom",
-  "login": "Inloggen",
-  "signup": "Registreren",
-  "settings": "Instellingen",
-  "chats": "Chats",
-  "typeMessage": "Typ een bericht...",
-  "send": "Verzenden",
-
-  "p2p": "P2P",
-  "connecting": "Verbinden...",
-  "connectingP2p": "Verbinden met P2P...",
-  "p2pConnectionNotReady": "P2P niet gereed.",
-
-  "searchLanguage": "Taal zoeken...",
-  "language": "Taal",
-
-  "forceEscapeSignOutTitle": "NOOD-AFMELDING FORCEREN?",
-  "forceEscapeSignOutContent": "WAARSCHUWING: Alle apparaatgegevens worden gewist.",
-  "cancel": "Annuleren",
-  "wipeDevice": "APPARAAT WISSEN",
-
-  "accountDestructionAlertTitle": "ACCOUNTVERWIJDERING",
-  "accountDestructionWarning": "WAARSCHUWING: Apparaatgegevens en berichten op afstand worden gewist.",
-  "accountDestructionCriticalNotice": "CRUCIAAL: Verkeerde codes vergrendelen het systeem. Gebruik uw Accountwachtwoord of Nooduitgang.",
-
-  "verificationSecurityKey": "Beveiligingssleutel: {code}",
-  "@verificationSecurityKey": {
-    "placeholders": {
-      "code": {
-        "type": "String"
-      }
+    "@@locale": "nl",
+    "appName": "CRYPT",
+    "welcome": "Welkom",
+    "login": "Inloggen",
+    "signup": "Registreren",
+    "settings": "Instellingen",
+    "chats": "Chats",
+    "typeMessage": "Typ een bericht...",
+    "send": "Verzenden",
+    "p2p": "P2P",
+    "connecting": "Verbinden...",
+    "connectingP2p": "Verbinden met P2P...",
+    "p2pConnectionNotReady": "P2P niet gereed.",
+    "searchLanguage": "Taal zoeken...",
+    "language": "Taal",
+    "forceEscapeSignOutTitle": "NOOD-AFMELDING FORCEREN?",
+    "forceEscapeSignOutContent": "WAARSCHUWING: Alle apparaatgegevens worden gewist.",
+    "cancel": "Annuleren",
+    "wipeDevice": "APPARAAT WISSEN",
+    "accountDestructionAlertTitle": "ACCOUNTVERWIJDERING",
+    "accountDestructionWarning": "WAARSCHUWING: Apparaatgegevens en berichten op afstand worden gewist.",
+    "accountDestructionCriticalNotice": "CRUCIAAL: Verkeerde codes vergrendelen het systeem. Gebruik uw Accountwachtwoord of Nooduitgang.",
+    "verificationSecurityKey": "Beveiligingssleutel: {code}",
+    "@verificationSecurityKey": {
+        "placeholders": {
+            "code": {
+                "type": "String"
+            }
+        }
+    },
+    "copyDigitsHint": "Kopieer de 5 cijfers",
+    "codeMismatchNotice": "Code komt niet overeen. Voer uw Masterwachtwoord in of wacht 10 minuten.",
+    "accountPasswordLabel": "Accountwachtwoord",
+    "deleteEverythingPermanently": "ALLES VERWIJDEREN",
+    "escapeAndPurgeDeviceData": "Ontsnappen & Gegevens Wissen",
+    "addContact": "Contact toevoegen",
+    "addContactConfirmation": "Dit contact toevoegen?",
+    "noMessagesYet": "Nog geen berichten",
+    "addNewContact": "Nieuw contact",
+    "usernameLabel": "Gebruikersnaam",
+    "nicknameOptionalLabel": "Bijnaam (optioneel)",
+    "add": "Toevoegen",
+    "usernameCannotBeEmpty": "Gebruikersnaam vereist",
+    "contactAlreadyExists": "Contact '{name}' bestaat al.",
+    "@contactAlreadyExists": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "userNotFoundOnRegistry": "Gebruiker '{name}' niet gevonden. Gedeeld geheim niet beschikbaar.",
+    "@userNotFoundOnRegistry": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "successfullyAddedContact": "{name} toegevoegd!",
+    "@successfullyAddedContact": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "contacts": "Contacten",
+    "noContactsYet": "Nog geen contacten",
+    "securityLockoutActive": "Beveiligingsvergrendeling",
+    "tooManyAttemptsFrozen": "Te veel pogingen. Vergrendeld voor {minutes} min.",
+    "@tooManyAttemptsFrozen": {
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "acknowledge": "Bevestigen",
+    "accessBlocked": "Toegang geblokkeerd",
+    "accessSuspended": "5 mislukte pogingen. Opgeschort voor {minutes} min.",
+    "@accessSuspended": {
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "ok": "OK",
+    "unlockSecureNode": "Ontgrendelen: {username}",
+    "@unlockSecureNode": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "verificationMetricsRemaining": "Pogingen over: {count}",
+    "@verificationMetricsRemaining": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "secureKeyPasscode": "Beveiligingscode",
+    "warningHardwareLockout": "WAARSCHUWING: Volgende fout vergrendelt de beveiliging.",
+    "abort": "Afbreken",
+    "authenticate": "Verifiëren",
+    "searchPipelinesHint": "Beveiligde verbindingen zoeken...",
+    "zeroPipelinesDiscovered": "Geen verbindingen gevonden.",
+    "processingDecryption": "Ontsleutelen...",
+    "decrypting": "Ontsleutelen...",
+    "decryptionError": "[Ontsleutelfout]",
+    "cryptContainerSecure": "CRYPT-CONTAINER BEVEILIGD",
+    "connectAnAccount": "Account koppelen",
+    "username": "Gebruikersnaam",
+    "password": "Wachtwoord",
+    "enterMasterSecurityPassword": "Voer uw Masterwachtwoord in",
+    "pleaseFillAllFields": "Vul alle velden in",
+    "wrongUsernameOrPassword": "Onjuiste gebruikersnaam of wachtwoord",
+    "loginError": "Inlogfout: {error}",
+    "@loginError": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "dontHaveAnAccountSignUp": "Geen account? Registreren",
+    "myIdentity": "Mijn identiteit",
+    "scanToAddMe": "Scan om mij toe te voegen",
+    "shareProfileLink": "Profiel delen",
+    "addMeOnCrypt": "Voeg mij toe op CRYPT!\n\n{link}",
+    "@addMeOnCrypt": {
+        "placeholders": {
+            "link": {
+                "type": "String"
+            }
+        }
+    },
+    "scanQr": "QR scannen",
+    "invalidCryptQrFormat": "Ongeldige CRYPT QR-code.",
+    "userScanned": "Gebruiker gescand!",
+    "addingUser": "{username} toevoegen...",
+    "@addingUser": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "defaultUser": "Gebruiker",
+    "createAccount": "Account aanmaken",
+    "keepPasswordSecureHint": "Bewaar het veilig. Wachtwoord kan niet worden gewijzigd.",
+    "pleaseFillInAllFields": "Vul alle velden in",
+    "usernameExceedsLimit": "Gebruikersnaam max. 20 tekens",
+    "invalidUsernameCharacters": "Gebruik alleen letters, cijfers, _ of -.",
+    "weakPasswordNotice": "Gebruik 8+ tekens, 1 cijfer en 1 hoofdletter.",
+    "unableToGenerateUniqueUsername": "Kan geen unieke gebruikersnaam genereren.",
+    "accountCreated": "Account aangemaakt",
+    "yourUsernameIs": "Uw gebruikersnaam:\n\n{username}",
+    "@yourUsernameIs": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "usernameTakenAssignedTag": "Gebruikersnaam '{chosen}' is bezet.\n\nUw gebruikersnaam:\n\n{assigned}\n\nBewaar deze voor het inloggen.",
+    "@usernameTakenAssignedTag": {
+        "placeholders": {
+            "chosen": {
+                "type": "String"
+            },
+            "assigned": {
+                "type": "String"
+            }
+        }
+    },
+    "continueText": "Doorgaan",
+    "failedToGenerateIdentity": "Aanmaken van identiteit mislukt: {error}",
+    "@failedToGenerateIdentity": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "welcomeToCrypt": "Welkom bij CRYPT",
+    "signupDescription": "Maak een gebruikersnaam en wachtwoord aan om P2P-sleutels te genereren.",
+    "chooseAUsername": "Kies een gebruikersnaam",
+    "usernameHelperText": "Gebruik niet uw echte naam. Als deze bezet is, wordt een achtervoegsel toegevoegd.",
+    "masterAuthenticationRequired": "Master-authenticatie",
+    "verify": "Verifiëren",
+    "darkThemeMode": "Donker thema",
+    "secureConversations": "Beveiligde gesprekken",
+    "noActiveConversations": "Geen actieve chats. Start er een om vergrendelingen in te schakelen.",
+    "logout": "Uitloggen",
+    "wipeDeviceAndEscape": "APPARAAT WISSEN",
+    "falsePassword": "Verkeerd wachtwoord",
+    "accessSuspendedTimer": "Toegang opgeschort. Probeer het opnieuw over {time}.",
+    "@accessSuspendedTimer": {
+        "placeholders": {
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "selectSecureLockMethod": "Selecteer vergrendelingsmethode",
+    "selectSecureLockDescription": "Vergrendelen met vingerafdruk of 4-cijferige pincode?",
+    "fourDigitPin": "4-cijferige pincode",
+    "fingerprintUnlock": "Vingerafdruk 🔓",
+    "supportSoloDeveloper": "Ondersteun ontwikkelaar",
+    "maybeLater": "Misschien later",
+    "submitProof": "Bewijs indienen",
+    "couldNotOpenWallet": "Wallet kon niet worden geopend. Kopieer de onderstaande code.",
+    "proofSubmittedSnackbar": "Bewijs ingediend. Handmatige beoordeling: 24–48 uur (weekenden uitgesloten).",
+    "termsAndConditions": "Algemene voorwaarden",
+    "settingsTermsAndConditions": "Algemene voorwaarden",
+    "termsIntro": "CRYPT is een toepassing in een vroeg stadium om mensen rechtstreeks met elkaar in contact te brengen voor gesprekken. U bent verantwoordelijk voor het juiste gebruik van de applicatie en voor het veilig houden van uw accountgegevens.",
+    "termsConnectivity": "CRYPT maakt gebruik van onlinediensten om apparaten te helpen verbindingen te ontdekken en tot stand te brengen. Beschikbaarheid en verbindingsgedrag kunnen veranderen naarmate de applicatie zich ontwikkelt. Vertrouw alstublieft niet op CRYPT als uw enige communicatiemiddel.",
+    "termsAgreement": "Door verder te gaan, bevestigt u dat u CRYPT onder deze voorwaarden heeft gelezen en ermee akkoord gaat deze te gebruiken.",
+    "agreeTerms": "Ik ga akkoord met de Algemene Voorwaarden",
+    "agreeAndContinue": "Akkoord en doorgaan",
+    "beforeYouStart": "Voordat u begint",
+    "connected": "Aangesloten",
+    "connectFirstThenChat": "Maak eerst verbinding en chat dan",
+    "betaIntro": "CRYPT is een vroege bètaversie, dus de ervaring kan in toekomstige versies verbeteren.",
+    "walkieTalkieExplanation": "CRYPT werkt als een walkietalkie: beide mensen moeten tegelijkertijd online zijn en CRYPT open hebben om de verbinding tot stand te brengen.",
+    "howToUseCrypt": "CRYPT gebruiken:\n1. Scan de CRYPT QR-code van de andere persoon.\n2. Beide mensen hebben CRYPT open en online nodig.\n3. Wacht terwijl CRYPT de P2P-verbinding tot stand brengt.\n4. Wacht tot de status 'Verbinden...' verdwijnt en de verbinding tot stand is gebracht.\n5. Eenmaal verbonden, kunt u beginnen met chatten.",
+    "messageStorageExplanation": "Uw berichten zijn ontworpen om rechtstreeks tussen verbonden apparaten te reizen. CRYPT bewaart uw chatberichten niet op onze servers. De server helpt momenteel bij de verbinding en signalering, en de chatgeschiedenis wordt niet op de server opgeslagen. Als de andere persoon offline is, kan de huidige P2P-verbinding niet tot stand worden gebracht.",
+    "settingsAndSupportExplanation": "Ga naar Instellingen om uw CRYPT-ervaring aan te passen. Er komen binnenkort meer aanpassingsmogelijkheden.\n\nCRYPT steunen? Je vindt de donatieoptie in Instellingen.",
+    "saving": "Besparing...",
+    "continueToCrypt": "Ga verder naar CRYPT",
+    "showSplashScreen": "Laat het splash-scherm zien",
+    "retry": "Opnieuw proberen",
+    "connectionFailed": "Verbinding mislukt",
+    "connectionFailedDetails": "Verbinding mislukt. Beide apparaten moeten online zijn en CRYPT open om verbinding te kunnen maken.",
+    "gallery": "Galerij",
+    "alignQrCode": "LIJN QR-CODE UIT",
+    "scanFromGallery": "SCANNEN UIT GALERIJ",
+    "couldNotScanImage": "Kan afbeelding niet scannen.",
+    "couldNotShareQrCode": "Kan QR-code niet delen: {error}",
+    "newContact": "Nieuw contact: {username}",
+    "publicEncryptionKeyMissing": "Uw openbare coderingssleutel ontbreekt.",
+    "contactEncryptionKeyMissing": "De contactversleutelingssleutel ontbreekt.",
+    "localEncryptionKeyMissing": "Lokale coderingssleutel ontbreekt.",
+    "noQrCodeFound": "Er is geen QR-code gevonden in deze afbeelding.",
+    "shareQrCode": "Deel QR-code",
+    "@couldNotShareQrCode": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "@newContact": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "supportIntro": "Hoi! 👋 Ik ben een solo-ontwikkelaar die hard aan CRYPT werkt. Ik heb geen budget of bedrijfsfinanciering. Ik vertrouw volledig op uw eerlijkheid en empathie om de app te blijven verbeteren en om ALTIJD GEEN ADVERTENTIES te garanderen.",
+    "chooseSupportAmount": "Kies uw prijs (schuif naar ondersteuning):",
+    "poorGang": "Ik ben een arme bende 🥀✌️",
+    "launchOfferMinimum": "Lanceringsaanbieding minimaal 🚀",
+    "buyMeCoffee": "Koop een koffie voor mij ☕",
+    "superSupporter": "Superondersteuner 🔥",
+    "feature": "Functie",
+    "freeTier": "Gratis niveau",
+    "premium": "Premie",
+    "chatLocks": "Chatsloten",
+    "maxOneRoom": "Maximaal 1 kamer",
+    "unlimited": "Onbeperkt",
+    "biometrics": "Biometrie",
+    "disabled": "🚫 Uitgeschakeld",
+    "supportWithSats": "Ondersteuning met {amount} sats (Phoenix)",
+    "boltOffer": "⚡ BOLT12-betalingsaanbod • Tik om te kopiëren",
+    "boltOfferCopied": "BOLT12-betalingsaanbod gekopieerd",
+    "tapToCopyBoltOffer": "Tik om het BOLT12-betalingsaanbod te kopiëren",
+    "simpleInstructionsToUnlock": "📬 Eenvoudige instructies om te ontgrendelen:",
+    "unlockInstructions": "1. Betaal met Phoenix Wallet op Android (minimaal 7.500 om te ontgrendelen – meer wordt altijd op prijs gesteld).\n2. Maak een screenshot van uw succesvolle transactiebevestigingsscherm.\n3. E-mail die schermafbeelding naar jounaidnadirmed@gmail.com en vertel mij uw unieke accountgebruikersnaam: '{username}', zodat ik weet wie heeft betaald.\n4. Typ iets in het onderstaande vak om uw verzoek op dit apparaat op te slaan:",
+    "supportRequestHint": "Typ hier uw naam of transactiegegevens...",
+    "@supportWithSats": {
+        "placeholders": {
+            "amount": {
+                "type": "String"
+            }
+        }
+    },
+    "@unlockInstructions": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
     }
-  },
-
-  "copyDigitsHint": "Kopieer de 5 cijfers",
-  "codeMismatchNotice": "Code komt niet overeen. Voer uw Masterwachtwoord in of wacht 10 minuten.",
-  "accountPasswordLabel": "Accountwachtwoord",
-  "deleteEverythingPermanently": "ALLES VERWIJDEREN",
-  "escapeAndPurgeDeviceData": "Ontsnappen & Gegevens Wissen",
-
-  "addContact": "Contact toevoegen",
-  "addContactConfirmation": "Dit contact toevoegen?",
-  "noMessagesYet": "Nog geen berichten",
-  "addNewContact": "Nieuw contact",
-  "usernameLabel": "Gebruikersnaam",
-  "nicknameOptionalLabel": "Bijnaam (optioneel)",
-  "add": "Toevoegen",
-  "usernameCannotBeEmpty": "Gebruikersnaam vereist",
-
-  "contactAlreadyExists": "Contact '{name}' bestaat al.",
-  "@contactAlreadyExists": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "userNotFoundOnRegistry": "Gebruiker '{name}' niet gevonden. Gedeeld geheim niet beschikbaar.",
-  "@userNotFoundOnRegistry": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "successfullyAddedContact": "{name} toegevoegd!",
-  "@successfullyAddedContact": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "contacts": "Contacten",
-  "noContactsYet": "Nog geen contacten",
-
-  "securityLockoutActive": "Beveiligingsvergrendeling",
-  "tooManyAttemptsFrozen": "Te veel pogingen. Vergrendeld voor {minutes} min.",
-  "@tooManyAttemptsFrozen": {
-    "placeholders": {
-      "minutes": {
-        "type": "int"
-      }
-    }
-  },
-
-  "acknowledge": "Bevestigen",
-  "accessBlocked": "Toegang geblokkeerd",
-
-  "accessSuspended": "5 mislukte pogingen. Opgeschort voor {minutes} min.",
-  "@accessSuspended": {
-    "placeholders": {
-      "minutes": {
-        "type": "int"
-      }
-    }
-  },
-
-  "ok": "OK",
-
-  "unlockSecureNode": "Ontgrendelen: {username}",
-  "@unlockSecureNode": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "verificationMetricsRemaining": "Pogingen over: {count}",
-  "@verificationMetricsRemaining": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
-
-  "secureKeyPasscode": "Beveiligingscode",
-  "warningHardwareLockout": "WAARSCHUWING: Volgende fout vergrendelt de beveiliging.",
-  "abort": "Afbreken",
-  "authenticate": "Verifiëren",
-
-  "searchPipelinesHint": "Beveiligde verbindingen zoeken...",
-  "zeroPipelinesDiscovered": "Geen verbindingen gevonden.",
-  "processingDecryption": "Ontsleutelen...",
-  "decrypting": "Ontsleutelen...",
-  "decryptionError": "[Ontsleutelfout]",
-  "cryptContainerSecure": "CRYPT-CONTAINER BEVEILIGD",
-
-  "connectAnAccount": "Account koppelen",
-  "username": "Gebruikersnaam",
-  "password": "Wachtwoord",
-  "enterMasterSecurityPassword": "Voer uw Masterwachtwoord in",
-  "pleaseFillAllFields": "Vul alle velden in",
-  "wrongUsernameOrPassword": "Onjuiste gebruikersnaam of wachtwoord",
-
-  "loginError": "Inlogfout: {error}",
-  "@loginError": {
-    "placeholders": {
-      "error": {
-        "type": "String"
-      }
-    }
-  },
-
-  "dontHaveAnAccountSignUp": "Geen account? Registreren",
-  "myIdentity": "Mijn identiteit",
-  "scanToAddMe": "Scan om mij toe te voegen",
-  "shareProfileLink": "Profiel delen",
-
-  "addMeOnCrypt": "Voeg mij toe op CRYPT!\n\n{link}",
-  "@addMeOnCrypt": {
-    "placeholders": {
-      "link": {
-        "type": "String"
-      }
-    }
-  },
-
-  "scanQr": "QR scannen",
-  "invalidCryptQrFormat": "Ongeldige CRYPT QR-code.",
-  "userScanned": "Gebruiker gescand!",
-  "addingUser": "{username} toevoegen...",
-
-  "@addingUser": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "defaultUser": "Gebruiker",
-  "createAccount": "Account aanmaken",
-  "keepPasswordSecureHint": "Bewaar het veilig. Wachtwoord kan niet worden gewijzigd.",
-  "pleaseFillInAllFields": "Vul alle velden in",
-  "usernameExceedsLimit": "Gebruikersnaam max. 20 tekens",
-  "invalidUsernameCharacters": "Gebruik alleen letters, cijfers, _ of -.",
-  "weakPasswordNotice": "Gebruik 8+ tekens, 1 cijfer en 1 hoofdletter.",
-  "unableToGenerateUniqueUsername": "Kan geen unieke gebruikersnaam genereren.",
-
-  "accountCreated": "Account aangemaakt",
-
-  "yourUsernameIs": "Uw gebruikersnaam:\n\n{username}",
-  "@yourUsernameIs": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "usernameTakenAssignedTag": "Gebruikersnaam '{chosen}' is bezet.\n\nUw gebruikersnaam:\n\n{assigned}\n\nBewaar deze voor het inloggen.",
-  "@usernameTakenAssignedTag": {
-    "placeholders": {
-      "chosen": {
-        "type": "String"
-      },
-      "assigned": {
-        "type": "String"
-      }
-    }
-  },
-
-  "continueText": "Doorgaan",
-
-  "failedToGenerateIdentity": "Aanmaken van identiteit mislukt: {error}",
-  "@failedToGenerateIdentity": {
-    "placeholders": {
-      "error": {
-        "type": "String"
-      }
-    }
-  },
-
-  "welcomeToCrypt": "Welkom bij CRYPT",
-  "signupDescription": "Maak een gebruikersnaam en wachtwoord aan om P2P-sleutels te genereren.",
-  "chooseAUsername": "Kies een gebruikersnaam",
-  "usernameHelperText": "Gebruik niet uw echte naam. Als deze bezet is, wordt een achtervoegsel toegevoegd.",
-  "masterAuthenticationRequired": "Master-authenticatie",
-  "verify": "Verifiëren",
-  "darkThemeMode": "Donker thema",
-  "secureConversations": "Beveiligde gesprekken",
-  "noActiveConversations": "Geen actieve chats. Start er een om vergrendelingen in te schakelen.",
-  "logout": "Uitloggen",
-  "wipeDeviceAndEscape": "APPARAAT WISSEN",
-  "falsePassword": "Verkeerd wachtwoord",
-
-  "accessSuspendedTimer": "Toegang opgeschort. Probeer het opnieuw over {time}.",
-  "@accessSuspendedTimer": {
-    "placeholders": {
-      "time": {
-        "type": "String"
-      }
-    }
-  },
-
-  "selectSecureLockMethod": "Selecteer vergrendelingsmethode",
-  "selectSecureLockDescription": "Vergrendelen met vingerafdruk of 4-cijferige pincode?",
-  "fourDigitPin": "4-cijferige pincode",
-  "fingerprintUnlock": "Vingerafdruk 🔓",
-  "supportSoloDeveloper": "Ondersteun ontwikkelaar",
-  "maybeLater": "Misschien later",
-  "submitProof": "Bewijs indienen",
-  "couldNotOpenWallet": "Wallet kon niet worden geopend. Kopieer de onderstaande code.",
-  "proofSubmittedSnackbar": "Bewijs ingediend. Handmatige beoordeling: 24–48 uur (weekenden uitgesloten)."
 }

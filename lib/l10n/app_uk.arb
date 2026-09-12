@@ -1,259 +1,301 @@
 {
-  "@@locale": "uk",
-
-  "appName": "CRYPT",
-  "welcome": "Ласкаво просимо",
-  "login": "Увійти",
-  "signup": "Реєстрація",
-  "settings": "Налаштування",
-  "chats": "Чати",
-  "typeMessage": "Введіть повідомлення...",
-  "send": "Надіслати",
-
-  "p2p": "P2P",
-  "connecting": "Підключення...",
-  "connectingP2p": "Підключення до P2P...",
-  "p2pConnectionNotReady": "Pідключення P2P не готове.",
-
-  "searchLanguage": "Пошук мови...",
-  "language": "Мова",
-
-  "forceEscapeSignOutTitle": "ПРИМУСОВИЙ АВАРІЙНИЙ ВИХІД?",
-  "forceEscapeSignOutContent": "ПОПЕРЕДЖЕННЯ: Усі дані на пристрої буде стерто.",
-  "cancel": "Скасувати",
-  "wipeDevice": "Очистити пристрій",
-
-  "accountDestructionAlertTitle": "ВИДАЛЕННЯ АКАУНТА",
-  "accountDestructionWarning": "ПОПЕРЕДЖЕННЯ: Дані пристрою та віддалені повідомлення буде стерто.",
-  "accountDestructionCriticalNotice": "КРИТИЧНО: Неправильні коди заблокують систему. Використайте пароль акаунта або аварійний вихід.",
-
-  "verificationSecurityKey": "Ключ безпеки: {code}",
-  "@verificationSecurityKey": {
-    "placeholders": {
-      "code": {
-        "type": "String"
-      }
+    "@@locale": "uk",
+    "welcome": "Ласкаво просимо",
+    "login": "Увійти",
+    "signup": "Реєстрація",
+    "settings": "Налаштування",
+    "chats": "Чати",
+    "typeMessage": "Введіть повідомлення...",
+    "send": "Надіслати",
+    "p2p": "P2P",
+    "connecting": "Підключення...",
+    "connectingP2p": "Підключення до P2P...",
+    "p2pConnectionNotReady": "Pідключення P2P не готове.",
+    "searchLanguage": "Пошук мови...",
+    "language": "Мова",
+    "forceEscapeSignOutTitle": "ПРИМУСОВИЙ АВАРІЙНИЙ ВИХІД?",
+    "forceEscapeSignOutContent": "ПОПЕРЕДЖЕННЯ: Усі дані на пристрої буде стерто.",
+    "cancel": "Скасувати",
+    "wipeDevice": "Очистити пристрій",
+    "accountDestructionAlertTitle": "ВИДАЛЕННЯ АКАУНТА",
+    "accountDestructionWarning": "ПОПЕРЕДЖЕННЯ: Дані пристрою та віддалені повідомлення буде стерто.",
+    "accountDestructionCriticalNotice": "КРИТИЧНО: Неправильні коди заблокують систему. Використайте пароль акаунта або аварійний вихід.",
+    "verificationSecurityKey": "Ключ безпеки: {code}",
+    "@verificationSecurityKey": {
+        "placeholders": {
+            "code": {
+                "type": "String"
+            }
+        }
+    },
+    "copyDigitsHint": "Скопіюйте 5 цифр вище",
+    "codeMismatchNotice": "Код не збігається. Введіть головний пароль або зачекайте 10 хвилин.",
+    "accountPasswordLabel": "Пароль акаунта",
+    "deleteEverythingPermanently": "ВИДАЛИТИ ВСЕ НАЗАВЖДИ",
+    "escapeAndPurgeDeviceData": "Вийти та очистити дані",
+    "addContact": "Додати контакт",
+    "addContactConfirmation": "Додати цей контакт?",
+    "noMessagesYet": "Повідомлень поки немає",
+    "addNewContact": "Новий контакт",
+    "usernameLabel": "Ім'я користувача",
+    "nicknameOptionalLabel": "Псевдонім (необов'язково)",
+    "add": "Додати",
+    "usernameCannotBeEmpty": "Ім'я користувача обов'язкове",
+    "contactAlreadyExists": "Контакт «{name}» уже існує.",
+    "@contactAlreadyExists": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "userNotFoundOnRegistry": "Користувача «{name}» не знайдено. Спільний секрет недоступний.",
+    "@userNotFoundOnRegistry": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "successfullyAddedContact": "Контакт {name} додано!",
+    "@successfullyAddedContact": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "contacts": "Контакти",
+    "noContactsYet": "Контактів поки немає",
+    "securityLockoutActive": "Блокування безпеки",
+    "tooManyAttemptsFrozen": "Забагато спроб. Доступ заблоковано на {minutes} хвилин.",
+    "@tooManyAttemptsFrozen": {
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "acknowledge": "Зрозуміло",
+    "accessBlocked": "Доступ заблоковано",
+    "accessSuspended": "5 невдалих спроб. Доступ призупинено на {minutes} хвилин.",
+    "@accessSuspended": {
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "ok": "ОК",
+    "unlockSecureNode": "Розблокувати: {username}",
+    "@unlockSecureNode": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "verificationMetricsRemaining": "Залишилося спроб: {count}",
+    "@verificationMetricsRemaining": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "secureKeyPasscode": "Код безпеки",
+    "warningHardwareLockout": "Увага: наступна помилка спричинить блокування безпеки.",
+    "abort": "Скасувати",
+    "authenticate": "Автентифікація",
+    "searchPipelinesHint": "Пошук захищених з'єднань...",
+    "zeroPipelinesDiscovered": "З'єднань не знайдено.",
+    "processingDecryption": "Розшифрування...",
+    "decrypting": "Розшифрування...",
+    "decryptionError": "[Помилка розшифрування]",
+    "cryptContainerSecure": "ЗАХИЩЕНИЙ КОНТЕЙНЕР CRYPT",
+    "connectAnAccount": "Підключити акаунт",
+    "username": "Ім'я користувача",
+    "password": "Пароль",
+    "enterMasterSecurityPassword": "Введіть головний пароль",
+    "pleaseFillAllFields": "Заповніть усі поля",
+    "wrongUsernameOrPassword": "Неправильне ім'я користувача або пароль",
+    "loginError": "Помилка входу: {error}",
+    "@loginError": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "dontHaveAnAccountSignUp": "Немає акаунта? Зареєструватися",
+    "myIdentity": "Моя особа",
+    "scanToAddMe": "Скануйте, щоб додати мене",
+    "shareProfileLink": "Поділитися профілем",
+    "addMeOnCrypt": "Додайте мене в CRYPT!\n\n{link}",
+    "@addMeOnCrypt": {
+        "placeholders": {
+            "link": {
+                "type": "String"
+            }
+        }
+    },
+    "scanQr": "Сканувати QR",
+    "invalidCryptQrFormat": "Недійсний QR-код CRYPT.",
+    "userScanned": "Користувача відскановано!",
+    "addingUser": "Додавання {username}...",
+    "@addingUser": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "defaultUser": "Користувач",
+    "createAccount": "Створити акаунт",
+    "keepPasswordSecureHint": "Зберігайте його в безпеці. Пароль не можна змінити.",
+    "pleaseFillInAllFields": "Заповніть усі поля",
+    "usernameExceedsLimit": "Ім'я користувача: максимум 20 символів",
+    "invalidUsernameCharacters": "Використовуйте лише літери, цифри, _ або -.",
+    "weakPasswordNotice": "Використовуйте 8+ символів, одну цифру та одну велику літеру.",
+    "unableToGenerateUniqueUsername": "Не вдалося створити унікальне ім'я користувача.",
+    "accountCreated": "Акаунт створено",
+    "yourUsernameIs": "Ваше ім'я користувача:\n\n{username}",
+    "@yourUsernameIs": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "usernameTakenAssignedTag": "Ім'я користувача «{chosen}» уже зайняте.\n\nВаше ім'я користувача:\n\n{assigned}\n\nЗапам'ятайте його для входу.",
+    "@usernameTakenAssignedTag": {
+        "placeholders": {
+            "chosen": {
+                "type": "String"
+            },
+            "assigned": {
+                "type": "String"
+            }
+        }
+    },
+    "continueText": "Продовжити",
+    "failedToGenerateIdentity": "Не вдалося створити особу: {error}",
+    "@failedToGenerateIdentity": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "welcomeToCrypt": "Ласкаво просимо до CRYPT",
+    "signupDescription": "Створіть ім'я користувача та пароль для створення ключів P2P.",
+    "chooseAUsername": "Виберіть ім'я користувача",
+    "usernameHelperText": "Не використовуйте справжнє ім'я. Якщо ім'я зайняте, буде додано унікальний суфікс.",
+    "masterAuthenticationRequired": "Потрібна головна автентифікація",
+    "verify": "Перевірити",
+    "darkThemeMode": "Темний режим",
+    "secureConversations": "Захищені розмови",
+    "noActiveConversations": "Активних розмов не знайдено. Почніть розмову, щоб увімкнути блокування.",
+    "logout": "Вийти",
+    "wipeDeviceAndEscape": "ОЧИСТИТИ ПРИСТРІЙ",
+    "falsePassword": "Неправильний пароль",
+    "accessSuspendedTimer": "Доступ призупинено. Спробуйте ще раз через {time}.",
+    "@accessSuspendedTimer": {
+        "placeholders": {
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "selectSecureLockMethod": "Вибрати спосіб блокування",
+    "selectSecureLockDescription": "Заблокувати за допомогою відбитка пальця або 4-значного PIN-коду?",
+    "fourDigitPin": "4-значний PIN",
+    "fingerprintUnlock": "Відбиток пальця 🔓",
+    "supportSoloDeveloper": "Підтримати розробника",
+    "maybeLater": "Можливо, пізніше",
+    "submitProof": "Надіслати підтвердження",
+    "couldNotOpenWallet": "Не вдалося відкрити гаманець. Скопіюйте код нижче.",
+    "proofSubmittedSnackbar": "Підтвердження надіслано. Ручна перевірка: 24–48 годин (крім вихідних).",
+    "@couldNotShareQrCode": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "@newContact": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "appName": "CRYPT",
+    "termsAndConditions": "Умови використання",
+    "settingsTermsAndConditions": "Умови використання",
+    "termsIntro": "CRYPT — це застосунок на ранній стадії для прямого спілкування людей. Ви відповідаєте за належне використання застосунку та безпеку даних свого облікового запису.",
+    "termsConnectivity": "CRYPT використовує онлайн-сервіси, щоб пристрої могли знаходити один одного та встановлювати з'єднання. Доступність і поведінка з'єднання можуть змінюватися в міру розвитку застосунку. Не покладайтеся на CRYPT як на єдиний засіб зв'язку.",
+    "termsAgreement": "Продовжуючи, ви підтверджуєте, що прочитали ці умови та погоджуєтеся користуватися CRYPT відповідно до них.",
+    "agreeTerms": "Я погоджуюся з умовами використання",
+    "agreeAndContinue": "Погодитися та продовжити",
+    "beforeYouStart": "Перед початком",
+    "connected": "З'єднано",
+    "connectFirstThenChat": "Спочатку з'єднайтеся, потім спілкуйтеся",
+    "betaIntro": "CRYPT — це рання бета-версія, тому робота застосунку може покращуватися в майбутніх версіях.",
+    "walkieTalkieExplanation": "CRYPT працює як рація: обидві людини мають бути онлайн і одночасно відкрити CRYPT, щоб встановити з'єднання.",
+    "howToUseCrypt": "Як користуватися CRYPT:\n1. Відскануйте CRYPT QR-код іншої людини.\n2. Обидва користувачі мають відкрити CRYPT і бути онлайн.\n3. Зачекайте, поки CRYPT встановить P2P-з'єднання.\n4. Дочекайтеся зникнення стану «Підключення...» і встановлення з'єднання.\n5. Після з'єднання можна почати спілкування.",
+    "messageStorageExplanation": "Ваші повідомлення мають передаватися безпосередньо між з'єднаними пристроями. CRYPT не зберігає чати на наших серверах. Сервер наразі допомагає зі з'єднанням і сигналізацією, але історія чатів на ньому не зберігається. Якщо інша людина офлайн, поточне P2P-з'єднання встановити неможливо.",
+    "settingsAndSupportExplanation": "Відкрийте налаштування, щоб налаштувати CRYPT. Незабаром з'явиться більше параметрів.\n\nХочете підтримати CRYPT? Опцію пожертви можна знайти в налаштуваннях.",
+    "saving": "Збереження...",
+    "continueToCrypt": "Продовжити до CRYPT",
+    "showSplashScreen": "Показувати заставку",
+    "retry": "Повторити",
+    "connectionFailed": "Не вдалося з'єднатися",
+    "connectionFailedDetails": "Не вдалося з'єднатися. Для з'єднання обидва пристрої мають бути онлайн із відкритим CRYPT.",
+    "gallery": "Галерея",
+    "alignQrCode": "ВИРІВНЯЙТЕ QR-КОД",
+    "scanFromGallery": "СКАНУВАТИ З ГАЛЕРЕЇ",
+    "couldNotScanImage": "Не вдалося просканувати зображення.",
+    "couldNotShareQrCode": "Не вдалося поділитися QR-кодом: {error}",
+    "newContact": "Новий контакт: {username}",
+    "publicEncryptionKeyMissing": "Відсутній ваш відкритий ключ шифрування.",
+    "contactEncryptionKeyMissing": "Відсутній ключ шифрування контакту.",
+    "localEncryptionKeyMissing": "Відсутній локальний ключ шифрування.",
+    "noQrCodeFound": "У цьому зображенні не знайдено QR-коду.",
+    "shareQrCode": "Поділитися QR-кодом",
+    "supportIntro": "привіт! 👋 Я окремий розробник, наполегливо працюю над CRYPT. У мене немає ні бюджету, ні корпоративного фінансування. Я повністю покладаюся на вашу чесність і співчуття, щоб продовжувати вдосконалювати додаток і гарантувати БЕЗ РЕКЛАМИ НАЗАВЖДИ.",
+    "chooseSupportAmount": "Виберіть свою ціну (проведіть пальцем, щоб підтримати):",
+    "poorGang": "Я бідна група 🥀✌️",
+    "launchOfferMinimum": "Мінімальна пропозиція запуску 🚀",
+    "buyMeCoffee": "Купи мені каву ☕",
+    "superSupporter": "Супер прихильник🔥",
+    "feature": "Особливість",
+    "freeTier": "Вільний рівень",
+    "premium": "Преміум",
+    "chatLocks": "Блокування чату",
+    "maxOneRoom": "Макс 1 кімната",
+    "unlimited": "Необмежений",
+    "biometrics": "Біометрія",
+    "disabled": "🚫 Вимкнено",
+    "supportWithSats": "Підтримка з {amount} сат (Фенікс)",
+    "boltOffer": "⚡ Платіжна пропозиція BOLT12 • Натисніть, щоб скопіювати",
+    "boltOfferCopied": "Пропозицію оплати BOLT12 скопійовано",
+    "tapToCopyBoltOffer": "Торкніться, щоб скопіювати платіжну пропозицію BOLT12",
+    "simpleInstructionsToUnlock": "📬 Прості інструкції для розблокування:",
+    "unlockInstructions": "1. Сплачуйте за допомогою Phoenix Wallet на Android (мінімум 7500 для розблокування — більше завжди цінується).\n2. Зробіть знімок екрана підтвердження успішної транзакції.\n3. Надішліть цей знімок екрана електронною поштою на jounaidnadirmed@gmail.com і повідомте мені своє унікальне ім’я користувача облікового запису: '{username}', щоб я знав, хто заплатив.\n4. Введіть що-небудь у поле нижче, щоб зберегти ваш запит на цьому пристрої:",
+    "supportRequestHint": "Введіть своє ім'я або інформацію про трансакцію тут...",
+    "@supportWithSats": {
+        "placeholders": {
+            "amount": {
+                "type": "String"
+            }
+        }
+    },
+    "@unlockInstructions": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
     }
-  },
-
-  "copyDigitsHint": "Скопіюйте 5 цифр вище",
-  "codeMismatchNotice": "Код не збігається. Введіть головний пароль або зачекайте 10 хвилин.",
-  "accountPasswordLabel": "Пароль акаунта",
-  "deleteEverythingPermanently": "ВИДАЛИТИ ВСЕ НАЗАВЖДИ",
-  "escapeAndPurgeDeviceData": "Вийти та очистити дані",
-
-  "addContact": "Додати контакт",
-  "addContactConfirmation": "Додати цей контакт?",
-  "noMessagesYet": "Повідомлень поки немає",
-  "addNewContact": "Новий контакт",
-  "usernameLabel": "Ім'я користувача",
-  "nicknameOptionalLabel": "Псевдонім (необов'язково)",
-  "add": "Додати",
-  "usernameCannotBeEmpty": "Ім'я користувача обов'язкове",
-
-  "contactAlreadyExists": "Контакт «{name}» уже існує.",
-  "@contactAlreadyExists": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "userNotFoundOnRegistry": "Користувача «{name}» не знайдено. Спільний секрет недоступний.",
-  "@userNotFoundOnRegistry": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "successfullyAddedContact": "Контакт {name} додано!",
-  "@successfullyAddedContact": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "contacts": "Контакти",
-  "noContactsYet": "Контактів поки немає",
-
-  "securityLockoutActive": "Блокування безпеки",
-  "tooManyAttemptsFrozen": "Забагато спроб. Доступ заблоковано на {minutes} хвилин.",
-  "@tooManyAttemptsFrozen": {
-    "placeholders": {
-      "minutes": {
-        "type": "int"
-      }
-    }
-  },
-
-  "acknowledge": "Зрозуміло",
-  "accessBlocked": "Доступ заблоковано",
-
-  "accessSuspended": "5 невдалих спроб. Доступ призупинено на {minutes} хвилин.",
-  "@accessSuspended": {
-    "placeholders": {
-      "minutes": {
-        "type": "int"
-      }
-    }
-  },
-
-  "ok": "ОК",
-
-  "unlockSecureNode": "Розблокувати: {username}",
-  "@unlockSecureNode": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "verificationMetricsRemaining": "Залишилося спроб: {count}",
-  "@verificationMetricsRemaining": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
-
-  "secureKeyPasscode": "Код безпеки",
-  "warningHardwareLockout": "Увага: наступна помилка спричинить блокування безпеки.",
-  "abort": "Скасувати",
-  "authenticate": "Автентифікація",
-
-  "searchPipelinesHint": "Пошук захищених з'єднань...",
-  "zeroPipelinesDiscovered": "З'єднань не знайдено.",
-  "processingDecryption": "Розшифрування...",
-  "decrypting": "Розшифрування...",
-  "decryptionError": "[Помилка розшифрування]",
-  "cryptContainerSecure": "ЗАХИЩЕНИЙ КОНТЕЙНЕР CRYPT",
-
-  "connectAnAccount": "Підключити акаунт",
-  "username": "Ім'я користувача",
-  "password": "Пароль",
-  "enterMasterSecurityPassword": "Введіть головний пароль",
-  "pleaseFillAllFields": "Заповніть усі поля",
-  "wrongUsernameOrPassword": "Неправильне ім'я користувача або пароль",
-
-  "loginError": "Помилка входу: {error}",
-  "@loginError": {
-    "placeholders": {
-      "error": {
-        "type": "String"
-      }
-    }
-  },
-
-  "dontHaveAnAccountSignUp": "Немає акаунта? Зареєструватися",
-  "myIdentity": "Моя особа",
-  "scanToAddMe": "Скануйте, щоб додати мене",
-  "shareProfileLink": "Поділитися профілем",
-  "addMeOnCrypt": "Додайте мене в CRYPT!\n\n{link}",
-
-  "@addMeOnCrypt": {
-    "placeholders": {
-      "link": {
-        "type": "String"
-      }
-    }
-  },
-
-  "scanQr": "Сканувати QR",
-  "invalidCryptQrFormat": "Недійсний QR-код CRYPT.",
-  "userScanned": "Користувача відскановано!",
-  "addingUser": "Додавання {username}...",
-
-  "@addingUser": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "defaultUser": "Користувач",
-  "createAccount": "Створити акаунт",
-  "keepPasswordSecureHint": "Зберігайте його в безпеці. Пароль не можна змінити.",
-  "pleaseFillInAllFields": "Заповніть усі поля",
-  "usernameExceedsLimit": "Ім'я користувача: максимум 20 символів",
-  "invalidUsernameCharacters": "Використовуйте лише літери, цифри, _ або -.",
-  "weakPasswordNotice": "Використовуйте 8+ символів, одну цифру та одну велику літеру.",
-  "unableToGenerateUniqueUsername": "Не вдалося створити унікальне ім'я користувача.",
-
-  "accountCreated": "Акаунт створено",
-  "yourUsernameIs": "Ваше ім'я користувача:\n\n{username}",
-
-  "@yourUsernameIs": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "usernameTakenAssignedTag": "Ім'я користувача «{chosen}» уже зайняте.\n\nВаше ім'я користувача:\n\n{assigned}\n\nЗапам'ятайте його для входу.",
-
-  "@usernameTakenAssignedTag": {
-    "placeholders": {
-      "chosen": {
-        "type": "String"
-      },
-      "assigned": {
-        "type": "String"
-      }
-    }
-  },
-
-  "continueText": "Продовжити",
-
-  "failedToGenerateIdentity": "Не вдалося створити особу: {error}",
-  "@failedToGenerateIdentity": {
-    "placeholders": {
-      "error": {
-        "type": "String"
-      }
-    }
-  },
-
-  "welcomeToCrypt": "Ласкаво просимо до CRYPT",
-  "signupDescription": "Створіть ім'я користувача та пароль для створення ключів P2P.",
-  "chooseAUsername": "Виберіть ім'я користувача",
-  "usernameHelperText": "Не використовуйте справжнє ім'я. Якщо ім'я зайняте, буде додано унікальний суфікс.",
-
-  "masterAuthenticationRequired": "Потрібна головна автентифікація",
-  "verify": "Перевірити",
-  "darkThemeMode": "Темний режим",
-  "secureConversations": "Захищені розмови",
-  "noActiveConversations": "Активних розмов не знайдено. Почніть розмову, щоб увімкнути блокування.",
-
-  "logout": "Вийти",
-  "wipeDeviceAndEscape": "ОЧИСТИТИ ПРИСТРІЙ",
-  "falsePassword": "Неправильний пароль",
-
-  "accessSuspendedTimer": "Доступ призупинено. Спробуйте ще раз через {time}.",
-  "@accessSuspendedTimer": {
-    "placeholders": {
-      "time": {
-        "type": "String"
-      }
-    }
-  },
-
-  "selectSecureLockMethod": "Вибрати спосіб блокування",
-  "selectSecureLockDescription": "Заблокувати за допомогою відбитка пальця або 4-значного PIN-коду?",
-  "fourDigitPin": "4-значний PIN",
-  "fingerprintUnlock": "Відбиток пальця 🔓",
-
-  "supportSoloDeveloper": "Підтримати розробника",
-  "maybeLater": "Можливо, пізніше",
-  "submitProof": "Надіслати підтвердження",
-  "couldNotOpenWallet": "Не вдалося відкрити гаманець. Скопіюйте код нижче.",
-  "proofSubmittedSnackbar": "Підтвердження надіслано. Ручна перевірка: 24–48 годин (крім вихідних)."
 }

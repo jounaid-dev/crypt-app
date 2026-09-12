@@ -1,261 +1,301 @@
 {
-  "@@locale": "hi",
-
-  "appName": "CRYPT",
-  "welcome": "स्वागत है",
-  "login": "लॉग इन",
-  "signup": "साइन अप",
-  "settings": "सेटिंग्स",
-  "chats": "चैट्स",
-  "typeMessage": "संदेश लिखें...",
-  "send": "भेजें",
-  "p2p": "P2P",
-  "connecting": "कनेक्ट हो रहा है...",
-  "connectingP2p": "P2P से कनेक्ट हो रहा है...",
-  "p2pConnectionNotReady": "P2P तैयार नहीं है.",
-  "searchLanguage": "भाषा खोजें...",
-  "language": "भाषा",
-
-  "forceEscapeSignOutTitle": "इमरजेंसी साइन आउट?",
-  "forceEscapeSignOutContent": "चेतावनी: डिवाइस का सारा डेटा पूरी तरह मिट जाएगा.",
-  "cancel": "रद्द करें",
-  "wipeDevice": "डिवाइस वाइप करें",
-
-  "accountDestructionAlertTitle": "अकाउंट हटाने की चेतावनी",
-  "accountDestructionWarning": "चेतावनी: डिवाइस का सारा डेटा मिट जाएगा. इंटरनेट से जुड़ने पर रिमोट सेल्फ-डिस्ट्रक्ट कमांड चलेगा. आपके यूज़र ID से भेजे संदेश सभी पीयर मेमोरी से स्थायी रूप से मिटेंगे.",
-  "accountDestructionCriticalNotice": "महत्वपूर्ण: गलत सत्यापन कोड से सिस्टम लॉक होगा. इसे खोलने के लिए मास्टर अकाउंट पासवर्ड दें या इमरजेंसी एस्केप से डिवाइस का सारा डेटा तुरंत मिटाएं.",
-
-  "verificationSecurityKey": "सुरक्षा कुंजी: {code}",
-  "@verificationSecurityKey": {
-    "placeholders": {
-      "code": {
-        "type": "String"
-      }
+    "@@locale": "hi",
+    "appName": "CRYPT",
+    "welcome": "स्वागत है",
+    "login": "लॉग इन",
+    "signup": "साइन अप",
+    "settings": "सेटिंग्स",
+    "chats": "चैट्स",
+    "typeMessage": "संदेश लिखें...",
+    "send": "भेजें",
+    "p2p": "P2P",
+    "connecting": "कनेक्ट हो रहा है...",
+    "connectingP2p": "P2P से कनेक्ट हो रहा है...",
+    "p2pConnectionNotReady": "P2P तैयार नहीं है.",
+    "searchLanguage": "भाषा खोजें...",
+    "language": "भाषा",
+    "forceEscapeSignOutTitle": "इमरजेंसी साइन आउट?",
+    "forceEscapeSignOutContent": "चेतावनी: डिवाइस का सारा डेटा पूरी तरह मिट जाएगा.",
+    "cancel": "रद्द करें",
+    "wipeDevice": "डिवाइस वाइप करें",
+    "accountDestructionAlertTitle": "अकाउंट हटाने की चेतावनी",
+    "accountDestructionWarning": "चेतावनी: डिवाइस का सारा डेटा मिट जाएगा. इंटरनेट से जुड़ने पर रिमोट सेल्फ-डिस्ट्रक्ट कमांड चलेगा. आपके यूज़र ID से भेजे संदेश सभी पीयर मेमोरी से स्थायी रूप से मिटेंगे.",
+    "accountDestructionCriticalNotice": "महत्वपूर्ण: गलत सत्यापन कोड से सिस्टम लॉक होगा. इसे खोलने के लिए मास्टर अकाउंट पासवर्ड दें या इमरजेंसी एस्केप से डिवाइस का सारा डेटा तुरंत मिटाएं.",
+    "verificationSecurityKey": "सुरक्षा कुंजी: {code}",
+    "@verificationSecurityKey": {
+        "placeholders": {
+            "code": {
+                "type": "String"
+            }
+        }
+    },
+    "copyDigitsHint": "ऊपर के 5 अंक कॉपी करें",
+    "codeMismatchNotice": "कोड गलत है! मास्टर पासवर्ड डालें या 10 मिनट के लॉक का सामना करें.",
+    "accountPasswordLabel": "अकाउंट पासवर्ड",
+    "deleteEverythingPermanently": "सब कुछ स्थायी रूप से मिटाएं",
+    "escapeAndPurgeDeviceData": "एस्केप करें और डिवाइस डेटा मिटाएं",
+    "addContact": "कॉन्टैक्ट जोड़ें",
+    "addContactConfirmation": "यह कॉन्टैक्ट जोड़ें?",
+    "noMessagesYet": "अभी कोई संदेश नहीं है",
+    "addNewContact": "नया कॉन्टैक्ट",
+    "usernameLabel": "यूज़रनेम",
+    "nicknameOptionalLabel": "निकनेम (वैकल्पिक)",
+    "add": "जोड़ें",
+    "usernameCannotBeEmpty": "यूज़रनेम खाली नहीं हो सकता",
+    "contactAlreadyExists": "कॉन्टैक्ट '{name}' पहले से आपकी एड्रेस बुक में है.",
+    "@contactAlreadyExists": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "userNotFoundOnRegistry": "यूज़र '{name}' नेटवर्क रजिस्ट्री में नहीं मिला. साझा सीक्रेट नहीं बनाया जा सकता.",
+    "@userNotFoundOnRegistry": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "successfullyAddedContact": "{name} सफलतापूर्वक जोड़ा गया!",
+    "@successfullyAddedContact": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "contacts": "कॉन्टैक्ट्स",
+    "noContactsYet": "अभी कोई कॉन्टैक्ट नहीं है",
+    "securityLockoutActive": "सुरक्षा लॉक सक्रिय है",
+    "tooManyAttemptsFrozen": "बहुत अधिक गलत प्रयास. {minutes} मिनट के लिए लॉक.",
+    "@tooManyAttemptsFrozen": {
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "acknowledge": "स्वीकार करें",
+    "accessBlocked": "पहुंच ब्लॉक है",
+    "accessSuspended": "5 गलत सत्यापन प्रयास. {minutes} मिनट के लिए पहुंच निलंबित.",
+    "@accessSuspended": {
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "ok": "ठीक है",
+    "unlockSecureNode": "सुरक्षित नोड अनलॉक करें: {username}",
+    "@unlockSecureNode": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "verificationMetricsRemaining": "बचे सत्यापन प्रयास: {count}",
+    "@verificationMetricsRemaining": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "secureKeyPasscode": "सुरक्षा कुंजी पासकोड",
+    "warningHardwareLockout": "चेतावनी: अगली गलत कोशिश से हार्डवेयर सुरक्षा लॉक सक्रिय होगा.",
+    "abort": "रोकें",
+    "authenticate": "प्रमाणित करें",
+    "searchPipelinesHint": "सक्रिय सुरक्षित कनेक्शन खोजें...",
+    "zeroPipelinesDiscovered": "कोई मेल खाता कनेक्शन नहीं मिला.",
+    "processingDecryption": "डिक्रिप्शन हो रहा है...",
+    "decrypting": "डिक्रिप्ट हो रहा है...",
+    "decryptionError": "[डिक्रिप्शन त्रुटि]",
+    "cryptContainerSecure": "CRYPT कंटेनर सुरक्षित है",
+    "connectAnAccount": "अकाउंट कनेक्ट करें",
+    "username": "यूज़रनेम",
+    "password": "पासवर्ड",
+    "enterMasterSecurityPassword": "मास्टर सुरक्षा पासवर्ड डालें",
+    "pleaseFillAllFields": "सभी फ़ील्ड भरें",
+    "wrongUsernameOrPassword": "यूज़रनेम या पासवर्ड गलत है",
+    "loginError": "लॉगिन त्रुटि: {error}",
+    "@loginError": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "dontHaveAnAccountSignUp": "अकाउंट नहीं है? साइन अप करें",
+    "myIdentity": "मेरी पहचान",
+    "scanToAddMe": "मुझे जोड़ने के लिए स्कैन करें",
+    "shareProfileLink": "प्रोफ़ाइल लिंक साझा करें",
+    "addMeOnCrypt": "मुझे CRYPT पर जोड़ें!\n\n{link}",
+    "@addMeOnCrypt": {
+        "placeholders": {
+            "link": {
+                "type": "String"
+            }
+        }
+    },
+    "scanQr": "QR स्कैन करें",
+    "invalidCryptQrFormat": "अमान्य CRYPT QR कोड.",
+    "userScanned": "यूज़र स्कैन किया गया!",
+    "addingUser": "{username} जोड़ा जा रहा है...",
+    "@addingUser": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "defaultUser": "यूज़र",
+    "createAccount": "अकाउंट बनाएं",
+    "keepPasswordSecureHint": "इसे सुरक्षित रखें. पासवर्ड बदला नहीं जा सकता.",
+    "pleaseFillInAllFields": "सभी फ़ील्ड भरें",
+    "usernameExceedsLimit": "यूज़रनेम 20 वर्णों से अधिक नहीं हो सकता",
+    "invalidUsernameCharacters": "केवल अक्षर, अंक, _ या - का उपयोग करें.",
+    "weakPasswordNotice": "8+ वर्ण, 1 अंक और 1 बड़ा अक्षर होना चाहिए.",
+    "unableToGenerateUniqueUsername": "यूनीक यूज़रनेम नहीं बनाया जा सका.",
+    "accountCreated": "अकाउंट बन गया",
+    "yourUsernameIs": "आपका यूज़रनेम:\n\n{username}",
+    "@yourUsernameIs": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "usernameTakenAssignedTag": "'{chosen}' पहले से लिया गया है.\n\nआपका यूज़रनेम:\n\n{assigned}\n\nइसे याद रखें. लॉगिन के लिए इसकी जरूरत होगी.",
+    "@usernameTakenAssignedTag": {
+        "placeholders": {
+            "chosen": {
+                "type": "String"
+            },
+            "assigned": {
+                "type": "String"
+            }
+        }
+    },
+    "continueText": "जारी रखें",
+    "failedToGenerateIdentity": "सुरक्षित पहचान नहीं बन सकी: {error}",
+    "@failedToGenerateIdentity": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "welcomeToCrypt": "CRYPT में आपका स्वागत है",
+    "signupDescription": "P2P एन्क्रिप्शन कुंजियां बनाने के लिए यूज़रनेम और पासवर्ड बनाएं.",
+    "chooseAUsername": "यूज़रनेम चुनें",
+    "usernameHelperText": "अपना असली नाम न दें. यूज़रनेम लिया गया हो तो अपने आप यूनीक प्रत्यय जोड़ा जाएगा.",
+    "masterAuthenticationRequired": "मास्टर प्रमाणीकरण आवश्यक है",
+    "verify": "सत्यापित करें",
+    "darkThemeMode": "डार्क थीम",
+    "secureConversations": "सुरक्षित बातचीत",
+    "noActiveConversations": "कोई सक्रिय बातचीत नहीं है. कस्टम सुरक्षा लॉक के लिए पहले बातचीत शुरू करें.",
+    "logout": "लॉगआउट",
+    "wipeDeviceAndEscape": "डिवाइस वाइप करें और बाहर निकलें",
+    "falsePassword": "गलत पासवर्ड",
+    "accessSuspendedTimer": "सुरक्षा के लिए पहुंच निलंबित है. {time} में फिर प्रयास करें.",
+    "@accessSuspendedTimer": {
+        "placeholders": {
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "selectSecureLockMethod": "सुरक्षित लॉक विधि चुनें",
+    "selectSecureLockDescription": "इस बातचीत को फ़िंगरप्रिंट या 4-अंकीय PIN से लॉक करें?",
+    "fourDigitPin": "4-अंकीय PIN",
+    "fingerprintUnlock": "फ़िंगरप्रिंट 🔓",
+    "supportSoloDeveloper": "सोलो डेवलपर को सपोर्ट करें",
+    "maybeLater": "बाद में",
+    "submitProof": "प्रमाण सबमिट करें",
+    "couldNotOpenWallet": "वॉलेट अपने आप नहीं खुला. नीचे दिया टेक्स्ट कोड कॉपी करें.",
+    "proofSubmittedSnackbar": "प्रमाण सबमिट हो गया. मैन्युअल समीक्षा में 24–48 घंटे लगते हैं, सप्ताहांत को छोड़कर. आप ऐप सामान्य रूप से इस्तेमाल कर सकते हैं.",
+    "termsAndConditions": "नियम एवं शर्तें",
+    "settingsTermsAndConditions": "नियम एवं शर्तें",
+    "termsIntro": "CRYPT लोगों को बातचीत के लिए सीधे जोड़ने के लिए एक प्रारंभिक चरण का एप्लिकेशन है। आप एप्लिकेशन का उचित उपयोग करने और अपने खाते के क्रेडेंशियल्स को सुरक्षित रखने के लिए जिम्मेदार हैं।",
+    "termsConnectivity": "CRYPT उपकरणों को खोजने और कनेक्शन स्थापित करने में मदद करने के लिए ऑनलाइन सेवाओं का उपयोग करता है। एप्लिकेशन विकसित होते ही उपलब्धता और कनेक्शन व्यवहार बदल सकता है। कृपया संचार के एकमात्र साधन के रूप में CRYPT पर भरोसा न करें।",
+    "termsAgreement": "जारी रखकर, आप पुष्टि करते हैं कि आपने पढ़ लिया है और इन शर्तों के तहत CRYPT का उपयोग करने के लिए सहमत हैं।",
+    "agreeTerms": "मैं नियमों और शर्तों से सहमत हूं",
+    "agreeAndContinue": "सहमत हों और जारी रखें",
+    "beforeYouStart": "आपके शुरू करने से पहले",
+    "connected": "जुड़े हुए",
+    "connectFirstThenChat": "पहले कनेक्ट करें, फिर चैट करें",
+    "betaIntro": "CRYPT एक प्रारंभिक बीटा संस्करण है, इसलिए भविष्य के संस्करणों में अनुभव में सुधार हो सकता है।",
+    "walkieTalkieExplanation": "CRYPT एक वॉकी-टॉकी की तरह काम करता है: कनेक्शन स्थापित करने के लिए दोनों लोगों का ऑनलाइन होना और CRYPT का एक ही समय में खुला होना आवश्यक है।",
+    "howToUseCrypt": "क्रिप्ट का उपयोग कैसे करें:\n1. दूसरे व्यक्ति का CRYPT QR कोड स्कैन करें।\n2. दोनों लोगों को CRYPT ओपन और ऑनलाइन चाहिए।\n3. CRYPT द्वारा P2P कनेक्शन स्थापित करने तक प्रतीक्षा करें।\n4. \"कनेक्टिंग...\" स्थिति के गायब होने और कनेक्शन स्थापित होने की प्रतीक्षा करें।\n5. एक बार कनेक्ट होने के बाद आप चैटिंग शुरू कर सकते हैं।",
+    "messageStorageExplanation": "आपके संदेश कनेक्टेड डिवाइसों के बीच सीधे यात्रा करने के लिए डिज़ाइन किए गए हैं। CRYPT आपके चैट संदेशों को हमारे सर्वर पर संग्रहीत नहीं करता है। सर्वर वर्तमान में कनेक्शन और सिग्नलिंग में मदद करता है, और चैट इतिहास सर्वर पर संग्रहीत नहीं होता है। यदि दूसरा व्यक्ति ऑफ़लाइन है, तो वर्तमान पी2पी कनेक्शन स्थापित नहीं किया जा सकता है।",
+    "settingsAndSupportExplanation": "अपने CRYPT अनुभव को अनुकूलित करने के लिए सेटिंग्स पर जाएँ। अधिक अनुकूलन विकल्प जल्द ही आ रहे हैं.\n\nक्या आप CRYPT का समर्थन करना चाहते हैं? आप सेटिंग में दान का विकल्प पा सकते हैं।",
+    "saving": "सहेजा जा रहा है...",
+    "continueToCrypt": "क्रिप्ट करना जारी रखें",
+    "showSplashScreen": "स्प्लैश स्क्रीन दिखाएँ",
+    "retry": "पुन: प्रयास करें",
+    "connectionFailed": "कनेक्शन विफल",
+    "connectionFailedDetails": "कनेक्शन विफल। कनेक्ट करने के लिए दोनों डिवाइस ऑनलाइन होने चाहिए और CRYPT खुला होना चाहिए।",
+    "gallery": "गैलरी",
+    "alignQrCode": "QR कोड संरेखित करें",
+    "scanFromGallery": "गैलरी से स्कैन करें",
+    "couldNotScanImage": "छवि स्कैन नहीं कर सका.",
+    "couldNotShareQrCode": "QR कोड साझा नहीं किया जा सका: {error}",
+    "newContact": "नया संपर्क: {username}",
+    "publicEncryptionKeyMissing": "आपकी सार्वजनिक एन्क्रिप्शन कुंजी गुम है.",
+    "contactEncryptionKeyMissing": "संपर्क एन्क्रिप्शन कुंजी अनुपलब्ध है.",
+    "localEncryptionKeyMissing": "स्थानीय एन्क्रिप्शन कुंजी अनुपलब्ध है.",
+    "noQrCodeFound": "इस छवि में कोई QR कोड नहीं मिला.",
+    "shareQrCode": "QR कोड साझा करें",
+    "@couldNotShareQrCode": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "@newContact": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "supportIntro": "अरे! 👋 मैं एक एकल डेवलपर हूं जो CRYPT पर कड़ी मेहनत कर रहा हूं। मेरे पास कोई बजट या कॉर्पोरेट फंडिंग नहीं है। मैं ऐप में सुधार जारी रखने और हमेशा के लिए कोई विज्ञापन नहीं होने की गारंटी देने के लिए पूरी तरह से आपकी ईमानदारी और सहानुभूति पर भरोसा करता हूं।",
+    "chooseSupportAmount": "अपना मूल्य चुनें (समर्थन के लिए स्लाइड):",
+    "poorGang": "मैं गरीब गैंग हूं 🥀✌️",
+    "launchOfferMinimum": "लॉन्च ऑफर न्यूनतम 🚀",
+    "buyMeCoffee": "मेरे लिए कॉफ़ी खरीदें ☕",
+    "superSupporter": "सुपर सपोर्टर 🔥",
+    "feature": "विशेषता",
+    "freeTier": "फ्री टियर",
+    "premium": "अधिमूल्य",
+    "chatLocks": "चैट लॉक",
+    "maxOneRoom": "अधिकतम 1 कमरा",
+    "unlimited": "असीमित",
+    "biometrics": "बॉयोमेट्रिक्स",
+    "disabled": "🚫 विकलांग",
+    "supportWithSats": "{amount} सैट्स के साथ समर्थन (फीनिक्स)",
+    "boltOffer": "⚡ BOLT12 भुगतान प्रस्ताव • कॉपी करने के लिए टैप करें",
+    "boltOfferCopied": "BOLT12 भुगतान प्रस्ताव की प्रतिलिपि बनाई गई",
+    "tapToCopyBoltOffer": "BOLT12 भुगतान प्रस्ताव की प्रतिलिपि बनाने के लिए टैप करें",
+    "simpleInstructionsToUnlock": "📬 अनलॉक करने के सरल निर्देश:",
+    "unlockInstructions": "1. एंड्रॉइड पर फीनिक्स वॉलेट का उपयोग करके भुगतान करें (अनलॉक करने के लिए न्यूनतम 7,500 - अधिक की हमेशा सराहना की जाती है)।\n2. अपनी सफल लेनदेन पुष्टिकरण स्क्रीन का स्क्रीनशॉट लें।\n3. उस स्क्रीनशॉट को jounaidnadirmed@gmail.com पर ईमेल करें और मुझे अपना विशिष्ट खाता उपयोगकर्ता नाम बताएं: '{username}' ताकि मैं जान सकूं कि भुगतान किसने किया।\n4. इस डिवाइस पर अपना अनुरोध सहेजने के लिए नीचे दिए गए बॉक्स में कुछ भी टाइप करें:",
+    "supportRequestHint": "अपना नाम या लेन-देन की जानकारी यहां टाइप करें...",
+    "@supportWithSats": {
+        "placeholders": {
+            "amount": {
+                "type": "String"
+            }
+        }
+    },
+    "@unlockInstructions": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
     }
-  },
-
-  "copyDigitsHint": "ऊपर के 5 अंक कॉपी करें",
-  "codeMismatchNotice": "कोड गलत है! मास्टर पासवर्ड डालें या 10 मिनट के लॉक का सामना करें.",
-  "accountPasswordLabel": "अकाउंट पासवर्ड",
-  "deleteEverythingPermanently": "सब कुछ स्थायी रूप से मिटाएं",
-  "escapeAndPurgeDeviceData": "एस्केप करें और डिवाइस डेटा मिटाएं",
-
-  "addContact": "कॉन्टैक्ट जोड़ें",
-  "addContactConfirmation": "यह कॉन्टैक्ट जोड़ें?",
-  "noMessagesYet": "अभी कोई संदेश नहीं है",
-  "addNewContact": "नया कॉन्टैक्ट",
-  "usernameLabel": "यूज़रनेम",
-  "nicknameOptionalLabel": "निकनेम (वैकल्पिक)",
-  "add": "जोड़ें",
-  "usernameCannotBeEmpty": "यूज़रनेम खाली नहीं हो सकता",
-
-  "contactAlreadyExists": "कॉन्टैक्ट '{name}' पहले से आपकी एड्रेस बुक में है.",
-  "@contactAlreadyExists": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "userNotFoundOnRegistry": "यूज़र '{name}' नेटवर्क रजिस्ट्री में नहीं मिला. साझा सीक्रेट नहीं बनाया जा सकता.",
-  "@userNotFoundOnRegistry": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "successfullyAddedContact": "{name} सफलतापूर्वक जोड़ा गया!",
-  "@successfullyAddedContact": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "contacts": "कॉन्टैक्ट्स",
-  "noContactsYet": "अभी कोई कॉन्टैक्ट नहीं है",
-
-  "securityLockoutActive": "सुरक्षा लॉक सक्रिय है",
-  "tooManyAttemptsFrozen": "बहुत अधिक गलत प्रयास. {minutes} मिनट के लिए लॉक.",
-  "@tooManyAttemptsFrozen": {
-    "placeholders": {
-      "minutes": {
-        "type": "int"
-      }
-    }
-  },
-
-  "acknowledge": "स्वीकार करें",
-  "accessBlocked": "पहुंच ब्लॉक है",
-
-  "accessSuspended": "5 गलत सत्यापन प्रयास. {minutes} मिनट के लिए पहुंच निलंबित.",
-  "@accessSuspended": {
-    "placeholders": {
-      "minutes": {
-        "type": "int"
-      }
-    }
-  },
-
-  "ok": "ठीक है",
-
-  "unlockSecureNode": "सुरक्षित नोड अनलॉक करें: {username}",
-  "@unlockSecureNode": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "verificationMetricsRemaining": "बचे सत्यापन प्रयास: {count}",
-  "@verificationMetricsRemaining": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
-
-  "secureKeyPasscode": "सुरक्षा कुंजी पासकोड",
-  "warningHardwareLockout": "चेतावनी: अगली गलत कोशिश से हार्डवेयर सुरक्षा लॉक सक्रिय होगा.",
-  "abort": "रोकें",
-  "authenticate": "प्रमाणित करें",
-
-  "searchPipelinesHint": "सक्रिय सुरक्षित कनेक्शन खोजें...",
-  "zeroPipelinesDiscovered": "कोई मेल खाता कनेक्शन नहीं मिला.",
-
-  "processingDecryption": "डिक्रिप्शन हो रहा है...",
-  "decrypting": "डिक्रिप्ट हो रहा है...",
-  "decryptionError": "[डिक्रिप्शन त्रुटि]",
-  "cryptContainerSecure": "CRYPT कंटेनर सुरक्षित है",
-
-  "connectAnAccount": "अकाउंट कनेक्ट करें",
-  "username": "यूज़रनेम",
-  "password": "पासवर्ड",
-  "enterMasterSecurityPassword": "मास्टर सुरक्षा पासवर्ड डालें",
-  "pleaseFillAllFields": "सभी फ़ील्ड भरें",
-  "wrongUsernameOrPassword": "यूज़रनेम या पासवर्ड गलत है",
-
-  "loginError": "लॉगिन त्रुटि: {error}",
-  "@loginError": {
-    "placeholders": {
-      "error": {
-        "type": "String"
-      }
-    }
-  },
-
-  "dontHaveAnAccountSignUp": "अकाउंट नहीं है? साइन अप करें",
-
-  "myIdentity": "मेरी पहचान",
-  "scanToAddMe": "मुझे जोड़ने के लिए स्कैन करें",
-  "shareProfileLink": "प्रोफ़ाइल लिंक साझा करें",
-
-  "addMeOnCrypt": "मुझे CRYPT पर जोड़ें!\n\n{link}",
-  "@addMeOnCrypt": {
-    "placeholders": {
-      "link": {
-        "type": "String"
-      }
-    }
-  },
-
-  "scanQr": "QR स्कैन करें",
-  "invalidCryptQrFormat": "अमान्य CRYPT QR कोड.",
-  "userScanned": "यूज़र स्कैन किया गया!",
-
-  "addingUser": "{username} जोड़ा जा रहा है...",
-  "@addingUser": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "defaultUser": "यूज़र",
-  "createAccount": "अकाउंट बनाएं",
-  "keepPasswordSecureHint": "इसे सुरक्षित रखें. पासवर्ड बदला नहीं जा सकता.",
-  "pleaseFillInAllFields": "सभी फ़ील्ड भरें",
-  "usernameExceedsLimit": "यूज़रनेम 20 वर्णों से अधिक नहीं हो सकता",
-  "invalidUsernameCharacters": "केवल अक्षर, अंक, _ या - का उपयोग करें.",
-  "weakPasswordNotice": "8+ वर्ण, 1 अंक और 1 बड़ा अक्षर होना चाहिए.",
-  "unableToGenerateUniqueUsername": "यूनीक यूज़रनेम नहीं बनाया जा सका.",
-
-  "accountCreated": "अकाउंट बन गया",
-
-  "yourUsernameIs": "आपका यूज़रनेम:\n\n{username}",
-  "@yourUsernameIs": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "usernameTakenAssignedTag": "'{chosen}' पहले से लिया गया है.\n\nआपका यूज़रनेम:\n\n{assigned}\n\nइसे याद रखें. लॉगिन के लिए इसकी जरूरत होगी.",
-  "@usernameTakenAssignedTag": {
-    "placeholders": {
-      "chosen": {
-        "type": "String"
-      },
-      "assigned": {
-        "type": "String"
-      }
-    }
-  },
-
-  "continueText": "जारी रखें",
-
-  "failedToGenerateIdentity": "सुरक्षित पहचान नहीं बन सकी: {error}",
-  "@failedToGenerateIdentity": {
-    "placeholders": {
-      "error": {
-        "type": "String"
-      }
-    }
-  },
-
-  "welcomeToCrypt": "CRYPT में आपका स्वागत है",
-  "signupDescription": "P2P एन्क्रिप्शन कुंजियां बनाने के लिए यूज़रनेम और पासवर्ड बनाएं.",
-  "chooseAUsername": "यूज़रनेम चुनें",
-  "usernameHelperText": "अपना असली नाम न दें. यूज़रनेम लिया गया हो तो अपने आप यूनीक प्रत्यय जोड़ा जाएगा.",
-
-  "masterAuthenticationRequired": "मास्टर प्रमाणीकरण आवश्यक है",
-  "verify": "सत्यापित करें",
-  "darkThemeMode": "डार्क थीम",
-  "secureConversations": "सुरक्षित बातचीत",
-
-  "noActiveConversations": "कोई सक्रिय बातचीत नहीं है. कस्टम सुरक्षा लॉक के लिए पहले बातचीत शुरू करें.",
-
-  "logout": "लॉगआउट",
-  "wipeDeviceAndEscape": "डिवाइस वाइप करें और बाहर निकलें",
-  "falsePassword": "गलत पासवर्ड",
-
-  "accessSuspendedTimer": "सुरक्षा के लिए पहुंच निलंबित है. {time} में फिर प्रयास करें.",
-  "@accessSuspendedTimer": {
-    "placeholders": {
-      "time": {
-        "type": "String"
-      }
-    }
-  },
-
-  "selectSecureLockMethod": "सुरक्षित लॉक विधि चुनें",
-  "selectSecureLockDescription": "इस बातचीत को फ़िंगरप्रिंट या 4-अंकीय PIN से लॉक करें?",
-  "fourDigitPin": "4-अंकीय PIN",
-  "fingerprintUnlock": "फ़िंगरप्रिंट 🔓",
-
-  "supportSoloDeveloper": "सोलो डेवलपर को सपोर्ट करें",
-  "maybeLater": "बाद में",
-  "submitProof": "प्रमाण सबमिट करें",
-
-  "couldNotOpenWallet": "वॉलेट अपने आप नहीं खुला. नीचे दिया टेक्स्ट कोड कॉपी करें.",
-
-  "proofSubmittedSnackbar": "प्रमाण सबमिट हो गया. मैन्युअल समीक्षा में 24–48 घंटे लगते हैं, सप्ताहांत को छोड़कर. आप ऐप सामान्य रूप से इस्तेमाल कर सकते हैं."
 }

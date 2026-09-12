@@ -1,255 +1,301 @@
 {
-  "@@locale": "ar",
-
-  "appName": "CRYPT",
-  "welcome": "مرحبًا",
-  "login": "تسجيل الدخول",
-  "signup": "إنشاء حساب",
-  "settings": "الإعدادات",
-  "chats": "المحادثات",
-  "typeMessage": "اكتب رسالة...",
-  "send": "إرسال",
-
-  "p2p": "P2P",
-  "connecting": "جارٍ الاتصال...",
-  "connectingP2p": "جارٍ الاتصال بـ P2P...",
-  "p2pConnectionNotReady": "اتصال P2P غير جاهز.",
-
-  "searchLanguage": "البحث عن لغة...",
-  "language": "اللغة",
-
-  "forceEscapeSignOutTitle": "فرض تسجيل الخروج؟",
-  "forceEscapeSignOutContent": "تحذير: سيتم مسح جميع بيانات الجهاز.",
-  "cancel": "إلغاء",
-  "wipeDevice": "مسح الجهاز",
-
-  "accountDestructionAlertTitle": "حذف الحساب",
-  "accountDestructionWarning": "تحذير: سيتم مسح بيانات الجهاز والرسائل البعيدة.",
-  "accountDestructionCriticalNotice": "حرج: ستؤدي الرموز الخاطئة إلى قفل النظام. استخدم كلمة مرور الحساب أو الخروج الطارئ.",
-
-  "verificationSecurityKey": "مفتاح الأمان: {code}",
-  "@verificationSecurityKey": {
-    "placeholders": {
-      "code": {
-        "type": "String"
-      }
+    "@@locale": "ar",
+    "appName": "CRYPT",
+    "welcome": "مرحبًا",
+    "login": "تسجيل الدخول",
+    "signup": "إنشاء حساب",
+    "settings": "الإعدادات",
+    "chats": "المحادثات",
+    "typeMessage": "اكتب رسالة...",
+    "send": "إرسال",
+    "p2p": "P2P",
+    "connecting": "جارٍ الاتصال...",
+    "connectingP2p": "جارٍ الاتصال بـ P2P...",
+    "p2pConnectionNotReady": "اتصال P2P غير جاهز.",
+    "searchLanguage": "البحث عن لغة...",
+    "language": "اللغة",
+    "forceEscapeSignOutTitle": "فرض تسجيل الخروج؟",
+    "forceEscapeSignOutContent": "تحذير: سيتم مسح جميع بيانات الجهاز.",
+    "cancel": "إلغاء",
+    "wipeDevice": "مسح الجهاز",
+    "accountDestructionAlertTitle": "حذف الحساب",
+    "accountDestructionWarning": "تحذير: سيتم مسح بيانات الجهاز والرسائل البعيدة.",
+    "accountDestructionCriticalNotice": "حرج: ستؤدي الرموز الخاطئة إلى قفل النظام. استخدم كلمة مرور الحساب أو الخروج الطارئ.",
+    "verificationSecurityKey": "مفتاح الأمان: {code}",
+    "@verificationSecurityKey": {
+        "placeholders": {
+            "code": {
+                "type": "String"
+            }
+        }
+    },
+    "copyDigitsHint": "انسخ الأرقام الخمسة",
+    "codeMismatchNotice": "الرمز غير متطابق. أدخل كلمة المرور الرئيسية أو انتظر 10 دقائق.",
+    "accountPasswordLabel": "كلمة مرور الحساب",
+    "deleteEverythingPermanently": "حذف كل شيء نهائيًا",
+    "escapeAndPurgeDeviceData": "الخروج ومسح البيانات",
+    "addContact": "إضافة جهة اتصال",
+    "addContactConfirmation": "إضافة جهة الاتصال هذه؟",
+    "noMessagesYet": "لا توجد رسائل بعد",
+    "addNewContact": "جهة اتصال جديدة",
+    "usernameLabel": "اسم المستخدم",
+    "nicknameOptionalLabel": "اسم مستعار (اختياري)",
+    "add": "إضافة",
+    "usernameCannotBeEmpty": "اسم المستخدم مطلوب",
+    "contactAlreadyExists": "جهة الاتصال '{name}' موجودة بالفعل.",
+    "@contactAlreadyExists": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "userNotFoundOnRegistry": "المستخدم '{name}' غير موجود. السر المشترك غير متاح.",
+    "@userNotFoundOnRegistry": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "successfullyAddedContact": "تمت إضافة {name}!",
+    "@successfullyAddedContact": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "contacts": "جهات الاتصال",
+    "noContactsYet": "لا توجد جهات اتصال بعد",
+    "securityLockoutActive": "قفل الأمان",
+    "tooManyAttemptsFrozen": "محاولات كثيرة جدًا. تم القفل لمدة {minutes} دقيقة.",
+    "@tooManyAttemptsFrozen": {
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "acknowledge": "فهمت",
+    "accessBlocked": "الوصول محظور",
+    "accessSuspended": "5 محاولات فاشلة. تم تعليق الوصول لمدة {minutes} دقيقة.",
+    "@accessSuspended": {
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "ok": "موافق",
+    "unlockSecureNode": "فتح القفل: {username}",
+    "@unlockSecureNode": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "verificationMetricsRemaining": "المحاولات المتبقية: {count}",
+    "@verificationMetricsRemaining": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "secureKeyPasscode": "رمز الأمان",
+    "warningHardwareLockout": "تحذير: سيؤدي الفشل التالي إلى قفل الأمان.",
+    "abort": "إلغاء",
+    "authenticate": "مصادقة",
+    "searchPipelinesHint": "البحث عن اتصالات آمنة...",
+    "zeroPipelinesDiscovered": "لم يتم العثور على اتصالات.",
+    "processingDecryption": "جارٍ فك التشفير...",
+    "decrypting": "جارٍ فك التشفير...",
+    "decryptionError": "[خطأ في فك التشفير]",
+    "cryptContainerSecure": "حاوية CRYPT آمنة",
+    "connectAnAccount": "ربط حساب",
+    "username": "اسم المستخدم",
+    "password": "كلمة المرور",
+    "enterMasterSecurityPassword": "أدخل كلمة المرور الرئيسية",
+    "pleaseFillAllFields": "املأ جميع الحقول",
+    "wrongUsernameOrPassword": "اسم المستخدم أو كلمة المرور غير صحيحة",
+    "loginError": "خطأ في تسجيل الدخول: {error}",
+    "@loginError": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "dontHaveAnAccountSignUp": "ليس لديك حساب؟ سجّل الآن",
+    "myIdentity": "هويتي",
+    "scanToAddMe": "امسح لإضافتي",
+    "shareProfileLink": "مشاركة الملف الشخصي",
+    "addMeOnCrypt": "أضفني على CRYPT!\n\n{link}",
+    "@addMeOnCrypt": {
+        "placeholders": {
+            "link": {
+                "type": "String"
+            }
+        }
+    },
+    "scanQr": "مسح QR",
+    "invalidCryptQrFormat": "رمز QR الخاص بـ CRYPT غير صالح.",
+    "userScanned": "تم مسح المستخدم!",
+    "addingUser": "جارٍ إضافة {username}...",
+    "@addingUser": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "defaultUser": "مستخدم",
+    "createAccount": "إنشاء حساب",
+    "keepPasswordSecureHint": "احتفظ به بأمان. لا يمكن تغيير كلمة المرور.",
+    "pleaseFillInAllFields": "املأ جميع الحقول",
+    "usernameExceedsLimit": "الحد الأقصى لاسم المستخدم: 20 حرفًا",
+    "invalidUsernameCharacters": "استخدم الأحرف والأرقام و _ أو - فقط.",
+    "weakPasswordNotice": "استخدم 8 أحرف أو أكثر، ورقمًا واحدًا وحرفًا كبيرًا واحدًا.",
+    "unableToGenerateUniqueUsername": "تعذر إنشاء اسم مستخدم فريد.",
+    "accountCreated": "تم إنشاء الحساب",
+    "yourUsernameIs": "اسم المستخدم الخاص بك:\n\n{username}",
+    "@yourUsernameIs": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "usernameTakenAssignedTag": "اسم المستخدم '{chosen}' مستخدم بالفعل.\n\nاسم المستخدم الخاص بك:\n\n{assigned}\n\nاحتفظ به لتسجيل الدخول.",
+    "@usernameTakenAssignedTag": {
+        "placeholders": {
+            "chosen": {
+                "type": "String"
+            },
+            "assigned": {
+                "type": "String"
+            }
+        }
+    },
+    "continueText": "متابعة",
+    "failedToGenerateIdentity": "فشل إنشاء الهوية: {error}",
+    "@failedToGenerateIdentity": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "welcomeToCrypt": "مرحبًا بك في CRYPT",
+    "signupDescription": "أنشئ اسم مستخدم وكلمة مرور لإنشاء مفاتيح P2P.",
+    "chooseAUsername": "اختر اسم مستخدم",
+    "usernameHelperText": "لا تستخدم اسمك الحقيقي. ستتم إضافة لاحقة إذا كان الاسم مستخدمًا.",
+    "masterAuthenticationRequired": "المصادقة الرئيسية",
+    "verify": "تحقق",
+    "darkThemeMode": "الوضع الداكن",
+    "secureConversations": "محادثات آمنة",
+    "noActiveConversations": "لا توجد محادثات نشطة. ابدأ محادثة لتفعيل الأقفال.",
+    "logout": "تسجيل الخروج",
+    "wipeDeviceAndEscape": "مسح الجهاز",
+    "falsePassword": "كلمة مرور خاطئة",
+    "accessSuspendedTimer": "تم تعليق الوصول. حاول مرة أخرى خلال {time}.",
+    "@accessSuspendedTimer": {
+        "placeholders": {
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "selectSecureLockMethod": "اختيار طريقة القفل",
+    "selectSecureLockDescription": "القفل باستخدام بصمة الإصبع أو PIN من 4 أرقام؟",
+    "fourDigitPin": "PIN من 4 أرقام",
+    "fingerprintUnlock": "بصمة الإصبع 🔓",
+    "supportSoloDeveloper": "دعم المطور",
+    "maybeLater": "ربما لاحقًا",
+    "submitProof": "إرسال الإثبات",
+    "couldNotOpenWallet": "تعذر فتح المحفظة. انسخ الرمز أدناه.",
+    "proofSubmittedSnackbar": "تم إرسال الإثبات. المراجعة اليدوية: 24–48 ساعة (باستثناء عطلات نهاية الأسبوع).",
+    "termsAndConditions": "الشروط والأحكام",
+    "settingsTermsAndConditions": "الشروط والأحكام",
+    "termsIntro": "CRYPT هو تطبيق في مرحلة مبكرة لربط الأشخاص مباشرةً لإجراء المحادثات. أنت مسؤول عن استخدام التطبيق بشكل مناسب والحفاظ على بيانات اعتماد حسابك آمنة.",
+    "termsConnectivity": "يستخدم CRYPT الخدمات عبر الإنترنت لمساعدة الأجهزة على اكتشاف الاتصالات وإنشاءها. قد يتغير سلوك التوفر والاتصال مع تطور التطبيق. من فضلك لا تعتمد على CRYPT كوسيلة الاتصال الوحيدة لديك.",
+    "termsAgreement": "من خلال المتابعة، فإنك تؤكد أنك قرأت ووافقت على استخدام CRYPT بموجب هذه الشروط.",
+    "agreeTerms": "أوافق على الشروط والأحكام",
+    "agreeAndContinue": "وافق واستمر",
+    "beforeYouStart": "قبل أن تبدأ",
+    "connected": "متصل",
+    "connectFirstThenChat": "الاتصال أولا، ثم الدردشة",
+    "betaIntro": "CRYPT هو إصدار تجريبي مبكر، لذا قد تتحسن التجربة في الإصدارات المستقبلية.",
+    "walkieTalkieExplanation": "يعمل CRYPT مثل جهاز اتصال لاسلكي: يحتاج كلا الشخصين إلى الاتصال بالإنترنت وفتح CRYPT في نفس الوقت لتأسيس الاتصال.",
+    "howToUseCrypt": "كيفية استخدام كريبت:\n1. قم بمسح رمز CRYPT QR الخاص بالشخص الآخر.\n2. يحتاج كلا الشخصين إلى CRYPT مفتوحًا ومتصلًا بالإنترنت.\n3. انتظر حتى يقوم CRYPT بإنشاء اتصال P2P.\n4. انتظر حتى تختفي حالة \"الاتصال...\" ويتم إنشاء الاتصال.\n5. بمجرد الاتصال، يمكنك البدء في الدردشة.",
+    "messageStorageExplanation": "تم تصميم رسائلك للانتقال مباشرة بين الأجهزة المتصلة. لا يقوم CRYPT بتخزين رسائل الدردشة الخاصة بك على خوادمنا. يساعد الخادم حاليًا في الاتصال وإرسال الإشارات، ولا يتم تخزين سجل الدردشة على الخادم. إذا كان الشخص الآخر غير متصل بالإنترنت، فلا يمكن إنشاء اتصال P2P الحالي.",
+    "settingsAndSupportExplanation": "قم بزيارة الإعدادات لتخصيص تجربة CRYPT الخاصة بك. المزيد من خيارات التخصيص تأتي في وقت قريب.\n\nهل تريد دعم CRYPT؟ يمكنك العثور على خيار التبرع في الإعدادات.",
+    "saving": "توفير...",
+    "continueToCrypt": "المتابعة إلى التشفير",
+    "showSplashScreen": "إظهار شاشة البداية",
+    "retry": "أعد المحاولة",
+    "connectionFailed": "فشل الاتصال",
+    "connectionFailedDetails": "فشل الاتصال. يجب أن يكون كلا الجهازين متصلين بالإنترنت مع فتح CRYPT للاتصال.",
+    "gallery": "معرض",
+    "alignQrCode": "محاذاة رمز الاستجابة السريعة",
+    "scanFromGallery": "مسح من المعرض",
+    "couldNotScanImage": "تعذر مسح الصورة ضوئيًا.",
+    "couldNotShareQrCode": "تعذرت مشاركة رمز الاستجابة السريعة: {error}",
+    "newContact": "جهة اتصال جديدة: {username}",
+    "publicEncryptionKeyMissing": "مفتاح التشفير العام الخاص بك مفقود.",
+    "contactEncryptionKeyMissing": "مفتاح تشفير جهة الاتصال مفقود.",
+    "localEncryptionKeyMissing": "مفتاح التشفير المحلي مفقود.",
+    "noQrCodeFound": "لم يتم العثور على رمز QR في هذه الصورة.",
+    "shareQrCode": "مشاركة رمز الاستجابة السريعة",
+    "@couldNotShareQrCode": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "@newContact": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "supportIntro": "مرحبًا! أنا مطور مستقل أعمل بجد على CRYPT. لا أملك ميزانية أو تمويلًا مؤسسيًا، وأعتمد على صدقك وتعاطفك لتحسين التطبيق وضمان عدم وجود إعلانات أبدًا.",
+    "chooseSupportAmount": "اختر مبلغ الدعم:",
+    "poorGang": "أنا من مجموعة الفقراء 🥀✌️",
+    "launchOfferMinimum": "الحد الأدنى لعرض الإطلاق 🚀",
+    "buyMeCoffee": "اشترِ لي قهوة ☕",
+    "superSupporter": "داعِم مميز 🔥",
+    "feature": "الميزة",
+    "freeTier": "الخطة المجانية",
+    "premium": "مميزة",
+    "chatLocks": "أقفال الدردشة",
+    "maxOneRoom": "غرفة واحدة كحد أقصى",
+    "unlimited": "غير محدود",
+    "biometrics": "القياسات الحيوية",
+    "disabled": "معطل 🚫",
+    "supportWithSats": "ادعم بـ {amount} ساتوشي (Phoenix)",
+    "boltOffer": "عرض دفع BOLT12 ⚡ • اضغط للنسخ",
+    "boltOfferCopied": "تم نسخ عرض الدفع BOLT12",
+    "tapToCopyBoltOffer": "اضغط لنسخ عرض الدفع BOLT12",
+    "simpleInstructionsToUnlock": "تعليمات بسيطة لفتح القفل 📬:",
+    "unlockInstructions": "1. ادفع باستخدام Phoenix على أندرويد (الحد الأدنى 7,500).\n2. التقط صورة لتأكيد المعاملة الناجحة.\n3. أرسل الصورة إلى jounaidnadirmed@gmail.com واذكر اسم المستخدم '{username}'.\n4. اكتب أي شيء أدناه لحفظ طلبك على هذا الجهاز:",
+    "supportRequestHint": "اكتب اسمك أو معلومات المعاملة هنا...",
+    "@supportWithSats": {
+        "placeholders": {
+            "amount": {
+                "type": "String"
+            }
+        }
+    },
+    "@unlockInstructions": {
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
     }
-  },
-
-  "copyDigitsHint": "انسخ الأرقام الخمسة",
-  "codeMismatchNotice": "الرمز غير متطابق. أدخل كلمة المرور الرئيسية أو انتظر 10 دقائق.",
-  "accountPasswordLabel": "كلمة مرور الحساب",
-  "deleteEverythingPermanently": "حذف كل شيء نهائيًا",
-  "escapeAndPurgeDeviceData": "الخروج ومسح البيانات",
-
-  "addContact": "إضافة جهة اتصال",
-  "addContactConfirmation": "إضافة جهة الاتصال هذه؟",
-  "noMessagesYet": "لا توجد رسائل بعد",
-  "addNewContact": "جهة اتصال جديدة",
-  "usernameLabel": "اسم المستخدم",
-  "nicknameOptionalLabel": "اسم مستعار (اختياري)",
-  "add": "إضافة",
-  "usernameCannotBeEmpty": "اسم المستخدم مطلوب",
-
-  "contactAlreadyExists": "جهة الاتصال '{name}' موجودة بالفعل.",
-  "@contactAlreadyExists": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "userNotFoundOnRegistry": "المستخدم '{name}' غير موجود. السر المشترك غير متاح.",
-  "@userNotFoundOnRegistry": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "successfullyAddedContact": "تمت إضافة {name}!",
-  "@successfullyAddedContact": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-
-  "contacts": "جهات الاتصال",
-  "noContactsYet": "لا توجد جهات اتصال بعد",
-
-  "securityLockoutActive": "قفل الأمان",
-  "tooManyAttemptsFrozen": "محاولات كثيرة جدًا. تم القفل لمدة {minutes} دقيقة.",
-  "@tooManyAttemptsFrozen": {
-    "placeholders": {
-      "minutes": {
-        "type": "int"
-      }
-    }
-  },
-
-  "acknowledge": "فهمت",
-  "accessBlocked": "الوصول محظور",
-  "accessSuspended": "5 محاولات فاشلة. تم تعليق الوصول لمدة {minutes} دقيقة.",
-  "@accessSuspended": {
-    "placeholders": {
-      "minutes": {
-        "type": "int"
-      }
-    }
-  },
-
-  "ok": "موافق",
-
-  "unlockSecureNode": "فتح القفل: {username}",
-  "@unlockSecureNode": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "verificationMetricsRemaining": "المحاولات المتبقية: {count}",
-  "@verificationMetricsRemaining": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
-
-  "secureKeyPasscode": "رمز الأمان",
-  "warningHardwareLockout": "تحذير: سيؤدي الفشل التالي إلى قفل الأمان.",
-  "abort": "إلغاء",
-  "authenticate": "مصادقة",
-
-  "searchPipelinesHint": "البحث عن اتصالات آمنة...",
-  "zeroPipelinesDiscovered": "لم يتم العثور على اتصالات.",
-  "processingDecryption": "جارٍ فك التشفير...",
-  "decrypting": "جارٍ فك التشفير...",
-  "decryptionError": "[خطأ في فك التشفير]",
-  "cryptContainerSecure": "حاوية CRYPT آمنة",
-
-  "connectAnAccount": "ربط حساب",
-  "username": "اسم المستخدم",
-  "password": "كلمة المرور",
-  "enterMasterSecurityPassword": "أدخل كلمة المرور الرئيسية",
-  "pleaseFillAllFields": "املأ جميع الحقول",
-  "wrongUsernameOrPassword": "اسم المستخدم أو كلمة المرور غير صحيحة",
-
-  "loginError": "خطأ في تسجيل الدخول: {error}",
-  "@loginError": {
-    "placeholders": {
-      "error": {
-        "type": "String"
-      }
-    }
-  },
-
-  "dontHaveAnAccountSignUp": "ليس لديك حساب؟ سجّل الآن",
-  "myIdentity": "هويتي",
-  "scanToAddMe": "امسح لإضافتي",
-  "shareProfileLink": "مشاركة الملف الشخصي",
-
-  "addMeOnCrypt": "أضفني على CRYPT!\n\n{link}",
-  "@addMeOnCrypt": {
-    "placeholders": {
-      "link": {
-        "type": "String"
-      }
-    }
-  },
-
-  "scanQr": "مسح QR",
-  "invalidCryptQrFormat": "رمز QR الخاص بـ CRYPT غير صالح.",
-  "userScanned": "تم مسح المستخدم!",
-  "addingUser": "جارٍ إضافة {username}...",
-
-  "@addingUser": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "defaultUser": "مستخدم",
-  "createAccount": "إنشاء حساب",
-  "keepPasswordSecureHint": "احتفظ به بأمان. لا يمكن تغيير كلمة المرور.",
-  "pleaseFillInAllFields": "املأ جميع الحقول",
-  "usernameExceedsLimit": "الحد الأقصى لاسم المستخدم: 20 حرفًا",
-  "invalidUsernameCharacters": "استخدم الأحرف والأرقام و _ أو - فقط.",
-  "weakPasswordNotice": "استخدم 8 أحرف أو أكثر، ورقمًا واحدًا وحرفًا كبيرًا واحدًا.",
-  "unableToGenerateUniqueUsername": "تعذر إنشاء اسم مستخدم فريد.",
-  "accountCreated": "تم إنشاء الحساب",
-
-  "yourUsernameIs": "اسم المستخدم الخاص بك:\n\n{username}",
-  "@yourUsernameIs": {
-    "placeholders": {
-      "username": {
-        "type": "String"
-      }
-    }
-  },
-
-  "usernameTakenAssignedTag": "اسم المستخدم '{chosen}' مستخدم بالفعل.\n\nاسم المستخدم الخاص بك:\n\n{assigned}\n\nاحتفظ به لتسجيل الدخول.",
-  "@usernameTakenAssignedTag": {
-    "placeholders": {
-      "chosen": {
-        "type": "String"
-      },
-      "assigned": {
-        "type": "String"
-      }
-    }
-  },
-
-  "continueText": "متابعة",
-
-  "failedToGenerateIdentity": "فشل إنشاء الهوية: {error}",
-  "@failedToGenerateIdentity": {
-    "placeholders": {
-      "error": {
-        "type": "String"
-      }
-    }
-  },
-
-  "welcomeToCrypt": "مرحبًا بك في CRYPT",
-  "signupDescription": "أنشئ اسم مستخدم وكلمة مرور لإنشاء مفاتيح P2P.",
-  "chooseAUsername": "اختر اسم مستخدم",
-  "usernameHelperText": "لا تستخدم اسمك الحقيقي. ستتم إضافة لاحقة إذا كان الاسم مستخدمًا.",
-
-  "masterAuthenticationRequired": "المصادقة الرئيسية",
-  "verify": "تحقق",
-  "darkThemeMode": "الوضع الداكن",
-  "secureConversations": "محادثات آمنة",
-  "noActiveConversations": "لا توجد محادثات نشطة. ابدأ محادثة لتفعيل الأقفال.",
-  "logout": "تسجيل الخروج",
-  "wipeDeviceAndEscape": "مسح الجهاز",
-  "falsePassword": "كلمة مرور خاطئة",
-
-  "accessSuspendedTimer": "تم تعليق الوصول. حاول مرة أخرى خلال {time}.",
-  "@accessSuspendedTimer": {
-    "placeholders": {
-      "time": {
-        "type": "String"
-      }
-    }
-  },
-
-  "selectSecureLockMethod": "اختيار طريقة القفل",
-  "selectSecureLockDescription": "القفل باستخدام بصمة الإصبع أو PIN من 4 أرقام؟",
-  "fourDigitPin": "PIN من 4 أرقام",
-  "fingerprintUnlock": "بصمة الإصبع 🔓",
-
-  "supportSoloDeveloper": "دعم المطور",
-  "maybeLater": "ربما لاحقًا",
-  "submitProof": "إرسال الإثبات",
-  "couldNotOpenWallet": "تعذر فتح المحفظة. انسخ الرمز أدناه.",
-  "proofSubmittedSnackbar": "تم إرسال الإثبات. المراجعة اليدوية: 24–48 ساعة (باستثناء عطلات نهاية الأسبوع)."
 }

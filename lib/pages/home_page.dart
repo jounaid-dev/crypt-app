@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:crypt_messenger/l10n/app_localizations.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'chat_page.dart';
 import 'my_identity_page.dart';
@@ -15,6 +14,7 @@ import '../services/conversation_id_service.dart';
 import '../services/chat_lock_service.dart';
 import '../services/signaling_service.dart';
 import '../services/account_service.dart';
+import '../services/qr_validation_code_service.dart';
 
 class HomePage extends StatefulWidget {
   final String uid;
@@ -31,6 +31,8 @@ class HomePage extends StatefulWidget {
   // ============================================================
 
   final Function(Locale)? onLanguageChanged;
+  final bool showSplashScreen;
+  final Function(bool)? onSplashScreenChanged;
 
   const HomePage({
     super.key,
@@ -38,6 +40,8 @@ class HomePage extends StatefulWidget {
     this.isDarkMode = false,
     this.onThemeChanged = _defaultThemeChanged,
     this.onLanguageChanged,
+    this.showSplashScreen = true,
+    this.onSplashScreenChanged,
   });
 
   static void _defaultThemeChanged(bool value) {}
@@ -46,19 +50,17 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
-    with WidgetsBindingObserver {
-  final ConversationService conversationService =
-      ConversationService();
+class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
+  final ConversationService conversationService = ConversationService();
 
-  final ChatLockService chatLockService =
-      ChatLockService();
+  final ChatLockService chatLockService = ChatLockService();
 
-  final SignalingService _signaling =
-      SignalingService.instance;
+  final SignalingService _signaling = SignalingService.instance;
 
-  final AccountService _accountService =
-      AccountService();
+  final AccountService _accountService = AccountService();
+
+  final QrValidationCodeService _qrValidationCodeService =
+      QrValidationCodeService();
 
   List<Conversation> conversations = [];
   List<Conversation> filteredConversations = [];
@@ -74,23 +76,6 @@ class _HomePageState extends State<HomePage>
   bool _isHandlingConversationRequest = false;
 
   // ============================================================
-  // QR PROOF STORAGE
-  // ============================================================
-
-  static const String _qrProofKey =
-      "active_qr_proof";
-
-  static const String _qrProofCreatedAtKey =
-      "active_qr_proof_created_at";
-
-  // QR proof validity.
-  //
-  // MyIdentityPage creates a new proof when it is opened.
-  // The proof is accepted only for a short period.
-  static const Duration _qrProofLifetime =
-      Duration(minutes: 5);
-
-  // ============================================================
   // INIT
   // ============================================================
 
@@ -100,8 +85,7 @@ class _HomePageState extends State<HomePage>
 
     WidgetsBinding.instance.addObserver(this);
 
-    _searchController =
-        TextEditingController();
+    _searchController = TextEditingController();
 
     loadConversations();
 
@@ -114,14 +98,10 @@ class _HomePageState extends State<HomePage>
 
   Future<void> _initializeSignaling() async {
     try {
-      final username =
-          await _accountService.getUsername();
+      final username = await _accountService.getUsername();
 
-      if (username == null ||
-          username.trim().isEmpty) {
-        debugPrint(
-          "[Home] Cannot connect signaling: username missing.",
-        );
+      if (username == null || username.trim().isEmpty) {
+        debugPrint("[Home] Cannot connect signaling: username missing.");
         return;
       }
 
@@ -130,9 +110,7 @@ class _HomePageState extends State<HomePage>
       // --------------------------------------------------------
 
       if (!_signaling.isConnected) {
-        await _signaling.connect(
-          username.trim(),
-        );
+        await _signaling.connect(username.trim());
       }
 
       // --------------------------------------------------------
@@ -143,21 +121,16 @@ class _HomePageState extends State<HomePage>
 
       await _signalingSubscription?.cancel();
 
-      _signalingSubscription =
-          _signaling.stream.listen(
+      _signalingSubscription = _signaling.stream.listen(
         (event) async {
           await _handleSignalingEvent(event);
         },
         onError: (error) {
-          debugPrint(
-            "[Home] Signaling stream error: $error",
-          );
+          debugPrint("[Home] Signaling stream error: $error");
         },
       );
 
-      debugPrint(
-        "[Home] Signaling listener ready.",
-      );
+      debugPrint("[Home] Signaling listener ready.");
     } catch (e, stack) {
       debugPrint(
         "[Home] Signaling initialization failed: "
@@ -170,19 +143,15 @@ class _HomePageState extends State<HomePage>
   // SIGNALING EVENTS
   // ============================================================
 
-  Future<void> _handleSignalingEvent(
-    dynamic event,
-  ) async {
+  Future<void> _handleSignalingEvent(dynamic event) async {
     try {
       if (event is! Map) {
         return;
       }
 
-      final data =
-          Map<String, dynamic>.from(event);
+      final data = Map<String, dynamic>.from(event);
 
-      final type =
-          data["type"]?.toString();
+      final type = data["type"]?.toString();
 
       if (type == "conversation_request") {
         await _handleConversationRequest(data);
@@ -195,9 +164,7 @@ class _HomePageState extends State<HomePage>
       }
 
       if (type == "conversation_reject") {
-        debugPrint(
-          "[Home] Conversation request rejected.",
-        );
+        debugPrint("[Home] Conversation request rejected.");
         return;
       }
     } catch (e, stack) {
@@ -209,144 +176,61 @@ class _HomePageState extends State<HomePage>
   }
 
   // ============================================================
-  // GET ACTIVE QR PROOF
-  // ============================================================
-
-  Future<String?> _getActiveQrProof() async {
-    final prefs =
-        await SharedPreferences.getInstance();
-
-    final proof =
-        prefs.getString(_qrProofKey);
-
-    final createdAtMillis =
-        prefs.getInt(_qrProofCreatedAtKey);
-
-    if (proof == null ||
-        proof.isEmpty ||
-        createdAtMillis == null) {
-      return null;
-    }
-
-    final createdAt =
-        DateTime.fromMillisecondsSinceEpoch(
-      createdAtMillis,
-    );
-
-    final age =
-        DateTime.now().difference(createdAt);
-
-    // ----------------------------------------------------------
-    // EXPIRED
-    // ----------------------------------------------------------
-
-    if (age > _qrProofLifetime) {
-      await _clearActiveQrProof();
-
-      debugPrint(
-        "[QR Security] Active QR proof expired.",
-      );
-
-      return null;
-    }
-
-    return proof;
-  }
-
-  // ============================================================
-  // CLEAR QR PROOF
-  // ============================================================
-
-  Future<void> _clearActiveQrProof() async {
-    final prefs =
-        await SharedPreferences.getInstance();
-
-    await prefs.remove(_qrProofKey);
-    await prefs.remove(_qrProofCreatedAtKey);
-
-    debugPrint(
-      "[QR Security] QR proof consumed.",
-    );
-  }
-
-  // ============================================================
   // INCOMING CONVERSATION REQUEST
   // ============================================================
 
-  Future<void> _handleConversationRequest(
-    Map<String, dynamic> data,
-  ) async {
+  Future<void> _handleConversationRequest(Map<String, dynamic> data) async {
+    final l10n = AppLocalizations.of(context)!;
+
     if (_isHandlingConversationRequest) {
-      debugPrint(
-        "[Home] Already handling a conversation request.",
-      );
+      debugPrint("[Home] Already handling a conversation request.");
       return;
     }
 
     _isHandlingConversationRequest = true;
 
     try {
-      final sender =
-          data["sender"]?.toString();
+      final sender = data["sender"]?.toString();
 
-      final target =
-          data["target"]?.toString();
+      final target = data["target"]?.toString();
 
-      final rawPayload =
-          data["payload"];
+      final rawPayload = data["payload"];
 
       // ========================================================
       // BASIC ENVELOPE VALIDATION
       // ========================================================
 
-      if (sender == null ||
-          sender.trim().isEmpty) {
-        debugPrint(
-          "[Security] Conversation request has no sender.",
-        );
+      if (sender == null || sender.trim().isEmpty) {
+        debugPrint("[Security] Conversation request has no sender.");
         return;
       }
 
-      if (target == null ||
-          target.trim().isEmpty) {
-        debugPrint(
-          "[Security] Conversation request has no target.",
-        );
+      if (target == null || target.trim().isEmpty) {
+        debugPrint("[Security] Conversation request has no target.");
         return;
       }
 
       if (rawPayload is! Map) {
-        debugPrint(
-          "[Security] Conversation request has invalid payload.",
-        );
+        debugPrint("[Security] Conversation request has invalid payload.");
         return;
       }
 
-      final payload =
-          Map<String, dynamic>.from(
-        rawPayload,
-      );
+      final payload = Map<String, dynamic>.from(rawPayload);
 
       // ========================================================
       // GET REQUEST IDENTITY
       // ========================================================
 
-      final peerUsername =
-          payload["username"]?.toString();
+      final peerUsername = payload["username"]?.toString();
 
-      final peerPublicEncryptionKey =
-          payload["publicEncryptionKey"]
-              ?.toString();
+      final peerPublicEncryptionKey = payload["publicEncryptionKey"]
+          ?.toString();
 
-      final peerPublicSigningKey =
-          payload["publicSigningKey"]
-              ?.toString();
+      final peerPublicSigningKey = payload["publicSigningKey"]?.toString();
 
-      final requestedConversationId =
-          payload["conversationId"]?.toString();
+      final requestedConversationId = payload["conversationId"]?.toString();
 
-      final receivedQrProof =
-          payload["qrProof"]?.toString();
+      final receivedQrProof = payload["qrProof"]?.toString();
 
       if (peerUsername == null ||
           peerUsername.trim().isEmpty ||
@@ -354,9 +238,7 @@ class _HomePageState extends State<HomePage>
           peerPublicEncryptionKey.trim().isEmpty ||
           peerPublicSigningKey == null ||
           peerPublicSigningKey.trim().isEmpty) {
-        debugPrint(
-          "[Security] Incomplete conversation request.",
-        );
+        debugPrint("[Security] Incomplete conversation request.");
         return;
       }
 
@@ -365,9 +247,7 @@ class _HomePageState extends State<HomePage>
       // ========================================================
 
       if (sender != peerUsername) {
-        debugPrint(
-          "[Security] Conversation request sender mismatch.",
-        );
+        debugPrint("[Security] Conversation request sender mismatch.");
         return;
       }
 
@@ -375,14 +255,10 @@ class _HomePageState extends State<HomePage>
       // GET OUR USERNAME
       // ========================================================
 
-      final myUsername =
-          await _accountService.getUsername();
+      final myUsername = await _accountService.getUsername();
 
-      if (myUsername == null ||
-          myUsername.trim().isEmpty) {
-        debugPrint(
-          "[Home] Our username is missing.",
-        );
+      if (myUsername == null || myUsername.trim().isEmpty) {
+        debugPrint("[Home] Our username is missing.");
         return;
       }
 
@@ -391,9 +267,7 @@ class _HomePageState extends State<HomePage>
       // ========================================================
 
       if (target != myUsername) {
-        debugPrint(
-          "[Security] Conversation request is not for us.",
-        );
+        debugPrint("[Security] Conversation request is not for us.");
         return;
       }
 
@@ -402,9 +276,7 @@ class _HomePageState extends State<HomePage>
       // ========================================================
 
       if (peerUsername == myUsername) {
-        debugPrint(
-          "[Security] Ignoring self conversation request.",
-        );
+        debugPrint("[Security] Ignoring self conversation request.");
         return;
       }
 
@@ -412,41 +284,37 @@ class _HomePageState extends State<HomePage>
       // QR PROOF
       // ========================================================
 
-      if (receivedQrProof == null ||
-          receivedQrProof.isEmpty) {
-        debugPrint(
-          "[Security] Conversation request has no QR proof.",
-        );
+      if (receivedQrProof == null || receivedQrProof.isEmpty) {
+        debugPrint("[Security] Conversation request has no QR proof.");
         return;
       }
 
-      final activeQrProof =
-          await _getActiveQrProof();
-
-      if (activeQrProof == null) {
-        debugPrint(
-          "[Security] No active QR proof exists.",
-        );
-        return;
-      }
-
-      // --------------------------------------------------------
-      // CONSTANT-TIME STYLE COMPARISON
-      // --------------------------------------------------------
-
-      if (!_secureStringEquals(
-        activeQrProof,
+      final storedCode = await _qrValidationCodeService.findCode(
         receivedQrProof,
-      )) {
+      );
+
+      if (storedCode == null) {
         debugPrint(
-          "[Security] QR proof mismatch. "
+          "[Security] No stored QR validation code "
+          "matches $peerUsername's request.",
+        );
+        return;
+      }
+
+      // --------------------------------------------------------
+      // A CODE THAT HAS ALREADY BEEN CONSUMED CANNOT BE REUSED
+      // --------------------------------------------------------
+
+      if (storedCode.used) {
+        debugPrint(
+          "[Security] QR validation code already used. "
           "Conversation request rejected.",
         );
         return;
       }
 
       debugPrint(
-        "[QR Security] QR proof verified for "
+        "[QR Security] QR validation code verified for "
         "$peerUsername.",
       );
 
@@ -454,15 +322,11 @@ class _HomePageState extends State<HomePage>
       // GET OUR PUBLIC ENCRYPTION KEY
       // ========================================================
 
-      final myPublicEncryptionKey =
-          await _accountService
-              .getPublicEncryptionKey();
+      final myPublicEncryptionKey = await _accountService
+          .getPublicEncryptionKey();
 
-      if (myPublicEncryptionKey == null ||
-          myPublicEncryptionKey.isEmpty) {
-        debugPrint(
-          "[Home] Our public encryption key is missing.",
-        );
+      if (myPublicEncryptionKey == null || myPublicEncryptionKey.isEmpty) {
+        debugPrint("[Home] Our public encryption key is missing.");
         return;
       }
 
@@ -470,12 +334,9 @@ class _HomePageState extends State<HomePage>
       // DETERMINISTIC CONVERSATION ID
       // ========================================================
 
-      final conversationId =
-          ConversationIdService.generate(
-        myPublicEncryptionKey:
-            myPublicEncryptionKey,
-        peerPublicEncryptionKey:
-            peerPublicEncryptionKey,
+      final conversationId = ConversationIdService.generate(
+        myPublicEncryptionKey: myPublicEncryptionKey,
+        peerPublicEncryptionKey: peerPublicEncryptionKey,
       );
 
       debugPrint(
@@ -490,70 +351,49 @@ class _HomePageState extends State<HomePage>
       if (requestedConversationId != null &&
           requestedConversationId.isNotEmpty &&
           requestedConversationId != conversationId) {
-        debugPrint(
-          "[Security] Conversation ID mismatch.",
-        );
+        debugPrint("[Security] Conversation ID mismatch.");
         return;
       }
-
-      // ========================================================
-      // CONSUME QR PROOF
-      // ========================================================
-      //
-      // Do this BEFORE creating the conversation.
-      //
-      // If another identical request arrives afterward,
-      // it cannot use the same QR proof again.
-      //
-
-      await _clearActiveQrProof();
 
       // ========================================================
       // CHECK EXISTING CONTACT
       // ========================================================
 
-      final existing =
-          await conversationService
-              .findConversationByPublicKey(
+      final existing = await conversationService.findConversationByPublicKey(
         peerPublicEncryptionKey,
       );
 
       Conversation conversation;
 
       if (existing != null) {
-        conversation =
-            existing.copyWith(
+        conversation = existing.copyWith(
           id: conversationId,
           username: peerUsername,
-          publicSigningKey:
-              peerPublicSigningKey,
-          publicEncryptionKey:
-              peerPublicEncryptionKey,
+          publicSigningKey: peerPublicSigningKey,
+          publicEncryptionKey: peerPublicEncryptionKey,
         );
 
-        await conversationService.updateConversation(
+        final updated = await conversationService.updateConversation(
           conversation,
         );
 
-        debugPrint(
-          "[Home] Existing conversation updated.",
-        );
+        if (!updated) {
+          throw StateError("Conversation update failed.");
+        }
+
+        debugPrint("[Home] Existing conversation updated.");
       } else {
         // ======================================================
         // CREATE NEW CONTACT
         // ======================================================
 
-        final now =
-            DateTime.now();
+        final now = DateTime.now();
 
-        conversation =
-            Conversation(
+        conversation = Conversation(
           id: conversationId,
           username: peerUsername,
-          publicSigningKey:
-              peerPublicSigningKey,
-          publicEncryptionKey:
-              peerPublicEncryptionKey,
+          publicSigningKey: peerPublicSigningKey,
+          publicEncryptionKey: peerPublicEncryptionKey,
           createdAt: now,
           lastMessageAt: now,
           lastMessage: "",
@@ -561,13 +401,30 @@ class _HomePageState extends State<HomePage>
           verified: false,
         );
 
-        await conversationService.addConversation(
-          conversation,
-        );
+        final added = await conversationService.addConversation(conversation);
 
-        debugPrint(
-          "[Home] New conversation saved.",
-        );
+        if (!added) {
+          throw StateError("Conversation creation failed.");
+        }
+
+        debugPrint("[Home] New conversation saved.");
+      }
+
+      // ========================================================
+      // MARK QR VALIDATION CODE AS USED
+      // ========================================================
+      //
+      // Persisted only after the conversation was created
+      // successfully above. If creation failed, the code is left
+      // unused and can still be used later.
+
+      final markedUsed = await _qrValidationCodeService.markUsed(
+        receivedQrProof,
+      );
+
+      if (!markedUsed) {
+        debugPrint("[Security] QR validation code was consumed concurrently.");
+        return;
       }
 
       // ========================================================
@@ -585,21 +442,15 @@ class _HomePageState extends State<HomePage>
       _signaling.sendConversationAccept(
         target: peerUsername,
         payload: {
-          "conversationId":
-              conversation.id,
+          "conversationId": conversation.id,
 
-          "username":
-              myUsername,
+          "username": myUsername,
 
-          "publicEncryptionKey":
-              myPublicEncryptionKey,
+          "publicEncryptionKey": myPublicEncryptionKey,
 
-          "publicSigningKey":
-              await _accountService
-                  .getPublicSigningKey(),
+          "publicSigningKey": await _accountService.getPublicSigningKey(),
 
-          "requesterPublicEncryptionKey":
-              peerPublicEncryptionKey,
+          "requesterPublicEncryptionKey": peerPublicEncryptionKey,
         },
       );
 
@@ -615,14 +466,9 @@ class _HomePageState extends State<HomePage>
       // ========================================================
 
       if (mounted) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(
-          SnackBar(
-            content: Text(
-              "New contact: $peerUsername",
-            ),
-          ),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(l10n.newContact(peerUsername))));
       }
     } catch (e, stack) {
       debugPrint(
@@ -635,70 +481,31 @@ class _HomePageState extends State<HomePage>
   }
 
   // ============================================================
-  // CONSTANT-TIME STYLE STRING COMPARISON
-  // ============================================================
-
-  bool _secureStringEquals(
-    String a,
-    String b,
-  ) {
-    if (a.length != b.length) {
-      return false;
-    }
-
-    var difference = 0;
-
-    for (var i = 0; i < a.length; i++) {
-      difference |=
-          a.codeUnitAt(i) ^ b.codeUnitAt(i);
-    }
-
-    return difference == 0;
-  }
-
-  // ============================================================
   // OUTGOING REQUEST ACCEPTANCE
   // ============================================================
 
-  Future<void> _handleConversationAccept(
-    Map<String, dynamic> data,
-  ) async {
+  Future<void> _handleConversationAccept(Map<String, dynamic> data) async {
     try {
-      final sender =
-          data["sender"]?.toString();
+      final sender = data["sender"]?.toString();
 
-      final target =
-          data["target"]?.toString();
+      final target = data["target"]?.toString();
 
-      final rawPayload =
-          data["payload"];
+      final rawPayload = data["payload"];
 
-      if (sender == null ||
-          sender.isEmpty ||
-          rawPayload is! Map) {
+      if (sender == null || sender.isEmpty || rawPayload is! Map) {
         return;
       }
 
-      final payload =
-          Map<String, dynamic>.from(
-        rawPayload,
-      );
+      final payload = Map<String, dynamic>.from(rawPayload);
 
-      final conversationId =
-          payload["conversationId"]
-              ?.toString();
+      final conversationId = payload["conversationId"]?.toString();
 
-      final peerUsername =
-          payload["username"]
-              ?.toString();
+      final peerUsername = payload["username"]?.toString();
 
-      final peerPublicEncryptionKey =
-          payload["publicEncryptionKey"]
-              ?.toString();
+      final peerPublicEncryptionKey = payload["publicEncryptionKey"]
+          ?.toString();
 
-      final peerPublicSigningKey =
-          payload["publicSigningKey"]
-              ?.toString();
+      final peerPublicSigningKey = payload["publicSigningKey"]?.toString();
 
       if (conversationId == null ||
           conversationId.isEmpty ||
@@ -706,9 +513,7 @@ class _HomePageState extends State<HomePage>
           peerUsername.isEmpty ||
           peerPublicEncryptionKey == null ||
           peerPublicEncryptionKey.isEmpty) {
-        debugPrint(
-          "[Security] Invalid conversation acceptance.",
-        );
+        debugPrint("[Security] Invalid conversation acceptance.");
         return;
       }
 
@@ -716,11 +521,9 @@ class _HomePageState extends State<HomePage>
       // GET OUR USERNAME
       // ========================================================
 
-      final myUsername =
-          await _accountService.getUsername();
+      final myUsername = await _accountService.getUsername();
 
-      if (myUsername == null ||
-          myUsername.isEmpty) {
+      if (myUsername == null || myUsername.isEmpty) {
         return;
       }
 
@@ -728,9 +531,7 @@ class _HomePageState extends State<HomePage>
       // TARGET MUST BE US
       // ========================================================
 
-      if (target != null &&
-          target.isNotEmpty &&
-          target != myUsername) {
+      if (target != null && target.isNotEmpty && target != myUsername) {
         debugPrint(
           "[Security] Conversation acceptance "
           "is not for us.",
@@ -754,12 +555,10 @@ class _HomePageState extends State<HomePage>
       // GET OUR PUBLIC ENCRYPTION KEY
       // ========================================================
 
-      final myPublicEncryptionKey =
-          await _accountService
-              .getPublicEncryptionKey();
+      final myPublicEncryptionKey = await _accountService
+          .getPublicEncryptionKey();
 
-      if (myPublicEncryptionKey == null ||
-          myPublicEncryptionKey.isEmpty) {
+      if (myPublicEncryptionKey == null || myPublicEncryptionKey.isEmpty) {
         return;
       }
 
@@ -767,19 +566,13 @@ class _HomePageState extends State<HomePage>
       // RE-CALCULATE CONVERSATION ID
       // ========================================================
 
-      final expectedConversationId =
-          ConversationIdService.generate(
-        myPublicEncryptionKey:
-            myPublicEncryptionKey,
-        peerPublicEncryptionKey:
-            peerPublicEncryptionKey,
+      final expectedConversationId = ConversationIdService.generate(
+        myPublicEncryptionKey: myPublicEncryptionKey,
+        peerPublicEncryptionKey: peerPublicEncryptionKey,
       );
 
-      if (conversationId !=
-          expectedConversationId) {
-        debugPrint(
-          "[Security] Acceptance conversation ID mismatch.",
-        );
+      if (conversationId != expectedConversationId) {
+        debugPrint("[Security] Acceptance conversation ID mismatch.");
         return;
       }
 
@@ -789,16 +582,11 @@ class _HomePageState extends State<HomePage>
 
       Conversation? conversation;
 
-      final allConversations =
-          await conversationService
-              .getConversations();
+      final allConversations = await conversationService.getConversations();
 
-      for (final item
-          in allConversations) {
-        if (item.id ==
-                conversationId ||
-            item.publicEncryptionKey ==
-                peerPublicEncryptionKey) {
+      for (final item in allConversations) {
+        if (item.id == conversationId ||
+            item.publicEncryptionKey == peerPublicEncryptionKey) {
           conversation = item;
           break;
         }
@@ -816,20 +604,14 @@ class _HomePageState extends State<HomePage>
       // UPDATE TRUSTED PEER IDENTITY
       // ========================================================
 
-      final acceptedConversation =
-          conversation.copyWith(
+      final acceptedConversation = conversation.copyWith(
         id: expectedConversationId,
         username: peerUsername,
-        publicEncryptionKey:
-            peerPublicEncryptionKey,
-        publicSigningKey:
-            peerPublicSigningKey ??
-                conversation.publicSigningKey,
+        publicEncryptionKey: peerPublicEncryptionKey,
+        publicSigningKey: peerPublicSigningKey ?? conversation.publicSigningKey,
       );
 
-      await conversationService.updateConversation(
-        acceptedConversation,
-      );
+      await conversationService.updateConversation(acceptedConversation);
 
       debugPrint(
         "[Home] Conversation accepted by "
@@ -866,9 +648,7 @@ class _HomePageState extends State<HomePage>
   // ============================================================
 
   @override
-  void didChangeAppLifecycleState(
-    AppLifecycleState state,
-  ) {
+  void didChangeAppLifecycleState(AppLifecycleState state) {
     if (!mounted) return;
 
     setState(() {
@@ -888,9 +668,7 @@ class _HomePageState extends State<HomePage>
   // ============================================================
 
   Future<void> loadConversations() async {
-    final list =
-        await conversationService
-            .getConversations();
+    final list = await conversationService.getConversations();
 
     if (!mounted) return;
 
@@ -902,29 +680,18 @@ class _HomePageState extends State<HomePage>
 
   void _applySearch() {
     if (_searchQuery.isEmpty) {
-      filteredConversations =
-          List<Conversation>.from(
-        conversations,
-      );
+      filteredConversations = List<Conversation>.from(conversations);
       return;
     }
 
-    final query =
-        _searchQuery.toLowerCase();
+    final query = _searchQuery.toLowerCase();
 
-    filteredConversations =
-        conversations.where(
-      (conversation) {
-        return conversation.username
-            .toLowerCase()
-            .contains(query);
-      },
-    ).toList();
+    filteredConversations = conversations.where((conversation) {
+      return conversation.username.toLowerCase().contains(query);
+    }).toList();
   }
 
-  void _performSearch(
-    String query,
-  ) {
+  void _performSearch(String query) {
     setState(() {
       _searchQuery = query;
       _applySearch();
@@ -935,40 +702,22 @@ class _HomePageState extends State<HomePage>
   // HELPERS
   // ============================================================
 
-  String firstLetter(
-    String text,
-  ) {
+  String firstLetter(String text) {
     if (text.trim().isEmpty) {
       return "?";
     }
 
-    return text
-        .trim()
-        .substring(0, 1)
-        .toUpperCase();
+    return text.trim().substring(0, 1).toUpperCase();
   }
 
-  String _formatTime(
-    BuildContext context,
-    DateTime dateTime,
-  ) {
-    final localTime =
-        dateTime.toLocal();
+  String _formatTime(BuildContext context, DateTime dateTime) {
+    final localTime = dateTime.toLocal();
 
-    final hour =
-        localTime.hour % 12 == 0
-            ? 12
-            : localTime.hour % 12;
+    final hour = localTime.hour % 12 == 0 ? 12 : localTime.hour % 12;
 
-    final minute =
-        localTime.minute
-            .toString()
-            .padLeft(2, "0");
+    final minute = localTime.minute.toString().padLeft(2, "0");
 
-    final period =
-        localTime.hour >= 12
-            ? "PM"
-            : "AM";
+    final period = localTime.hour >= 12 ? "PM" : "AM";
 
     return "$hour:$minute $period";
   }
@@ -977,16 +726,11 @@ class _HomePageState extends State<HomePage>
   // OPEN CHAT
   // ============================================================
 
-  Future<void> _openConversation(
-    Conversation conversation,
-  ) async {
-    final allowed =
-        await chatLockService.verifyAccess(
+  Future<void> _openConversation(Conversation conversation) async {
+    final allowed = await chatLockService.verifyAccess(
       context: context,
-      conversationId:
-          conversation.id,
-      chatUsername:
-          conversation.username,
+      conversationId: conversation.id,
+      chatUsername: conversation.username,
     );
 
     if (!allowed || !mounted) {
@@ -995,12 +739,7 @@ class _HomePageState extends State<HomePage>
 
     await Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (_) => ChatPage(
-          conversation:
-              conversation,
-        ),
-      ),
+      MaterialPageRoute(builder: (_) => ChatPage(conversation: conversation)),
     );
 
     await loadConversations();
@@ -1011,17 +750,12 @@ class _HomePageState extends State<HomePage>
   // ============================================================
 
   Future<void> scanQr() async {
-    final result =
-        await Navigator.push(
+    final result = await Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (_) =>
-            const ScanQrPage(),
-      ),
+      MaterialPageRoute(builder: (_) => const ScanQrPage()),
     );
 
-    if (result == null ||
-        !mounted) {
+    if (result == null || !mounted) {
       return;
     }
 
@@ -1031,15 +765,10 @@ class _HomePageState extends State<HomePage>
 
     if (result is Map &&
         result["alreadyExists"] == true &&
-        result["conversation"]
-            is Conversation) {
-      final existingConversation =
-          result["conversation"]
-              as Conversation;
+        result["conversation"] is Conversation) {
+      final existingConversation = result["conversation"] as Conversation;
 
-      await _openConversation(
-        existingConversation,
-      );
+      await _openConversation(existingConversation);
 
       return;
     }
@@ -1052,20 +781,13 @@ class _HomePageState extends State<HomePage>
       return;
     }
 
-    final peerPublicEncryptionKey =
-        result["publicEncryptionKey"]
-            ?.toString();
+    final peerPublicEncryptionKey = result["publicEncryptionKey"]?.toString();
 
-    final peerPublicSigningKey =
-        result["publicSigningKey"]
-                ?.toString() ??
-            "";
+    final peerPublicSigningKey = result["publicSigningKey"]?.toString() ?? "";
 
-    final peerUsername =
-        result["username"]?.toString();
+    final peerUsername = result["username"]?.toString();
 
-    if (peerPublicEncryptionKey ==
-            null ||
+    if (peerPublicEncryptionKey == null ||
         peerPublicEncryptionKey.isEmpty ||
         peerUsername == null ||
         peerUsername.isEmpty) {
@@ -1076,13 +798,10 @@ class _HomePageState extends State<HomePage>
     // GET MY REAL PUBLIC ENCRYPTION KEY
     // ----------------------------------------------------------
 
-    final myPublicEncryptionKey =
-        await _accountService
-            .getPublicEncryptionKey();
+    final myPublicEncryptionKey = await _accountService
+        .getPublicEncryptionKey();
 
-    if (myPublicEncryptionKey ==
-            null ||
-        myPublicEncryptionKey.isEmpty) {
+    if (myPublicEncryptionKey == null || myPublicEncryptionKey.isEmpty) {
       debugPrint(
         "[QR] Cannot create conversation: "
         "own public encryption key is missing.",
@@ -1094,12 +813,9 @@ class _HomePageState extends State<HomePage>
     // DETERMINISTIC CONVERSATION ID
     // ----------------------------------------------------------
 
-    final conversationId =
-        ConversationIdService.generate(
-      myPublicEncryptionKey:
-          myPublicEncryptionKey,
-      peerPublicEncryptionKey:
-          peerPublicEncryptionKey,
+    final conversationId = ConversationIdService.generate(
+      myPublicEncryptionKey: myPublicEncryptionKey,
+      peerPublicEncryptionKey: peerPublicEncryptionKey,
     );
 
     debugPrint(
@@ -1111,31 +827,21 @@ class _HomePageState extends State<HomePage>
     // CHECK LOCAL STORAGE
     // ----------------------------------------------------------
 
-    final existing =
-        await conversationService
-            .findConversationByPublicKey(
+    final existing = await conversationService.findConversationByPublicKey(
       peerPublicEncryptionKey,
     );
 
     if (existing != null) {
-      final updatedConversation =
-          existing.copyWith(
+      final updatedConversation = existing.copyWith(
         id: conversationId,
         username: peerUsername,
-        publicSigningKey:
-            peerPublicSigningKey,
-        publicEncryptionKey:
-            peerPublicEncryptionKey,
+        publicSigningKey: peerPublicSigningKey,
+        publicEncryptionKey: peerPublicEncryptionKey,
       );
 
-      await conversationService
-          .updateConversation(
-        updatedConversation,
-      );
+      await conversationService.updateConversation(updatedConversation);
 
-      await _openConversation(
-        updatedConversation,
-      );
+      await _openConversation(updatedConversation);
 
       return;
     }
@@ -1144,17 +850,13 @@ class _HomePageState extends State<HomePage>
     // CREATE CONVERSATION
     // ----------------------------------------------------------
 
-    final now =
-        DateTime.now();
+    final now = DateTime.now();
 
-    final conversation =
-        Conversation(
+    final conversation = Conversation(
       id: conversationId,
       username: peerUsername,
-      publicSigningKey:
-          peerPublicSigningKey,
-      publicEncryptionKey:
-          peerPublicEncryptionKey,
+      publicSigningKey: peerPublicSigningKey,
+      publicEncryptionKey: peerPublicEncryptionKey,
       createdAt: now,
       lastMessageAt: now,
       lastMessage: "",
@@ -1162,10 +864,7 @@ class _HomePageState extends State<HomePage>
       verified: false,
     );
 
-    await conversationService
-        .addConversation(
-      conversation,
-    );
+    await conversationService.addConversation(conversation);
 
     await loadConversations();
 
@@ -1173,13 +872,7 @@ class _HomePageState extends State<HomePage>
 
     await Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (_) =>
-            ChatPage(
-          conversation:
-              conversation,
-        ),
-      ),
+      MaterialPageRoute(builder: (_) => ChatPage(conversation: conversation)),
     );
 
     await loadConversations();
@@ -1193,39 +886,23 @@ class _HomePageState extends State<HomePage>
     BuildContext context,
     Conversation conversation,
   ) {
-    final l10n =
-        AppLocalizations.of(context)!;
+    final l10n = AppLocalizations.of(context)!;
 
     return FutureBuilder<bool>(
-      future:
-          chatLockService.isLocked(
-        conversation.id,
-      ),
-      builder: (
-        context,
-        lockSnapshot,
-      ) {
-        final isLocked =
-            lockSnapshot.data ??
-                false;
+      future: chatLockService.isLocked(conversation.id),
+      builder: (context, lockSnapshot) {
+        final isLocked = lockSnapshot.data ?? false;
 
         return ListTile(
           leading: CircleAvatar(
-            backgroundColor:
-                isLocked
-                    ? Colors.red.shade700
-                    : Theme.of(context)
-                        .colorScheme
-                        .primary,
+            backgroundColor: isLocked
+                ? Colors.red.shade700
+                : Theme.of(context).colorScheme.primary,
             child: Text(
-              firstLetter(
-                conversation.username,
-              ),
-              style:
-                  const TextStyle(
+              firstLetter(conversation.username),
+              style: const TextStyle(
                 color: Colors.white,
-                fontWeight:
-                    FontWeight.bold,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),
@@ -1235,111 +912,60 @@ class _HomePageState extends State<HomePage>
                 child: Text(
                   conversation.username,
                   maxLines: 1,
-                  overflow:
-                      TextOverflow.ellipsis,
-                  style:
-                      const TextStyle(
-                    fontWeight:
-                        FontWeight.bold,
-                  ),
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
-              const SizedBox(
-                width: 6,
-              ),
+              const SizedBox(width: 6),
               if (isLocked)
-                const Icon(
-                  Icons.lock,
-                  size: 16,
-                  color: Colors.orange,
-                )
+                const Icon(Icons.lock, size: 16, color: Colors.orange)
               else if (conversation.verified)
-                const Icon(
-                  Icons.verified_user,
-                  size: 16,
-                  color: Colors.green,
-                ),
+                const Icon(Icons.verified_user, size: 16, color: Colors.green),
             ],
           ),
           subtitle: Text(
             conversation.lastMessage.isEmpty
-                ? l10n
-                    .processingDecryption
+                ? l10n.processingDecryption
                 : conversation.lastMessage,
             maxLines: 1,
-            overflow:
-                TextOverflow.ellipsis,
+            overflow: TextOverflow.ellipsis,
             style: TextStyle(
-              color:
-                  Theme.of(context)
-                      .colorScheme
-                      .onSurface
-                      .withOpacity(0.6),
+              color: Theme.of(
+                context,
+              ).colorScheme.onSurface.withValues(alpha: 0.6),
             ),
           ),
           trailing: Column(
-            mainAxisAlignment:
-                MainAxisAlignment.center,
-            crossAxisAlignment:
-                CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                _formatTime(
-                  context,
-                  conversation
-                      .lastMessageAt,
-                ),
-                style: TextStyle(
-                  fontSize: 12,
-                  color:
-                      Colors.grey.shade500,
-                ),
+                _formatTime(context, conversation.lastMessageAt),
+                style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
               ),
-              if (conversation
-                      .unreadCount >
-                  0)
+              if (conversation.unreadCount > 0)
                 Container(
-                  margin:
-                      const EdgeInsets
-                          .only(
-                    top: 4,
-                  ),
-                  padding:
-                      const EdgeInsets
-                          .symmetric(
+                  margin: const EdgeInsets.only(top: 4),
+                  padding: const EdgeInsets.symmetric(
                     horizontal: 6,
                     vertical: 2,
                   ),
-                  decoration:
-                      BoxDecoration(
-                    color:
-                        Colors.blueAccent,
-                    borderRadius:
-                        BorderRadius
-                            .circular(
-                      10,
-                    ),
+                  decoration: BoxDecoration(
+                    color: Colors.blueAccent,
+                    borderRadius: BorderRadius.circular(10),
                   ),
                   child: Text(
-                    conversation
-                        .unreadCount
-                        .toString(),
-                    style:
-                        const TextStyle(
-                      color:
-                          Colors.white,
+                    conversation.unreadCount.toString(),
+                    style: const TextStyle(
+                      color: Colors.white,
                       fontSize: 10,
-                      fontWeight:
-                          FontWeight.bold,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
             ],
           ),
-          onTap: () =>
-              _openConversation(
-            conversation,
-          ),
+          onTap: () => _openConversation(conversation),
           onLongPress: () {
             debugPrint(
               "Conversation ID: "
@@ -1356,67 +982,43 @@ class _HomePageState extends State<HomePage>
   // ============================================================
 
   @override
-  Widget build(
-    BuildContext context,
-  ) {
-    final l10n =
-        AppLocalizations.of(context)!;
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
           l10n.appName,
-          style:
-              const TextStyle(
-            fontWeight:
-                FontWeight.bold,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
             letterSpacing: 2.0,
           ),
         ),
         actions: [
           IconButton(
-            icon:
-                const Icon(
-              Icons.settings,
-            ),
-            onPressed: () =>
-                Navigator.push(
+            icon: const Icon(Icons.settings),
+            onPressed: () => Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) =>
-                    SettingsPage(
-                  isDarkMode:
-                      widget.isDarkMode,
-                  onThemeChanged:
-                      widget
-                          .onThemeChanged,
-                  onLanguageChanged:
-                      widget
-                          .onLanguageChanged,
+                builder: (context) => SettingsPage(
+                  isDarkMode: widget.isDarkMode,
+                  onThemeChanged: widget.onThemeChanged,
+                  onLanguageChanged: widget.onLanguageChanged,
+                  showSplashScreen: widget.showSplashScreen,
+                  onSplashScreenChanged: widget.onSplashScreenChanged,
                 ),
               ),
             ),
           ),
           IconButton(
-            icon:
-                const Icon(
-              Icons.qr_code_scanner,
-            ),
-            onPressed:
-                scanQr,
+            icon: const Icon(Icons.qr_code_scanner),
+            onPressed: scanQr,
           ),
           IconButton(
-            icon:
-                const Icon(
-              Icons.fingerprint,
-            ),
-            onPressed: () =>
-                Navigator.push(
+            icon: const Icon(Icons.fingerprint),
+            onPressed: () => Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (context) =>
-                    const MyIdentityPage(),
-              ),
+              MaterialPageRoute(builder: (context) => const MyIdentityPage()),
             ),
           ),
         ],
@@ -1426,100 +1028,57 @@ class _HomePageState extends State<HomePage>
           Column(
             children: [
               Padding(
-                padding:
-                    const EdgeInsets.all(
-                  12,
-                ),
+                padding: const EdgeInsets.all(12),
                 child: TextField(
-                  controller:
-                      _searchController,
-                  onChanged:
-                      _performSearch,
-                  decoration:
-                      InputDecoration(
-                    hintText: l10n
-                        .searchPipelinesHint,
-                    prefixIcon:
-                        const Icon(
-                      Icons.search,
-                    ),
-                    suffixIcon:
-                        _searchQuery
-                                .isNotEmpty
-                            ? IconButton(
-                                icon:
-                                    const Icon(
-                                  Icons.clear,
-                                ),
-                                onPressed: () {
-                                  _searchController
-                                      .clear();
+                  controller: _searchController,
+                  onChanged: _performSearch,
+                  decoration: InputDecoration(
+                    hintText: l10n.searchPipelinesHint,
+                    prefixIcon: const Icon(Icons.search),
+                    suffixIcon: _searchQuery.isNotEmpty
+                        ? IconButton(
+                            icon: const Icon(Icons.clear),
+                            onPressed: () {
+                              _searchController.clear();
 
-                                  _performSearch(
-                                    "",
-                                  );
-                                },
-                              )
-                            : null,
-                    border:
-                        OutlineInputBorder(
-                      borderRadius:
-                          BorderRadius
-                              .circular(
-                        12,
-                      ),
+                              _performSearch("");
+                            },
+                          )
+                        : null,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
                     ),
                   ),
                 ),
               ),
               Expanded(
-                child:
-                    filteredConversations
-                            .isEmpty
-                        ? Center(
-                            child: Text(
-                              l10n
-                                  .zeroPipelinesDiscovered,
-                            ),
-                          )
-                        : ListView.builder(
-                            itemCount:
-                                filteredConversations
-                                    .length,
-                            itemBuilder:
-                                (
-                              context,
-                              index,
-                            ) {
-                              return _buildConversationTile(
-                                context,
-                                filteredConversations[
-                                    index],
-                              );
-                            },
-                          ),
+                child: filteredConversations.isEmpty
+                    ? Center(child: Text(l10n.zeroPipelinesDiscovered))
+                    : ListView.builder(
+                        itemCount: filteredConversations.length,
+                        itemBuilder: (context, index) {
+                          return _buildConversationTile(
+                            context,
+                            filteredConversations[index],
+                          );
+                        },
+                      ),
               ),
             ],
           ),
           if (_isAppBackgrounded)
             Positioned.fill(
               child: Container(
-                color:
-                    const Color(0xFF000000),
+                color: const Color(0xFF000000),
                 child: Center(
                   child: Text(
-                    l10n
-                        .cryptContainerSecure,
-                    style:
-                        const TextStyle(
-                      color:
-                          Colors.blueAccent,
+                    l10n.cryptContainerSecure,
+                    style: const TextStyle(
+                      color: Colors.blueAccent,
                       fontSize: 16,
-                      fontWeight:
-                          FontWeight.bold,
+                      fontWeight: FontWeight.bold,
                       letterSpacing: 2,
-                      decoration:
-                          TextDecoration.none,
+                      decoration: TextDecoration.none,
                     ),
                   ),
                 ),

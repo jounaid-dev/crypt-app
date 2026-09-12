@@ -12,6 +12,117 @@ class AppLocalizationsPl extends AppLocalizations {
   String get appName => 'CRYPT';
 
   @override
+  String get termsAndConditions => 'Warunki';
+
+  @override
+  String get settingsTermsAndConditions => 'Warunki';
+
+  @override
+  String get termsIntro =>
+      'CRYPT to aplikacja na wczesnym etapie do bezpośredniego łączenia ludzi w celu prowadzenia rozmów. Ponosisz odpowiedzialność za prawidłowe korzystanie z aplikacji i za bezpieczeństwo danych logowania do konta.';
+
+  @override
+  String get termsConnectivity =>
+      'CRYPT korzysta z usług online, aby pomóc urządzeniom w odkrywaniu i nawiązywaniu połączeń. Dostępność i zachowanie połączeń mogą ulec zmianie w miarę rozwoju aplikacji. Proszę nie polegać na KRYPCIE jako jedynym środku komunikacji.';
+
+  @override
+  String get termsAgreement =>
+      'Kontynuując, potwierdzasz, że przeczytałeś i zgadzasz się na korzystanie z KRYPT zgodnie z niniejszymi warunkami.';
+
+  @override
+  String get agreeTerms => 'Akceptuję zasady i warunki';
+
+  @override
+  String get agreeAndContinue => 'Wyraź zgodę i kontynuuj';
+
+  @override
+  String get beforeYouStart => 'Zanim zaczniesz';
+
+  @override
+  String get connected => 'Połączono';
+
+  @override
+  String get connectFirstThenChat =>
+      'Najpierw połącz się, a następnie porozmawiaj';
+
+  @override
+  String get betaIntro =>
+      'CRYPT to wczesna wersja beta, więc korzystanie z niej może się poprawić w przyszłych wersjach.';
+
+  @override
+  String get walkieTalkieExplanation =>
+      'KRYPTA działa jak krótkofalówka: obie osoby muszą być online i mieć KRYPTĘ otwartą w tym samym czasie, aby nawiązać połączenie.';
+
+  @override
+  String get howToUseCrypt =>
+      'Jak korzystać z KRYPT:\n1. Zeskanuj kod QR KRYPT drugiej osoby.\n2. Obie osoby potrzebują KRYPTY otwartej i online.\n3. Poczekaj, aż KRYPTA nawiąże połączenie P2P.\n4. Poczekaj, aż stan „Łączenie...” zniknie i połączenie zostanie nawiązane.\n5. Po nawiązaniu połączenia możesz rozpocząć rozmowę.';
+
+  @override
+  String get messageStorageExplanation =>
+      'Wiadomości są przeznaczone do przesyłania bezpośrednio między podłączonymi urządzeniami. CRYPT nie przechowuje Twoich wiadomości na czacie na naszych serwerach. Serwer obecnie pomaga w połączeniu i sygnalizacji, a historia czatu nie jest przechowywana na serwerze. Jeśli druga osoba jest offline, nie można nawiązać bieżącego połączenia P2P.';
+
+  @override
+  String get settingsAndSupportExplanation =>
+      'Przejdź do ustawień, aby dostosować KRYPTĘ. Wkrótce pojawi się więcej opcji dostosowywania.\n\nChcesz obsługiwać KRYPTĘ? Opcję darowizny znajdziesz w Ustawieniach.';
+
+  @override
+  String get saving => 'Zapisywanie...';
+
+  @override
+  String get continueToCrypt => 'Przejdź do KRYPTY';
+
+  @override
+  String get showSplashScreen => 'Pokazuj ekran tytułowy.';
+
+  @override
+  String get retry => 'Jeszcze raz';
+
+  @override
+  String get connectionFailed => 'Połączenie nie powiodło się';
+
+  @override
+  String get connectionFailedDetails =>
+      'Połączenie nie powiodło się. Oba urządzenia muszą być online z otwartą KRYPTĄ, aby się połączyć.';
+
+  @override
+  String get gallery => 'Galeria';
+
+  @override
+  String get alignQrCode => 'WYRÓWNAJ KOD QR';
+
+  @override
+  String get scanFromGallery => 'SKANUJ Z GALERII';
+
+  @override
+  String get couldNotScanImage => 'Nie można zeskanować obrazu.';
+
+  @override
+  String couldNotShareQrCode(String error) {
+    return 'Nie można udostępnić kodu QR: $error';
+  }
+
+  @override
+  String newContact(String username) {
+    return 'Nowy kontakt: $username';
+  }
+
+  @override
+  String get publicEncryptionKeyMissing =>
+      'Brak publicznego klucza szyfrowania.';
+
+  @override
+  String get contactEncryptionKeyMissing => 'Brak klucza szyfrowania kontaktu.';
+
+  @override
+  String get localEncryptionKeyMissing => 'Brak lokalnego klucza szyfrowania.';
+
+  @override
+  String get noQrCodeFound => 'Nie znaleziono kodu QR na tym obrazie.';
+
+  @override
+  String get shareQrCode => 'Udostępnij kod QR';
+
+  @override
   String get welcome => 'Witamy';
 
   @override
@@ -370,6 +481,76 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get supportSoloDeveloper => 'Wesprzyj niezależnego programistę';
+
+  @override
+  String get supportIntro =>
+      'Hej! 👋 Jestem samotnym programistą ciężko pracującym nad CRYPT. Nie mam budżetu ani środków finansowych firmy. Polegam całkowicie na Twojej uczciwości i empatii, aby stale ulepszać aplikację i gwarantować BEZ REKLAM NA ZAWSZE.';
+
+  @override
+  String get chooseSupportAmount => 'Wybierz swoją cenę (przesuń do wsparcia):';
+
+  @override
+  String get poorGang => 'Jestem biedną bandą 🥀✌️';
+
+  @override
+  String get launchOfferMinimum => 'Uruchom ofertę minimalną 🚀';
+
+  @override
+  String get buyMeCoffee => 'Kup mi kawę ☕';
+
+  @override
+  String get superSupporter => 'Super Support 🔥';
+
+  @override
+  String get feature => 'Funkcja';
+
+  @override
+  String get freeTier => 'Poziom bezpłatny';
+
+  @override
+  String get premium => 'Premia';
+
+  @override
+  String get chatLocks => 'Blokady czatu';
+
+  @override
+  String get maxOneRoom => 'Maks. 1 pokój';
+
+  @override
+  String get unlimited => 'Nieograniczony';
+
+  @override
+  String get biometrics => 'Biometria';
+
+  @override
+  String get disabled => '🚫 Niepełnosprawni';
+
+  @override
+  String supportWithSats(String amount) {
+    return 'Wesprzyj kwotą $amount sats (Phoenix)';
+  }
+
+  @override
+  String get boltOffer => '⚡ Oferta płatności BOLT12 • Kliknij, aby skopiować';
+
+  @override
+  String get boltOfferCopied => 'Oferta płatności BOLT12 została skopiowana';
+
+  @override
+  String get tapToCopyBoltOffer =>
+      'Kliknij, aby skopiować ofertę płatności BOLT12';
+
+  @override
+  String get simpleInstructionsToUnlock => '📬 Proste instrukcje odblokowania:';
+
+  @override
+  String unlockInstructions(String username) {
+    return '1. Płać za pomocą portfela Phoenix na Androidzie (minimum 7500 do odblokowania — zawsze mile widziane więcej).\n2. Zrób zrzut ekranu ekranu potwierdzenia udanej transakcji.\n3. Wyślij ten zrzut ekranu e-mailem na adres jounaidnadirmed@gmail.com i podaj unikalną nazwę użytkownika swojego konta: „$username”, abym wiedział, kto zapłacił.\n4. Wpisz cokolwiek w polu poniżej, aby zapisać żądanie na tym urządzeniu:';
+  }
+
+  @override
+  String get supportRequestHint =>
+      'Wpisz tutaj swoje imię i nazwisko lub informacje o transakcji...';
 
   @override
   String get maybeLater => 'Może później';

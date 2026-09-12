@@ -12,6 +12,113 @@ class AppLocalizationsKo extends AppLocalizations {
   String get appName => 'CRYPT';
 
   @override
+  String get termsAndConditions => '이용약관';
+
+  @override
+  String get settingsTermsAndConditions => '이용약관';
+
+  @override
+  String get termsIntro =>
+      'CRYPT는 대화를 위해 사람들을 직접 연결하는 초기 단계 애플리케이션입니다. 귀하는 애플리케이션을 적절하게 사용하고 귀하의 계정 자격 증명을 안전하게 유지할 책임이 있습니다.';
+
+  @override
+  String get termsConnectivity =>
+      'CRYPT는 온라인 서비스를 사용하여 장치가 연결을 검색하고 설정하도록 돕습니다. 애플리케이션이 개발됨에 따라 가용성 및 연결 동작이 변경될 수 있습니다. 유일한 의사소통 수단으로 CRYPT에 의존하지 마십시오.';
+
+  @override
+  String get termsAgreement => '계속 진행하면 귀하는 본 약관에 따라 CRYPT를 읽고 동의함을 확인하게 됩니다.';
+
+  @override
+  String get agreeTerms => '이용약관에 동의합니다.';
+
+  @override
+  String get agreeAndContinue => '동의하고 계속하세요';
+
+  @override
+  String get beforeYouStart => '시작하기 전에';
+
+  @override
+  String get connected => '연결됨';
+
+  @override
+  String get connectFirstThenChat => '먼저 연결한 다음 채팅하세요.';
+
+  @override
+  String get betaIntro => 'CRYPT는 초기 베타 버전이므로 향후 버전에서는 경험이 향상될 수 있습니다.';
+
+  @override
+  String get walkieTalkieExplanation =>
+      'CRYPT는 무전기처럼 작동합니다. 연결을 설정하려면 두 사람 모두 온라인 상태여야 하며 동시에 CRYPT를 열어야 합니다.';
+
+  @override
+  String get howToUseCrypt =>
+      'CRYPT 사용 방법:\n1. 상대방의 CRYPT QR 코드를 스캔하세요.\n2. 두 사람 모두 CRYPT가 열려 있고 온라인 상태여야 합니다.\n3. CRYPT가 P2P 연결을 설정하는 동안 기다립니다.\n4. \"연결 중...\" 상태가 사라지고 연결이 설정될 때까지 기다립니다.\n5. 연결되면 채팅을 시작할 수 있습니다.';
+
+  @override
+  String get messageStorageExplanation =>
+      '귀하의 메시지는 연결된 장치 간에 직접 전달되도록 설계되었습니다. CRYPT는 귀하의 채팅 메시지를 당사 서버에 저장하지 않습니다. 현재 서버는 연결 및 신호 전달을 돕고 있으며, 채팅 기록은 서버에 저장되지 않습니다. 상대방이 오프라인이면 현재 P2P 연결을 설정할 수 없습니다.';
+
+  @override
+  String get settingsAndSupportExplanation =>
+      'CRYPT 환경을 맞춤 설정하려면 설정을 방문하세요. 더 많은 사용자 정의 옵션이 곧 제공될 예정입니다.\n\nCRYPT를 지원하고 싶으신가요? 설정에서 기부 옵션을 찾을 수 있습니다.';
+
+  @override
+  String get saving => '절약...';
+
+  @override
+  String get continueToCrypt => 'CRYPT로 계속';
+
+  @override
+  String get showSplashScreen => '스플래시 화면 표시';
+
+  @override
+  String get retry => '다시 해 보다';
+
+  @override
+  String get connectionFailed => '연결 실패';
+
+  @override
+  String get connectionFailedDetails =>
+      '연결에 실패했습니다. 연결하려면 두 장치 모두 CRYPT가 열린 상태로 온라인 상태여야 합니다.';
+
+  @override
+  String get gallery => '갱도';
+
+  @override
+  String get alignQrCode => 'QR 코드 정렬';
+
+  @override
+  String get scanFromGallery => '갤러리에서 스캔';
+
+  @override
+  String get couldNotScanImage => '이미지를 스캔할 수 없습니다.';
+
+  @override
+  String couldNotShareQrCode(String error) {
+    return 'QR 코드를 공유할 수 없습니다: $error';
+  }
+
+  @override
+  String newContact(String username) {
+    return '새 연락처: $username';
+  }
+
+  @override
+  String get publicEncryptionKeyMissing => '공개 암호화 키가 누락되었습니다.';
+
+  @override
+  String get contactEncryptionKeyMissing => '연락처 암호화 키가 누락되었습니다.';
+
+  @override
+  String get localEncryptionKeyMissing => '로컬 암호화 키가 누락되었습니다.';
+
+  @override
+  String get noQrCodeFound => '이 이미지에는 QR 코드가 없습니다.';
+
+  @override
+  String get shareQrCode => 'QR 코드 공유';
+
+  @override
   String get welcome => '환영합니다';
 
   @override
@@ -353,6 +460,74 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get supportSoloDeveloper => '개발자 후원';
+
+  @override
+  String get supportIntro =>
+      '여기요! 👋 저는 CRYPT를 열심히 개발하고 있는 1인 개발자입니다. 예산이나 기업 자금이 없습니다. 저는 앱을 지속적으로 개선하고 광고가 영원히 발생하지 않도록 보장하기 위해 전적으로 귀하의 정직성과 공감에 의지합니다.';
+
+  @override
+  String get chooseSupportAmount => '가격을 선택하세요(지원하려면 슬라이드하세요):';
+
+  @override
+  String get poorGang => '나는 가난한 갱 🥀✌️';
+
+  @override
+  String get launchOfferMinimum => '최소 제안 출시 🚀';
+
+  @override
+  String get buyMeCoffee => '커피 사주세요 찻잔';
+
+  @override
+  String get superSupporter => '슈퍼 서포터 🔥';
+
+  @override
+  String get feature => '특징';
+
+  @override
+  String get freeTier => '프리 티어';
+
+  @override
+  String get premium => '프리미엄';
+
+  @override
+  String get chatLocks => '채팅 잠금';
+
+  @override
+  String get maxOneRoom => '최대 1개 객실';
+
+  @override
+  String get unlimited => '제한 없는';
+
+  @override
+  String get biometrics => '생체 인식';
+
+  @override
+  String get disabled => '🚫 장애인';
+
+  @override
+  String supportWithSats(String amount) {
+    return '$amount sats로 지원(Phoenix)';
+  }
+
+  @override
+  String get boltOffer => '⚡ BOLT12 결제 제안 • 탭하여 복사';
+
+  @override
+  String get boltOfferCopied => 'BOLT12 결제 제안이 복사되었습니다.';
+
+  @override
+  String get tapToCopyBoltOffer => 'BOLT12 결제 제안을 복사하려면 탭하세요.';
+
+  @override
+  String get simpleInstructionsToUnlock => '📬 간단한 잠금 해제 지침:';
+
+  @override
+  String unlockInstructions(String username) {
+    return '1. Android에서 Phoenix Wallet을 사용하여 결제하세요(잠금 해제하려면 최소 7,500개 — 더 많은 금액을 지불하시면 언제든지 감사하겠습니다).\n2. 성공적인 거래 확인 화면의 스크린샷을 찍으세요.\n3. 해당 스크린샷을 jounaidnadirmed@gmail.com으로 이메일로 보내고 귀하의 고유 계정 사용자 이름: \'$username\'을 알려주시면 누가 지불했는지 알 수 있습니다.\n4. 이 장치에 요청을 저장하려면 아래 상자에 아무 내용이나 입력하세요.';
+  }
+
+  @override
+  String get supportRequestHint => '여기에 이름이나 거래 정보를 입력하세요...';
 
   @override
   String get maybeLater => '나중에';

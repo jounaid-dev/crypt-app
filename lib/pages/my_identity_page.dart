@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 import 'dart:typed_data';
@@ -10,6 +11,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../services/account_service.dart';
+import '../services/qr_validation_code_service.dart';
 import '../pages/signup_page.dart';
 
 class MyIdentityPage extends StatefulWidget {
@@ -22,9 +24,17 @@ class MyIdentityPage extends StatefulWidget {
 class _MyIdentityPageState extends State<MyIdentityPage> {
   final AccountService _accountService = AccountService();
 
+  final QrValidationCodeService _qrValidationCodeService =
+      QrValidationCodeService();
+
   static const String _qrProofKey = "active_qr_proof";
-  static const String _qrProofCreatedAtKey =
-      "active_qr_proof_created_at";
+  static const String _qrProofCreatedAtKey = "active_qr_proof_created_at";
+
+  /// How often a fresh QR/validation code is generated while this page is
+  /// open. Older UNUSED codes remain valid.
+  static const Duration _qrRotationInterval = Duration(seconds: 30);
+
+  Timer? _qrRotationTimer;
 
   String username = "";
   String publicEncryptionKey = "";
@@ -51,10 +61,7 @@ class _MyIdentityPageState extends State<MyIdentityPage> {
   String generateQrProof() {
     final random = Random.secure();
 
-    final bytes = List<int>.generate(
-      32,
-      (_) => random.nextInt(256),
-    );
+    final bytes = List<int>.generate(32, (_) => random.nextInt(256));
 
     return base64UrlEncode(bytes).replaceAll("=", "");
   }
@@ -64,13 +71,9 @@ class _MyIdentityPageState extends State<MyIdentityPage> {
   // ============================================================
 
   Future<void> saveQrProof(String proof) async {
-    final prefs =
-        await SharedPreferences.getInstance();
+    final prefs = await SharedPreferences.getInstance();
 
-    await prefs.setString(
-      _qrProofKey,
-      proof,
-    );
+    await prefs.setString(_qrProofKey, proof);
 
     await prefs.setInt(
       _qrProofCreatedAtKey,
@@ -79,35 +82,59 @@ class _MyIdentityPageState extends State<MyIdentityPage> {
   }
 
   // ============================================================
+  // ROTATE QR / VALIDATION CODE
+  // ============================================================
+
+  void _startQrRotation() {
+    _qrRotationTimer?.cancel();
+
+    _qrRotationTimer = Timer.periodic(
+      _qrRotationInterval,
+      (_) => _rotateQrProof(),
+    );
+  }
+
+  Future<void> _rotateQrProof() async {
+    final newProof = generateQrProof();
+
+    // Persist the new UNUSED code. Older unused codes stay valid.
+    await _qrValidationCodeService.registerCode(newProof);
+
+    await saveQrProof(newProof);
+
+    if (!mounted) return;
+
+    setState(() {
+      qrProof = newProof;
+    });
+
+    debugPrint("[QR] Rotated validation code.");
+  }
+
+  // ============================================================
   // LOAD IDENTITY
   // ============================================================
 
   Future<void> loadIdentity() async {
-    final account =
-        await _accountService.getAccount();
+    final account = await _accountService.getAccount();
 
     if (account == null) {
       if (!mounted) return;
 
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(
-          builder: (_) => const SignupPage(),
-        ),
+        MaterialPageRoute(builder: (_) => const SignupPage()),
         (route) => false,
       );
 
       return;
     }
 
-    username =
-        account["username"] ?? "";
+    username = account["username"] ?? "";
 
-    publicEncryptionKey =
-        account["publicKey"] ?? "";
+    publicEncryptionKey = account["publicKey"] ?? "";
 
-    publicSigningKey =
-        account["publicSigningKey"] ?? "";
+    publicSigningKey = account["publicSigningKey"] ?? "";
 
     // ==========================================================
     // GENERATE A FRESH QR PROOF
@@ -122,55 +149,16 @@ class _MyIdentityPageState extends State<MyIdentityPage> {
     await saveQrProof(qrProof);
 
     // ==========================================================
-    // DEBUG
+    // PERSIST THE VALIDATION CODE IN HIVE (UNUSED)
     // ==========================================================
 
-    final methodEncryptionKey =
-        await _accountService
-            .getPublicEncryptionKey();
+    await _qrValidationCodeService.registerCode(qrProof);
 
-    print("");
-    print("==================================================");
-    print("             CRYPT IDENTITY DEBUG");
-    print("==================================================");
+    // ==========================================================
+    // ROTATE THE QR / VALIDATION CODE WHILE THIS PAGE IS OPEN
+    // ==========================================================
 
-    print("[ACCOUNT]");
-    print("username:");
-    print(username);
-
-    print("");
-    print("[ENCRYPTION KEY]");
-    print("account[publicKey]:");
-    print(publicEncryptionKey);
-
-    print("");
-    print("getPublicEncryptionKey():");
-    print(methodEncryptionKey);
-
-    print("");
-    print(
-      "Encryption keys MATCH: "
-      "${publicEncryptionKey == methodEncryptionKey}",
-    );
-
-    print("");
-    print("[SIGNING KEY]");
-    print(publicSigningKey);
-
-    print("");
-    print("[QR PROOF]");
-    print(qrProof);
-
-    print("");
-    print("[QR PAYLOAD]");
-    print(qrData());
-
-    print("");
-    print("[INVITE LINK]");
-    print(inviteLink());
-
-    print("==================================================");
-    print("");
+    _startQrRotation();
 
     if (!mounted) return;
 
@@ -188,10 +176,8 @@ class _MyIdentityPageState extends State<MyIdentityPage> {
       "app": "CRYPT",
       "version": 2,
       "username": username,
-      "publicEncryptionKey":
-          publicEncryptionKey,
-      "publicSigningKey":
-          publicSigningKey,
+      "publicEncryptionKey": publicEncryptionKey,
+      "publicSigningKey": publicSigningKey,
       "qrProof": qrProof,
     });
   }
@@ -205,19 +191,14 @@ class _MyIdentityPageState extends State<MyIdentityPage> {
       "app": "CRYPT",
       "version": 2,
       "username": username,
-      "publicEncryptionKey":
-          publicEncryptionKey,
-      "publicSigningKey":
-          publicSigningKey,
+      "publicEncryptionKey": publicEncryptionKey,
+      "publicSigningKey": publicSigningKey,
       "qrProof": qrProof,
     };
 
-    final jsonPayload =
-        jsonEncode(payload);
+    final jsonPayload = jsonEncode(payload);
 
-    return "crypt://contact?data=${Uri.encodeComponent(
-      jsonPayload,
-    )}";
+    return "crypt://contact?data=${Uri.encodeComponent(jsonPayload)}";
   }
 
   // ============================================================
@@ -245,6 +226,8 @@ class _MyIdentityPageState extends State<MyIdentityPage> {
   // ============================================================
 
   Future<void> shareQrCode() async {
+    final l10n = AppLocalizations.of(context)!;
+
     try {
       // ========================================================
       // IMPORTANT:
@@ -254,43 +237,29 @@ class _MyIdentityPageState extends State<MyIdentityPage> {
       //
       // ========================================================
 
-      final qrPainter =
-          createQrPainter();
+      final qrPainter = createQrPainter();
 
-      final ByteData? byteData =
-          await qrPainter.toImageData(
+      final ByteData? byteData = await qrPainter.toImageData(
         1200,
-        format:
-            ui.ImageByteFormat.png,
+        format: ui.ImageByteFormat.png,
       );
 
       if (byteData == null) {
-        throw Exception(
-          "Could not generate QR image",
-        );
+        throw Exception("Could not generate QR image");
       }
 
-      final Uint8List imageBytes =
-          byteData.buffer.asUint8List();
+      final Uint8List imageBytes = byteData.buffer.asUint8List();
 
-      await Share.shareXFiles(
-        [
-          XFile.fromData(
-            imageBytes,
-            name: "crypt_qr.png",
-            mimeType: "image/png",
-          ),
-        ],
-        subject: "CRYPT",
-      );
-    } catch (e) {
+      await Share.shareXFiles([
+        XFile.fromData(imageBytes, name: "crypt_qr.png", mimeType: "image/png"),
+      ], subject: "CRYPT");
+    } catch (_) {
       if (!mounted) return;
 
-      ScaffoldMessenger.of(context)
-          .showSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            "Could not share QR code: $e",
+            l10n.couldNotShareQrCode(l10n.connectionFailed),
           ),
         ),
       );
@@ -303,16 +272,24 @@ class _MyIdentityPageState extends State<MyIdentityPage> {
   // ============================================================
 
   Future<void> shareIdentity() async {
-    final l10n =
-        AppLocalizations.of(context)!;
+    final l10n = AppLocalizations.of(context)!;
 
     await Share.share(
-      l10n.addMeOnCrypt(
-        inviteLink(),
-      ),
-      subject:
-          l10n.myIdentity,
+      l10n.addMeOnCrypt(inviteLink()),
+      subject: l10n.myIdentity,
     );
+  }
+
+  // ============================================================
+  // DISPOSE
+  // ============================================================
+
+  @override
+  void dispose() {
+    _qrRotationTimer?.cancel();
+    _qrRotationTimer = null;
+
+    super.dispose();
   }
 
   // ============================================================
@@ -321,81 +298,52 @@ class _MyIdentityPageState extends State<MyIdentityPage> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n =
-        AppLocalizations.of(context)!;
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
-      appBar: AppBar(
-        title:
-            Text(l10n.myIdentity),
-      ),
+      appBar: AppBar(title: Text(l10n.myIdentity)),
       body: SafeArea(
         child: loading
-            ? const Center(
-                child:
-                    CircularProgressIndicator(),
-              )
+            ? const Center(child: CircularProgressIndicator())
             : Padding(
-                padding:
-                    const EdgeInsets.fromLTRB(
-                  24,
-                  24,
-                  24,
-                  48,
-                ),
-                child:
-                    SingleChildScrollView(
+                padding: const EdgeInsets.fromLTRB(24, 24, 24, 48),
+                child: SingleChildScrollView(
                   child: Column(
                     children: [
                       CircleAvatar(
                         radius: 42,
                         child: Text(
-                          username.isEmpty
-                              ? "?"
-                              : username[0]
-                                  .toUpperCase(),
-                          style:
-                              const TextStyle(
+                          username.isEmpty ? "?" : username[0].toUpperCase(),
+                          style: const TextStyle(
                             fontSize: 30,
-                            fontWeight:
-                                FontWeight.bold,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
 
-                      const SizedBox(
-                        height: 16,
-                      ),
+                      const SizedBox(height: 16),
 
                       Text(
                         username,
-                        style:
-                            const TextStyle(
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
                           fontSize: 24,
-                          fontWeight:
-                              FontWeight.bold,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
 
-                      const SizedBox(
-                        height: 30,
-                      ),
+                      const SizedBox(height: 30),
 
                       Card(
                         color: Colors.white,
                         elevation: 8,
-                        shape:
-                            RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(
-                            24,
-                          ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(24),
                         ),
                         child: Padding(
-                          padding:
-                              const EdgeInsets.all(
-                            20,
-                          ),
+                          padding: const EdgeInsets.all(20),
                           child: Column(
                             children: [
                               // ==================================================
@@ -408,26 +356,18 @@ class _MyIdentityPageState extends State<MyIdentityPage> {
                               // createQrPainter()
                               //
                               // ==================================================
-
                               SizedBox(
                                 width: 200,
                                 height: 200,
-                                child: CustomPaint(
-                                  painter:
-                                      createQrPainter(),
-                                ),
+                                child: CustomPaint(painter: createQrPainter()),
                               ),
 
-                              const SizedBox(
-                                height: 16,
-                              ),
+                              const SizedBox(height: 16),
 
                               Text(
                                 l10n.scanToAddMe,
-                                style:
-                                    const TextStyle(
-                                  color:
-                                      Colors.grey,
+                                style: const TextStyle(
+                                  color: Colors.grey,
                                   fontSize: 14,
                                 ),
                               ),
@@ -436,28 +376,19 @@ class _MyIdentityPageState extends State<MyIdentityPage> {
                         ),
                       ),
 
-                      const SizedBox(
-                        height: 30,
-                      ),
+                      const SizedBox(height: 30),
 
                       // ==================================================
                       // SHARE QR AS IMAGE
                       // ==================================================
-
                       SizedBox(
-                        width:
-                            double.infinity,
-                        height: 50,
-                        child:
-                            OutlinedButton.icon(
-                          onPressed:
-                              shareQrCode,
-                          icon: const Icon(
-                            Icons.qr_code_2,
-                          ),
-                          label:
-                              const Text(
-                            "Share QR Code",
+                        width: double.infinity,
+                        child: OutlinedButton.icon(
+                          onPressed: shareQrCode,
+                          icon: const Icon(Icons.qr_code_2),
+                          label: Text(
+                            l10n.shareQrCode,
+                            textAlign: TextAlign.center,
                           ),
                         ),
                       ),
