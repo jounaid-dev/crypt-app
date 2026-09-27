@@ -4,14 +4,10 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future<String> createAccount() async {
-    try {
-      UserCredential result = await _auth.signInAnonymously();
+    // No catch clause: both of the ones this used to have only rethrew, which
+    // let the original failure through unchanged and added nothing.
+    UserCredential result = await _auth.signInAnonymously();
 
-      return result.user!.uid;
-    } on FirebaseAuthException catch (e) {
-      rethrow;
-    } catch (e) {
-      rethrow;
-    }
+    return result.user!.uid;
   }
 }

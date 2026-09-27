@@ -31,6 +31,98 @@ class IdentityService {
     );
   }
 
+  // ============================================================
+  // DERIVED KEYPAIR CACHE
+  //
+  // Unlocking either private key costs a full PBKDF2 pass (500,000
+  // iterations) plus two reads from platform secure storage and an AES-GCM
+  // unwrap. That result depends only on the account password: not on the peer,
+  // not on the message, and not on which chat is open.
+  //
+  // It was being recomputed anyway:
+  //
+  //   * getSigningKeyPair ran on every single outgoing message.
+  //   * getEncryptionKeyPair ran every time a chat was opened, because the
+  //     shared-key cache in ChatPage is per widget, so it starts empty for
+  //     each conversation.
+  //
+  // Caching the two keypairs means the first unlock pays the PBKDF2 cost and
+  // everything after it is a field read. Opening the tenth chat is no slower
+  // than opening the second, and sending a message no longer re-derives a key
+  // that has not changed.
+  //
+  // The cache is static because this service is constructed separately in
+  // several places rather than shared, so a per-instance cache would not be
+  // shared between the page that sends and the service that reads.
+  //
+  // It is dropped by clearKeyCache, which SessionService.lock calls. Locking is
+  // meant to take key material out of memory, so the cache must not outlive
+  // it.
+  // ============================================================
+
+  static String? _cachedPassword;
+  static SimpleKeyPair? _cachedEncryptionKeyPair;
+  static SimpleKeyPair? _cachedSigningKeyPair;
+
+  /// Forgets the derived keypairs.
+  ///
+  /// Called when the session is locked or ended. The password is compared
+  /// rather than assumed, so a cache built with a different password is never
+  /// handed out.
+  static void clearKeyCache() {
+    _cachedPassword = null;
+    _cachedEncryptionKeyPair = null;
+    _cachedSigningKeyPair = null;
+  }
+
+  static bool _cacheMatches(String password) {
+    return _cachedPassword == password;
+  }
+
+  /// Unlocks both keypairs ahead of the first message or chat open.
+  ///
+  /// The first unlock pays the full PBKDF2 cost, which is the slowest thing
+  /// the app does. Doing it right after sign in, while the user is still on
+  /// the signed-in screen, means the first chat they tap opens immediately
+  /// instead of pausing on a key derivation.
+  ///
+  /// Failures are swallowed on purpose: this is only a cache warm, and the
+  /// real call sites still surface a genuine unlock failure when a key is
+  /// actually needed.
+  static Future<void> warmKeyCache(String password) async {
+    if (_cacheMatches(password) &&
+        _cachedEncryptionKeyPair != null &&
+        _cachedSigningKeyPair != null) {
+      return;
+    }
+
+    final IdentityService service = IdentityService();
+
+    try {
+      await service.getEncryptionKeyPair(password);
+    } catch (_) {}
+
+    try {
+      await service.getSigningKeyPair(password);
+    } catch (_) {}
+  }
+
+  static void _remember(
+    String password, {
+    SimpleKeyPair? encryptionKeyPair,
+    SimpleKeyPair? signingKeyPair,
+  }) {
+    _cachedPassword = password;
+
+    if (encryptionKeyPair != null) {
+      _cachedEncryptionKeyPair = encryptionKeyPair;
+    }
+
+    if (signingKeyPair != null) {
+      _cachedSigningKeyPair = signingKeyPair;
+    }
+  }
+
   Future<String> _encryptPayload(
     List<int> payload,
     SecretKey secretKey,
@@ -96,6 +188,14 @@ class IdentityService {
   Future<SimpleKeyPair> getEncryptionKeyPair(
     String password,
   ) async {
+    if (_cacheMatches(password)) {
+      final cached = _cachedEncryptionKeyPair;
+
+      if (cached != null) {
+        return cached;
+      }
+    }
+
     final saltString =
         await _keyStorage.getConversationKey("password_salt");
 
@@ -140,7 +240,7 @@ class IdentityService {
         throw Exception("Invalid X25519 public key.");
       }
 
-      return SimpleKeyPairData(
+      final keyPair = SimpleKeyPairData(
         privateBytes,
         publicKey: SimplePublicKey(
           publicBytes,
@@ -148,6 +248,10 @@ class IdentityService {
         ),
         type: KeyPairType.x25519,
       );
+
+      _remember(password, encryptionKeyPair: keyPair);
+
+      return keyPair;
     } catch (_) {
       throw Exception(
         "Unable to unlock encryption identity.",
@@ -158,6 +262,15 @@ class IdentityService {
   Future<SimpleKeyPair> getSigningKeyPair(
     String password,
   ) async {
+    // This used to re-derive the signing key for every message that was sent.
+    if (_cacheMatches(password)) {
+      final cached = _cachedSigningKeyPair;
+
+      if (cached != null) {
+        return cached;
+      }
+    }
+
     final saltString =
         await _keyStorage.getConversationKey("password_salt");
 
@@ -214,6 +327,8 @@ class IdentityService {
           "Signing key does not match identity.",
         );
       }
+
+      _remember(password, signingKeyPair: keyPair);
 
       return keyPair;
     } catch (_) {

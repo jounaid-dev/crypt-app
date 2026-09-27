@@ -5,8 +5,13 @@ import '../models/contact.dart';
 class ContactService {
   static const String _contactsKey = "secure_contacts_list";
   
+  // Storage is encrypted by default on Android: FlutterSecureStorage 9 removed
+  // the old `encryptedSharedPreferences` flag because the default is now
+  // stronger, using AES-GCM for the data with RSA-OAEP key wrapping in the
+  // Android KeyStore. Naming AndroidOptions() keeps the intent explicit
+  // without reintroducing the flag that no longer exists.
   final _secureStorage = const FlutterSecureStorage(
-    aOptions: AndroidOptions(encryptedSharedPreferences: true),
+    aOptions: AndroidOptions(),
     iOptions: IOSOptions(accessibility: KeychainAccessibility.first_unlock),
   );
 

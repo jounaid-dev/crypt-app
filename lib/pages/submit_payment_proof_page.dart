@@ -1,10 +1,9 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../models/payment_proof.dart';
 import '../services/moderation_service.dart';
 import '../services/moderation_validation.dart';
 import '../services/premium_offer.dart';

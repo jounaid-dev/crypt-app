@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:crypt_messenger/l10n/app_localizations.dart';
@@ -188,6 +189,10 @@ class _SignupPageState extends State<SignupPage> {
       }
 
       SessionService.instance.unlock(password);
+
+      // Start unlocking the private keys now, so the first chat opens without
+      // pausing on a key derivation. Deliberately not awaited.
+      unawaited(IdentityService.warmKeyCache(password));
 
       CryptApp.restartStartup(context);
     } catch (e) {

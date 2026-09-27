@@ -7,17 +7,11 @@ import 'l10n/app_localizations.dart';
 
 import 'services/language_service.dart';
 import 'services/account_service.dart';
-import 'services/conversation_id_service.dart';
 import 'services/hive_storage_service.dart';
 import 'services/qr_validation_code_service.dart';
 
 import 'pages/home_page.dart';
 import 'pages/welcome_page.dart';
-import 'pages/chat_page.dart';
-
-
-import 'models/conversation.dart';
-import 'services/conversation_service.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -171,26 +165,6 @@ class _CryptAppState extends State<CryptApp> with WidgetsBindingObserver {
   // THEME
   // ============================================================
 
-  Future<void> _loadThemePreference() async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-
-      final savedDarkMode = prefs.getBool('is_dark_mode') ?? true;
-
-      if (!mounted) {
-        return;
-      }
-
-      if (_isDarkMode != savedDarkMode) {
-        setState(() {
-          _isDarkMode = savedDarkMode;
-        });
-      }
-    } catch (e) {
-      debugPrint("[Theme] Error loading theme: $e");
-    }
-  }
-
   Future<void> _onThemeChanged(bool value) async {
     // Change the UI immediately.
     if (mounted) {
@@ -224,30 +198,6 @@ class _CryptAppState extends State<CryptApp> with WidgetsBindingObserver {
   // ============================================================
   // LANGUAGE
   // ============================================================
-
-  Future<void> _loadLanguagePreference() async {
-    try {
-      final languageService = LanguageService();
-
-      final savedLanguage = await languageService.getLanguage();
-
-      if (!mounted) {
-        return;
-      }
-
-      final newLocale = Locale(savedLanguage);
-
-      if (_currentLocale.languageCode != newLocale.languageCode) {
-        setState(() {
-          _currentLocale = newLocale;
-        });
-
-        debugPrint("[Language] Loaded: $savedLanguage");
-      }
-    } catch (e) {
-      debugPrint("[Language] Error loading language: $e");
-    }
-  }
 
   void setLocale(Locale locale) {
     if (!mounted) {
