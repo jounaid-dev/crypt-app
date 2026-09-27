@@ -10,6 +10,17 @@ import '../services/crypt_qr_codec.dart';
 import '../services/signaling_service.dart';
 import '../models/conversation.dart';
 
+/// A scanned code that decoded correctly but describes the local account.
+///
+/// This is deliberately its own type rather than a message string. Every
+/// failure in [ScanQrPage.processQrValue] used to be reported to the user as
+/// "Invalid CRYPT QR code.", so scanning your own perfectly valid code looked
+/// exactly like scanning a stranger's malformed one, which sent people looking
+/// for a format bug that was not there.
+class _SelfScanException implements Exception {
+  const _SelfScanException();
+}
+
 class ScanQrPage extends StatefulWidget {
   const ScanQrPage({super.key});
 
@@ -130,7 +141,7 @@ class _ScanQrPageState extends State<ScanQrPage> {
 
       if (myUsername == peerUsername ||
           myEncryptionKey == peerEncryptionKey) {
-        throw Exception("Cannot add yourself.");
+        throw const _SelfScanException();
       }
 
       // ========================================================
@@ -259,7 +270,7 @@ class _ScanQrPageState extends State<ScanQrPage> {
         "conversation": conversation,
         "qrData": payload.toJson(),
       });
-    } catch (_) {
+    } catch (error) {
       // ==========================================================
       // RESET THE GUARD
       //
@@ -293,7 +304,10 @@ class _ScanQrPageState extends State<ScanQrPage> {
         SnackBar(
           behavior: SnackBarBehavior.floating,
           content: Text(
-            l10n.invalidCryptQrFormat,
+            error is _SelfScanException
+                ? "That is your own code. Scan someone else's CRYPT code "
+                    "to start a chat with them."
+                : l10n.invalidCryptQrFormat,
           ),
         ),
       );

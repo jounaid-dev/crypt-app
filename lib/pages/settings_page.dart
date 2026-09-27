@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,6 +16,9 @@ import 'terms_and_conditions_page.dart';
 import '../services/identity_service.dart';
 import '../services/account_service.dart';
 import '../services/account_flags_service.dart';
+import '../services/chat_lock_service.dart';
+import '../services/conversation_service.dart';
+import '../models/conversation.dart';
 import '../services/premium_status_service.dart';
 import '../services/session_service.dart';
 import 'admin_access_page.dart';
@@ -49,6 +53,13 @@ class _SettingsPageState extends State<SettingsPage>
   bool _isTimedOut = false;
   int _remainingSeconds = 0;
 
+  /// True while the master-password dialog is on screen.
+  ///
+  /// The lock check runs on every resume, and several flows (the fingerprint
+  /// sheet, a file picker, the share sheet) background the app long enough to
+  /// fire one. This stops a second dialog from stacking on the first.
+  bool _lockPromptInFlight = false;
+
   String _currentUsername = "";
   String _currentLanguageCode = "en";
 
@@ -68,11 +79,38 @@ class _SettingsPageState extends State<SettingsPage>
   final List<Map<String, String>> _availableChats = [];
   final List<String> _lockedChatIds = [];
 
+  /// Lock method per conversation id, for the tile subtitle.
+  ///
+  /// Cached because [ChatLockService.getLockType] is async and the label is
+  /// read during build.
+  final Map<String, String> _lockTypes = {};
+
+  bool _settingsProtectionEnabled = false;
+
   bool _isPremiumUser = false;
 
   /// True when the user has a payment proof still waiting for an admin.
   bool _pendingProof = false;
   bool _isCountdownRunning = false;
+
+  /// Persisted switch for "require the master password to open Settings".
+  ///
+  /// Absent means false. A user is never asked for a password to protect a
+  /// screen they never asked to protect.
+  static const String _settingsProtectionKey =
+      'settings_protection_enabled';
+
+  /// How many chats the free tier may lock.
+  ///
+  /// Premium is unlimited. Attempting a lock beyond this is what raises the
+  /// premium question, so the limit is deliberately named rather than hidden in
+  /// an inline comparison.
+  static const int _freeLockedChatLimit = 1;
+
+  final ChatLockService _chatLockService = ChatLockService();
+
+  final ConversationService _conversationService =
+      ConversationService();
 
   @override
   void initState() {
@@ -83,9 +121,59 @@ class _SettingsPageState extends State<SettingsPage>
     _isDarkMode = widget.isDarkMode;
     _showSplashScreen = widget.showSplashScreen;
 
-    _checkLockoutTimerState();
-    _loadPasscodePreferences();
+    // The lock check reads _settingsProtectionEnabled, so the preference has to
+    // be resolved before it runs. Loading it asynchronously alongside the check
+    // was a race: whichever await happened to win decided whether the password
+    // prompt appeared.
+    _bootstrapSettings();
     _loadCurrentLanguage();
+  }
+
+  /// Loads the protection preference, then applies the lock, then loads the
+  /// rest of the settings state.
+  ///
+  /// The order matters. The preference decides whether a password is required
+  /// at all, so it must never be read after the decision has been made.
+  Future<void> _bootstrapSettings() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+
+      // Assigned directly rather than through setState: this runs before the
+      // first build, so there is nothing to rebuild yet.
+      _settingsProtectionEnabled =
+          prefs.getBool(_settingsProtectionKey) ?? false;
+
+      // _currentUsername used to be filled in only as a side effect of a
+      // successful master-password check, so it was empty whenever settings
+      // protection was off. That left the support dialog and the fingerprint
+      // prompt saying "Unlock: " with nothing after it.
+      try {
+        _currentUsername = await _accountService.getUsername() ?? "";
+      } catch (e) {
+        debugPrint("[Settings] Could not read username: $e");
+      }
+
+      if (!mounted) return;
+
+      await _checkLockoutTimerState();
+
+      await _loadPasscodePreferences();
+    } catch (e, stackTrace) {
+      // Called without await from initState, so a throw here would be an
+      // unhandled async error and the screen would sit on its spinner forever.
+      debugPrint("[Settings] Could not load settings: $e");
+
+      debugPrint("[Settings] $stackTrace");
+
+      // Never leave the user stuck on a spinner: without the preference the
+      // safe default is an unlocked screen, because the user never asked for
+      // a lock.
+      if (!mounted) return;
+
+      setState(() {
+        _isUnlocked = true;
+      });
+    }
   }
 
   // ============================================================
@@ -110,6 +198,14 @@ class _SettingsPageState extends State<SettingsPage>
 
     // Refresh other settings too.
     await _loadPasscodePreferences();
+
+    if (!mounted) return;
+
+    // Re-apply the lock. This is what makes turning the switch on actually
+    // protect Settings: the user is already inside the screen, so the lock is
+    // evaluated again the next time the app comes back to the foreground.
+    // Without it the switch could be turned on and never take effect.
+    await _checkLockoutTimerState();
   }
 
   @override
@@ -186,6 +282,39 @@ class _SettingsPageState extends State<SettingsPage>
     widget.onThemeChanged(value);
   }
 
+  /// Turns the master-password requirement on or off.
+  ///
+  /// Turning it off takes effect immediately, because the user is already
+  /// standing inside the unlocked screen. Turning it on deliberately does not
+  /// lock the screen under them: the next time they leave and come back, or
+  /// reopen Settings, the password is required.
+  Future<void> _handleSettingsProtectionChanged(bool value) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    // Persist first. If the write fails the switch has to snap back, or the
+    // UI would claim a protection the next launch will not apply.
+    final bool saved = await prefs.setBool(_settingsProtectionKey, value);
+
+    if (!saved) {
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          behavior: SnackBarBehavior.floating,
+          content: Text("Could not save that setting. Try again."),
+        ),
+      );
+
+      return;
+    }
+
+    if (!mounted) return;
+
+    setState(() {
+      _settingsProtectionEnabled = value;
+    });
+  }
+
   // ============================================================
   // LOCKOUT
   // ============================================================
@@ -213,7 +342,31 @@ class _SettingsPageState extends State<SettingsPage>
 
       if (!mounted) return;
 
-      await _promptMasterPassword();
+      if (!_settingsProtectionEnabled) {
+        // Protection is off, so there is nothing to verify. Only rebuild when
+        // the screen is actually still gated.
+        if (_isUnlocked) return;
+
+        setState(() {
+          _isUnlocked = true;
+        });
+
+        return;
+      }
+
+      // The lock check also runs on resume, and opening a system sheet (the
+      // fingerprint prompt, a file picker, the share sheet) briefly backgrounds
+      // the app. Without this guard a second password dialog stacks on the
+      // first one.
+      if (_lockPromptInFlight) return;
+
+      _lockPromptInFlight = true;
+
+      try {
+        await _promptMasterPassword();
+      } finally {
+        _lockPromptInFlight = false;
+      }
     }
   }
 
@@ -239,7 +392,25 @@ class _SettingsPageState extends State<SettingsPage>
 
         _isCountdownRunning = false;
 
-        await _promptMasterPassword();
+        if (!_settingsProtectionEnabled) {
+          if (!_isUnlocked) {
+            setState(() {
+              _isUnlocked = true;
+            });
+          }
+
+          return false;
+        }
+
+        if (!_lockPromptInFlight) {
+          _lockPromptInFlight = true;
+
+          try {
+            await _promptMasterPassword();
+          } finally {
+            _lockPromptInFlight = false;
+          }
+        }
 
         return false;
       }
@@ -257,51 +428,114 @@ class _SettingsPageState extends State<SettingsPage>
   // ============================================================
 
   Future<void> _loadPasscodePreferences() async {
-    final prefs = await SharedPreferences.getInstance();
+    try {
+      await Future.wait([
+        _loadAvailableChats(),
+        _loadPremiumStatus(),
+      ]);
+    } catch (e, stackTrace) {
+      // This is reached from a lifecycle callback that nobody awaits, so a
+      // throw here would surface as an unhandled async error rather than a
+      // failed operation.
+      debugPrint("[Settings] Could not load preferences: $e");
+
+      debugPrint("[Settings] $stackTrace");
+    }
+  }
+
+  /// Builds the "Secure conversations" list.
+  ///
+  /// This used to read an `active_conversations_list` SharedPreferences blob
+  /// that nothing in the app ever wrote, so the list was permanently empty and
+  /// the per-conversation checkbox was unreachable. The list is now read from
+  /// the same conversation store the chat list itself uses, which is what
+  /// makes every conversation the user actually has show up here.
+  Future<void> _loadAvailableChats() async {
+    final List<Conversation> conversations;
 
     try {
-      final String? rawConversationsJson = prefs.getString(
-        'active_conversations_list',
-      );
-
-      if (rawConversationsJson != null && rawConversationsJson.isNotEmpty) {
-        final List<dynamic> decodedList = jsonDecode(rawConversationsJson);
-
-        if (mounted) {
-          setState(() {
-            _availableChats.clear();
-
-            for (var item in decodedList) {
-              _availableChats.add({
-                "id": item["id"].toString(),
-                "name": item["name"].toString(),
-              });
-            }
-          });
-        }
-      }
+      conversations = await _conversationService.getConversations();
     } catch (e) {
-      debugPrint("Failed to fetch active database chats: $e");
+      // A corrupt store must not take the whole Settings screen down.
+      debugPrint("[Settings] Could not read conversations: $e");
+
+      return;
+    }
+
+    final List<String> lockedIds = <String>[];
+    final Map<String, String> lockTypes = <String, String>{};
+
+    for (final Conversation conversation in conversations) {
+      try {
+        final String? lockType = await _chatLockService.getLockType(
+          conversation.id,
+        );
+
+        if (lockType != null) {
+          lockedIds.add(conversation.id);
+          lockTypes[conversation.id] = lockType;
+        }
+      } catch (e) {
+        debugPrint(
+          "[Settings] Could not read lock state for "
+          "${conversation.id}: $e",
+        );
+      }
     }
 
     if (!mounted) return;
 
-    // ============================================================
-    // PREMIUM IS SERVER AUTHORITATIVE
-    //
-    // This used to read a SharedPreferences boolean, which anyone could flip
-    // on a rooted device or in a patched build. The flag now lives in the
-    // database and is only read here. If the server cannot be reached the
-    // account is treated as non-premium rather than trusted.
-    // ============================================================
+    final List<Map<String, String>> chats = conversations
+        .map(
+          (Conversation conversation) => <String, String>{
+            "id": conversation.id,
+            "name": conversation.username,
+          },
+        )
+        .toList();
 
-    await _loadPremiumStatus();
+    setState(() {
+      _availableChats
+        ..clear()
+        ..addAll(chats);
+
+      _lockedChatIds
+        ..clear()
+        ..addAll(lockedIds);
+
+      _lockTypes
+        ..clear()
+        ..addAll(lockTypes);
+    });
+  }
+
+  /// Human readable lock method for a conversation tile subtitle.
+  String _lockTypeLabel(String chatId) {
+    final loc = AppLocalizations.of(context)!;
+
+    return _lockTypes[chatId] == ChatLockService.lockTypeBiometric
+        ? loc.fingerprintUnlock
+        : loc.fourDigitPin;
+  }
+
+  /// The username behind a conversation id, for the PIN prompts.
+  String _chatNameFor(String chatId) {
+    for (final Map<String, String> chat in _availableChats) {
+      if (chat["id"] == chatId) {
+        final String name = chat["name"] ?? "";
+
+        if (name.isNotEmpty) return name;
+      }
+    }
+
+    return "this chat";
   }
 
   /// Reads premium and the user's own payment proof status from the server.
+  ///
+  /// The conversation locks are not read here. They live in ChatLockService,
+  /// which is the only thing that decides whether a chat is actually locked.
   Future<void> _loadPremiumStatus() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-
     bool premium = false;
     bool pending = false;
 
@@ -309,6 +543,7 @@ class _SettingsPageState extends State<SettingsPage>
       premium = await AccountFlagsService.instance.isPremium();
     } catch (e) {
       debugPrint("Could not read premium status: $e");
+
       premium = false;
     }
 
@@ -324,11 +559,6 @@ class _SettingsPageState extends State<SettingsPage>
     setState(() {
       _isPremiumUser = premium;
       _pendingProof = pending;
-
-      final savedLocks = prefs.getStringList('locked_conversation_ids') ?? [];
-
-      _lockedChatIds.clear();
-      _lockedChatIds.addAll(savedLocks);
     });
   }
 
@@ -405,8 +635,6 @@ class _SettingsPageState extends State<SettingsPage>
 
     if (!mounted) return;
 
-    bool progressDialogOpen = true;
-
     showDialog<void>(
       context: context,
       barrierDismissible: false,
@@ -435,13 +663,14 @@ class _SettingsPageState extends State<SettingsPage>
       debugPrint("[Settings] $stackTrace");
     }
 
-    if (!mounted) return;
-
-    if (progressDialogOpen) {
+    // Close the busy dialog before anything else. This runs before the
+    // `mounted` guard on purpose: returning early while the barrier was still
+    // up left the app covered by an undismissable spinner.
+    if (mounted) {
       Navigator.of(context, rootNavigator: true).pop();
-
-      progressDialogOpen = false;
     }
+
+    if (!mounted) return;
 
     final prefs = await SharedPreferences.getInstance();
 
@@ -682,13 +911,36 @@ class _SettingsPageState extends State<SettingsPage>
   // CHAT LOCKS
   // ============================================================
 
+  /// Repaints the lock checkboxes after a refused change.
+  ///
+  /// [CheckboxListTile] is driven entirely by its `value`, so a tap that is
+  /// rejected without a rebuild would leave the tick drawn on screen while the
+  /// saved state says otherwise.
+  void _refreshLockTiles() {
+    if (!mounted) return;
+
+    setState(() {});
+  }
+
   Future<void> _toggleChatCheckbox(String chatId, bool isChecked) async {
     final prefs = await SharedPreferences.getInstance();
 
     final loc = AppLocalizations.of(context)!;
 
     if (isChecked) {
-      if (_lockedChatIds.isNotEmpty && !_isPremiumUser) {
+      // ============================================================
+      // FREE TIER LIMIT
+      //
+      // One locked chat is free. Asking for a second one is what brings the
+      // premium question up. Fingerprint unlock is not offered here at all,
+      // because it is a premium feature: a free account is always given the PIN
+      // path further down, never the biometric one.
+      // ============================================================
+
+      final bool overFreeLimit =
+          _lockedChatIds.length >= _freeLockedChatLimit;
+
+      if (overFreeLimit && !_isPremiumUser) {
         if (!mounted) return;
 
         double selectedAmount = 15000;
@@ -727,6 +979,53 @@ class _SettingsPageState extends State<SettingsPage>
                         Text(
                           loc.supportIntro,
                           style: TextStyle(fontSize: 12, height: 1.3),
+                        ),
+                        const SizedBox(height: 12),
+                        // ======================================================
+                        // WHY THE PREMIUM QUESTION IS BEING SHOWN
+                        //
+                        // Spelled out in words as well as the table below,
+                        // because the two rules that caused this dialog are
+                        // the ones people are most surprised by: only one chat
+                        // is lockable for free, and fingerprint unlock is not
+                        // part of the free tier at all.
+                        // ======================================================
+                        Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Colors.red.withValues(alpha: 0.07),
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              color: Colors.red.withValues(alpha: 0.25),
+                            ),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "You already have a locked chat.",
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.red,
+                                ),
+                              ),
+                              const SizedBox(height: 6),
+                              Text(
+                                "Free: lock 1 chat with your own 4-digit PIN.\n"
+                                "Premium: lock as many chats as you like, and "
+                                "unlock them with your fingerprint or face "
+                                "instead of typing a PIN.\n\n"
+                                "Every chat gets its own PIN, chosen by you. "
+                                "There is no single code for the whole app.",
+                                style: const TextStyle(
+                                  fontSize: 11,
+                                  height: 1.35,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                         const SizedBox(height: 12),
                         Container(
@@ -1085,63 +1384,377 @@ class _SettingsPageState extends State<SettingsPage>
 
         inputController.dispose();
 
+        // The premium question was shown instead of a lock, so the tick has to
+        // go back off.
+        _refreshLockTiles();
+
         return;
       }
 
-      bool setupCompleted = false;
+      // ============================================================
+      // ARM THE LOCK
+      //
+      // The checkbox used to only write `lock_type_$chatId` and a list of ids
+      // that nothing read, so it showed a locked chat that opened with no
+      // prompt at all. The lock is now created through ChatLockService, the
+      // same service the chat list uses to enforce it.
+      //
+      // Each chat is stored under its own conversation id, so the PIN belongs
+      // to this one chat. There is deliberately no app-wide code.
+      // ============================================================
 
-      if (_isPremiumUser) {
+      // A free account is always given the PIN path. Fingerprint unlock is a
+      // premium feature and is only offered by _chooseLockType.
+      final String? lockType = _isPremiumUser
+          ? await _chooseLockType()
+          : ChatLockService.lockTypePin;
+
+      if (lockType == null) {
+        _refreshLockTiles();
+
+        return;
+      }
+
+      // Bound to a non-nullable local before the awaits below.
+      final String chosenType = lockType;
+
+      if (!mounted) return;
+
+      final String? passcode = chosenType ==
+              ChatLockService.lockTypeBiometric
+          ? await _createBiometricSecret()
+          : await _promptForNewPin(
+              chatName: _chatNameFor(chatId),
+            );
+
+      // The user backed out of the dialog, so no lock was created.
+      if (passcode == null) {
+        _refreshLockTiles();
+
+        return;
+      }
+
+      if (!mounted) return;
+
+      try {
+        await _chatLockService.setPasscode(
+          conversationId: chatId,
+          passcode: passcode,
+          lockType: chosenType,
+        );
+      } catch (e) {
+        debugPrint("[Settings] Could not lock $chatId: $e");
+
         if (!mounted) return;
 
-        final String? lockType = await showDialog<String>(
-          context: context,
-          builder: (dialogContext) => AlertDialog(
-            title: Text(loc.selectSecureLockMethod),
-            content: Text(loc.selectSecureLockDescription),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(dialogContext, "PIN"),
-                child: Text(loc.fourDigitPin),
-              ),
-              FilledButton(
-                onPressed: () => Navigator.pop(dialogContext, "BIOMETRIC"),
-                child: Text(loc.fingerprintUnlock),
-              ),
-            ],
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            behavior: SnackBarBehavior.floating,
+            content: Text("Could not lock this chat. Try again."),
           ),
         );
 
-        if (lockType != null) {
-          setupCompleted = true;
+        _refreshLockTiles();
 
-          await prefs.setString("lock_type_$chatId", lockType);
-        }
-      } else {
-        setupCompleted = true;
+        return;
       }
 
-      if (setupCompleted) {
+      if (!mounted) return;
+
+      setState(() {
+        if (!_lockedChatIds.contains(chatId)) {
+          _lockedChatIds.add(chatId);
+        }
+
+        _lockTypes[chatId] = chosenType;
+      });
+    } else {
+      try {
+        await _chatLockService.removePasscode(chatId);
+      } catch (e) {
+        debugPrint("[Settings] Could not unlock $chatId: $e");
+
         if (!mounted) return;
 
-        setState(() {
-          _lockedChatIds.add(chatId);
-        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            behavior: SnackBarBehavior.floating,
+            content: Text("Could not unlock this chat. Try again."),
+          ),
+        );
 
-        await prefs.setStringList('locked_conversation_ids', _lockedChatIds);
+        _refreshLockTiles();
+
+        return;
       }
-    } else {
+
       if (!mounted) return;
 
       setState(() {
         _lockedChatIds.remove(chatId);
+
+        _lockTypes.remove(chatId);
       });
-
-      await prefs.setStringList('locked_conversation_ids', _lockedChatIds);
-
-      await prefs.remove("pin_$chatId");
-
-      await prefs.remove("lock_type_$chatId");
     }
+  }
+
+  // ============================================================
+  // LOCK SETUP DIALOGS
+  // ============================================================
+
+  /// Asks whether this chat should be unlocked with a PIN or a fingerprint.
+  ///
+  /// Only reached by premium accounts: fingerprint unlock is a paid feature, so
+  /// a free account is never shown this choice. Returns null when the user
+  /// dismisses without picking.
+  Future<String?> _chooseLockType() async {
+    final loc = AppLocalizations.of(context)!;
+
+    return showDialog<String>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text(loc.selectSecureLockMethod),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(loc.selectSecureLockDescription),
+            const SizedBox(height: 10),
+            const Text(
+              'Fingerprint unlock is a premium feature. Either way, the '
+              'code you set belongs to this one chat only.',
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.grey,
+                height: 1.3,
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(
+              dialogContext,
+              ChatLockService.lockTypePin,
+            ),
+            child: Text(loc.fourDigitPin),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(
+              dialogContext,
+              ChatLockService.lockTypeBiometric,
+            ),
+            child: Text(loc.fingerprintUnlock),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Collects a new 4-digit PIN and confirms it by asking for it twice.
+  ///
+  /// [chatName] is named in the prompt so it is clear the code belongs to this
+  /// one conversation. Returns null when the user cancels or the two entries
+  /// disagree, so the lock is never armed with a PIN the user cannot reproduce.
+  Future<String?> _promptForNewPin({required String chatName}) async {
+    final loc = AppLocalizations.of(context)!;
+
+    final String? first = await _askForPin(
+      title: "Set a PIN for $chatName",
+      helper: "This PIN opens $chatName only. Every chat has its own PIN, "
+          "chosen by you. There is no single code for the app.",
+    );
+
+    if (first == null) return null;
+
+    if (!mounted) return null;
+
+    final String? second = await _askForPin(
+      title: "Confirm the PIN for $chatName",
+      helper: loc.secureKeyPasscode,
+    );
+
+    if (second == null) return null;
+
+    if (first != second) {
+      if (!mounted) return null;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          behavior: SnackBarBehavior.floating,
+          content: Text("The PINs did not match. Lock not enabled."),
+        ),
+      );
+
+      return null;
+    }
+
+    return first;
+  }
+
+  /// Single PIN entry. Returns null unless exactly four digits were entered.
+  Future<String?> _askForPin({
+    required String title,
+    required String helper,
+  }) async {
+    final loc = AppLocalizations.of(context)!;
+
+    final TextEditingController controller = TextEditingController();
+
+    String errorText = "";
+
+    final String? entered = await showDialog<String>(
+      context: context,
+      builder: (dialogContext) {
+        return StatefulBuilder(
+          builder: (dialogContext, setDialogState) {
+            return AlertDialog(
+              title: Text(title),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    helper,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey,
+                      height: 1.3,
+                    ),
+                  ),
+                  const SizedBox(height: 14),
+                  TextField(
+                    controller: controller,
+                    autofocus: true,
+                    obscureText: true,
+                    keyboardType: TextInputType.number,
+                    maxLength: 4,
+                    decoration: InputDecoration(
+                      labelText: loc.secureKeyPasscode,
+                      counterText: "",
+                      border: const OutlineInputBorder(),
+                      errorText: errorText.isEmpty ? null : errorText,
+                    ),
+                    onChanged: (String value) {
+                      // Strip anything that is not a digit and keep the field
+                      // in sync with the sanitised value, so the length limit
+                      // counts digits rather than characters.
+                      final String digits = value.replaceAll(
+                        RegExp(r'[^0-9]'),
+                        '',
+                      );
+
+                      if (digits != value) {
+                        controller.text = digits;
+                        controller.selection = TextSelection.collapsed(
+                          offset: digits.length,
+                        );
+                      }
+
+                      if (errorText.isEmpty) return;
+
+                      setDialogState(() {
+                        errorText = "";
+                      });
+                    },
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(dialogContext),
+                  child: Text(loc.cancel),
+                ),
+                FilledButton(
+                  onPressed: () {
+                    final String digits = controller.text.replaceAll(
+                      RegExp(r'[^0-9]'),
+                      '',
+                    );
+
+                    if (digits.length != 4) {
+                      setDialogState(() {
+                        errorText = "Enter exactly 4 digits.";
+                      });
+
+                      return;
+                    }
+
+                    Navigator.pop(dialogContext, digits);
+                  },
+                  child: Text(loc.ok),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+
+    controller.dispose();
+
+    return entered;
+  }
+
+  /// Creates the hidden secret behind a fingerprint lock.
+  ///
+  /// The user never types this, so it is random rather than memorable, and the
+  /// device sensor is verified first so a lock cannot be armed by whoever
+  /// happens to be holding an unlocked phone. Returns null when the user
+  /// cancels or the device cannot verify them.
+  Future<String?> _createBiometricSecret() async {
+    final loc = AppLocalizations.of(context)!;
+
+    try {
+      final List<BiometricType> enrolled =
+          await _localAuth.getAvailableBiometrics();
+
+      if (enrolled.isEmpty) {
+        if (!mounted) return null;
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            behavior: SnackBarBehavior.floating,
+            content: Text(
+              "No fingerprint or face unlock is set up on this device.",
+            ),
+          ),
+        );
+
+        return null;
+      }
+
+      if (!mounted) return null;
+
+      final bool confirmed = await _localAuth.authenticate(
+        localizedReason: loc.unlockSecureNode(_currentUsername),
+        biometricOnly: true,
+        sensitiveTransaction: true,
+        persistAcrossBackgrounding: true,
+      );
+
+      if (!confirmed) return null;
+    } catch (e) {
+      debugPrint("[Settings] Biometric setup failed: $e");
+
+      if (!mounted) return null;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          behavior: SnackBarBehavior.floating,
+          content: Text("Could not verify it is you on this device."),
+        ),
+      );
+
+      return null;
+    }
+
+    final List<int> secret = List<int>.generate(
+      32,
+      (_) => Random.secure().nextInt(256),
+    );
+
+    return base64UrlEncode(secret).replaceAll("=", "");
   }
 
   // ============================================================
@@ -1247,17 +1860,20 @@ class _SettingsPageState extends State<SettingsPage>
       children: [
         // ======================================================
         // THEME
+        //
+        // Neither tile below may set `isThreeLine`. Flutter's ListTile asserts
+        // that a three-line tile has a subtitle, and a title-only tile asserted
+        // that way took down this whole screen with a red error. These tiles
+        // have no subtitle, so the flag has to stay off.
         // ======================================================
         SwitchListTile(
           title: Text(loc.darkThemeMode, softWrap: true),
-          isThreeLine: true,
           value: _isDarkMode,
           onChanged: _handleThemeChanged,
         ),
 
         SwitchListTile(
           title: Text(loc.showSplashScreen, softWrap: true),
-          isThreeLine: true,
           value: _showSplashScreen,
           onChanged: (value) {
             setState(() {
@@ -1265,6 +1881,13 @@ class _SettingsPageState extends State<SettingsPage>
             });
             widget.onSplashScreenChanged?.call(value);
           },
+        ),
+
+        SwitchListTile(
+          title: const Text('Protect settings with master password'),
+          subtitle: const Text('Require password to access settings'),
+          value: _settingsProtectionEnabled,
+          onChanged: _handleSettingsProtectionChanged,
         ),
 
         // ======================================================
@@ -1432,7 +2055,17 @@ class _SettingsPageState extends State<SettingsPage>
         else
           for (final chat in _availableChats)
             CheckboxListTile(
-              title: Text(chat["name"]!),
+              title: Text(chat["name"]!, softWrap: true),
+              // The lock method is shown so a locked chat is not a mystery
+              // checkbox, and the wording makes it clear the code belongs to
+              // this one chat rather than to the app.
+              subtitle: Text(
+                _lockedChatIds.contains(chat["id"])
+                    ? "${_lockTypeLabel(chat["id"]!)} — own code, "
+                        "this chat only"
+                    : "Tap to set your own PIN for this chat",
+                style: const TextStyle(fontSize: 12),
+              ),
               value: _lockedChatIds.contains(chat["id"]),
               onChanged: (val) =>
                   _toggleChatCheckbox(chat["id"]!, val ?? false),

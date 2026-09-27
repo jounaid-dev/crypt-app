@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:cryptography/cryptography.dart';
 import 'package:flutter/material.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:crypt_messenger/l10n/app_localizations.dart';
@@ -32,6 +33,48 @@ class ChatLockService {
     iterations: _pbkdf2Iterations,
     bits: _derivedKeyBits,
   );
+
+  final LocalAuthentication _localAuth = LocalAuthentication();
+
+  // ============================================================
+  // BIOMETRIC UNLOCK
+  // ============================================================
+
+  /// Runs the device biometric prompt for a biometric-locked conversation.
+  ///
+  /// Returns false for every reason that is not a successful match, including
+  /// a device with no enrolled biometrics or a cancelled prompt, so the caller
+  /// can report the failure instead of leaving the chat silently inaccessible.
+  Future<bool> _authenticateBiometric({
+    required BuildContext context,
+    required String chatUsername,
+  }) async {
+    try {
+      // A device with no enrolled biometrics cannot satisfy a biometric-only
+      // prompt, so skip it rather than showing a sheet that cannot succeed.
+      final List<BiometricType> enrolled =
+          await _localAuth.getAvailableBiometrics();
+
+      if (enrolled.isEmpty) return false;
+
+      if (!context.mounted) return false;
+
+      final l10n = AppLocalizations.of(context)!;
+
+      return await _localAuth.authenticate(
+        localizedReason: l10n.unlockSecureNode(chatUsername),
+        // Biometrics only: falling back to the device passcode here would
+        // silently turn a "fingerprint unlock" lock into a device passcode
+        // prompt, which is a different thing than what the user chose.
+        biometricOnly: true,
+        sensitiveTransaction: true,
+        persistAcrossBackgrounding: true,
+      );
+    } catch (_) {
+      // Hardware unavailable, no enrollment, or the prompt was cancelled.
+      return false;
+    }
+  }
 
   // ============================================================
   // STORAGE KEYS
@@ -75,6 +118,18 @@ class ChatLockService {
     String conversationId,
   ) =>
       'chat_locked_$conversationId';
+
+  /// How the user chose to unlock this conversation.
+  ///
+  /// Either [lockTypePin] or [lockTypeBiometric]. Absent means [lockTypePin],
+  /// which is what every lock created before lock types existed used.
+  String _lockTypeKey(
+    String conversationId,
+  ) =>
+      'chat_lock_type_$conversationId';
+
+  static const String lockTypePin = 'PIN';
+  static const String lockTypeBiometric = 'BIOMETRIC';
 
   // ============================================================
   // RANDOM SALT
@@ -196,6 +251,41 @@ class ChatLockService {
 
     return legacy != null &&
         legacy.isNotEmpty;
+  }
+
+  // ============================================================
+  // CHECK WHETHER A PASSCODE IS CONFIGURED (PUBLIC)
+  // ============================================================
+
+  /// True when this conversation is protected by a lock.
+  ///
+  /// Settings uses this to render the per-conversation checkbox. Reading the
+  /// same private keys that [isLocked] and [verifyAccess] use is what keeps the
+  /// checkbox honest: it cannot show "locked" for a conversation that no
+  /// passcode actually protects, and it cannot hide a lock that is enforced.
+  Future<bool> hasPasscode(
+    String conversationId,
+  ) async {
+    final prefs =
+        await SharedPreferences.getInstance();
+
+    return _hasPasscode(prefs, conversationId);
+  }
+
+  /// The lock method chosen for this conversation, or null when it is not
+  /// locked at all.
+  Future<String?> getLockType(
+    String conversationId,
+  ) async {
+    if (!await hasPasscode(conversationId)) {
+      return null;
+    }
+
+    final prefs =
+        await SharedPreferences.getInstance();
+
+    return prefs.getString(_lockTypeKey(conversationId)) ??
+        lockTypePin;
   }
 
   // ============================================================
@@ -330,6 +420,77 @@ class ChatLockService {
     // No chat lock configured.
     if (!hasPasscode) {
       return true;
+    }
+
+    // ----------------------------------------------------------
+    // BIOMETRIC UNLOCK
+    //
+    // A biometric lock is bound to a random secret the user never sees, so
+    // there is nothing to fall back to when the sensor fails. Falling through
+    // to the passcode box would show a prompt nobody can ever answer and then
+    // escalate into an escalating lockout, which reads as the app bricking
+    // itself. Instead the failure is reported plainly and the lock stays on;
+    // it can be turned off from Settings.
+    // ----------------------------------------------------------
+
+    final String lockType =
+        prefs.getString(_lockTypeKey(conversationId)) ??
+            lockTypePin;
+
+    if (lockType == lockTypeBiometric) {
+      if (await _authenticateBiometric(
+            context: context,
+            chatUsername: chatUsername,
+          )) {
+        await prefs.remove(
+          _attemptsKey(conversationId),
+        );
+
+        await prefs.remove(
+          _expiryKey(conversationId),
+        );
+
+        await prefs.remove(
+          _tierKey(conversationId),
+        );
+
+        await prefs.setBool(
+          _lockedKey(conversationId),
+          true,
+        );
+
+        return true;
+      }
+
+      if (!context.mounted) {
+        return false;
+      }
+
+      final l10n = AppLocalizations.of(context)!;
+
+      await showDialog<void>(
+        context: context,
+        builder: (dialogContext) {
+          return AlertDialog(
+            title: Text(l10n.accessBlocked),
+            content: Text(
+              'This chat is locked with your fingerprint or face '
+              'unlock, and that check did not pass. Turn the lock off '
+              'in Settings if you need to get in without it.',
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(dialogContext).pop();
+                },
+                child: Text(l10n.ok),
+              ),
+            ],
+          );
+        },
+      );
+
+      return false;
     }
 
     // ----------------------------------------------------------
@@ -727,6 +888,7 @@ class ChatLockService {
   Future<void> setPasscode({
     required String conversationId,
     required String passcode,
+    String lockType = lockTypePin,
   }) async {
     if (passcode.isEmpty) {
       throw ArgumentError(
@@ -761,6 +923,11 @@ class ChatLockService {
     // Remove any old plaintext version.
     await prefs.remove(
       _legacyPasscodeKey(conversationId),
+    );
+
+    await prefs.setString(
+      _lockTypeKey(conversationId),
+      lockType,
     );
 
     await prefs.setBool(
@@ -815,6 +982,10 @@ class ChatLockService {
 
     await prefs.remove(
       _tierKey(conversationId),
+    );
+
+    await prefs.remove(
+      _lockTypeKey(conversationId),
     );
 
     await prefs.remove(
