@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:crypt_messenger/l10n/app_localizations.dart';
 import 'package:image_picker/image_picker.dart';
@@ -8,6 +6,7 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import '../services/account_service.dart';
 import '../services/conversation_id_service.dart';
 import '../services/conversation_service.dart';
+import '../services/crypt_qr_codec.dart';
 import '../services/signaling_service.dart';
 import '../models/conversation.dart';
 
@@ -22,6 +21,19 @@ class _ScanQrPageState extends State<ScanQrPage> {
   bool scanned = false;
   String scannedUsername = "";
 
+  /// Set synchronously the moment a capture is accepted for processing.
+  ///
+  /// `onDetect` fires on many consecutive frames. `scanned` is only flipped
+  /// after several `await`s, so without this guard several frames could enter
+  /// `processQrValue` at once and create duplicate contacts, send duplicate
+  /// signaling requests, and pop the route more than once.
+  bool _processing = false;
+
+  /// Last payload rejected by validation, used to suppress the endless
+  /// error loop that happens when a bad code stays in front of the camera.
+  String? _lastRejectedValue;
+  DateTime? _lastRejectedAt;
+
   final AccountService _accountService = AccountService();
 
   final ConversationService _conversationService = ConversationService();
@@ -29,59 +41,15 @@ class _ScanQrPageState extends State<ScanQrPage> {
   final SignalingService _signalingService = SignalingService.instance;
 
   final MobileScannerController _scannerController =
-      MobileScannerController();
+      MobileScannerController(
+        // CRYPT only ever exchanges QR codes, so skip every other format.
+        // This also stops random 1D barcodes from failing validation.
+        formats: const [BarcodeFormat.qrCode],
+        detectionSpeed: DetectionSpeed.normal,
+        detectionTimeoutMs: 800,
+      );
 
   final ImagePicker _imagePicker = ImagePicker();
-
-  bool _isValidBase64Key(String value, int expectedLength) {
-    try {
-      final decoded = base64Decode(value);
-      return decoded.length == expectedLength;
-    } on FormatException {
-      return false;
-    }
-  }
-
-  bool _isValidQrProof(String value) {
-    if (value.length != 43 ||
-        !RegExp(r'^[A-Za-z0-9_-]+$').hasMatch(value)) {
-      return false;
-    }
-
-    try {
-      final decoded = base64Url.decode(value);
-
-      return decoded.length == 32 &&
-          base64UrlEncode(decoded).replaceAll('=', '') == value;
-    } on FormatException {
-      return false;
-    }
-  }
-
-  bool _isValidCryptPayload(Map<String, dynamic> data) {
-    if (data['app'] != 'CRYPT' || data['version'] != 2) {
-      return false;
-    }
-
-    final username = data['username'];
-    final encryptionKey = data['publicEncryptionKey'];
-    final signingKey = data['publicSigningKey'];
-    final proof = data['qrProof'];
-
-    if (username is! String ||
-        encryptionKey is! String ||
-        signingKey is! String ||
-        proof is! String ||
-        username.trim().isEmpty ||
-        encryptionKey.isEmpty ||
-        signingKey.isEmpty) {
-      return false;
-    }
-
-    return _isValidBase64Key(encryptionKey, 32) &&
-        _isValidBase64Key(signingKey, 32) &&
-        _isValidQrProof(proof);
-  }
 
   // ============================================================
   // QR PROCESSING
@@ -93,48 +61,21 @@ class _ScanQrPageState extends State<ScanQrPage> {
   ) async {
     value = value.trim();
 
-    if (scanned) return;
+    if (_processing || scanned) return;
+
+    _processing = true;
 
     try {
-      Map<String, dynamic> data;
-
       // ==========================================================
-      // EXACT CRYPT QR FORMAT
-      // crypt://contact?data=<encoded JSON>
-      // ==========================================================
-
-      if (!value.startsWith("crypt://contact?data=")) {
-        throw Exception("Invalid CRYPT QR");
-      }
-
-      final uri = Uri.parse(value);
-
-      if (uri.scheme != 'crypt' ||
-          uri.host != 'contact' ||
-          uri.path.isNotEmpty ||
-          !uri.queryParameters.containsKey('data')) {
-        throw Exception("Invalid CRYPT QR");
-      }
-
-      final encoded = uri.queryParameters['data'];
-
-      if (encoded == null || encoded.isEmpty) {
-        throw Exception("Missing data");
-      }
-
-      final decoded = jsonDecode(encoded);
-
-      if (decoded is! Map) {
-        throw Exception("Invalid CRYPT QR");
-      }
-
-      data = Map<String, dynamic>.from(decoded);
-
-      // ==========================================================
-      // STRICT CRYPT IDENTITY VALIDATION
+      // PARSE AND VALIDATE
+      //
+      // Shared with the crypt://contact deep link handler so both entry
+      // points accept and reject exactly the same codes.
       // ==========================================================
 
-      if (!_isValidCryptPayload(data)) {
+      final payload = CryptQrCodec.decode(value);
+
+      if (payload == null) {
         throw Exception("Not a valid CRYPT profile payload.");
       }
 
@@ -144,30 +85,17 @@ class _ScanQrPageState extends State<ScanQrPage> {
       // PEER IDENTITY
       // ========================================================
 
-      final String peerUsername =
-          data["username"]?.toString() ?? l10n.defaultUser;
+      final String peerUsername = payload.username;
 
-      final String peerEncryptionKey =
-          data["publicEncryptionKey"] as String;
+      final String peerEncryptionKey = payload.publicEncryptionKey;
 
-      final String peerSigningKey =
-          data["publicSigningKey"] as String;
-
-      if (peerUsername.trim().isEmpty ||
-          peerEncryptionKey.trim().isEmpty ||
-          peerSigningKey.trim().isEmpty) {
-        throw Exception("Incomplete CRYPT identity.");
-      }
+      final String peerSigningKey = payload.publicSigningKey;
 
       // ========================================================
       // QR PROOF
       // ========================================================
 
-      final String? qrProof = data["qrProof"] as String?;
-
-      if (qrProof == null || qrProof.isEmpty) {
-        throw Exception("QR code does not contain a proof.");
-      }
+      final String qrProof = payload.qrProof;
 
       // ========================================================
       // LOAD MY IDENTITY
@@ -271,7 +199,7 @@ class _ScanQrPageState extends State<ScanQrPage> {
         Navigator.pop(context, {
           "alreadyExists": true,
           "conversation": updatedConversation,
-          "qrData": data,
+          "qrData": payload.toJson(),
         });
 
         return;
@@ -329,14 +257,37 @@ class _ScanQrPageState extends State<ScanQrPage> {
       Navigator.pop(context, {
         "alreadyExists": false,
         "conversation": conversation,
-        "qrData": data,
+        "qrData": payload.toJson(),
       });
     } catch (_) {
+      // ==========================================================
+      // RESET THE GUARD
+      //
+      // A rejected code is still sitting in front of the camera, so the next
+      // frame re-enters this method. Remember what was rejected and swallow
+      // the repeats instead of showing an endless stream of snackbars.
+      // ==========================================================
+
+      final DateTime now = DateTime.now();
+
+      final bool isRepeat =
+          _lastRejectedValue == value &&
+          _lastRejectedAt != null &&
+          now.difference(_lastRejectedAt!) <
+              const Duration(seconds: 5);
+
+      _lastRejectedValue = value;
+      _lastRejectedAt = now;
+
+      _processing = false;
+
       if (!mounted) return;
 
       setState(() {
         scanned = false;
       });
+
+      if (isRepeat) return;
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -394,6 +345,7 @@ class _ScanQrPageState extends State<ScanQrPage> {
       final BarcodeCapture? capture =
           await _scannerController.analyzeImage(
         image.path,
+        formats: const [BarcodeFormat.qrCode],
       );
 
       if (capture == null ||
@@ -472,6 +424,22 @@ class _ScanQrPageState extends State<ScanQrPage> {
           ),
         ),
         actions: [
+          ValueListenableBuilder<MobileScannerState>(
+            valueListenable: _scannerController,
+            builder: (context, state, _) {
+              return IconButton(
+                tooltip: l10n.scanQr,
+                onPressed: state.torchState == TorchState.unavailable
+                    ? null
+                    : () => _scannerController.toggleTorch(),
+                icon: Icon(
+                  state.torchState == TorchState.on
+                      ? Icons.flashlight_on
+                      : Icons.flashlight_off,
+                ),
+              );
+            },
+          ),
           IconButton(
             tooltip: l10n.gallery,
             onPressed: scanned
@@ -496,35 +464,75 @@ class _ScanQrPageState extends State<ScanQrPage> {
               controller: _scannerController,
               onDetect: (capture) =>
                   handleCameraScan(capture, l10n),
+              errorBuilder: (context, error) {
+                // ================================================
+                // CAMERA UNAVAILABLE
+                //
+                // Without this the scanner area renders a bare
+                // placeholder behind the dim overlay, so a denied or
+                // missing camera looks like a broken scanner.
+                // ================================================
+
+                return ColoredBox(
+                  color: Colors.black,
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 32,
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(
+                            Icons.no_photography_outlined,
+                            color: Colors.white,
+                            size: 44,
+                          ),
+
+                          const SizedBox(height: 16),
+
+                          Text(
+                            l10n.couldNotScanImage,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                              height: 1.5,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
             ),
 
             // ==================================================
             // CAMERA OVERLAY
+            //
+            // The dimming is painted with an even-odd path so the
+            // area inside the frame stays at full brightness.
+            // Previously the dim layer covered the frame too, so
+            // the box the user is told to aim at was itself dimmed
+            // and gave no real alignment guide.
             // ==================================================
 
             IgnorePointer(
-              child: Column(
-                children: [
-                  Expanded(
-                    child: Container(
-                      color: Colors.black.withAlpha(55),
-                      child: Center(
-                        child: Container(
-                          width: 265,
-                          height: 265,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.white,
-                              width: 2,
-                            ),
-                            borderRadius:
-                                BorderRadius.circular(18),
-                          ),
-                        ),
-                      ),
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  const double frameSize = 320;
+
+                  return CustomPaint(
+                    size: Size(
+                      constraints.maxWidth,
+                      constraints.maxHeight,
                     ),
-                  ),
-                ],
+                    painter: _ScannerOverlayPainter(
+                      frameSize: frameSize,
+                    ),
+                  );
+                },
               ),
             ),
 
@@ -686,5 +694,58 @@ class _ScanQrPageState extends State<ScanQrPage> {
         ),
       ),
     );
+  }
+}
+
+/// Draws the dimmed surround plus the bright alignment frame.
+class _ScannerOverlayPainter extends CustomPainter {
+  const _ScannerOverlayPainter({required this.frameSize});
+
+  final double frameSize;
+
+  static const double _radius = 18;
+  static const double _borderWidth = 3;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    // Never let the frame grow past the available space.
+    final double side = frameSize < size.shortestSide
+        ? frameSize
+        : size.shortestSide;
+
+    final Rect frame = Rect.fromCenter(
+      center: Offset(size.width / 2, size.height / 2),
+      width: side,
+      height: side,
+    );
+
+    final RRect frameRRect = RRect.fromRectAndRadius(
+      frame,
+      const Radius.circular(_radius),
+    );
+
+    // even-odd lets the frame rect punch a hole in the dim layer.
+    final Path dim = Path()
+      ..fillType = PathFillType.evenOdd
+      ..addRect(Offset.zero & size)
+      ..addRRect(frameRRect);
+
+    canvas.drawPath(
+      dim,
+      Paint()..color = Colors.black.withAlpha(120),
+    );
+
+    canvas.drawRRect(
+      frameRRect,
+      Paint()
+        ..color = Colors.white
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = _borderWidth,
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant _ScannerOverlayPainter oldDelegate) {
+    return oldDelegate.frameSize != frameSize;
   }
 }

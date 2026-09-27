@@ -87,6 +87,17 @@ class _LoginPageState extends State<LoginPage> {
           context,
         ).showSnackBar(SnackBar(content: Text(l10n.wrongUsernameOrPassword)));
       }
+    } on BannedAccountException catch (e) {
+      // The server suspended this account. Say so instead of the generic
+      // connection error, and do not sign the user in.
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          behavior: SnackBarBehavior.floating,
+          content: Text(e.message),
+        ),
+      );
     } catch (_) {
       if (!mounted) return;
 

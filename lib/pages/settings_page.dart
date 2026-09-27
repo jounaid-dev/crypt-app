@@ -14,7 +14,13 @@ import 'signup_page.dart';
 import 'terms_and_conditions_page.dart';
 import '../services/identity_service.dart';
 import '../services/account_service.dart';
+import '../services/account_flags_service.dart';
+import '../services/premium_status_service.dart';
 import '../services/session_service.dart';
+import 'admin_access_page.dart';
+import 'admin_panel_page.dart';
+import 'report_page.dart';
+import 'submit_payment_proof_page.dart';
 import '../main.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -63,6 +69,9 @@ class _SettingsPageState extends State<SettingsPage>
   final List<String> _lockedChatIds = [];
 
   bool _isPremiumUser = false;
+
+  /// True when the user has a payment proof still waiting for an admin.
+  bool _pendingProof = false;
   bool _isCountdownRunning = false;
 
   @override
@@ -277,8 +286,44 @@ class _SettingsPageState extends State<SettingsPage>
 
     if (!mounted) return;
 
+    // ============================================================
+    // PREMIUM IS SERVER AUTHORITATIVE
+    //
+    // This used to read a SharedPreferences boolean, which anyone could flip
+    // on a rooted device or in a patched build. The flag now lives in the
+    // database and is only read here. If the server cannot be reached the
+    // account is treated as non-premium rather than trusted.
+    // ============================================================
+
+    await _loadPremiumStatus();
+  }
+
+  /// Reads premium and the user's own payment proof status from the server.
+  Future<void> _loadPremiumStatus() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    bool premium = false;
+    bool pending = false;
+
+    try {
+      premium = await AccountFlagsService.instance.isPremium();
+    } catch (e) {
+      debugPrint("Could not read premium status: $e");
+      premium = false;
+    }
+
+    try {
+      pending = await PremiumStatusService.instance.hasPendingProof();
+    } catch (e) {
+      debugPrint("Could not read payment proof status: $e");
+      pending = false;
+    }
+
+    if (!mounted) return;
+
     setState(() {
-      _isPremiumUser = prefs.getBool('account_is_premium') ?? false;
+      _isPremiumUser = premium;
+      _pendingProof = pending;
 
       final savedLocks = prefs.getStringList('locked_conversation_ids') ?? [];
 
@@ -286,6 +331,7 @@ class _SettingsPageState extends State<SettingsPage>
       _lockedChatIds.addAll(savedLocks);
     });
   }
+
 
   // ============================================================
   // MASTER PASSWORD
@@ -1132,7 +1178,10 @@ class _SettingsPageState extends State<SettingsPage>
   }
 
   Widget _buildPageLayout() {
-    final loc = AppLocalizations.of(context)!;
+    final ThemeData theme = Theme.of(context);
+
+    final AppLocalizations loc = AppLocalizations.of(context)!;
+
 
     if (_isTimedOut) {
       final int hours = _remainingSeconds ~/ 3600;
@@ -1237,6 +1286,123 @@ class _SettingsPageState extends State<SettingsPage>
             Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => const TermsAndConditionsPage()),
+            );
+          },
+        ),
+
+        // ======================================================
+        // SUPPORT AND MODERATION
+        // ======================================================
+
+        ListTile(
+          leading: const Icon(Icons.report_gmailerrorred_outlined),
+          title: const Text('Report a problem'),
+          subtitle: const Text('Bugs, abuse or spam'),
+          trailing: const Icon(Icons.chevron_right),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const ReportPage()),
+            );
+          },
+        ),
+
+        ListTile(
+          leading: const Icon(Icons.receipt_long_outlined),
+          title: const Text('Submit payment proof'),
+          subtitle: Text(
+            _isPremiumUser
+                ? 'Premium is on for your account'
+                : _pendingProof
+                    ? 'Waiting for an admin to review your receipt'
+                    : 'How to get premium: pay, then send the receipt here',
+          ),
+          trailing: const Icon(Icons.chevron_right),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => const SubmitPaymentProofPage(),
+              ),
+            ).then((_) => _loadPremiumStatus());
+          },
+        ),
+
+        // ======================================================
+        // PREMIUM EXPLAINER
+        //
+        // The locked chats are the only premium feature today, and the
+        // only way to unlock them is an admin turning on the flag after
+        // seeing a receipt. Spell that out rather than leaving people to
+        // guess why paying changed nothing.
+        // ======================================================
+
+        if (!_isPremiumUser)
+          Container(
+            margin: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 4,
+            ),
+            padding: const EdgeInsets.all(14),
+            decoration: BoxDecoration(
+              color: Colors.amber.withAlpha(24),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: Colors.amber.withAlpha(90)),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.workspace_premium,
+                      color: Colors.amber,
+                      size: 20,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      'How premium works',
+                      style: theme.textTheme.titleSmall,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  _pendingProof
+                      ? 'Your receipt is in. An admin checks it and premium '
+                          'turns on for your account automatically. You do '
+                          'not need to do anything else.'
+                      : '1. Pay using any method your admin gave you.\n'
+                          '2. Open Settings and tap Submit payment proof.\n'
+                          '3. Enter the amount, the transaction reference '
+                          'from your receipt, and a photo of it.\n'
+                          '4. An admin approves it and premium turns on.\n\n'
+                          'Premium is decided on the server, so it cannot be '
+                          'switched on by editing the app.',
+                  style: theme.textTheme.bodySmall,
+                ),
+              ],
+            ),
+          ),
+
+        // The access code is verified by the server, so it is not stored in
+        // the app and cannot be pulled out of the APK.
+        ListTile(
+          leading: const Icon(Icons.shield_outlined),
+          title: const Text('Admin access'),
+          subtitle: const Text('Enter your admin code to open the panel'),
+          trailing: const Icon(Icons.chevron_right),
+          onTap: () async {
+            final unlocked = await Navigator.push<bool>(
+              context,
+              MaterialPageRoute(builder: (_) => const AdminAccessPage()),
+            );
+
+            if (unlocked != true || !mounted) return;
+
+            await Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const AdminPanelPage()),
             );
           },
         ),

@@ -4,9 +4,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import 'password_service.dart';
+import 'account_flags_service.dart';
 import 'cloud_identity_service.dart';
 import 'key_storage_service.dart';
 import 'identity_service.dart';
+import 'server_auth_service.dart';
 import 'signaling_service.dart';
 
 class AccountService {
@@ -28,6 +30,8 @@ class AccountService {
   final CloudIdentityService _cloud = CloudIdentityService();
   final KeyStorageService _keyStorage = KeyStorageService();
   final IdentityService _identityService = IdentityService();
+  final ServerAuthService _serverAuth = ServerAuthService.instance;
+  final AccountFlagsService _flags = AccountFlagsService.instance;
 
   final FlutterSecureStorage _secureStorage =
       const FlutterSecureStorage();
@@ -125,6 +129,23 @@ class AccountService {
       true,
     );
 
+    // ============================================================
+    // REGISTER WITH SUPABASE AUTH FIRST
+    //
+    // The public.users insert below is guarded by a policy that requires
+    // auth_user_id to match auth.uid(), so the session has to exist before
+    // the row is written. Registering first also means every later request
+    // carries an identity, which is what lets RLS tell an admin from
+    // anyone else.
+    //
+    // CRYPT uses a synthetic address, so nothing is ever emailed.
+    // ============================================================
+
+    await _serverAuth.signUp(
+      username: username.trim(),
+      password: password,
+    );
+
     // Upload only public identity + password verifier
     // + encrypted identity backup.
     await _cloud.backupIdentity(
@@ -136,6 +157,8 @@ class AccountService {
       passwordSalt: base64Encode(salt),
       passwordHash: hash,
     );
+
+    _flags.invalidate();
   }
 
   Future<bool> accountExists() async {
@@ -149,6 +172,45 @@ class AccountService {
     String password,
   ) async {
     final prefs = await SharedPreferences.getInstance();
+
+    // ============================================================
+    // SERVER VERIFICATION
+    //
+    // Supabase Auth is now the authority on whether these credentials are
+    // valid. Previously the app fetched a world-readable password_hash and
+    // compared it on device, which meant the hash was readable by anyone
+    // holding the publishable key and the check could be skipped entirely by
+    // a patched build.
+    // ============================================================
+
+    try {
+      await _serverAuth.signIn(
+        username: username.trim(),
+        password: password,
+      );
+    } on ServerAuthException {
+      return false;
+    }
+
+    _flags.invalidate();
+
+    // ============================================================
+    // BAN CHECK
+    //
+    // Authoritative, and re-read from the server on every login.
+    // ============================================================
+
+    final flags = await _flags.fetch(force: true);
+
+    if (flags != null && flags.isBanned) {
+      await _serverAuth.signOut();
+      _flags.invalidate();
+
+      throw BannedAccountException(
+        flags.bannedReason ??
+            'This account has been suspended by an administrator.',
+      );
+    }
 
     final savedUsername = prefs.getString(_usernameKey);
     final savedHash = prefs.getString(_passwordHashKey);
@@ -173,22 +235,10 @@ class AccountService {
       return false;
     }
 
-    final remoteHash = user["password_hash"];
-    final remoteSalt = user["password_salt"];
-
-    if (remoteHash == null || remoteSalt == null) {
-      return false;
-    }
-
-    final valid = await _passwordService.verifyPassword(
-      password: password,
-      storedHash: remoteHash.toString(),
-      storedSalt: remoteSalt.toString(),
-    );
-
-    if (!valid) {
-      return false;
-    }
+    // The password was already verified by Supabase Auth above. The remote
+    // password_hash and password_salt are deliberately not read: they are
+    // unreachable from a client now that direct reads of the users table are
+    // limited to your own row, and nothing here needs them.
 
     final encryptedBackup = user["encrypted_identity"];
 
@@ -247,10 +297,13 @@ class AccountService {
       encryptedSigningKey,
     );
 
-    // Restore password salt used by IdentityService.
+    // The salt is an input to key derivation, so it has to be restored.
+    // It is public by design and is served by user_public_identity.
+    final salt = user["password_salt"]?.toString() ?? '';
+
     await _keyStorage.saveConversationKey(
       "password_salt",
-      remoteSalt.toString(),
+      salt,
     );
 
     // Restore local account metadata.
@@ -260,14 +313,15 @@ class AccountService {
     );
 
     await prefs.setString(
-      _passwordHashKey,
-      remoteHash.toString(),
+      _passwordSaltKey,
+      salt,
     );
 
-    await prefs.setString(
-      _passwordSaltKey,
-      remoteSalt.toString(),
-    );
+    // password_hash is intentionally absent from user_public_identity, so a
+    // device that restored from the cloud has no local copy. That is fine:
+    // the local fast path below simply does not apply, and the password is
+    // verified by Supabase Auth on every login regardless.
+    await prefs.remove(_passwordHashKey);
 
     await prefs.setString(
       _publicKeyKey,
@@ -361,6 +415,11 @@ class AccountService {
   Future<void> logout() async {
     final prefs = await SharedPreferences.getInstance();
 
+    // End the Supabase session too, otherwise the next person to use this
+    // device would still be able to read this account's rows under RLS.
+    await _serverAuth.signOut();
+    _flags.invalidate();
+
     await prefs.remove(_usernameKey);
     await prefs.remove(_passwordHashKey);
     await prefs.remove(_passwordSaltKey);
@@ -448,4 +507,14 @@ class AccountService {
 
     return Map<String, String>.from(decoded);
   }
+}
+
+/// Thrown when the server says the account has been suspended.
+class BannedAccountException implements Exception {
+  BannedAccountException(this.message);
+
+  final String message;
+
+  @override
+  String toString() => message;
 }

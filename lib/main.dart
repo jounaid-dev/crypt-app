@@ -1,6 +1,3 @@
-import 'dart:async';
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,14 +15,12 @@ import 'pages/home_page.dart';
 import 'pages/welcome_page.dart';
 import 'pages/chat_page.dart';
 
-import 'package:app_links/app_links.dart';
 
 import 'models/conversation.dart';
 import 'services/conversation_service.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
-final AppLinks appLinks = AppLinks();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -89,8 +84,6 @@ class _CryptAppState extends State<CryptApp> with WidgetsBindingObserver {
   bool _isDarkMode = true;
   late bool _showSplashScreen;
 
-  StreamSubscription<Uri>? _linkSubscription;
-
   bool _isLoadingPreferences = false;
 
   // ============================================================
@@ -108,8 +101,6 @@ class _CryptAppState extends State<CryptApp> with WidgetsBindingObserver {
 
     // Load everything immediately.
     _loadPreferences();
-
-    _listenForLinks();
   }
 
   // ============================================================
@@ -272,142 +263,6 @@ class _CryptAppState extends State<CryptApp> with WidgetsBindingObserver {
     });
 
     debugPrint("[Language] Changed immediately to: ${locale.languageCode}");
-  }
-
-  // ============================================================
-  // DEEP LINKS
-  // ============================================================
-
-  void _listenForLinks() async {
-    try {
-      final Uri? initialUri = await appLinks.getInitialLink();
-
-      if (initialUri != null) {
-        await _handleIncomingLink(initialUri);
-      }
-    } catch (e) {
-      debugPrint("Initial link error: $e");
-    }
-
-    _linkSubscription = appLinks.uriLinkStream.listen(
-      (uri) {
-        _handleIncomingLink(uri);
-      },
-      onError: (error) {
-        debugPrint("Deep link stream error: $error");
-      },
-    );
-  }
-
-  Future<void> _handleIncomingLink(Uri uri) async {
-    try {
-      if (uri.scheme != "crypt" || uri.host != "contact") {
-        return;
-      }
-
-      final encoded = uri.queryParameters["data"];
-
-      if (encoded == null || encoded.isEmpty) {
-        return;
-      }
-
-      final decoded = Uri.decodeComponent(encoded);
-
-      final Map<String, dynamic> data = jsonDecode(decoded);
-
-      if (data["app"] != "CRYPT") {
-        return;
-      }
-
-      final peerPublicEncryptionKey = data["publicEncryptionKey"]?.toString();
-
-      final peerPublicSigningKey = data["publicSigningKey"]?.toString();
-
-      final peerUsername = data["username"]?.toString();
-
-      if (peerPublicEncryptionKey == null ||
-          peerPublicEncryptionKey.isEmpty ||
-          peerPublicSigningKey == null ||
-          peerPublicSigningKey.isEmpty ||
-          peerUsername == null ||
-          peerUsername.isEmpty) {
-        debugPrint("Deep link error: incomplete contact data.");
-        return;
-      }
-
-      final accountService = AccountService();
-
-      final myPublicEncryptionKey = await accountService
-          .getPublicEncryptionKey();
-
-      if (myPublicEncryptionKey == null || myPublicEncryptionKey.isEmpty) {
-        debugPrint("Deep link error: my public encryption key is missing.");
-        return;
-      }
-
-      final conversationService = ConversationService();
-
-      final existing = await conversationService.findConversationByPublicKey(
-        peerPublicEncryptionKey,
-      );
-
-      if (existing != null) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          final nav = navigatorKey.currentState;
-
-          if (nav != null && nav.mounted) {
-            nav.push(
-              MaterialPageRoute(
-                builder: (_) => ChatPage(conversation: existing),
-              ),
-            );
-          }
-        });
-
-        return;
-      }
-
-      final conversationId = ConversationIdService.generate(
-        myPublicEncryptionKey: myPublicEncryptionKey,
-        peerPublicEncryptionKey: peerPublicEncryptionKey,
-      );
-
-      debugPrint("=== DEEP LINK CONVERSATION ID ===");
-
-      debugPrint("Generated conversation ID: $conversationId");
-
-      debugPrint("=================================");
-
-      final conversation = Conversation(
-        id: conversationId,
-        username: peerUsername,
-        publicSigningKey: peerPublicSigningKey,
-        publicEncryptionKey: peerPublicEncryptionKey,
-        createdAt: DateTime.now(),
-        lastMessageAt: DateTime.now(),
-        lastMessage: "",
-        unreadCount: 0,
-        verified: true,
-      );
-
-      await conversationService.addConversation(conversation);
-
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        final nav = navigatorKey.currentState;
-
-        if (nav != null && nav.mounted) {
-          nav.push(
-            MaterialPageRoute(
-              builder: (_) => ChatPage(conversation: conversation),
-            ),
-          );
-        }
-      });
-    } catch (e, stack) {
-      debugPrint("Deep link error: $e");
-
-      debugPrint(stack.toString());
-    }
   }
 
   // ============================================================
@@ -633,8 +488,6 @@ class _CryptAppState extends State<CryptApp> with WidgetsBindingObserver {
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-
-    _linkSubscription?.cancel();
 
     super.dispose();
   }

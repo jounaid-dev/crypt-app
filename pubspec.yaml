@@ -23,7 +23,6 @@ dependencies:
   qr_flutter: ^4.1.0
   crypto: ^3.0.3
   share_plus: ^13.2.0
-  app_links: ^7.2.1
   uuid: ^4.3.3
   local_auth: ^3.0.2
   url_launcher: ^6.3.0

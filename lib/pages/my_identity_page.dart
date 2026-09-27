@@ -11,6 +11,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../services/account_service.dart';
+import '../services/crypt_qr_codec.dart';
 import '../services/qr_validation_code_service.dart';
 import '../pages/signup_page.dart';
 
@@ -56,14 +57,13 @@ class _MyIdentityPageState extends State<MyIdentityPage> {
 
   // ============================================================
   // GENERATE SECURE QR PROOF
+  //
+  // Delegated to the shared codec so the proof format can never drift
+  // away from the validator that checks it on the receiving side.
   // ============================================================
 
   String generateQrProof() {
-    final random = Random.secure();
-
-    final bytes = List<int>.generate(32, (_) => random.nextInt(256));
-
-    return base64UrlEncode(bytes).replaceAll("=", "");
+    return CryptQrCodec.generateQrProof();
   }
 
   // ============================================================
@@ -168,37 +168,21 @@ class _MyIdentityPageState extends State<MyIdentityPage> {
   }
 
   // ============================================================
-  // QR PAYLOAD
-  // ============================================================
-
-  String qrData() {
-    return jsonEncode({
-      "app": "CRYPT",
-      "version": 2,
-      "username": username,
-      "publicEncryptionKey": publicEncryptionKey,
-      "publicSigningKey": publicSigningKey,
-      "qrProof": qrProof,
-    });
-  }
-
-  // ============================================================
   // INVITE LINK
+  //
+  // Built with the same codec the scanner and the deep link handler
+  // parse with, so the three paths can never disagree on the format.
   // ============================================================
 
   String inviteLink() {
-    final payload = {
-      "app": "CRYPT",
-      "version": 2,
-      "username": username,
-      "publicEncryptionKey": publicEncryptionKey,
-      "publicSigningKey": publicSigningKey,
-      "qrProof": qrProof,
-    };
-
-    final jsonPayload = jsonEncode(payload);
-
-    return "crypt://contact?data=${Uri.encodeComponent(jsonPayload)}";
+    return CryptQrCodec.encode(
+      CryptQrPayload(
+        username: username,
+        publicEncryptionKey: publicEncryptionKey,
+        publicSigningKey: publicSigningKey,
+        qrProof: qrProof,
+      ),
+    );
   }
 
   // ============================================================
@@ -216,8 +200,22 @@ class _MyIdentityPageState extends State<MyIdentityPage> {
       data: inviteLink(),
       version: QrVersions.auto,
       gapless: true,
-      color: Colors.black,
-      emptyColor: Colors.white,
+      // The payload is ~240 bytes. Error correction level L keeps the symbol
+      // at the lowest possible density, which yields the largest modules for
+      // the available space. The higher levels force a denser symbol that is
+      // noticeably harder for another phone to read off a screen.
+      errorCorrectionLevel: QrErrorCorrectLevel.L,
+      // Colors belong to the styles now. `color`/`emptyColor` are deprecated,
+      // and the background is supplied by the surrounding white card / the
+      // white rect painted before the export.
+      eyeStyle: const QrEyeStyle(
+        eyeShape: QrEyeShape.square,
+        color: Colors.black,
+      ),
+      dataModuleStyle: const QrDataModuleStyle(
+        dataModuleShape: QrDataModuleShape.square,
+        color: Colors.black,
+      ),
     );
   }
 
@@ -225,30 +223,62 @@ class _MyIdentityPageState extends State<MyIdentityPage> {
   // SHARE QR CODE AS AN IMAGE
   // ============================================================
 
+  /// Renders the QR on an opaque white sheet with a spec quiet zone.
+  ///
+  /// `QrPainter.toImageData` fills the whole canvas with the symbol, so the
+  /// exported PNG had the code running edge to edge and a transparent
+  /// background. Decoders need the light margin around the symbol to find it,
+  /// so the sheet is painted white and the code is inset inside it.
+  Future<Uint8List> renderQrImageBytes() async {
+    const int edge = 1200;
+    const double quietZoneRatio = 0.08;
+
+    final ui.PictureRecorder recorder = ui.PictureRecorder();
+
+    final Canvas canvas = Canvas(recorder);
+
+    canvas.drawRect(
+      Rect.fromLTWH(0, 0, edge.toDouble(), edge.toDouble()),
+      Paint()..color = Colors.white,
+    );
+
+    final double codeEdge =
+        edge * (1 - (quietZoneRatio * 2));
+
+    final double offset = (edge - codeEdge) / 2;
+
+    canvas.save();
+
+    canvas.translate(offset, offset);
+
+    // Same painter configuration as the QR shown on the page.
+    createQrPainter().paint(
+      canvas,
+      Size(codeEdge, codeEdge),
+    );
+
+    canvas.restore();
+
+    final ui.Image image = await recorder
+        .endRecording()
+        .toImage(edge, edge);
+
+    final ByteData? byteData = await image.toByteData(
+      format: ui.ImageByteFormat.png,
+    );
+
+    if (byteData == null) {
+      throw Exception("Could not generate QR image");
+    }
+
+    return byteData.buffer.asUint8List();
+  }
+
   Future<void> shareQrCode() async {
     final l10n = AppLocalizations.of(context)!;
 
     try {
-      // ========================================================
-      // IMPORTANT:
-      //
-      // This is the SAME QR painter configuration used by the
-      // QR displayed on the page.
-      //
-      // ========================================================
-
-      final qrPainter = createQrPainter();
-
-      final ByteData? byteData = await qrPainter.toImageData(
-        1200,
-        format: ui.ImageByteFormat.png,
-      );
-
-      if (byteData == null) {
-        throw Exception("Could not generate QR image");
-      }
-
-      final Uint8List imageBytes = byteData.buffer.asUint8List();
+      final Uint8List imageBytes = await renderQrImageBytes();
 
       await Share.shareXFiles([
         XFile.fromData(imageBytes, name: "crypt_qr.png", mimeType: "image/png"),
@@ -343,7 +373,9 @@ class _MyIdentityPageState extends State<MyIdentityPage> {
                           borderRadius: BorderRadius.circular(24),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.all(20),
+                          // 28 also supplies the light quiet zone the QR
+                          // spec requires around the symbol.
+                          padding: const EdgeInsets.all(28),
                           child: Column(
                             children: [
                               // ==================================================
@@ -355,11 +387,32 @@ class _MyIdentityPageState extends State<MyIdentityPage> {
                               // EXACT SAME CONFIGURATION:
                               // createQrPainter()
                               //
+                              // The payload is ~240 bytes, so QrVersions.auto
+                              // picks a fairly dense symbol. Rendering it at a
+                              // fixed 200px left only ~3px per module, which
+                              // MLKit cannot reliably decode from another
+                              // phone's screen. Give it all the width
+                              // available, capped so it never looks oversized.
                               // ==================================================
-                              SizedBox(
-                                width: 200,
-                                height: 200,
-                                child: CustomPaint(painter: createQrPainter()),
+                              LayoutBuilder(
+                                builder: (context, constraints) {
+                                  // The scroll view hands down an unbounded
+                                  // height, so the shortest side is the width.
+                                  final double side = constraints
+                                      .biggest
+                                      .shortestSide
+                                      .clamp(0.0, 340.0);
+
+                                  return Center(
+                                    child: SizedBox(
+                                      width: side,
+                                      height: side,
+                                      child: CustomPaint(
+                                        painter: createQrPainter(),
+                                      ),
+                                    ),
+                                  );
+                                },
                               ),
 
                               const SizedBox(height: 16),

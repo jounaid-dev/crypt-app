@@ -25,6 +25,15 @@ class CloudIdentityService {
       throw Exception("Incomplete identity backup.");
     }
 
+    // The row is tied to the signed-in Supabase user. The RLS policy on
+    // public.users only accepts a row whose auth_user_id matches auth.uid(),
+    // so this must be set on insert and the session must already exist.
+    final String? authUserId = _supabase.auth.currentUser?.id;
+
+    if (authUserId == null) {
+      throw Exception("Not signed in.");
+    }
+
     await _supabase
         .from('users')
         .upsert(
@@ -36,6 +45,7 @@ class CloudIdentityService {
         'encrypted_identity': encryptedIdentity,
         'password_salt': passwordSalt,
         'password_hash': passwordHash,
+        'auth_user_id': authUserId,
       },
       onConflict: 'username',
     );
@@ -59,6 +69,12 @@ class CloudIdentityService {
     return result != null;
   }
 
+  /// Reads another account's public identity so this device can restore it.
+  ///
+  /// Reads the public_identity view rather than the users table, so
+  /// password_hash and password_salt can never be read by a client. The
+  /// password itself is verified by Supabase Auth in ServerAuthService, which
+  /// means nothing here needs password material at all.
   Future<Map<String, dynamic>?> getUser(
     String username,
   ) async {
@@ -69,12 +85,8 @@ class CloudIdentityService {
     }
 
     final response = await _supabase
-        .from('users')
-        .select(
-          'username, public_id, public_key, '
-          'public_signing_key, encrypted_identity, '
-          'password_salt, password_hash',
-        )
+        .from('user_public_identity')
+        .select()
         .eq('username', cleanUsername)
         .maybeSingle();
 

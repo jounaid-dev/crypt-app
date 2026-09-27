@@ -26,6 +26,11 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<!-- CRYPT QR SCANNING -->
+	<key>NSCameraUsageDescription</key>
+	<string>CRYPT uses the camera to scan other people's CRYPT QR codes so you can add them as a contact and start an encrypted chat.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>CRYPT needs access to your photos so you can pick a saved image of a CRYPT QR code to scan.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
