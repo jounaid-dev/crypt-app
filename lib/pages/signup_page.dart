@@ -190,7 +190,7 @@ class _SignupPageState extends State<SignupPage> {
       SessionService.instance.unlock(password);
 
       CryptApp.restartStartup(context);
-    } catch (_) {
+    } catch (e) {
       if (!mounted) return;
 
       setState(() {
@@ -199,7 +199,7 @@ class _SignupPageState extends State<SignupPage> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(l10n.failedToGenerateIdentity(l10n.connectionFailed)),
+          content: Text(l10n.failedToGenerateIdentity(e.toString())),
         ),
       );
     } finally {

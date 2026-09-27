@@ -98,11 +98,11 @@ class _LoginPageState extends State<LoginPage> {
           content: Text(e.message),
         ),
       );
-    } catch (_) {
+    } catch (e) {
       if (!mounted) return;
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(l10n.loginError(l10n.connectionFailed))),
+        SnackBar(content: Text(l10n.loginError(e.toString()))),
       );
     } finally {
       if (mounted) {

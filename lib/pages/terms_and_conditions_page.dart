@@ -211,16 +211,24 @@ CRYPT — Private communication, built with privacy first.
               ),
             ),
             const SizedBox(height: 24),
-            CheckboxListTile(
-              value: _agreed,
-              contentPadding: EdgeInsets.zero,
-              isThreeLine: true,
-              title: Text(l10n.agreeTerms),
-              onChanged: (value) {
-                setState(() {
-                  _agreed = value ?? false;
-                });
-              },
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Checkbox(
+                  value: _agreed,
+                  onChanged: (value) {
+                    setState(() {
+                      _agreed = value ?? false;
+                    });
+                  },
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 16),
+                    child: Text(l10n.agreeTerms),
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 16),
             FilledButton(
