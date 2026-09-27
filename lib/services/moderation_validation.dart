@@ -61,11 +61,17 @@ class ModerationValidation {
   }
 
   /// Returns null when the payment proof is acceptable, otherwise the reason.
+  ///
+  /// [reference] is optional. Premium is paid over Lightning, where a payment
+  /// has no card-style reference to copy, so the screenshot of the confirmation
+  /// is the proof. It is still accepted and length-checked when an
+  /// administrator has asked for it.
   static PaymentProofValidationError? validatePaymentProof({
     required String amountText,
     required String method,
-    required String reference,
+    String reference = '',
     String? note,
+    double minimumAmount = 5,
   }) {
     final trimmedMethod = method.trim();
     final trimmedReference = reference.trim();
@@ -86,6 +92,10 @@ class ModerationValidation {
       return PaymentProofValidationError.amountNotPositive;
     }
 
+    if (amount < minimumAmount) {
+      return PaymentProofValidationError.amountTooSmall;
+    }
+
     if (amount > maxAmount) {
       return PaymentProofValidationError.amountTooLarge;
     }
@@ -93,10 +103,6 @@ class ModerationValidation {
     if (trimmedMethod.isEmpty ||
         trimmedMethod.length > maxMethodLength) {
       return PaymentProofValidationError.missingMethod;
-    }
-
-    if (trimmedReference.isEmpty) {
-      return PaymentProofValidationError.missingReference;
     }
 
     if (trimmedReference.length > maxReferenceLength) {

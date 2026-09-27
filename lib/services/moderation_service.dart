@@ -79,11 +79,16 @@ class ModerationService {
   }
 
   /// Submits proof of a premium payment for manual review.
+  ///
+  /// [reference] is optional and normally empty. Premium is paid over
+  /// Lightning, where the payment has no card-style transaction id, so the
+  /// attached screenshot is the proof. The column stays populated with an empty
+  /// string because the table requires a value.
   Future<PaymentProof> submitPaymentProof({
     required String amountText,
     required String method,
-    required String reference,
     required Uint8List proofImage,
+    String reference = '',
     String? note,
   }) async {
     final error = ModerationValidation.validatePaymentProof(

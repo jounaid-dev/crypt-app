@@ -92,7 +92,7 @@ void main() {
   group('payment proof validation', () {
     PaymentProofValidationError? check({
       String amount = '9.99',
-      String method = 'UPI',
+      String method = 'Phoenix Lightning Wallet',
       String reference = 'TXN12345',
       String? note,
     }) {
@@ -131,18 +131,35 @@ void main() {
       );
     });
 
-    test('rejects a missing method or reference', () {
+    test('enforces the five dollar minimum', () {
+      expect(
+        check(amount: '4.99'),
+        PaymentProofValidationError.amountTooSmall,
+      );
+      expect(
+        check(amount: '5'),
+        isNull,
+      );
+      expect(
+        check(amount: '5.01'),
+        isNull,
+      );
+    });
+
+    test('rejects a missing method', () {
       expect(
         check(method: '  '),
         PaymentProofValidationError.missingMethod,
       );
-      expect(
-        check(reference: ''),
-        PaymentProofValidationError.missingReference,
-      );
     });
 
-    test('rejects over-long reference and note', () {
+    // Premium is paid over Lightning, which has no card-style transaction id
+    // to copy, so a proof with no reference is a normal submission.
+    test('accepts a proof with no reference', () {
+      expect(check(reference: ''), isNull);
+    });
+
+    test('rejects an over-long reference or note', () {
       expect(
         check(reference: 'x' * 121),
         PaymentProofValidationError.referenceTooLong,

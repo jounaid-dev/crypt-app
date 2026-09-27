@@ -3,27 +3,13 @@
 -- =============================================================================
 --
 -- Run it AFTER supabase/migrations/0001_moderation.sql
+-- and AFTER supabase/migrations/0002_admin_unlock_status.sql.
 --
 -- This does NOT need your username. The access code is all you set here.
 -- You type the code into the app afterwards, and the server promotes your
 -- account when it matches.
 --
--- 1. Replace  CHANGE-THIS-TEXT  below with a code of your choosing.
--- 2. Highlight the whole file and click Run.
--- 3. Sign up in the app.
--- 4. Settings -> Admin access -> type your code.
--- =============================================================================
-
--- -----------------------------------------------------------------------------
--- Store your access code
---
--- Only a bcrypt hash is kept. The code itself is never written to the
--- database, and it is never compiled into the app, so it cannot be read out
--- of the APK.
---
--- To change the code later, run just this statement again with a new code.
--- -----------------------------------------------------------------------------
-
+-- 1. Replace  CHANGE-THIS-TEXT  below with a code of your choos
 insert into public.admin_access (id, code_hash, failed_count, failed_at)
 values (
   true,
@@ -40,20 +26,47 @@ on conflict (id) do update
 -- -----------------------------------------------------------------------------
 -- Confirm it worked.
 --
--- admin_access has no is_admin column: that flag lives on public.users, which
--- only exists once you have signed up in the app. This table only holds the
--- code hash and the failed-attempt counter.
+-- Two rows come back.
 --
--- The '$2a$12$...' prefix proves the code was hashed rather than stored as
--- plain text. If you see your real code here, crypt() did not run.
+-- config_check must say  ok.  If it says  placeholder  or  no row  then the
+-- code is not usable: either the placeholder text above was not replaced, or
+-- this file was never run. The app will refuse with
+-- "No admin code is set on the server yet" in that case.
+--
+-- The '$2a$12$...' style hash prefix proves the code was hashed rather than
+-- stored as plain text. If you see your real code here, crypt() did not run.
+--
+-- locked_out should be false. If it is true, the counter below resets it.
 -- -----------------------------------------------------------------------------
 
 select
-  id,
-  left(code_hash, 7) || '...' as code_start,
-  failed_count,
-  updated_at
-from public.admin_access;
+  case
+    when a.id is null then 'no row'
+    when a.code_hash like '$2%'
+      and a.code_hash <> crypt('CHANGE-THIS-TEXT', a.code_hash)
+      then 'ok'
+    else 'placeholder'
+  end as config_check,
+  coalesce(a.failed_count, 0) as failed_count,
+  case
+    when coalesce(a.failed_count, 0) >= 5
+      and a.failed_at is not null
+      and now() < a.failed_at + interval '15 minutes'
+    then true
+    else false
+  end as locked_out,
+  left(a.code_hash, 7) || '...' as code_start
+from (select true as id) s
+left join public.admin_access a on a.id;
+
+-- -----------------------------------------------------------------------------
+-- Reset the failed-attempt counter
+--
+-- Only needed if you mistyped the code several times and got blocked. The
+-- block also lifts on its own after 15 minutes.
+-- -----------------------------------------------------------------------------
+
+-- update public.admin_access set failed_count = 0, failed_at = null;
 
 -- =============================================================================
 -- Optional: become admin without typing the code

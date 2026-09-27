@@ -148,27 +148,51 @@ class _ReportPageState extends State<ReportPage> {
 
               const SizedBox(height: 8),
 
+              // ======================================================
+              // REPORT TYPE
+              //
+              // Four segments share the width of the screen, so a long word
+              // like "SPAM" used to break mid-word into "SPA" / "M" and
+              // "ABUSE" into "ABU" / "SE". The labels are pinned to a single
+              // line and given a smaller size, and the segments are compacted
+              // so the text has room to sit on one line.
+              // ======================================================
               SegmentedButton<ReportCategory>(
+                style: ButtonStyle(
+                  visualDensity: VisualDensity.compact,
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  padding: WidgetStatePropertyAll<EdgeInsetsGeometry>(
+                    EdgeInsets.symmetric(horizontal: 6),
+                  ),
+                  textStyle: WidgetStatePropertyAll<TextStyle>(
+                    TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
                 segments: const [
                   ButtonSegment(
                     value: ReportCategory.bug,
-                    label: Text('Bug'),
-                    icon: Icon(Icons.bug_report_outlined),
+                    label: _SegmentLabel('Bug', Icons.bug_report_outlined),
                   ),
                   ButtonSegment(
                     value: ReportCategory.abuse,
-                    label: Text('Abuse'),
-                    icon: Icon(Icons.gavel_outlined),
+                    label: _SegmentLabel(
+                      'Abuse',
+                      Icons.gavel_outlined,
+                    ),
                   ),
                   ButtonSegment(
                     value: ReportCategory.spam,
-                    label: Text('Spam'),
-                    icon: Icon(Icons.campaign_outlined),
+                    label: _SegmentLabel(
+                      'Spam',
+                      Icons.campaign_outlined,
+                    ),
                   ),
                   ButtonSegment(
                     value: ReportCategory.other,
-                    label: Text('Other'),
-                    icon: Icon(Icons.more_horiz),
+                    label: _SegmentLabel('Other', Icons.more_horiz),
                   ),
                 ],
                 selected: <ReportCategory>{_category},
@@ -328,6 +352,41 @@ class _ReportPageState extends State<ReportPage> {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+/// One option inside the report type selector.
+///
+/// A word that cannot fit the available width is broken mid-word by Flutter,
+/// so the label opts out of wrapping and shrinks slightly before it will ever
+/// be cut off. The shrink is the last resort: at the normal width the text
+/// renders at full size.
+class _SegmentLabel extends StatelessWidget {
+  final String text;
+
+  final IconData icon;
+
+  const _SegmentLabel(this.text, this.icon);
+
+  @override
+  Widget build(BuildContext context) {
+    return FittedBox(
+      fit: BoxFit.scaleDown,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 16),
+
+          const SizedBox(width: 4),
+
+          Text(
+            text,
+            maxLines: 1,
+            softWrap: false,
+          ),
+        ],
       ),
     );
   }

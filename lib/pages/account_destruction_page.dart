@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:crypt_messenger/l10n/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../services/message_service.dart';
 import 'login_page.dart';
 
 class AccountDestructionPage extends StatefulWidget {
@@ -61,6 +62,11 @@ class _AccountDestructionPageState extends State<AccountDestructionPage> {
     ) ?? false;
 
     if (!confirm) return;
+
+    // The decoded message cache is process wide, so it has to be dropped with
+    // the stored data it was decoded from.
+    MessageService().clearCache();
+
     final prefs = await SharedPreferences.getInstance();
     await prefs.clear();
     if (!mounted) return;
@@ -94,6 +100,10 @@ class _AccountDestructionPageState extends State<AccountDestructionPage> {
 
     // Nuke all SharedPreferences cache containers entirely on this smartphone
     await prefs.clear();
+
+    // The decoded message cache is process wide, so it has to be dropped with
+    // the stored data it was decoded from.
+    MessageService().clearCache();
 
     if (!mounted) return;
     Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => const LoginPage()), (route) => false);

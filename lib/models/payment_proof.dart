@@ -76,6 +76,7 @@ class PaymentProof {
 enum PaymentProofValidationError {
   empty,
   amountNotPositive,
+  amountTooSmall,
   amountTooLarge,
   amountNotFinite,
   missingMethod,
@@ -91,6 +92,8 @@ extension PaymentProofValidationErrorMessage on PaymentProofValidationError {
         return 'Nothing to submit.';
       case PaymentProofValidationError.amountNotPositive:
         return 'Enter the amount you paid.';
+      case PaymentProofValidationError.amountTooSmall:
+        return 'The minimum payment is \$5 USD.';
       case PaymentProofValidationError.amountTooLarge:
         return 'That amount is too large.';
       case PaymentProofValidationError.amountNotFinite:

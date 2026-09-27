@@ -609,7 +609,11 @@ class _PaymentsTabState extends State<_PaymentsTab> {
                                         '  via ${proof.method}',
                                       ),
 
-                                      Text('ref: ${proof.reference}'),
+                                      // Premium is paid over Lightning, which
+                                      // has no transaction id to copy, so the
+                                      // field is normally empty.
+                                      if (proof.reference.isNotEmpty)
+                                        Text('ref: ${proof.reference}'),
 
                                       if (proof.note != null &&
                                           proof.note!.isNotEmpty)

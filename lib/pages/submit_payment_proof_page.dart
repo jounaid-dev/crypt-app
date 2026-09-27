@@ -1,16 +1,20 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-import '../models/payment_proof.dart';
 import '../services/moderation_service.dart';
 import '../services/moderation_validation.dart';
+import '../services/premium_offer.dart';
+import '../widgets/premium_widgets.dart';
 
-/// Submits proof of a premium payment for an administrator to review.
+/// Where a user sends proof of their premium payment.
 ///
-/// Premium is granted by the database when the proof is approved, so this
-/// screen never sets a local flag.
+/// There is one method and one address, so the screen is instructions plus a
+/// screenshot: pay in Phoenix, attach the confirmation, done. Nothing here
+/// asks for a card reference, because a Lightning payment does not have one.
 class SubmitPaymentProofPage extends StatefulWidget {
   const SubmitPaymentProofPage({super.key});
 
@@ -20,22 +24,10 @@ class SubmitPaymentProofPage extends StatefulWidget {
 }
 
 class _SubmitPaymentProofPageState extends State<SubmitPaymentProofPage> {
-  static const List<String> _methods = <String>[
-    'Bank transfer',
-    'UPI',
-    'PayPal',
-    'Crypto',
-    'Cash',
-    'Other',
-  ];
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final TextEditingController _amountController = TextEditingController();
-  final TextEditingController _referenceController = TextEditingController();
   final TextEditingController _noteController = TextEditingController();
-
-  String _method = _methods.first;
 
   Uint8List? _proofImage;
 
@@ -44,7 +36,6 @@ class _SubmitPaymentProofPageState extends State<SubmitPaymentProofPage> {
   @override
   void dispose() {
     _amountController.dispose();
-    _referenceController.dispose();
     _noteController.dispose();
     super.dispose();
   }
@@ -69,6 +60,38 @@ class _SubmitPaymentProofPageState extends State<SubmitPaymentProofPage> {
     });
   }
 
+  Future<void> _openWallet() async {
+    final Uri walletUri = PremiumOffer.walletUri;
+
+    if (await canLaunchUrl(walletUri)) {
+      await launchUrl(walletUri, mode: LaunchMode.externalApplication);
+
+      return;
+    }
+
+    if (!mounted) return;
+
+    _showError(
+      'Could not open Phoenix. Copy the Lightning address and paste it into '
+      'your Lightning wallet instead.',
+    );
+  }
+
+  Future<void> _copyAddress() async {
+    await Clipboard.setData(
+      const ClipboardData(text: PremiumOffer.lightningAddress),
+    );
+
+    if (!mounted) return;
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        behavior: SnackBarBehavior.floating,
+        content: Text('Lightning address copied.'),
+      ),
+    );
+  }
+
   Future<void> _submit() async {
     if (_submitting) return;
 
@@ -77,7 +100,8 @@ class _SubmitPaymentProofPageState extends State<SubmitPaymentProofPage> {
     final Uint8List? proof = _proofImage;
 
     if (proof == null) {
-      _showError('Attach a photo of your payment receipt.');
+      _showError('Attach a screenshot of your payment confirmation.');
+
       return;
     }
 
@@ -88,8 +112,7 @@ class _SubmitPaymentProofPageState extends State<SubmitPaymentProofPage> {
     try {
       await ModerationService.instance.submitPaymentProof(
         amountText: _amountController.text,
-        method: _method,
-        reference: _referenceController.text,
+        method: PremiumOffer.paymentMethod,
         note: _noteController.text,
         proofImage: proof,
       );
@@ -97,11 +120,11 @@ class _SubmitPaymentProofPageState extends State<SubmitPaymentProofPage> {
       if (!mounted) return;
 
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
           behavior: SnackBarBehavior.floating,
           content: Text(
-            'Payment proof submitted. Premium is enabled once an '
-            'administrator approves it.',
+            'Proof received. Premium is switched on within '
+            '${PremiumOffer.activationWindow}.',
           ),
         ),
       );
@@ -113,7 +136,7 @@ class _SubmitPaymentProofPageState extends State<SubmitPaymentProofPage> {
       _showError(
         e is ModerationException
             ? e.message
-            : 'Could not submit the payment proof.',
+            : 'Could not send the payment proof.',
       );
     } finally {
       if (mounted) {
@@ -138,7 +161,9 @@ class _SubmitPaymentProofPageState extends State<SubmitPaymentProofPage> {
     final ThemeData theme = Theme.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Submit payment proof')),
+      appBar: AppBar(
+        title: const Text('Get Lifetime Premium'),
+      ),
 
       body: SafeArea(
         child: Form(
@@ -146,97 +171,135 @@ class _SubmitPaymentProofPageState extends State<SubmitPaymentProofPage> {
           child: ListView(
             padding: const EdgeInsets.fromLTRB(20, 20, 20, 32),
             children: [
+              // ==================================================
+              // THE OFFER
+              // ==================================================
+
               Text(
-                'Pay, then send the receipt here. An administrator checks it '
-                'and turns premium on for your account. Your local settings '
-                'cannot grant it.',
+                '${PremiumOffer.minimumAmountLabel} once, '
+                '${PremiumOffer.lifetimeLabel}.',
+                style: theme.textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
+              const SizedBox(height: 6),
+
+              Text(
+                'No subscription and nothing to renew. Pay with '
+                '${PremiumOffer.paymentMethod}, send a screenshot of the '
+                'confirmation, and premium is switched on within '
+                '${PremiumOffer.activationWindow}.',
                 style: theme.textTheme.bodyMedium,
+              ),
+
+              const SizedBox(height: 8),
+
+              Text(
+                'CRYPT is built by a solo developer. Premium is what keeps it '
+                'ad-free and actively maintained.',
+                style: theme.textTheme.bodySmall?.copyWith(
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              const PremiumComparisonTable(),
+
+              const SizedBox(height: 24),
+
+              // ==================================================
+              // STEP 1: PAY
+              // ==================================================
+
+              const _StepHeading(
+                number: 1,
+                title: 'Pay with Phoenix',
+              ),
+
+              const SizedBox(height: 10),
+
+              Text(
+                'Lightning address',
+                style: theme.textTheme.labelMedium,
+              ),
+
+              const SizedBox(height: 6),
+
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.amber.withValues(alpha: 0.08),
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    color: Colors.amber.withValues(alpha: 0.3),
+                  ),
+                ),
+                child: SelectableText(
+                  PremiumOffer.lightningAddress,
+                  style: const TextStyle(
+                    fontSize: 11,
+                    height: 1.4,
+                    fontFamily: 'monospace',
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 12),
+
+              Row(
+                children: [
+                  Expanded(
+                    child: FilledButton.icon(
+                      onPressed: _openWallet,
+                      style: FilledButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(
+                          255,
+                          7,
+                          255,
+                          90,
+                        ),
+                        foregroundColor: Colors.black,
+                      ),
+                      icon: const Icon(Icons.bolt),
+                      label: const Text('Open Phoenix'),
+                    ),
+                  ),
+
+                  const SizedBox(width: 10),
+
+                  Expanded(
+                    child: OutlinedButton.icon(
+                      onPressed: _copyAddress,
+                      icon: const Icon(Icons.copy, size: 18),
+                      label: const Text('Copy address'),
+                    ),
+                  ),
+                ],
               ),
 
               const SizedBox(height: 24),
 
-              TextFormField(
-                controller: _amountController,
-                keyboardType: const TextInputType.numberWithOptions(
-                  decimal: true,
-                ),
-                decoration: const InputDecoration(
-                  labelText: 'Amount you paid',
-                ),
-                validator: (value) {
-                  final error =
-                      ModerationValidation.validatePaymentProof(
-                    amountText: value ?? '',
-                    method: _method,
-                    reference: _referenceController.text,
-                    note: _noteController.text,
-                  );
+              // ==================================================
+              // STEP 2: SEND THE SCREENSHOT
+              // ==================================================
 
-                  return error?.message;
-                },
+              const _StepHeading(
+                number: 2,
+                title: 'Send your screenshot',
               ),
 
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
 
-              DropdownButtonFormField<String>(
-                initialValue: _method,
-                decoration: const InputDecoration(labelText: 'How you paid'),
-                items: _methods
-                    .map(
-                      (m) => DropdownMenuItem<String>(
-                        value: m,
-                        child: Text(m),
-                      ),
-                    )
-                    .toList(),
-                onChanged: (value) {
-                  if (value == null) return;
-
-                  setState(() {
-                    _method = value;
-                  });
-                },
-              ),
-
-              const SizedBox(height: 20),
-
-              TextFormField(
-                controller: _referenceController,
-                maxLength: ModerationValidation.maxReferenceLength,
-                decoration: const InputDecoration(
-                  labelText: 'Transaction reference',
-                  hintText: 'The id on your receipt',
-                ),
-                validator: (value) {
-                  final error =
-                      ModerationValidation.validatePaymentProof(
-                    amountText: _amountController.text,
-                    method: _method,
-                    reference: value ?? '',
-                    note: _noteController.text,
-                  );
-
-                  return error?.message;
-                },
-              ),
-
-              const SizedBox(height: 8),
-
-              TextFormField(
-                controller: _noteController,
-                minLines: 2,
-                maxLines: 4,
-                maxLength: ModerationValidation.maxNoteLength,
-                decoration: const InputDecoration(
-                  labelText: 'Note (optional)',
-                ),
+              Text(
+                'Take a screenshot of the payment confirmation in Phoenix and '
+                'attach it below.',
+                style: theme.textTheme.bodyMedium,
               ),
 
               const SizedBox(height: 16),
-
-              Text('Payment receipt', style: theme.textTheme.titleSmall),
-
-              const SizedBox(height: 8),
 
               if (_proofImage != null)
                 ClipRRect(
@@ -260,12 +323,63 @@ class _SubmitPaymentProofPageState extends State<SubmitPaymentProofPage> {
                 ),
                 label: Text(
                   _proofImage == null
-                      ? 'Attach receipt'
-                      : 'Replace receipt',
+                      ? 'Attach screenshot'
+                      : 'Replace screenshot',
                 ),
               ),
 
-              const SizedBox(height: 28),
+              const SizedBox(height: 24),
+
+              // ==================================================
+              // STEP 3: AMOUNT AND NOTE
+              //
+              // The amount is what was actually sent, so an administrator can
+              // match it against the payment. There is no reference field:
+              // a Lightning payment has no transaction id to copy.
+              // ==================================================
+
+              const _StepHeading(
+                number: 3,
+                title: 'Confirm the amount',
+              ),
+
+              const SizedBox(height: 10),
+
+              TextFormField(
+                controller: _amountController,
+                keyboardType: const TextInputType.numberWithOptions(
+                  decimal: true,
+                ),
+                decoration: InputDecoration(
+                  labelText: 'Amount you paid (USD)',
+                  helperText:
+                      'Minimum ${PremiumOffer.minimumAmountLabel}.',
+                ),
+                validator: (value) {
+                  final error =
+                      ModerationValidation.validatePaymentProof(
+                        amountText: value ?? '',
+                        method: PremiumOffer.paymentMethod,
+                        note: _noteController.text,
+                      );
+
+                  return error?.message;
+                },
+              ),
+
+              const SizedBox(height: 20),
+
+              TextFormField(
+                controller: _noteController,
+                minLines: 2,
+                maxLines: 4,
+                maxLength: ModerationValidation.maxNoteLength,
+                decoration: const InputDecoration(
+                  labelText: 'Note (optional)',
+                ),
+              ),
+
+              const SizedBox(height: 12),
 
               FilledButton(
                 onPressed: _submitting ? null : _submit,
@@ -278,12 +392,55 @@ class _SubmitPaymentProofPageState extends State<SubmitPaymentProofPage> {
                         width: 20,
                         child: CircularProgressIndicator(strokeWidth: 2),
                       )
-                    : const Text('Submit for review'),
+                    : const Text('Send my proof'),
+              ),
+
+              const SizedBox(height: 16),
+
+              Text(
+                'Activation takes ${PremiumOffer.activationWindow}.',
+                style: theme.textTheme.bodySmall,
+                textAlign: TextAlign.center,
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+/// The numbered heading that opens each step on the payment screen.
+class _StepHeading extends StatelessWidget {
+  final int number;
+
+  final String title;
+
+  const _StepHeading({required this.number, required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+
+    return Row(
+      children: [
+        CircleAvatar(
+          radius: 11,
+          backgroundColor: theme.colorScheme.primary,
+          child: Text(
+            '$number',
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+              color: theme.colorScheme.onPrimary,
+            ),
+          ),
+        ),
+
+        const SizedBox(width: 8),
+
+        Text(title, style: theme.textTheme.titleSmall),
+      ],
     );
   }
 }

@@ -271,6 +271,14 @@ class _ChatPageState extends State<ChatPage> {
     try {
       final sharedKey = await _getOrDeriveSharedKey();
 
+      // Rebuilding the list once per message is what made scrolling a long
+      // conversation stutter: every decrypted bubble forced a full rebuild of
+      // every other bubble. Decrypt in small batches instead, so the work is
+      // the same but the rebuilds are a fraction of the count.
+      const int batchSize = 8;
+
+      int decryptedInBatch = 0;
+
       for (final message in messages) {
         if (_disposed || !mounted) {
           return;
@@ -292,7 +300,7 @@ class _ChatPageState extends State<ChatPage> {
           if (text != null && !_disposed && mounted) {
             _decryptedTexts[message.id] = text;
 
-            setState(() {});
+            decryptedInBatch++;
           }
         } catch (e) {
           debugPrint(
@@ -303,7 +311,21 @@ class _ChatPageState extends State<ChatPage> {
           _decryptingMessageIds.remove(message.id);
         }
 
-        await Future<void>.delayed(Duration.zero);
+        if (decryptedInBatch >= batchSize) {
+          decryptedInBatch = 0;
+
+          if (!_disposed && mounted) {
+            setState(() {});
+          }
+
+          // Yield the frame so scrolling and incoming packets stay responsive
+          // while the rest of the history is decrypted.
+          await Future<void>.delayed(Duration.zero);
+        }
+      }
+
+      if (!_disposed && mounted) {
+        setState(() {});
       }
 
       debugPrint("[Messages] Background decryption finished.");

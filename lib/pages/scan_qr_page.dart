@@ -110,16 +110,24 @@ class _ScanQrPageState extends State<ScanQrPage> {
 
       // ========================================================
       // LOAD MY IDENTITY
+      //
+      // These are three independent local reads. They used to be awaited one
+      // after another, so every scan paid for three round trips before it
+      // could do anything. They do not depend on each other, so they run
+      // together.
       // ========================================================
 
-      final String? myUsername =
-          await _accountService.getUsername();
+      final List<String?> identity = await Future.wait(<Future<String?>>[
+        _accountService.getUsername(),
+        _accountService.getPublicEncryptionKey(),
+        _accountService.getPublicSigningKey(),
+      ]);
 
-      final String? myEncryptionKey =
-          await _accountService.getPublicEncryptionKey();
+      final String? myUsername = identity[0];
 
-      final String? mySigningKey =
-          await _accountService.getPublicSigningKey();
+      final String? myEncryptionKey = identity[1];
+
+      final String? mySigningKey = identity[2];
 
       if (myUsername == null || myUsername.trim().isEmpty) {
         throw Exception("Local username is missing.");
@@ -186,23 +194,22 @@ class _ScanQrPageState extends State<ScanQrPage> {
 
         // ======================================================
         // SEND REQUEST
+        //
+        // Handed straight to the signaling service, which holds it until the
+        // socket is ready rather than dropping it. Nothing here waits for the
+        // far end, so the screen goes back immediately: it used to sit on a
+        // fixed delay before popping, which was dead time on every scan.
         // ======================================================
 
-        if (_signalingService.isConnected) {
-          _signalingService.sendConversationRequest(
-            target: peerUsername,
-            payload: {
-              "conversationId": conversationId,
-              "qrProof": qrProof,
-              "username": myUsername,
-              "publicEncryptionKey": myEncryptionKey,
-              "publicSigningKey": mySigningKey,
-            },
-          );
-        }
-
-        await Future.delayed(
-          const Duration(milliseconds: 800),
+        _signalingService.sendConversationRequest(
+          target: peerUsername,
+          payload: {
+            "conversationId": conversationId,
+            "qrProof": qrProof,
+            "username": myUsername,
+            "publicEncryptionKey": myEncryptionKey,
+            "publicSigningKey": mySigningKey,
+          },
         );
 
         if (!mounted) return;
@@ -240,28 +247,28 @@ class _ScanQrPageState extends State<ScanQrPage> {
 
       // ========================================================
       // SEND CONVERSATION REQUEST
+      //
+      // Queued by the signaling service if the socket is still opening, so a
+      // scan made the instant the screen appears is not lost.
       // ========================================================
 
-      if (_signalingService.isConnected) {
-        _signalingService.sendConversationRequest(
-          target: peerUsername,
-          payload: {
-            "conversationId": conversationId,
-            "qrProof": qrProof,
-            "username": myUsername,
-            "publicEncryptionKey": myEncryptionKey,
-            "publicSigningKey": mySigningKey,
-          },
-        );
-      }
+      _signalingService.sendConversationRequest(
+        target: peerUsername,
+        payload: {
+          "conversationId": conversationId,
+          "qrProof": qrProof,
+          "username": myUsername,
+          "publicEncryptionKey": myEncryptionKey,
+          "publicSigningKey": mySigningKey,
+        },
+      );
 
       // ========================================================
       // SUCCESS
+      //
+      // No fixed delay. The local conversation is saved and the request is
+      // queued, so there is nothing left to wait for.
       // ========================================================
-
-      await Future.delayed(
-        const Duration(milliseconds: 1500),
-      );
 
       if (!mounted) return;
 

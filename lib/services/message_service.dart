@@ -7,12 +7,43 @@ import 'hive_storage_service.dart';
 class MessageService {
   static const String _messagePrefix = "messages_";
 
-  // Prevent simultaneous read-modify-write operations
-  // from overwriting each other.
-  Future<void> _writeQueue = Future.value();
-
   String _key(String conversationId) {
     return "$_messagePrefix$conversationId";
+  }
+
+  // ============================================================
+  // DECODED MESSAGE CACHE
+  //
+  // A conversation is stored as one JSON array, so reading it means decoding
+  // every message in it. That decode was repeated on every single operation:
+  // sending one message read and rewrote the whole history, and opening a chat
+  // decoded the entire archive only to draw the newest 20. On a long
+  // conversation this is the difference between an instant open and a spinner.
+  //
+  // The cache holds the decoded list, keyed by conversation id. Every write
+  // already runs inside _enqueueWrite, so writes are serialised and the cache
+  // can never be stale relative to a write in flight. Public readers hand out
+  // copies so a caller cannot mutate the cached list by accident.
+  //
+  // Both the cache and the write queue are static because the app does not use
+  // a single shared MessageService: ChatPage and GossipService each construct
+  // their own. A per-instance cache would let the two disagree about the same
+  // conversation, and a per-instance write queue would let one instance
+  // overwrite the other's changes.
+  // ============================================================
+
+  static final Map<String, List<Message>> _decodedCache =
+      <String, List<Message>>{};
+
+  static Future<void> _writeQueue = Future.value();
+
+  /// Drops the decoded cache.
+  ///
+  /// Called when the underlying store is wiped from outside this service, such
+  /// as a device wipe or a sign out, so nothing already decoded can outlive the
+  /// data it came from.
+  void clearCache() {
+    _decodedCache.clear();
   }
 
   // ============================================================
@@ -59,6 +90,14 @@ class MessageService {
   Future<List<Message>> _readMessages(
     String conversationId,
   ) async {
+    // Already decoded: hand back the live list so a read-modify-write does not
+    // pay for a second decode of the same data.
+    final cached = _decodedCache[conversationId];
+
+    if (cached != null) {
+      return cached;
+    }
+
     final data = HiveStorageService.getString(
       _key(conversationId),
     );
@@ -70,7 +109,30 @@ class MessageService {
       (a, b) => a.timestamp.compareTo(b.timestamp),
     );
 
+    _decodedCache[conversationId] = messages;
+
     return messages;
+  }
+
+  /// A snapshot of a conversation's messages, safe for a caller to sort,
+  /// reverse or otherwise rearrange.
+  Future<List<Message>> _readMessagesCopy(
+    String conversationId,
+  ) async {
+    final messages = await _readMessages(conversationId);
+
+    return List<Message>.of(messages);
+  }
+
+  /// Deletes a conversation's stored messages and forgets the decoded copy.
+  Future<void> _removeStoredMessages(
+    String conversationId,
+  ) async {
+    _decodedCache.remove(conversationId);
+
+    await HiveStorageService.remove(
+      _key(conversationId),
+    );
   }
 
   // ============================================================
@@ -80,7 +142,7 @@ class MessageService {
   Future<List<Message>> getMessages(
     String conversationId,
   ) async {
-    return _readMessages(conversationId);
+    return _readMessagesCopy(conversationId);
   }
 
   // ============================================================
@@ -100,7 +162,7 @@ class MessageService {
   Future<List<Message>> getPendingOutgoingMessages(
     String conversationId,
   ) async {
-    final messages = await _readMessages(
+    final messages = await _readMessagesCopy(
       conversationId,
     );
 
@@ -129,6 +191,8 @@ class MessageService {
   // = next 20 older messages
   // ============================================================
 
+  /// The conversation is already held oldest -> newest, so paging is a plain
+  /// slice from the end rather than a full reversal of a decoded copy.
   Future<List<Message>> getMessagesPage(
     String conversationId, {
     int limit = 20,
@@ -153,9 +217,7 @@ class MessageService {
     // into:
     //
     // newest -> oldest
-    final newestFirst = List<Message>.from(
-      messages.reversed,
-    );
+    final newestFirst = messages.reversed.toList();
 
     if (offset >= newestFirst.length) {
       return [];
@@ -223,6 +285,10 @@ class MessageService {
       _key(conversationId),
       encoded,
     );
+
+    // The written list is the current state, so the decoded copy is refreshed
+    // here rather than thrown away and decoded again on the next read.
+    _decodedCache[conversationId] = messages;
   }
 
   // ============================================================
@@ -392,8 +458,8 @@ class MessageService {
       );
 
       if (messages.isEmpty) {
-        await HiveStorageService.remove(
-          _key(message.conversationId),
+        await _removeStoredMessages(
+          message.conversationId,
         );
         return;
       }
@@ -425,8 +491,8 @@ class MessageService {
     String conversationId,
   ) async {
     await _enqueueWrite(() async {
-      await HiveStorageService.remove(
-        _key(conversationId),
+      await _removeStoredMessages(
+        conversationId,
       );
     });
   }
@@ -447,7 +513,7 @@ class MessageService {
     String conversationId,
     String query,
   ) async {
-    final messages = await _readMessages(
+    final messages = await _readMessagesCopy(
       conversationId,
     );
 
@@ -522,8 +588,8 @@ class MessageService {
         }
 
         if (filtered.isEmpty) {
-          await HiveStorageService.remove(
-            _key(conversationId),
+          await _removeStoredMessages(
+            conversationId,
           );
         } else {
           await _saveMessagesUnsafe(

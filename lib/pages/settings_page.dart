@@ -20,6 +20,9 @@ import '../services/chat_lock_service.dart';
 import '../services/conversation_service.dart';
 import '../models/conversation.dart';
 import '../services/premium_status_service.dart';
+import '../services/premium_offer.dart';
+import '../services/message_service.dart';
+import '../widgets/premium_widgets.dart';
 import '../services/session_service.dart';
 import 'admin_access_page.dart';
 import 'admin_panel_page.dart';
@@ -570,8 +573,6 @@ class _SettingsPageState extends State<SettingsPage>
   Future<void> _promptMasterPassword() async {
     if (_isTimedOut) return;
 
-    final loc = AppLocalizations.of(context)!;
-
     final bool registered = await _identityService.hasStoredIdentity();
 
     if (!registered) {
@@ -588,44 +589,11 @@ class _SettingsPageState extends State<SettingsPage>
 
     if (!mounted) return;
 
-    final controller = TextEditingController();
-
     final String? inputPassword = await showDialog<String>(
       context: context,
       barrierDismissible: false,
-      builder: (dialogContext) {
-        return PopScope(
-          canPop: false,
-          child: AlertDialog(
-            title: Text(loc.masterAuthenticationRequired),
-            content: TextField(
-              controller: controller,
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: loc.accountPasswordLabel,
-                border: const OutlineInputBorder(),
-              ),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(dialogContext, null);
-                },
-                child: Text(loc.cancel),
-              ),
-              FilledButton(
-                onPressed: () {
-                  Navigator.pop(dialogContext, controller.text);
-                },
-                child: Text(loc.verify),
-              ),
-            ],
-          ),
-        );
-      },
+      builder: (dialogContext) => const _MasterPasswordDialog(),
     );
-
-    controller.dispose();
 
     if (inputPassword == null) {
       return;
@@ -761,6 +729,10 @@ class _SettingsPageState extends State<SettingsPage>
         false;
 
     if (!confirm) return;
+
+    // The decoded message cache is process wide, so it has to be dropped with
+    // the stored data it was decoded from.
+    MessageService().clearCache();
 
     final prefs = await SharedPreferences.getInstance();
 
@@ -923,8 +895,6 @@ class _SettingsPageState extends State<SettingsPage>
   }
 
   Future<void> _toggleChatCheckbox(String chatId, bool isChecked) async {
-    final prefs = await SharedPreferences.getInstance();
-
     final loc = AppLocalizations.of(context)!;
 
     if (isChecked) {
@@ -943,446 +913,199 @@ class _SettingsPageState extends State<SettingsPage>
       if (overFreeLimit && !_isPremiumUser) {
         if (!mounted) return;
 
-        double selectedAmount = 15000;
-
-        final inputController = TextEditingController();
-
         await showDialog(
           context: context,
           builder: (dialogContext) {
-            return StatefulBuilder(
-              builder: (dialogContext, setDialogState) {
-                return AlertDialog(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              title: Row(
+                children: [
+                  const Icon(
+                    Icons.coffee,
+                    color: Colors.amber,
+                    size: 24,
                   ),
-                  title: Row(
-                    children: [
-                      const Icon(Icons.coffee, color: Colors.amber, size: 24),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: Text(
-                          loc.supportSoloDeveloper,
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      loc.supportSoloDeveloper,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              content: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      loc.supportIntro,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        height: 1.3,
+                      ),
+                    ),
+
+                    const SizedBox(height: 16),
+
+                    // ======================================================
+                    // WHAT PREMIUM ADDS
+                    //
+                    // Stated plainly rather than as a refusal. This used to
+                    // be a red warning panel reading "You already have a
+                    // locked chat", which came across as an error rather
+                    // than an offer.
+                    // ======================================================
+                    const Text(
+                      'Your free account already locks one chat. '
+                      'Premium locks every chat you have, and lets each one '
+                      'open with your fingerprint or face instead of a PIN.',
+                      style: TextStyle(
+                        fontSize: 12,
+                        height: 1.35,
+                      ),
+                    ),
+
+                    const SizedBox(height: 16),
+
+                    const PremiumComparisonTable(),
+
+                    const SizedBox(height: 16),
+
+                    const PremiumPaymentInstructions(),
+
+                    const SizedBox(height: 16),
+
+                    SizedBox(
+                      width: double.infinity,
+                      child: FilledButton.icon(
+                        style: FilledButton.styleFrom(
+                          backgroundColor: const Color.fromARGB(
+                            255,
+                            7,
+                            255,
+                            90,
+                          ),
+                          foregroundColor: Colors.black,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        icon: const Icon(Icons.bolt),
+                        label: Text(
+                          'Pay ${PremiumOffer.minimumAmountLabel} '
+                          'with Phoenix',
+                          textAlign: TextAlign.center,
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 16,
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  content: SingleChildScrollView(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          loc.supportIntro,
-                          style: TextStyle(fontSize: 12, height: 1.3),
-                        ),
-                        const SizedBox(height: 12),
-                        // ======================================================
-                        // WHY THE PREMIUM QUESTION IS BEING SHOWN
-                        //
-                        // Spelled out in words as well as the table below,
-                        // because the two rules that caused this dialog are
-                        // the ones people are most surprised by: only one chat
-                        // is lockable for free, and fingerprint unlock is not
-                        // part of the free tier at all.
-                        // ======================================================
-                        Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: Colors.red.withValues(alpha: 0.07),
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(
-                              color: Colors.red.withValues(alpha: 0.25),
-                            ),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "You already have a locked chat.",
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.red,
-                                ),
-                              ),
-                              const SizedBox(height: 6),
-                              Text(
-                                "Free: lock 1 chat with your own 4-digit PIN.\n"
-                                "Premium: lock as many chats as you like, and "
-                                "unlock them with your fingerprint or face "
-                                "instead of typing a PIN.\n\n"
-                                "Every chat gets its own PIN, chosen by you. "
-                                "There is no single code for the whole app.",
-                                style: const TextStyle(
-                                  fontSize: 11,
-                                  height: 1.35,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: 12),
-                        Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: Colors.amber.withValues(alpha: 0.06),
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(
-                              color: Colors.amber.withValues(alpha: 0.15),
-                            ),
-                          ),
-                          child: Column(
-                            children: [
-                              Text(
-                                loc.chooseSupportAmount,
-                                style: TextStyle(
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.amber,
-                                ),
-                              ),
-                              Text(
-                                loc.poorGang,
-                                style: TextStyle(
-                                  fontSize: 9,
-                                  fontStyle: FontStyle.italic,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                              const SizedBox(height: 2),
-                              Text(
-                                "${selectedAmount.toStringAsFixed(0)} sats (${selectedAmount == 7500
-                                    ? loc.launchOfferMinimum
-                                    : selectedAmount <= 10000
-                                    ? loc.buyMeCoffee
-                                    : loc.superSupporter})",
-                                style: const TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Slider(
-                                value: selectedAmount,
-                                min: 7500,
-                                max: 25000,
-                                divisions: 7,
-                                activeColor: Colors.amber,
-                                inactiveColor: Colors.grey.withValues(
-                                  alpha: 0.2,
-                                ),
-                                onChanged: (double val) {
-                                  setDialogState(() {
-                                    selectedAmount = val;
-                                  });
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: 12),
-                        Table(
-                          border: TableBorder.symmetric(
-                            inside: BorderSide(
-                              color: Colors.grey.withValues(alpha: 0.15),
-                              width: 0.5,
-                            ),
-                          ),
-                          columnWidths: const {
-                            0: FlexColumnWidth(1.2),
-                            1: FlexColumnWidth(1.0),
-                            2: FlexColumnWidth(1.0),
-                          },
-                          children: [
-                            TableRow(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 3),
-                                  child: Text(
-                                    loc.feature,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 10,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 3),
-                                  child: Text(
-                                    loc.freeTier,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 10,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 4),
-                                  child: Text(
-                                    loc.premium,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 10,
-                                      color: Colors.amber,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            TableRow(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 3),
-                                  child: Text(
-                                    loc.chatLocks,
-                                    style: TextStyle(fontSize: 10),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 3),
-                                  child: Text(
-                                    loc.maxOneRoom,
-                                    style: TextStyle(
-                                      fontSize: 10,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 3),
-                                  child: Text(
-                                    loc.unlimited,
-                                    style: TextStyle(
-                                      fontSize: 10,
-                                      color: Colors.amber,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            TableRow(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 3),
-                                  child: Text(
-                                    loc.biometrics,
-                                    style: TextStyle(fontSize: 10),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 3),
-                                  child: Text(
-                                    loc.disabled,
-                                    style: TextStyle(
-                                      fontSize: 10,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 3),
-                                  child: Text(
-                                    loc.fingerprintUnlock,
-                                    style: TextStyle(
-                                      fontSize: 10,
-                                      color: Colors.amber,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 16),
-                        SizedBox(
-                          width: double.infinity,
-                          child: FilledButton.icon(
-                            style: FilledButton.styleFrom(
-                              backgroundColor: const Color.fromARGB(
-                                255,
-                                7,
-                                255,
-                                90,
-                              ),
-                              foregroundColor: Colors.black,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                            ),
-                            icon: const Icon(Icons.bolt),
-                            label: Text(
-                              loc.supportWithSats(
-                                selectedAmount.toStringAsFixed(0),
-                              ),
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            onPressed: () async {
-                              const String paymentLink =
-                                  "bitcoin:?lno=lno1pqp7fcwqpgx5x5je2p2zqurjv4kkjatdzrhq8pjw7qjlm68mtp7e3yvxee4y5xrgjhhyf2fxhlphpckrvevh50u0q24pzh2v8vu2g6ety7rtfhg284c8v3n7r2eykde7epxp4r6z2xkkyqszt5m6t5pt4anhz92gyflsttxdd8rpk60fwmuvwh8v3xrs4ednd08qqvetd723w88efu8gkdx8zh9nfq5sy5ag2x0khx7uygcwftsw640hzc9l687cun9unvje47aqyzan59r2cvmuq274jagu6rtrs25ggem04sl7hdvzt07qsgt4xe90y0thhjywet55cqpju6w9zmtc0wdw3l4y6d9679mxht3pth7pktpv94yp45ql6f4tg7c8ekdmw8qqjj2jhntawrmevv33d6fv";
+                        onPressed: () async {
+                          final Uri walletUri = PremiumOffer.walletUri;
 
-                              final Uri parsedUri = Uri.parse(paymentLink);
-
-                              if (await canLaunchUrl(parsedUri)) {
-                                await launchUrl(
-                                  parsedUri,
-                                  mode: LaunchMode.externalApplication,
-                                );
-                              } else {
-                                if (!dialogContext.mounted) {
-                                  return;
-                                }
-
-                                ScaffoldMessenger.of(
-                                  dialogContext,
-                                ).showSnackBar(
-                                  SnackBar(
-                                    content: Text(loc.couldNotOpenWallet),
-                                  ),
-                                );
-                              }
-                            },
-                          ),
-                        ),
-                        const SizedBox(height: 12),
-                        Text(
-                          loc.boltOffer,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 11,
-                            color: Colors.amber,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        GestureDetector(
-                          onTap: () async {
-                            const String bolt12Offer =
-                                "bitcoin:?lno=lno1pqp7fcwqpgx5x5je2p2zqurjv4kkjatdzrhq8pjw7qjlm68mtp7e3yvxee4y5xrgjhhyf2fxhlphpckrvevh50u0q24pzh2v8vu2g6ety7rtfhg284c8v3n7r2eykde7epxp4r6z2xkkyqszt5m6t5pt4anhz92gyflsttxdd8rpk60fwmuvwh8v3xrs4ednd08qqvetd723w88efu8gkdx8zh9nfq5sy5ag2x0khx7uygcwftsw640hzc9l687cun9unvje47aqyzan59r2cvmuq274jagu6rtrs25ggem04sl7hdvzt07qsgt4xe90y0thhjywet55cqpju6w9zmtc0wdw3l4y6d9679mxht3pth7pktpv94yp45ql6f4tg7c8ekdmw8qqjj2jhntawrmevv33d6fv";
-
-                            await Clipboard.setData(
-                              const ClipboardData(text: bolt12Offer),
+                          if (await canLaunchUrl(walletUri)) {
+                            await launchUrl(
+                              walletUri,
+                              mode: LaunchMode.externalApplication,
                             );
-
+                          } else {
                             if (!dialogContext.mounted) {
                               return;
                             }
 
-                            ScaffoldMessenger.of(dialogContext).showSnackBar(
+                            ScaffoldMessenger.of(
+                              dialogContext,
+                            ).showSnackBar(
                               SnackBar(
-                                content: Text(loc.boltOfferCopied),
-                                duration: Duration(seconds: 2),
+                                content: Text(loc.couldNotOpenWallet),
                               ),
                             );
-                          },
-                          child: Container(
-                            width: double.infinity,
-                            padding: const EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              color: Colors.black26,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Row(
-                              children: [
-                                Icon(Icons.copy, size: 16, color: Colors.amber),
-                                SizedBox(width: 8),
-                                Expanded(
-                                  child: Text(
-                                    loc.tapToCopyBoltOffer,
-                                    style: TextStyle(
-                                      color: Colors.amber,
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 12),
-                        Text(
-                          loc.simpleInstructionsToUnlock,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                            color: Colors.white,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          loc.unlockInstructions(_currentUsername),
-                          style: const TextStyle(
-                            fontSize: 11,
-                            color: Colors.grey,
-                            height: 1.3,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        TextField(
-                          controller: inputController,
-                          decoration: InputDecoration(
-                            labelText: loc.supportRequestHint,
-                            border: OutlineInputBorder(),
-                            contentPadding: EdgeInsets.symmetric(
-                              horizontal: 10,
-                              vertical: 8,
-                            ),
-                            labelStyle: TextStyle(fontSize: 11),
-                          ),
-                          style: const TextStyle(fontSize: 11),
-                        ),
-                      ],
+                          }
+                        },
+                      ),
                     ),
-                  ),
-                  actions: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(dialogContext);
-                      },
-                      child: Text(loc.maybeLater),
-                    ),
-                    FilledButton(
-                      onPressed: () async {
-                        final String comment = inputController.text.trim();
 
-                        if (comment.isNotEmpty) {
-                          await prefs.setString(
-                            'premium_user_support_comment',
-                            comment,
-                          );
-                        }
+                    const SizedBox(height: 8),
+
+                    // ======================================================
+                    // COPY THE ADDRESS
+                    //
+                    // The single fallback for a device with no Phoenix
+                    // installed. Copying the address is enough to pay from any
+                    // Lightning wallet.
+                    // ======================================================
+                    InkWell(
+                      onTap: () async {
+                        await Clipboard.setData(
+                          const ClipboardData(
+                            text: PremiumOffer.lightningAddress,
+                          ),
+                        );
 
                         if (!dialogContext.mounted) {
                           return;
                         }
 
-                        Navigator.pop(dialogContext);
-
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text(loc.proofSubmittedSnackbar)),
+                        ScaffoldMessenger.of(dialogContext).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              'Lightning address copied. Paste it into '
+                              'Phoenix to pay.',
+                            ),
+                            duration: Duration(seconds: 3),
+                          ),
                         );
                       },
-                      child: Text(loc.submitProof),
+                      borderRadius: BorderRadius.circular(8),
+                      child: Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Colors.black26,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.copy,
+                              size: 16,
+                              color: Colors.amber,
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: Text(
+                                'Tap to copy the Lightning address',
+                                style: TextStyle(
+                                  color: Colors.amber,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ],
-                );
-              },
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(dialogContext);
+                  },
+                  child: Text(loc.maybeLater),
+                ),
+              ],
             );
           },
         );
-
-        inputController.dispose();
 
         // The premium question was shown instead of a lock, so the tick has to
         // go back off.
@@ -1593,107 +1316,23 @@ class _SettingsPageState extends State<SettingsPage>
   }
 
   /// Single PIN entry. Returns null unless exactly four digits were entered.
+  ///
+  /// The dialog owns its controller and its own state, so nothing is disposed
+  /// while the route is still on screen. Doing that by hand from here
+  /// disposed the controller as soon as [showDialog] returned, which is before
+  /// the dismissed dialog has finished animating out, and the text field was
+  /// still attached to it.
   Future<String?> _askForPin({
     required String title,
     required String helper,
   }) async {
-    final loc = AppLocalizations.of(context)!;
-
-    final TextEditingController controller = TextEditingController();
-
-    String errorText = "";
-
-    final String? entered = await showDialog<String>(
+    return showDialog<String>(
       context: context,
-      builder: (dialogContext) {
-        return StatefulBuilder(
-          builder: (dialogContext, setDialogState) {
-            return AlertDialog(
-              title: Text(title),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    helper,
-                    style: const TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey,
-                      height: 1.3,
-                    ),
-                  ),
-                  const SizedBox(height: 14),
-                  TextField(
-                    controller: controller,
-                    autofocus: true,
-                    obscureText: true,
-                    keyboardType: TextInputType.number,
-                    maxLength: 4,
-                    decoration: InputDecoration(
-                      labelText: loc.secureKeyPasscode,
-                      counterText: "",
-                      border: const OutlineInputBorder(),
-                      errorText: errorText.isEmpty ? null : errorText,
-                    ),
-                    onChanged: (String value) {
-                      // Strip anything that is not a digit and keep the field
-                      // in sync with the sanitised value, so the length limit
-                      // counts digits rather than characters.
-                      final String digits = value.replaceAll(
-                        RegExp(r'[^0-9]'),
-                        '',
-                      );
-
-                      if (digits != value) {
-                        controller.text = digits;
-                        controller.selection = TextSelection.collapsed(
-                          offset: digits.length,
-                        );
-                      }
-
-                      if (errorText.isEmpty) return;
-
-                      setDialogState(() {
-                        errorText = "";
-                      });
-                    },
-                  ),
-                ],
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.pop(dialogContext),
-                  child: Text(loc.cancel),
-                ),
-                FilledButton(
-                  onPressed: () {
-                    final String digits = controller.text.replaceAll(
-                      RegExp(r'[^0-9]'),
-                      '',
-                    );
-
-                    if (digits.length != 4) {
-                      setDialogState(() {
-                        errorText = "Enter exactly 4 digits.";
-                      });
-
-                      return;
-                    }
-
-                    Navigator.pop(dialogContext, digits);
-                  },
-                  child: Text(loc.ok),
-                ),
-              ],
-            );
-          },
-        );
-      },
+      builder: (dialogContext) => _PinEntryDialog(
+        title: title,
+        helper: helper,
+      ),
     );
-
-    controller.dispose();
-
-    return entered;
   }
 
   /// Creates the hidden secret behind a fingerprint lock.
@@ -1855,17 +1494,32 @@ class _SettingsPageState extends State<SettingsPage>
     final activeNativeName =
         LanguageNames.nativeNames[_currentLanguageCode] ?? loc.language;
 
+    // ======================================================
+    // SECTION ORDER
+    //
+    // Every control sits under the heading it belongs to, so related settings
+    // are never split apart: the display toggles and the language picker
+    // together, both locks (the master password and the per-chat codes)
+    // together, everything about paying together, then the help and admin
+    // entries, and the destructive account actions last where a scroll cannot
+    // hit them by accident.
+    // ======================================================
     return ListView(
-      padding: const EdgeInsets.all(16.0),
+      // Section headers carry their own horizontal padding, so the list itself
+      // only needs room at the bottom. Matches the other edge-to-edge tile
+      // lists in the app.
+      padding: const EdgeInsets.only(bottom: 24.0),
       children: [
         // ======================================================
-        // THEME
+        // APPEARANCE
         //
         // Neither tile below may set `isThreeLine`. Flutter's ListTile asserts
         // that a three-line tile has a subtitle, and a title-only tile asserted
         // that way took down this whole screen with a red error. These tiles
         // have no subtitle, so the flag has to stay off.
         // ======================================================
+        const _SettingsSectionHeader('Appearance'),
+
         SwitchListTile(
           title: Text(loc.darkThemeMode, softWrap: true),
           value: _isDarkMode,
@@ -1883,16 +1537,6 @@ class _SettingsPageState extends State<SettingsPage>
           },
         ),
 
-        SwitchListTile(
-          title: const Text('Protect settings with master password'),
-          subtitle: const Text('Require password to access settings'),
-          value: _settingsProtectionEnabled,
-          onChanged: _handleSettingsProtectionChanged,
-        ),
-
-        // ======================================================
-        // LANGUAGE
-        // ======================================================
         ListTile(
           leading: const Icon(Icons.language),
           title: Text(loc.language),
@@ -1901,44 +1545,77 @@ class _SettingsPageState extends State<SettingsPage>
           onTap: _showLanguageSelectionDialog,
         ),
 
-        ListTile(
-          leading: const Icon(Icons.description_outlined),
-          title: Text(loc.settingsTermsAndConditions),
-          trailing: const Icon(Icons.chevron_right),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const TermsAndConditionsPage()),
-            );
-          },
+        // ======================================================
+        // PRIVACY AND SECURITY
+        //
+        // Both kinds of lock live here: the master password that guards this
+        // whole screen, and the per-chat codes listed underneath it.
+        // ======================================================
+        const _SettingsSectionHeader('Privacy and security'),
+
+        SwitchListTile(
+          title: const Text('Protect settings with master password'),
+          subtitle: const Text('Require password to access settings'),
+          value: _settingsProtectionEnabled,
+          onChanged: _handleSettingsProtectionChanged,
         ),
 
-        // ======================================================
-        // SUPPORT AND MODERATION
-        // ======================================================
-
-        ListTile(
-          leading: const Icon(Icons.report_gmailerrorred_outlined),
-          title: const Text('Report a problem'),
-          subtitle: const Text('Bugs, abuse or spam'),
-          trailing: const Icon(Icons.chevron_right),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const ReportPage()),
-            );
-          },
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 4.0),
+          child: Text(
+            loc.secureConversations,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+          ),
         ),
+
+        if (_availableChats.isEmpty)
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
+              loc.noActiveConversations,
+              style: const TextStyle(color: Colors.grey, fontSize: 13),
+              textAlign: TextAlign.center,
+            ),
+          )
+        else
+          for (final chat in _availableChats)
+            CheckboxListTile(
+              title: Text(chat["name"]!, softWrap: true),
+              // The lock method is shown so a locked chat is not a mystery
+              // checkbox, and the wording makes it clear the code belongs to
+              // this one chat rather than to the app.
+              subtitle: Text(
+                _lockedChatIds.contains(chat["id"])
+                    ? "${_lockTypeLabel(chat["id"]!)} — own code, "
+                        "this chat only"
+                    : "Tap to set your own PIN for this chat",
+                style: const TextStyle(fontSize: 12),
+              ),
+              value: _lockedChatIds.contains(chat["id"]),
+              onChanged: (val) =>
+                  _toggleChatCheckbox(chat["id"]!, val ?? false),
+            ),
+
+        // ======================================================
+        // PREMIUM
+        //
+        // The locked chats above are the only premium feature today, and the
+        // only way to unlock them is an admin turning on the flag after
+        // seeing a receipt. Spell that out rather than leaving people to
+        // guess why paying changed nothing.
+        // ======================================================
+        const _SettingsSectionHeader('Premium'),
 
         ListTile(
           leading: const Icon(Icons.receipt_long_outlined),
-          title: const Text('Submit payment proof'),
+          title: const Text('Get Lifetime Premium'),
           subtitle: Text(
             _isPremiumUser
                 ? 'Premium is on for your account'
                 : _pendingProof
-                    ? 'Waiting for an admin to review your receipt'
-                    : 'How to get premium: pay, then send the receipt here',
+                    ? 'Waiting for an admin to review your screenshot'
+                    : '${PremiumOffer.minimumAmountLabel} once with Phoenix, '
+                        'then send a screenshot',
           ),
           trailing: const Icon(Icons.chevron_right),
           onTap: () {
@@ -1950,15 +1627,6 @@ class _SettingsPageState extends State<SettingsPage>
             ).then((_) => _loadPremiumStatus());
           },
         ),
-
-        // ======================================================
-        // PREMIUM EXPLAINER
-        //
-        // The locked chats are the only premium feature today, and the
-        // only way to unlock them is an admin turning on the flag after
-        // seeing a receipt. Spell that out rather than leaving people to
-        // guess why paying changed nothing.
-        // ======================================================
 
         if (!_isPremiumUser)
           Container(
@@ -1992,24 +1660,60 @@ class _SettingsPageState extends State<SettingsPage>
                 const SizedBox(height: 8),
                 Text(
                   _pendingProof
-                      ? 'Your receipt is in. An admin checks it and premium '
-                          'turns on for your account automatically. You do '
-                          'not need to do anything else.'
-                      : '1. Pay using any method your admin gave you.\n'
-                          '2. Open Settings and tap Submit payment proof.\n'
-                          '3. Enter the amount, the transaction reference '
-                          'from your receipt, and a photo of it.\n'
-                          '4. An admin approves it and premium turns on.\n\n'
-                          'Premium is decided on the server, so it cannot be '
-                          'switched on by editing the app.',
+                      ? 'Your screenshot is in. An admin checks it and premium '
+                          'turns on for your account within '
+                          '${PremiumOffer.activationWindow}.'
+                      : '1. Pay ${PremiumOffer.minimumAmountLabel} with '
+                          '${PremiumOffer.paymentMethod}.\n'
+                          '2. Screenshot the payment confirmation.\n'
+                          '3. Send it from Submit payment proof.\n'
+                          '4. Premium turns on and stays on for life.\n\n'
+                          'CRYPT is built by a solo developer, and this is '
+                          'the whole offer: one payment, no subscription.',
                   style: theme.textTheme.bodySmall,
                 ),
               ],
             ),
           ),
 
+        // ======================================================
+        // HELP AND LEGAL
+        // ======================================================
+        const _SettingsSectionHeader('Help and legal'),
+
+        ListTile(
+          leading: const Icon(Icons.report_gmailerrorred_outlined),
+          title: const Text('Report a problem'),
+          subtitle: const Text('Bugs, abuse or spam'),
+          trailing: const Icon(Icons.chevron_right),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const ReportPage()),
+            );
+          },
+        ),
+
+        ListTile(
+          leading: const Icon(Icons.description_outlined),
+          title: Text(loc.settingsTermsAndConditions),
+          trailing: const Icon(Icons.chevron_right),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const TermsAndConditionsPage()),
+            );
+          },
+        ),
+
+        // ======================================================
+        // ADMINISTRATION
+        //
         // The access code is verified by the server, so it is not stored in
         // the app and cannot be pulled out of the APK.
+        // ======================================================
+        const _SettingsSectionHeader('Administration'),
+
         ListTile(
           leading: const Icon(Icons.shield_outlined),
           title: const Text('Admin access'),
@@ -2030,78 +1734,41 @@ class _SettingsPageState extends State<SettingsPage>
           },
         ),
 
-        const Divider(),
-
         // ======================================================
-        // SECURE CONVERSATIONS
+        // ACCOUNT
+        //
+        // Last on purpose: signing out and wiping the device are the two
+        // actions on this screen that cannot be undone.
         // ======================================================
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-          child: Text(
-            loc.secureConversations,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-          ),
-        ),
+        const _SettingsSectionHeader('Account'),
 
-        if (_availableChats.isEmpty)
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(
-              loc.noActiveConversations,
-              style: const TextStyle(color: Colors.grey, fontSize: 13),
-              textAlign: TextAlign.center,
-            ),
-          )
-        else
-          for (final chat in _availableChats)
-            CheckboxListTile(
-              title: Text(chat["name"]!, softWrap: true),
-              // The lock method is shown so a locked chat is not a mystery
-              // checkbox, and the wording makes it clear the code belongs to
-              // this one chat rather than to the app.
-              subtitle: Text(
-                _lockedChatIds.contains(chat["id"])
-                    ? "${_lockTypeLabel(chat["id"]!)} — own code, "
-                        "this chat only"
-                    : "Tap to set your own PIN for this chat",
-                style: const TextStyle(fontSize: 12),
-              ),
-              value: _lockedChatIds.contains(chat["id"]),
-              onChanged: (val) =>
-                  _toggleChatCheckbox(chat["id"]!, val ?? false),
-            ),
-
-        const Divider(),
-
-        const SizedBox(height: 24),
-
-        // ======================================================
-        // LOGOUT
-        // ======================================================
         SizedBox(
           width: double.infinity,
-          child: ElevatedButton.icon(
-            onPressed: _handleLogout,
-            icon: const Icon(Icons.logout),
-            label: Text(loc.logout),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: ElevatedButton.icon(
+              onPressed: _handleLogout,
+              icon: const Icon(Icons.logout),
+              label: Text(loc.logout),
+            ),
           ),
         ),
 
         const SizedBox(height: 12),
 
-        // ======================================================
-        // WIPE DEVICE
-        // ======================================================
         SizedBox(
           width: double.infinity,
-          child: OutlinedButton.icon(
-            onPressed: _executeEmergencySignOut,
-            style: OutlinedButton.styleFrom(
-              foregroundColor: Colors.red,
-              side: const BorderSide(color: Colors.red),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: OutlinedButton.icon(
+              onPressed: _executeEmergencySignOut,
+              style: OutlinedButton.styleFrom(
+                foregroundColor: Colors.red,
+                side: const BorderSide(color: Colors.red),
+              ),
+              icon: const Icon(Icons.delete_forever),
+              label: Text(loc.wipeDevice),
             ),
-            icon: const Icon(Icons.delete_forever),
-            label: Text(loc.wipeDevice),
           ),
         ),
       ],
@@ -2117,5 +1784,204 @@ class _SettingsPageState extends State<SettingsPage>
     WidgetsBinding.instance.removeObserver(this);
 
     super.dispose();
+  }
+}
+
+/// Asks for the master password that guards Settings.
+///
+/// Self contained so the [TextEditingController] is disposed with the dialog
+/// rather than the instant `showDialog` returns, which left the field holding
+/// a disposed controller while the route was still animating away.
+class _MasterPasswordDialog extends StatefulWidget {
+  const _MasterPasswordDialog();
+
+  @override
+  State<_MasterPasswordDialog> createState() => _MasterPasswordDialogState();
+}
+
+class _MasterPasswordDialogState extends State<_MasterPasswordDialog> {
+  final TextEditingController _controller = TextEditingController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+
+    super.dispose();
+  }
+
+  void _submit() {
+    Navigator.pop(context, _controller.text);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final AppLocalizations loc = AppLocalizations.of(context)!;
+
+    return PopScope(
+      canPop: false,
+      child: AlertDialog(
+        title: Text(loc.masterAuthenticationRequired),
+        content: TextField(
+          controller: _controller,
+          autofocus: true,
+          obscureText: true,
+          textInputAction: TextInputAction.go,
+          onSubmitted: (_) => _submit(),
+          decoration: InputDecoration(
+            labelText: loc.accountPasswordLabel,
+            border: const OutlineInputBorder(),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(loc.cancel),
+          ),
+          FilledButton(
+            onPressed: _submit,
+            child: Text(loc.verify),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Asks for a four digit PIN and returns it, or null if cancelled.
+///
+/// Self contained on purpose: it owns the [TextEditingController] and the
+/// validation message and disposes both in its own [dispose]. Building this by
+/// hand with a `StatefulBuilder` and disposing the controller as soon as
+/// `showDialog` returned left the text field attached to a disposed controller
+/// while the dialog was still on its way out, which is what produced the
+/// `dependents.isEmpty` assertion as soon as a chat lock was tapped.
+///
+/// Non numeric characters are rejected by an input formatter rather than by
+/// rewriting `controller.text` from inside `onChanged`. Assigning to the
+/// controller while the field is handling its own change re-enters the text
+/// field's listener and can tear down an element mid-update.
+class _PinEntryDialog extends StatefulWidget {
+  final String title;
+
+  final String helper;
+
+  const _PinEntryDialog({required this.title, required this.helper});
+
+  @override
+  State<_PinEntryDialog> createState() => _PinEntryDialogState();
+}
+
+class _PinEntryDialogState extends State<_PinEntryDialog> {
+  final TextEditingController _controller = TextEditingController();
+
+  String _errorText = "";
+
+  @override
+  void dispose() {
+    _controller.dispose();
+
+    super.dispose();
+  }
+
+  void _submit() {
+    final String digits = _controller.text;
+
+    if (digits.length != 4) {
+      setState(() {
+        _errorText = "Enter exactly 4 digits.";
+      });
+
+      return;
+    }
+
+    Navigator.pop(context, digits);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final AppLocalizations loc = AppLocalizations.of(context)!;
+
+    return AlertDialog(
+      title: Text(widget.title),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            widget.helper,
+            style: const TextStyle(
+              fontSize: 12,
+              color: Colors.grey,
+              height: 1.3,
+            ),
+          ),
+
+          const SizedBox(height: 14),
+
+          TextField(
+            controller: _controller,
+            autofocus: true,
+            obscureText: true,
+            keyboardType: TextInputType.number,
+            maxLength: 4,
+            inputFormatters: <TextInputFormatter>[
+              FilteringTextInputFormatter.digitsOnly,
+              LengthLimitingTextInputFormatter(4),
+            ],
+            decoration: InputDecoration(
+              labelText: loc.secureKeyPasscode,
+              counterText: "",
+              border: const OutlineInputBorder(),
+              errorText: _errorText.isEmpty ? null : _errorText,
+            ),
+            onChanged: (String value) {
+              if (_errorText.isEmpty) return;
+
+              setState(() {
+                _errorText = "";
+              });
+            },
+            onSubmitted: (_) => _submit(),
+          ),
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: Text(loc.cancel),
+        ),
+        FilledButton(
+          onPressed: _submit,
+          child: Text(loc.ok),
+        ),
+      ],
+    );
+  }
+}
+
+/// Heading that introduces a group of related settings.
+///
+/// Replaces the bare [Divider]s the list used to be split with, so the section
+/// a control belongs to is named rather than implied by a line on the screen.
+class _SettingsSectionHeader extends StatelessWidget {
+  final String label;
+
+  const _SettingsSectionHeader(this.label);
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16.0, 20.0, 16.0, 8.0),
+      child: Text(
+        label.toUpperCase(),
+        style: theme.textTheme.labelLarge?.copyWith(
+          color: theme.colorScheme.primary,
+          fontWeight: FontWeight.bold,
+          letterSpacing: 0.8,
+        ),
+      ),
+    );
   }
 }
