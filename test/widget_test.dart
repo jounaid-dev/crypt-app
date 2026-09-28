@@ -9,11 +9,30 @@ import 'package:flutter_test/flutter_test.dart';
 /// that were specified for the offer.
 void main() {
   group('premium offer', () {
-    test('is a single Lightning method at a five dollar minimum', () {
-      expect(PremiumOffer.paymentMethod, 'Phoenix Lightning Wallet');
+    test('is a single Lightning payment at a five dollar minimum', () {
+      // Payment arrives over Lightning, but the app does not require one
+      // particular wallet: the address is handed to whichever Lightning wallet
+      // the device has installed.
+      expect(PremiumOffer.paymentMethod, 'Lightning');
       expect(PremiumOffer.minimumAmountUsd, 5);
       expect(PremiumOffer.minimumAmountLabel, r'$5 USD');
       expect(PremiumOffer.lifetimeLabel, 'Lifetime Premium Access');
+    });
+
+    test('tries more than one scheme so any wallet can be opened', () {
+      // A wallet that only claims a bare bitcoin: link, or only lightning:,
+      // must still be reachable, so more than one candidate is offered and
+      // every one of them carries the same address.
+      expect(PremiumOffer.walletUris, hasLength(greaterThan(1)));
+
+      for (final Uri uri in PremiumOffer.walletUris) {
+        expect(
+          uri.toString(),
+          contains(PremiumOffer.lightningAddress),
+        );
+      }
+
+      expect(PremiumOffer.walletUris.first, PremiumOffer.walletUri);
     });
 
     test('Lightning address is intact and not truncated', () {
@@ -54,7 +73,7 @@ void main() {
 
       expect(
         PremiumOffer.activationSteps.first,
-        contains(PremiumOffer.paymentMethod),
+        contains(PremiumOffer.paymentMethodLabel),
       );
 
       expect(

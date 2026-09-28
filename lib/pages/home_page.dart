@@ -67,6 +67,17 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   String _searchQuery = "";
 
+  /// True until the first conversation list has arrived.
+  ///
+  /// A brand new account has no chats, so without this the home page draws its
+  /// finished empty state immediately and there is no sign the app is still
+  /// starting up after the splash.
+  bool _isLoadingConversations = true;
+
+  /// How long the loading spinner stays up at minimum, so it is actually
+  /// visible instead of flashing past in a single frame.
+  static const int _minimumLoadingMs = 1200;
+
   late TextEditingController _searchController;
 
   bool _isAppBackgrounded = false;
@@ -668,12 +679,25 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   // ============================================================
 
   Future<void> loadConversations() async {
+    // Hold the spinner for a moment even when the list arrives instantly.
+    // Without this the first frame after the splash is the finished list, so
+    // the loading state is never actually seen and the app looks like it
+    // skipped straight past a blank screen.
+    final Stopwatch sinceStart = Stopwatch()..start();
+
     final list = await conversationService.getConversations();
+
+    final int remaining = _minimumLoadingMs - sinceStart.elapsedMilliseconds;
+
+    if (remaining > 0) {
+      await Future<void>.delayed(Duration(milliseconds: remaining));
+    }
 
     if (!mounted) return;
 
     setState(() {
       conversations = list;
+      _isLoadingConversations = false;
       _applySearch();
     });
   }
@@ -750,6 +774,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   // ============================================================
 
   Future<void> scanQr() async {
+    final l10n = AppLocalizations.of(context)!;
+
     final result = await Navigator.push(
       context,
       MaterialPageRoute(builder: (_) => const ScanQrPage()),
@@ -775,9 +801,16 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
     // ----------------------------------------------------------
     // VALIDATE RESULT
+    //
+    // These two guards used to return in silence. Scanning a code that came
+    // back without a usable identity therefore did nothing visible at all,
+    // which reads as the camera having failed. Each one now says what went
+    // wrong instead.
     // ----------------------------------------------------------
 
     if (result is! Map) {
+      _showScanProblem(l10n.scanCouldNotReadCode);
+
       return;
     }
 
@@ -791,6 +824,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         peerPublicEncryptionKey.isEmpty ||
         peerUsername == null ||
         peerUsername.isEmpty) {
+      _showScanProblem(l10n.scanMissingTheirIdentity);
+
       return;
     }
 
@@ -806,6 +841,9 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         "[QR] Cannot create conversation: "
         "own public encryption key is missing.",
       );
+
+      _showScanProblem(l10n.scanOwnIdentityMissing);
+
       return;
     }
 
@@ -870,6 +908,19 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
     if (!mounted) return;
 
+    // ----------------------------------------------------------
+    // TELL THE USER WHAT HAPPENED
+    //
+    // The request is on its way at this point, but the chat is not live until
+    // the other person accepts. Without a word about that, scanning a code
+    // just drops the user back into a list where nothing appears to have
+    // happened, so they scan again, or assume it failed.
+    // ----------------------------------------------------------
+
+    await _showRequestSentDialog(l10n: l10n, peerUsername: peerUsername);
+
+    if (!mounted) return;
+
     await Navigator.push(
       context,
       MaterialPageRoute(builder: (_) => ChatPage(conversation: conversation)),
@@ -878,9 +929,156 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     await loadConversations();
   }
 
+  /// Reports a scan that could not be turned into a chat.
+  ///
+  /// A snackbar rather than a dialog: this is a recoverable mistake and the
+  /// user is standing on the home page ready to try the next code.
+  void _showScanProblem(String message) {
+    if (!mounted) return;
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        behavior: SnackBarBehavior.floating,
+        content: Text(message),
+        duration: const Duration(seconds: 4),
+      ),
+    );
+  }
+
+  /// Confirms that a connection request was sent, and that the chat is not
+  /// live yet.
+  Future<void> _showRequestSentDialog({
+    required AppLocalizations l10n,
+    required String peerUsername,
+  }) async {
+    await showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (dialogContext) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(
+                height: 34,
+                width: 34,
+                child: CircularProgressIndicator(strokeWidth: 3),
+              ),
+
+              const SizedBox(height: 22),
+
+              Text(
+                l10n.requestSentTitle,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
+              const SizedBox(height: 12),
+
+              Text(
+                l10n.requestSentBody(peerUsername),
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 13, height: 1.4),
+              ),
+
+              const SizedBox(height: 10),
+
+              Text(
+                l10n.requestSentKeepOpen,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 12,
+                  height: 1.4,
+                  color: Colors.grey,
+                ),
+              ),
+            ],
+          ),
+
+          actions: [
+            FilledButton(
+              onPressed: () {
+                Navigator.of(dialogContext).pop();
+              },
+              child: Text(l10n.requestSentGotIt),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   // ============================================================
   // BUILD CONVERSATION TILE
   // ============================================================
+
+  /// What the home page shows when there are no chats yet.
+  ///
+  /// This used to be a single line reading "No connections found.", which
+  /// tells a new user nothing about where a chat comes from. A chat here is
+  /// not something you create on this screen: it starts by scanning the other
+  /// person's QR code. So the empty state says that and offers the button that
+  /// does it, rather than leaving the list looking broken.
+  Widget _buildEmptyState(AppLocalizations l10n) {
+    final ThemeData theme = Theme.of(context);
+
+    final bool isFiltered = _searchQuery.trim().isNotEmpty;
+
+    return Center(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(28),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              isFiltered
+                  ? Icons.search_off
+                  : Icons.forum_outlined,
+              size: 56,
+              color: theme.colorScheme.primary.withValues(alpha: 0.55),
+            ),
+
+            const SizedBox(height: 18),
+
+            Text(
+              isFiltered ? l10n.noChatsMatchSearch : l10n.noChatsYetTitle,
+              textAlign: TextAlign.center,
+              style: theme.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 10),
+
+            Text(
+              isFiltered
+                  ? l10n.noChatsMatchSearchHint
+                  : l10n.noChatsYetHint,
+              textAlign: TextAlign.center,
+              style: theme.textTheme.bodyMedium?.copyWith(height: 1.4),
+            ),
+
+            if (!isFiltered) ...[
+              const SizedBox(height: 24),
+
+              FilledButton.icon(
+                onPressed: scanQr,
+                icon: const Icon(Icons.qr_code_scanner),
+                label: Text(l10n.scanQrToStartChat),
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
 
   Widget _buildConversationTile(
     BuildContext context,
@@ -1052,8 +1250,33 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 ),
               ),
               Expanded(
-                child: filteredConversations.isEmpty
-                    ? Center(child: Text(l10n.zeroPipelinesDiscovered))
+                child: _isLoadingConversations
+                    ? Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const SizedBox(
+                              height: 28,
+                              width: 28,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2.5,
+                              ),
+                            ),
+
+                            const SizedBox(height: 16),
+
+                            Text(
+                              l10n.loadingChats,
+                              style: const TextStyle(
+                                fontSize: 13,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    : filteredConversations.isEmpty
+                    ? _buildEmptyState(l10n)
                     : ListView.builder(
                         itemCount: filteredConversations.length,
                         itemBuilder: (context, index) {

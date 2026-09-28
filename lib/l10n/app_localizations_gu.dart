@@ -560,4 +560,55 @@ class AppLocalizationsGu extends AppLocalizations {
   @override
   String get proofSubmittedSnackbar =>
       'પુરાવો સબમિટ થયો. મેન્યુઅલ સમીક્ષા માટે 24–48 કલાક લાગી શકે છે (સપ્તાહાંત સિવાય). તમે એપનો સામાન્ય રીતે ઉપયોગ ચાલુ રાખી શકો છો.';
+
+  @override
+  String get loadingChats => 'Loading chats...';
+
+  @override
+  String get noChatsYetTitle => 'No chats yet';
+
+  @override
+  String get noChatsYetHint =>
+      'A chat starts when you scan the other person\'s CRYPT QR code. Open your identity page to share yours so they can scan it.';
+
+  @override
+  String get scanQrToStartChat => 'Scan a QR code';
+
+  @override
+  String get noChatsMatchSearch => 'No chats match your search';
+
+  @override
+  String get noChatsMatchSearchHint =>
+      'Try a different name, or clear the search to see every chat.';
+
+  @override
+  String get requestSentTitle => 'Request sent';
+
+  @override
+  String requestSentBody(String username) {
+    return 'Your request went to $username. Please wait while they accept it.';
+  }
+
+  @override
+  String get requestSentKeepOpen =>
+      'The chat opens as soon as they accept. Keep CRYPT open on this device so you do not miss it.';
+
+  @override
+  String get requestSentGotIt => 'Got it';
+
+  @override
+  String get scanCouldNotReadCode =>
+      'That code could not be read. Scan a CRYPT QR code.';
+
+  @override
+  String get scanMissingTheirIdentity =>
+      'That code is missing the person\'s identity. Scan the code from their identity page.';
+
+  @override
+  String get scanOwnIdentityMissing =>
+      'Your own encryption key is missing. Sign out and back in, then scan again.';
+
+  @override
+  String get noLightningWalletFound =>
+      'No Lightning wallet found. Install one, or copy the address and paste it into a wallet.';
 }

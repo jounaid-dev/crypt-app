@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../models/payment_proof.dart';
 import '../services/moderation_service.dart';
@@ -12,7 +11,7 @@ import '../widgets/premium_widgets.dart';
 /// Where a user sends proof of their premium payment.
 ///
 /// There is one method and one address, so the screen is instructions plus a
-/// screenshot: pay in Phoenix, attach the confirmation, done. Nothing here
+/// screenshot: pay from a Lightning wallet, attach the confirmation, done.
 /// asks for a card reference, because a Lightning payment does not have one.
 class SubmitPaymentProofPage extends StatefulWidget {
   const SubmitPaymentProofPage({super.key});
@@ -60,19 +59,15 @@ class _SubmitPaymentProofPageState extends State<SubmitPaymentProofPage> {
   }
 
   Future<void> _openWallet() async {
-    final Uri walletUri = PremiumOffer.walletUri;
+    final bool opened = await PremiumOffer.openWallet();
 
-    if (await canLaunchUrl(walletUri)) {
-      await launchUrl(walletUri, mode: LaunchMode.externalApplication);
-
-      return;
-    }
+    if (opened) return;
 
     if (!mounted) return;
 
     _showError(
-      'Could not open Phoenix. Copy the Lightning address and paste it into '
-      'your Lightning wallet instead.',
+      'No Lightning wallet found on this device. Install one, or copy the '
+      'Lightning address and paste it into a wallet.',
     );
   }
 
@@ -186,7 +181,8 @@ class _SubmitPaymentProofPageState extends State<SubmitPaymentProofPage> {
 
               Text(
                 'No subscription and nothing to renew. Pay with '
-                '${PremiumOffer.paymentMethod}, send a screenshot of the '
+                '${PremiumOffer.paymentMethodLabel}, send a screenshot of '
+                'the '
                 'confirmation, and premium is switched on within '
                 '${PremiumOffer.activationWindow}.',
                 style: theme.textTheme.bodyMedium,
@@ -214,7 +210,7 @@ class _SubmitPaymentProofPageState extends State<SubmitPaymentProofPage> {
 
               const _StepHeading(
                 number: 1,
-                title: 'Pay with Phoenix',
+                title: 'Pay with your wallet',
               ),
 
               const SizedBox(height: 10),
@@ -263,7 +259,7 @@ class _SubmitPaymentProofPageState extends State<SubmitPaymentProofPage> {
                         foregroundColor: Colors.black,
                       ),
                       icon: const Icon(Icons.bolt),
-                      label: const Text('Open Phoenix'),
+                      label: const Text('Open wallet'),
                     ),
                   ),
 
@@ -277,6 +273,14 @@ class _SubmitPaymentProofPageState extends State<SubmitPaymentProofPage> {
                     ),
                   ),
                 ],
+              ),
+
+              const SizedBox(height: 10),
+
+              Text(
+                'Works with Phoenix and any other Lightning wallet.',
+                style: theme.textTheme.bodySmall?.copyWith(fontSize: 11),
+                textAlign: TextAlign.center,
               ),
 
               const SizedBox(height: 24),
@@ -293,7 +297,8 @@ class _SubmitPaymentProofPageState extends State<SubmitPaymentProofPage> {
               const SizedBox(height: 10),
 
               Text(
-                'Take a screenshot of the payment confirmation in Phoenix and '
+                'Take a screenshot of the payment confirmation in your '
+                'Lightning wallet and '
                 'attach it below.',
                 style: theme.textTheme.bodyMedium,
               ),

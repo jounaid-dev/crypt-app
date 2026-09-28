@@ -6,7 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../l10n/app_localizations.dart';
 import '../services/language_service.dart';
@@ -1000,33 +999,29 @@ class _SettingsPageState extends State<SettingsPage>
                         icon: const Icon(Icons.bolt),
                         label: Text(
                           'Pay ${PremiumOffer.minimumAmountLabel} '
-                          'with Phoenix',
+                          'with your wallet',
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         onPressed: () async {
-                          final Uri walletUri = PremiumOffer.walletUri;
+                          final bool opened =
+                              await PremiumOffer.openWallet();
 
-                          if (await canLaunchUrl(walletUri)) {
-                            await launchUrl(
-                              walletUri,
-                              mode: LaunchMode.externalApplication,
-                            );
-                          } else {
-                            if (!dialogContext.mounted) {
-                              return;
-                            }
+                          if (opened) return;
 
-                            ScaffoldMessenger.of(
-                              dialogContext,
-                            ).showSnackBar(
-                              SnackBar(
-                                content: Text(loc.couldNotOpenWallet),
-                              ),
-                            );
+                          if (!dialogContext.mounted) {
+                            return;
                           }
+
+                          ScaffoldMessenger.of(
+                            dialogContext,
+                          ).showSnackBar(
+                            SnackBar(
+                              content: Text(loc.noLightningWalletFound),
+                            ),
+                          );
                         },
                       ),
                     ),
@@ -1036,7 +1031,7 @@ class _SettingsPageState extends State<SettingsPage>
                     // ======================================================
                     // COPY THE ADDRESS
                     //
-                    // The single fallback for a device with no Phoenix
+                    // The single fallback for a device with no Lightning
                     // installed. Copying the address is enough to pay from any
                     // Lightning wallet.
                     // ======================================================
@@ -1056,7 +1051,7 @@ class _SettingsPageState extends State<SettingsPage>
                           const SnackBar(
                             content: Text(
                               'Lightning address copied. Paste it into '
-                              'Phoenix to pay.',
+                              'wallet to pay.',
                             ),
                             duration: Duration(seconds: 3),
                           ),
@@ -1424,7 +1419,15 @@ class _SettingsPageState extends State<SettingsPage>
           title: Text(loc.settings),
           automaticallyImplyLeading: !_isTimedOut,
         ),
-        body: _buildPageLayout(),
+        body: SafeArea(
+          // The AppBar already handles the status bar, so only the bottom
+          // inset is left to take care of. Without this the last button sits
+          // underneath the system navigation bar: the list has only a little
+          // padding of its own, so it cannot scroll far enough to bring that
+          // button clear of the bar and it looks permanently half cut off.
+          top: false,
+          child: _buildPageLayout(),
+        ),
       ),
     );
   }
@@ -1614,7 +1617,8 @@ class _SettingsPageState extends State<SettingsPage>
                 ? 'Premium is on for your account'
                 : _pendingProof
                     ? 'Waiting for an admin to review your screenshot'
-                    : '${PremiumOffer.minimumAmountLabel} once with Phoenix, '
+                    : '${PremiumOffer.minimumAmountLabel} once with your '
+                        'Lightning wallet, '
                         'then send a screenshot',
           ),
           trailing: const Icon(Icons.chevron_right),
@@ -1664,7 +1668,8 @@ class _SettingsPageState extends State<SettingsPage>
                           'turns on for your account within '
                           '${PremiumOffer.activationWindow}.'
                       : '1. Pay ${PremiumOffer.minimumAmountLabel} with '
-                          '${PremiumOffer.paymentMethod}.\n'
+                          '${PremiumOffer.paymentMethodLabel}, or '
+                          '${PremiumOffer.recommendedWallet}.\n'
                           '2. Screenshot the payment confirmation.\n'
                           '3. Send it from Submit payment proof.\n'
                           '4. Premium turns on and stays on for life.\n\n'

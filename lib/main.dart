@@ -78,6 +78,10 @@ class _CryptAppState extends State<CryptApp> with WidgetsBindingObserver {
   bool _isDarkMode = true;
   late bool _showSplashScreen;
 
+  /// Set once the splash has played, so it is not shown again every time the
+  /// startup route is rebuilt on sign in, sign up or sign out.
+  bool _splashAlreadyShown = false;
+
   bool _isLoadingPreferences = false;
 
   // ============================================================
@@ -415,9 +419,20 @@ class _CryptAppState extends State<CryptApp> with WidgetsBindingObserver {
   Widget _buildStartupRoute() {
     final startupPage = _buildStartupPage(AccountService());
 
-    if (!_showSplashScreen) {
+    // ============================================================
+    // SPLASH, ONCE
+    //
+    // Only on the cold start. This route is rebuilt after sign in, sign up and
+    // sign out, and the splash used to play every time, so reaching the app
+    // meant watching it a second and a third time before the chats appeared.
+    // It belongs in front of the app, not in front of every step into it.
+    // ============================================================
+
+    if (!_showSplashScreen || _splashAlreadyShown) {
       return startupPage;
     }
+
+    _splashAlreadyShown = true;
 
     return SplashScreen(nextPage: startupPage);
   }
@@ -469,21 +484,28 @@ class _SplashScreenState extends State<SplashScreen>
 
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 4500),
+      // 4.5s used to be spent on this animation, and 45% of that was a dead
+      // tail where nothing was on screen at all: over two seconds of black
+      // before the next page even started. 1.8s keeps both beats legible and
+      // cuts the wait to a quarter of what it was.
+      duration: const Duration(milliseconds: 1800),
     );
 
     // ==========================================================
     // ATLAS STUDIO SPLASH
+    //
+    // Fade the studio mark in, swap it for the wordmark, then let the wordmark
+    // fade as the app arrives underneath it.
     // ==========================================================
 
     _studioOpacity = TweenSequence<double>([
-      TweenSequenceItem(tween: Tween(begin: 0.0, end: 1.0), weight: 15),
+      TweenSequenceItem(tween: Tween(begin: 0.0, end: 1.0), weight: 18),
 
-      TweenSequenceItem(tween: ConstantTween(1.0), weight: 25),
+      TweenSequenceItem(tween: ConstantTween(1.0), weight: 20),
 
-      TweenSequenceItem(tween: Tween(begin: 1.0, end: 0.0), weight: 15),
+      TweenSequenceItem(tween: Tween(begin: 1.0, end: 0.0), weight: 12),
 
-      TweenSequenceItem(tween: ConstantTween(0.0), weight: 45),
+      TweenSequenceItem(tween: ConstantTween(0.0), weight: 50),
     ]).animate(_controller);
 
     // ==========================================================
@@ -491,13 +513,13 @@ class _SplashScreenState extends State<SplashScreen>
     // ==========================================================
 
     _cryptOpacity = TweenSequence<double>([
-      TweenSequenceItem(tween: ConstantTween(0.0), weight: 45),
+      TweenSequenceItem(tween: ConstantTween(0.0), weight: 50),
 
-      TweenSequenceItem(tween: Tween(begin: 0.0, end: 1.0), weight: 15),
+      TweenSequenceItem(tween: Tween(begin: 0.0, end: 1.0), weight: 12),
 
-      TweenSequenceItem(tween: ConstantTween(1.0), weight: 25),
+      TweenSequenceItem(tween: ConstantTween(1.0), weight: 20),
 
-      TweenSequenceItem(tween: Tween(begin: 1.0, end: 0.0), weight: 15),
+      TweenSequenceItem(tween: Tween(begin: 1.0, end: 0.0), weight: 18),
     ]).animate(_controller);
 
     _controller.forward();
@@ -512,7 +534,7 @@ class _SplashScreenState extends State<SplashScreen>
               return widget.nextPage;
             },
 
-            transitionDuration: const Duration(milliseconds: 600),
+            transitionDuration: const Duration(milliseconds: 350),
 
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) {

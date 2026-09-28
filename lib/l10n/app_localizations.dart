@@ -1131,6 +1131,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Proof submitted. Manual review: 24–48 hours (weekends excluded).'**
   String get proofSubmittedSnackbar;
+
+  /// Home page: loadingChats
+  ///
+  /// In en, this message translates to:
+  /// **'Loading chats...'**
+  String get loadingChats;
+
+  /// Home page: noChatsYetTitle
+  ///
+  /// In en, this message translates to:
+  /// **'No chats yet'**
+  String get noChatsYetTitle;
+
+  /// Home page: noChatsYetHint
+  ///
+  /// In en, this message translates to:
+  /// **'A chat starts when you scan the other person\'s CRYPT QR code. Open your identity page to share yours so they can scan it.'**
+  String get noChatsYetHint;
+
+  /// Home page: scanQrToStartChat
+  ///
+  /// In en, this message translates to:
+  /// **'Scan a QR code'**
+  String get scanQrToStartChat;
+
+  /// Home page: noChatsMatchSearch
+  ///
+  /// In en, this message translates to:
+  /// **'No chats match your search'**
+  String get noChatsMatchSearch;
+
+  /// Home page: noChatsMatchSearchHint
+  ///
+  /// In en, this message translates to:
+  /// **'Try a different name, or clear the search to see every chat.'**
+  String get noChatsMatchSearchHint;
+
+  /// Home page after scanning a QR code: requestSentTitle
+  ///
+  /// In en, this message translates to:
+  /// **'Request sent'**
+  String get requestSentTitle;
+
+  /// Home page after scanning a QR code: requestSentBody
+  ///
+  /// In en, this message translates to:
+  /// **'Your request went to {username}. Please wait while they accept it.'**
+  String requestSentBody(String username);
+
+  /// Home page after scanning a QR code: requestSentKeepOpen
+  ///
+  /// In en, this message translates to:
+  /// **'The chat opens as soon as they accept. Keep CRYPT open on this device so you do not miss it.'**
+  String get requestSentKeepOpen;
+
+  /// Home page after scanning a QR code: requestSentGotIt
+  ///
+  /// In en, this message translates to:
+  /// **'Got it'**
+  String get requestSentGotIt;
+
+  /// QR scan problem: scanCouldNotReadCode
+  ///
+  /// In en, this message translates to:
+  /// **'That code could not be read. Scan a CRYPT QR code.'**
+  String get scanCouldNotReadCode;
+
+  /// QR scan problem: scanMissingTheirIdentity
+  ///
+  /// In en, this message translates to:
+  /// **'That code is missing the person\'s identity. Scan the code from their identity page.'**
+  String get scanMissingTheirIdentity;
+
+  /// QR scan problem: scanOwnIdentityMissing
+  ///
+  /// In en, this message translates to:
+  /// **'Your own encryption key is missing. Sign out and back in, then scan again.'**
+  String get scanOwnIdentityMissing;
+
+  /// Premium payment: noLightningWalletFound
+  ///
+  /// In en, this message translates to:
+  /// **'No Lightning wallet found. Install one, or copy the address and paste it into a wallet.'**
+  String get noLightningWalletFound;
 }
 
 class _AppLocalizationsDelegate
