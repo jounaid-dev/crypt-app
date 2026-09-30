@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart' show visibleForTesting;
+
 import '../models/message.dart';
 import 'hive_storage_service.dart';
 
@@ -43,6 +45,25 @@ class MessageService {
   /// as a device wipe or a sign out, so nothing already decoded can outlive the
   /// data it came from.
   void clearCache() {
+    _decodedCache.clear();
+  }
+
+  // ============================================================
+  // TEST SEAM
+  //
+  // Exposes the write queue directly so its sequencing guarantee can be tested
+  // without a Hive box, which is the only thing that can fail it in practice.
+  // ============================================================
+
+  @visibleForTesting
+  static Future<void> runQueuedForTest(Future<void> Function() operation) {
+    return MessageService()._enqueueWrite(operation);
+  }
+
+  /// Resets the shared queue and cache between tests.
+  @visibleForTesting
+  static void resetForTest() {
+    _writeQueue = Future<void>.value();
     _decodedCache.clear();
   }
 
@@ -623,21 +644,35 @@ class MessageService {
 
     _writeQueue = completer.future;
 
-    // Wait until the previous write finishes.
-    await previous;
+    // ============================================================
+    // WAIT FOR THE PREVIOUS WRITE
+    //
+    // This queue exists only to order writes. It must never complete with an
+    // error, and the guard here is what guarantees that even if a future
+    // version leaks one: awaiting an errored future would throw before this
+    // caller's own completer was ever completed, leaving the queue stuck on a
+    // future that can never finish. Every later write would then wait on it
+    // forever, so the app would silently stop persisting messages.
+    // ============================================================
+
+    try {
+      await previous;
+    } catch (_) {
+      // An earlier write failed. That is its caller's problem, not ours.
+      // Carry on rather than inheriting the failure.
+    }
 
     try {
       await operation();
-
+    } catch (error, stack) {
+      // Release the next writer before reporting this failure. Completing
+      // with the error here is what used to wedge the queue permanently.
       completer.complete();
-    } catch (e, stack) {
-      completer.completeError(
-        e,
-        stack,
-      );
 
-      rethrow;
+      Error.throwWithStackTrace(error, stack);
     }
+
+    completer.complete();
   }
 }
 
@@ -655,18 +690,6 @@ class _WriteCompleter {
   void complete() {
     if (!_completer.isCompleted) {
       _completer.complete();
-    }
-  }
-
-  void completeError(
-    Object error,
-    StackTrace stack,
-  ) {
-    if (!_completer.isCompleted) {
-      _completer.completeError(
-        error,
-        stack,
-      );
     }
   }
 }
