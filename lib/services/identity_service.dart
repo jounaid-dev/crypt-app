@@ -64,6 +64,13 @@ class IdentityService {
   static SimpleKeyPair? _cachedEncryptionKeyPair;
   static SimpleKeyPair? _cachedSigningKeyPair;
 
+  // Derivations already running, so two callers that arrive together share one
+  // pass instead of each paying for their own. Without this, opening a chat
+  // while the sign-in warm up is still running would run PBKDF2 twice.
+  static Future<SimpleKeyPair>? _pendingEncryption;
+  static Future<SimpleKeyPair>? _pendingSigning;
+  static String? _pendingPassword;
+
   /// Forgets the derived keypairs.
   ///
   /// Called when the session is locked or ended. The password is compared
@@ -73,6 +80,9 @@ class IdentityService {
     _cachedPassword = null;
     _cachedEncryptionKeyPair = null;
     _cachedSigningKeyPair = null;
+    _pendingEncryption = null;
+    _pendingSigning = null;
+    _pendingPassword = null;
   }
 
   static bool _cacheMatches(String password) {
@@ -196,6 +206,33 @@ class IdentityService {
       }
     }
 
+    // A derivation is already running for this password. Wait for that one
+    // rather than starting a second one alongside it.
+    final inFlight = _pendingEncryption;
+
+    if (inFlight != null && _pendingPassword == password) {
+      return inFlight;
+    }
+
+    final Future<SimpleKeyPair> derivation =
+        _unlockEncryptionKeyPair(password);
+
+    _pendingPassword = password;
+    _pendingEncryption = derivation;
+
+    try {
+      return await derivation;
+    } finally {
+      if (identical(_pendingEncryption, derivation)) {
+        _pendingEncryption = null;
+        _pendingPassword = null;
+      }
+    }
+  }
+
+  Future<SimpleKeyPair> _unlockEncryptionKeyPair(
+    String password,
+  ) async {
     final saltString =
         await _keyStorage.getConversationKey("password_salt");
 
@@ -271,6 +308,33 @@ class IdentityService {
       }
     }
 
+    // Sending the first message while the sign-in warm up is still running
+    // must not start a second derivation.
+    final inFlight = _pendingSigning;
+
+    if (inFlight != null && _pendingPassword == password) {
+      return inFlight;
+    }
+
+    final Future<SimpleKeyPair> derivation =
+        _unlockSigningKeyPair(password);
+
+    _pendingPassword = password;
+    _pendingSigning = derivation;
+
+    try {
+      return await derivation;
+    } finally {
+      if (identical(_pendingSigning, derivation)) {
+        _pendingSigning = null;
+        _pendingPassword = null;
+      }
+    }
+  }
+
+  Future<SimpleKeyPair> _unlockSigningKeyPair(
+    String password,
+  ) async {
     final saltString =
         await _keyStorage.getConversationKey("password_salt");
 
