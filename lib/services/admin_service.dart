@@ -40,6 +40,14 @@ class AdminService {
       return const AdminUnlockResult.wrongCode();
     }
 
+    // admin_unlock is granted to the authenticated role only, so with no
+    // Supabase session the call is refused by the server. That used to arrive
+    // as a bare error and was reported as a connection problem, which is a
+    // misleading thing to be told when the code and the network are both fine.
+    if (_supabase.auth.currentSession == null) {
+      return const AdminUnlockResult.notSignedIn();
+    }
+
     final response = await _supabase.rpc(
       'admin_unlock',
       params: {'access_code': trimmed},
@@ -69,6 +77,7 @@ class AdminService {
         configured: false,
         failedCount: 0,
         lockedOut: false,
+        databaseReady: true,
       );
     }
 
@@ -78,7 +87,20 @@ class AdminService {
       configured: row['configured'] == true,
       failedCount: (row['failed_count'] as num?)?.toInt() ?? 0,
       lockedOut: row['locked_out'] == true,
+      databaseReady: true,
     );
+  }
+
+  /// True when the admin functions are missing from the database.
+  ///
+  /// They arrive with migration 0002. Until that is applied every admin call
+  /// fails, and the old error text blamed the network for it.
+  static bool isMissingFunction(Object error) {
+    final String text = error.toString();
+
+    return text.contains('PGRST202') ||
+        text.contains('does not exist') ||
+        text.contains('Could not find the function');
   }
 
   /// How many reports and payment proofs are waiting, for the panel badges.
@@ -269,6 +291,24 @@ class AdminUnlockResult {
   const AdminUnlockResult.failed(String reason)
     : this._('error', 'Could not reach the server. $reason');
 
+  /// The database has not been brought up to date yet.
+  const AdminUnlockResult.databaseNotUpdated()
+    : this._(
+        'database_not_updated',
+        'This app is newer than the database setup. Run '
+        'supabase/migrations/0002_admin_unlock_status.sql in the Supabase SQL '
+        'editor, then try again.',
+      );
+
+  /// There is no signed-in server session, so the admin function is not
+  /// reachable.
+  const AdminUnlockResult.notSignedIn()
+    : this._(
+        'not_signed_in',
+        'You are not signed in to the server. Sign out and sign back in, then '
+        'try the code again.',
+      );
+
   /// A status the server sent that this build does not know about.
   factory AdminUnlockResult.fromStatus(String status) {
     return switch (status) {
@@ -278,6 +318,7 @@ class AdminUnlockResult {
       'locked_out' => const AdminUnlockResult.lockedOut(),
       'no_account' => const AdminUnlockResult.noAccount(),
       'no_user_row' => const AdminUnlockResult.noUserRow(),
+      'not_signed_in' => const AdminUnlockResult.notSignedIn(),
       // A bare true is what admin_unlock returned before migration 0002. The
       // server has not been updated yet, so the code did work.
       'true' => const AdminUnlockResult.ok(),
@@ -305,6 +346,7 @@ class AdminAccessState {
     required this.configured,
     required this.failedCount,
     required this.lockedOut,
+    this.databaseReady = true,
   });
 
   final bool configured;
@@ -312,4 +354,7 @@ class AdminAccessState {
   final int failedCount;
 
   final bool lockedOut;
+
+  /// False when the admin functions do not exist on the server yet.
+  final bool databaseReady;
 }

@@ -15,10 +15,30 @@ class AccountFlagsService {
 
   AccountFlags? _cache;
 
+  /// When the cached flags were read.
+  DateTime? _cacheTime;
+
+  /// How long a cached read is trusted.
+  ///
+  /// Premium is switched on by an administrator on the server side. Without an
+  /// expiry the very first read of a session was cached forever, so a user whose
+  /// payment had just been approved kept seeing "waiting for an admin" and had
+  /// to kill the app before the change appeared. Anything that has to reflect a
+  /// server-side change made by someone else needs a short life.
+  static const Duration _cacheTtl = Duration(seconds: 60);
+
+  bool get _cacheIsFresh {
+    final DateTime? at = _cacheTime;
+
+    if (_cache == null || at == null) return false;
+
+    return DateTime.now().difference(at) < _cacheTtl;
+  }
+
   /// Fetches the caller's flags through the my_account_flags() RPC, which
   /// returns only the caller's own row.
   Future<AccountFlags?> fetch({bool force = false}) async {
-    if (_cache != null && !force) return _cache;
+    if (!force && _cacheIsFresh) return _cache;
 
     final response = await _supabase.rpc(
       'my_account_flags',
@@ -33,6 +53,7 @@ class AccountFlagsService {
     );
 
     _cache = flags;
+    _cacheTime = DateTime.now();
 
     return flags;
   }
@@ -53,8 +74,19 @@ class AccountFlagsService {
     return name;
   }
 
+  /// Re-reads the flags from the server, ignoring the cache.
+  ///
+  /// Used where the answer has to reflect an administrator's most recent
+  /// decision, such as opening Settings.
+  Future<AccountFlags?> refresh() => fetch(force: true);
+
   Future<bool> isPremium() async {
     return (await fetch())?.isPremium ?? false;
+  }
+
+  /// Reads premium straight from the server rather than from the cache.
+  Future<bool> isPremiumFresh() async {
+    return (await fetch(force: true))?.isPremium ?? false;
   }
 
   Future<bool> isBanned() async {
@@ -72,5 +104,6 @@ class AccountFlagsService {
   /// Drops the cached flags, e.g. after signing in as someone else.
   void invalidate() {
     _cache = null;
+    _cacheTime = null;
   }
 }

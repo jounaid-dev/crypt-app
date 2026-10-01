@@ -191,6 +191,10 @@ class _SettingsPageState extends State<SettingsPage>
     // comes back to the foreground.
     if (state == AppLifecycleState.resumed) {
       _refreshSettingsPreferences();
+
+      // An administrator may have approved a payment while the phone was in
+      // the background, and coming back is exactly when someone checks.
+      _loadPremiumStatus();
     }
   }
 
@@ -543,7 +547,10 @@ class _SettingsPageState extends State<SettingsPage>
     bool pending = false;
 
     try {
-      premium = await AccountFlagsService.instance.isPremium();
+      // Read straight from the server. An administrator approving a payment
+      // changes the flag on their side, and a cached answer would keep this
+      // screen showing "waiting for an admin" until the app was killed.
+      premium = await AccountFlagsService.instance.isPremiumFresh();
     } catch (e) {
       debugPrint("Could not read premium status: $e");
 

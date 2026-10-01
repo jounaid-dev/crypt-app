@@ -31,6 +31,26 @@ class _AdminAccessPageState extends State<AdminAccessPage> {
 
   bool _lockedOut = false;
 
+  /// False when the admin functions do not exist on the server yet, which means
+  /// the database has not been brought up to date.
+  bool _databaseReady = true;
+
+  /// The outcome of the last setup check, shown to the user so the button is
+  /// never a dead control.
+  String? _checkError;
+
+  /// True when Supabase reports that a database function does not exist.
+  ///
+  /// That is what PostgREST returns when an RPC has not been created, and it is
+  /// not a network problem.
+  static bool _isMissingFunction(Object error) {
+    final String text = error.toString();
+
+    return text.contains('PGRST202') ||
+        text.contains('does not exist') ||
+        text.contains('Could not find the function');
+  }
+
   @override
   void initState() {
     super.initState();
@@ -59,15 +79,44 @@ class _AdminAccessPageState extends State<AdminAccessPage> {
         _checkedServer = true;
         _codeConfigured = state.configured;
         _lockedOut = state.lockedOut;
+        _databaseReady = state.databaseReady;
+        _checkError = null;
       });
-    } catch (_) {
-      // The server could not be reached. Say nothing rather than guess.
+
+      if (!state.databaseReady) {
+        _report(AdminUnlockResult.databaseNotUpdated().message);
+      } else if (!state.configured) {
+        _report(
+          'No admin code is set on the server yet. Run '
+          'supabase/seed_admin.sql once.',
+        );
+      } else {
+        _report('Server checked. The admin code is set and available.');
+      }
+    } catch (e) {
       if (!mounted) return;
 
       setState(() {
         _checkedServer = true;
+        _checkError = _isMissingFunction(e)
+            ? 'This app is newer than the database setup.'
+            : 'Could not reach the server.';
       });
+
+      _report(_checkError!);
     }
+  }
+
+  void _report(String message) {
+    if (!mounted) return;
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        behavior: SnackBarBehavior.floating,
+        content: Text(message),
+        duration: const Duration(seconds: 5),
+      ),
+    );
   }
 
   Future<void> _unlock() async {
@@ -87,11 +136,16 @@ class _AdminAccessPageState extends State<AdminAccessPage> {
     try {
       result = await AdminService.instance.unlockWithCode(code);
     } catch (e) {
-      // A transport or permission error used to be reported as a wrong code,
-      // which sent people looking for a typo in a code that was fine.
-      result = AdminUnlockResult.failed(
-        'Check your connection and try again.',
-      );
+      // A database that has not been migrated yet is not a connectivity
+      // problem. Saying "could not connect to server" sent people to check
+      // their wifi when the real cause was a migration that was never applied.
+      if (_isMissingFunction(e)) {
+        result = const AdminUnlockResult.databaseNotUpdated();
+      } else {
+        result = AdminUnlockResult.failed(
+          'Check your connection and try again.',
+        );
+      }
 
       debugPrint("[Admin] unlock failed: $e");
     }
@@ -149,9 +203,59 @@ class _AdminAccessPageState extends State<AdminAccessPage> {
               textAlign: TextAlign.center,
             ),
 
+            // The database has not been brought up to date. Every admin call
+            // fails until migration 0002 is applied, so say that plainly
+            // instead of reporting it as a bad code or a dead connection.
+            if (_checkedServer && !_databaseReady) ...[
+              const SizedBox(height: 20),
+
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.red.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    color: Colors.red.withValues(alpha: 0.35),
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.build_outlined,
+                          size: 18,
+                          color: Colors.red,
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            'Database setup is out of date',
+                            style: theme.textTheme.titleSmall,
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(height: 8),
+
+                    const Text(
+                      'This app is newer than the database. Apply '
+                      'supabase/migrations/0002_admin_unlock_status.sql in the '
+                      'Supabase SQL editor, then run '
+                      'supabase/seed_admin.sql to set your code. Until then '
+                      'no code can unlock the panel.',
+                      style: TextStyle(fontSize: 12, height: 1.35),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+
             // Shown only when the server has confirmed the state, so a slow or
             // unreachable server does not claim the code is missing.
-            if (_checkedServer && !_codeConfigured) ...[
+            if (_checkedServer && _databaseReady && !_codeConfigured) ...[
               const SizedBox(height: 20),
 
               Container(
