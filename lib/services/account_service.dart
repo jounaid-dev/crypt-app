@@ -10,6 +10,10 @@ import 'key_storage_service.dart';
 import 'identity_service.dart';
 import 'server_auth_service.dart';
 import 'signaling_service.dart';
+import 'session_service.dart';
+import 'contact_service.dart';
+import 'conversation_service.dart';
+import 'hive_storage_service.dart';
 
 class AccountService {
   static const String _usernameKey = "account_username";
@@ -36,6 +40,8 @@ class AccountService {
   final FlutterSecureStorage _secureStorage =
       const FlutterSecureStorage();
 
+  final ContactService _contactService = ContactService();
+  final ConversationService _conversationService = ConversationService();
   Future<void> createAccount({
     required String username,
     required String password,
@@ -447,6 +453,35 @@ class AccountService {
     );
   }
 
+  Future<void> _clearAccountData() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    // Conversations and contacts are local to the single active account.
+    await _conversationService.saveConversations(const []);
+    await _contactService.clearContacts();
+
+    // Remove encrypted message/outbox records belonging to local conversations.
+    final messageKeys = HiveStorageService.getKeys()
+        .where((key) => key.startsWith('messages_'))
+        .toList();
+    for (final key in messageKeys) {
+      await HiveStorageService.remove(key);
+    }
+
+    await HiveStorageService.remove('qr_validation_codes');
+    await HiveStorageService.remove('destruction_blacklist');
+
+    await prefs.remove('conversations');
+    await prefs.remove('require_master_password_for_settings');
+    await prefs.remove('failed_settings_attempts');
+    await prefs.remove('locked_conversation_ids');
+    await prefs.remove('active_conversations_list');
+    await prefs.remove('account_is_premium');
+    await prefs.remove('premium_user_support_comment');
+
+    await _secureStorage.delete(key: 'settings_lockout_expiry');
+  }
+
   Future<void> deleteAccount() async {
     final username = await getUsername();
     final publicId = await getPublicId();
@@ -472,22 +507,13 @@ class AccountService {
       publicId: publicId,
     );
 
-    // 3. Delete all local account data and encryption material.
+    // 3. Stop the local session and remove account-scoped data.
+    SignalingService.instance.disconnect();
+    SessionService.instance.lock();
+    await _clearAccountData();
+
+    // 4. Remove account metadata and private encryption material last.
     await logout();
-
-    // 4. Delete settings/security data that logout()
-    //    doesn't own.
-    final prefs = await SharedPreferences.getInstance();
-
-    await prefs.remove('failed_settings_attempts');
-    await prefs.remove('locked_conversation_ids');
-    await prefs.remove('active_conversations_list');
-    await prefs.remove('account_is_premium');
-    await prefs.remove('premium_user_support_comment');
-
-    await _secureStorage.delete(
-      key: 'settings_lockout_expiry',
-    );
   }
 
   String exportAccount(

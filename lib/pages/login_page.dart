@@ -27,6 +27,7 @@ class _LoginPageState extends State<LoginPage> {
 
   bool _loading = false;
   bool _obscurePassword = true;
+  bool _agreedToTerms = false;
 
   @override
   void initState() {
@@ -51,6 +52,13 @@ class _LoginPageState extends State<LoginPage> {
       return;
     }
 
+    if (!_agreedToTerms) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(l10n.agreeTerms)),
+      );
+      return;
+    }
+
     setState(() {
       _loading = true;
     });
@@ -61,12 +69,7 @@ class _LoginPageState extends State<LoginPage> {
       if (!mounted) return;
 
       if (success) {
-        final agreed = await Navigator.push<bool>(
-          context,
-          MaterialPageRoute(builder: (_) => const TermsAndConditionsPage()),
-        );
-
-        if (agreed != true || !mounted) return;
+        if (!mounted) return;
 
         final prefs = await SharedPreferences.getInstance();
         final betaAcknowledged =
@@ -232,6 +235,34 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
 
+                CheckboxListTile(
+                  value: _agreedToTerms,
+                  contentPadding: EdgeInsets.zero,
+                  controlAffinity: ListTileControlAffinity.leading,
+                  title: Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: [
+                      Text(l10n.agreeTerms),
+                      TextButton(
+                        onPressed: _loading
+                            ? null
+                            : () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => const TermsAndConditionsPage(),
+                                ),
+                              ),
+                        child: Text(l10n.termsAndConditions),
+                      ),
+                    ],
+                  ),
+                  onChanged: _loading
+                      ? null
+                      : (value) => setState(() {
+                          _agreedToTerms = value ?? false;
+                        }),
+                ),
+
                 const SizedBox(height: 24),
 
                 // LOGIN BUTTON
@@ -267,17 +298,6 @@ class _LoginPageState extends State<LoginPage> {
                           );
                         },
                   child: Text(l10n.dontHaveAnAccountSignUp),
-                ),
-                TextButton(
-                  onPressed: _loading
-                      ? null
-                      : () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const TermsAndConditionsPage(),
-                          ),
-                        ),
-                  child: Text(l10n.termsAndConditions),
                 ),
               ],
             ),

@@ -440,8 +440,14 @@ class _CryptAppState extends State<CryptApp> with WidgetsBindingObserver {
   void _restartStartup() {
     if (!mounted) return;
 
+    // Replace the authentication page without an animated transition so the
+    // old login/signup screen cannot flash while the normal app is rebuilt.
     navigatorKey.currentState?.pushAndRemoveUntil(
-      MaterialPageRoute(builder: (_) => _buildStartupRoute()),
+      PageRouteBuilder(
+        pageBuilder: (_, _, _) => _buildStartupPage(AccountService()),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
+      ),
       (route) => false,
     );
   }

@@ -31,6 +31,7 @@ class _SignupPageState extends State<SignupPage> {
 
   bool _loading = false;
   bool _obscurePassword = true;
+  bool _agreedToTerms = false;
 
   @override
   void initState() {
@@ -66,6 +67,13 @@ class _SignupPageState extends State<SignupPage> {
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text(l10n.pleaseFillInAllFields)));
+      return;
+    }
+
+    if (!_agreedToTerms) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(l10n.agreeTerms)),
+      );
       return;
     }
 
@@ -167,12 +175,7 @@ class _SignupPageState extends State<SignupPage> {
 
       if (!mounted) return;
 
-      final agreed = await Navigator.push<bool>(
-        context,
-        MaterialPageRoute(builder: (_) => const TermsAndConditionsPage()),
-      );
-
-      if (agreed != true || !mounted) return;
+      if (!mounted) return;
 
       final prefs = await SharedPreferences.getInstance();
       final betaAcknowledged =
@@ -266,18 +269,6 @@ class _SignupPageState extends State<SignupPage> {
                   style: const TextStyle(color: Colors.grey, fontSize: 14),
                 ),
 
-                TextButton(
-                  onPressed: _loading
-                      ? null
-                      : () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const TermsAndConditionsPage(),
-                          ),
-                        ),
-                  child: Text(l10n.termsAndConditions),
-                ),
-
                 const SizedBox(height: 32),
 
                 // USERNAME
@@ -348,6 +339,34 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                     ),
                   ),
+
+                CheckboxListTile(
+                  value: _agreedToTerms,
+                  contentPadding: EdgeInsets.zero,
+                  controlAffinity: ListTileControlAffinity.leading,
+                  title: Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: [
+                      Text(l10n.agreeTerms),
+                      TextButton(
+                        onPressed: _loading
+                            ? null
+                            : () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => const TermsAndConditionsPage(),
+                                ),
+                              ),
+                        child: Text(l10n.termsAndConditions),
+                      ),
+                    ],
+                  ),
+                  onChanged: _loading
+                      ? null
+                      : (value) => setState(() {
+                          _agreedToTerms = value ?? false;
+                        }),
+                ),
 
                 const SizedBox(height: 24),
 

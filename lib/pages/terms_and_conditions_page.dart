@@ -1,15 +1,34 @@
 import 'package:flutter/material.dart';
 import '../l10n/app_localizations.dart';
 
-class TermsAndConditionsPage extends StatefulWidget {
+class TermsAndConditionsPage extends StatelessWidget {
   const TermsAndConditionsPage({super.key});
 
   @override
-  State<TermsAndConditionsPage> createState() => _TermsAndConditionsPageState();
-}
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
 
-class _TermsAndConditionsPageState extends State<TermsAndConditionsPage> {
-  bool _agreed = false;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(l10n.termsAndConditions),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.all(24),
+          children: [
+            Text(
+              _termsText,
+              style: const TextStyle(fontSize: 16, height: 1.5),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
   static const String _termsText = '''
 CRYPT Terms & Conditions
@@ -187,63 +206,4 @@ If you do not agree to these Terms, you must not use CRYPT.
 CRYPT — Private communication, built with privacy first.
 ''';
 
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(l10n.termsAndConditions),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
-        ),
-      ),
-      body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.all(24),
-          children: [
-            Text(
-              _termsText,
-              style: const TextStyle(
-                fontSize: 16,
-                height: 1.5,
-              ),
-            ),
-            const SizedBox(height: 24),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Checkbox(
-                  value: _agreed,
-                  onChanged: (value) {
-                    setState(() {
-                      _agreed = value ?? false;
-                    });
-                  },
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 16),
-                    child: Text(l10n.agreeTerms),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            FilledButton(
-              onPressed: _agreed
-                  ? () => Navigator.pop(context, true)
-                  : null,
-              child: Text(
-                l10n.agreeAndContinue,
-                textAlign: TextAlign.center,
-                softWrap: true,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 }
