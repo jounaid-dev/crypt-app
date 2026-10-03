@@ -92,7 +92,10 @@ create index if not exists users_username_idx
 --
 -- Two rows for the same login break the unique index below.
 -- Keep exactly one row per auth_user_id and one row per
--- username. The kept row is the one carrying admin or premium
+-- username, comparing usernames case-insensitively: Supabase
+-- Auth lowercases addresses, so 'Bob' and 'bob' are the same
+-- login even when the rows were stored with different
+-- spellings. The kept row is the one carrying admin or premium
 -- flags, else the newest signup. Chats, reports and payment
 -- proofs are never touched.
 -- -----------------------------------------------------------------------------
@@ -120,7 +123,7 @@ where username is not null
     select ctid from (
       select ctid,
              row_number() over (
-               partition by username
+               partition by lower(username)
                order by (is_admin::int + is_premium::int) desc,
                         created_at desc,
                         ctid desc
@@ -134,18 +137,19 @@ where username is not null
 -- -----------------------------------------------------------------------------
 -- 1c. Link auth.uid() to a public.users row
 --
--- Fills at most one row per username, and only when no row
--- with that username is already linked and the auth account
--- itself is not already linked to a different row, so
--- re-running this on any database state can never create a
--- duplicate link.
+-- Fills at most one row per username, comparing
+-- case-insensitively because Supabase Auth lowercases
+-- addresses, and only when no row with that username is
+-- already linked and the auth account itself is not already
+-- linked to a different row, so re-running this on any
+-- database state can never create a duplicate link.
 -- -----------------------------------------------------------------------------
 
 update public.users u
    set auth_user_id = a.id
   from auth.users a
  where u.auth_user_id is null
-   and a.email = u.username || '@crypt.invalid'
+   and a.email = lower(u.username) || '@crypt.invalid'
    and u.ctid = (
      select min(u3.ctid)
        from public.users u3
@@ -165,9 +169,13 @@ update public.users u
         and u2.ctid <> u.ctid
    );
 
-create unique index if not exists users_auth_user_id_idx
-  on public.users (auth_user_id)
-  where auth_user_id is not null;
+-- Not partial: the app upserts on auth_user_id, and a partial
+-- unique index cannot always be inferred as the conflict target.
+-- Nulls are still distinct in a unique index, so unlinked rows
+-- (auth_user_id is null) never collide with each other.
+drop index if exists public.users_auth_user_id_idx;
+create unique index users_auth_user_id_idx
+  on public.users (auth_user_id);
 
 -- -----------------------------------------------------------------------------
 -- 2. Reports

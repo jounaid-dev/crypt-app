@@ -34,6 +34,12 @@ class CloudIdentityService {
       throw Exception("Not signed in.");
     }
 
+    // Conflict on auth_user_id, not username. Supabase Auth
+    // lowercases addresses, so signing up as 'Bob' and 'bob' is
+    // the same account, but the two spellings would otherwise be
+    // stored as two rows and the second insert would violate the
+    // unique users_auth_user_id_idx. Merging on the Supabase user
+    // keeps exactly one row per account whatever the spelling.
     await _supabase
         .from('users')
         .upsert(
@@ -47,7 +53,7 @@ class CloudIdentityService {
         'password_hash': passwordHash,
         'auth_user_id': authUserId,
       },
-      onConflict: 'username',
+      onConflict: 'auth_user_id',
     );
   }
 
