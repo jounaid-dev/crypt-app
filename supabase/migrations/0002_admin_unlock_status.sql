@@ -51,7 +51,7 @@ create or replace function public.admin_unlock(
 returns text
 language plpgsql
 security definer
-set search_path = public
+set search_path = public, extensions
 as $$
 declare
   v_row        public.admin_access;
@@ -156,7 +156,7 @@ returns table (
 language plpgsql
 stable
 security definer
-set search_path = public
+set search_path = public, extensions
 as $$
 begin
   return query

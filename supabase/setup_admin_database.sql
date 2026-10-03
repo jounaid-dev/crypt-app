@@ -244,7 +244,7 @@ returns boolean
 language sql
 stable
 security definer
-set search_path = public
+set search_path = public, extensions
 as $$
   select coalesce(
     (select u.is_admin
@@ -264,7 +264,7 @@ returns text
 language sql
 stable
 security definer
-set search_path = public
+set search_path = public, extensions
 as $$
   select u.username
     from public.users u
@@ -398,7 +398,7 @@ returns table (username text, is_premium boolean, is_banned boolean,
 language sql
 stable
 security definer
-set search_path = public
+set search_path = public, extensions
 as $$
   select u.username, u.is_premium, u.is_banned, u.banned_reason, u.is_admin
     from public.users u
@@ -425,7 +425,7 @@ create function public.admin_set_premium(
 returns void
 language plpgsql
 security definer
-set search_path = public
+set search_path = public, extensions
 as $$
 begin
   if not public.is_admin() then
@@ -460,7 +460,7 @@ create function public.admin_set_ban(
 returns void
 language plpgsql
 security definer
-set search_path = public
+set search_path = public, extensions
 as $$
 declare
   v_admin text;
@@ -499,7 +499,7 @@ returns setof public.reports
 language plpgsql
 stable
 security definer
-set search_path = public
+set search_path = public, extensions
 as $$
 begin
   if not public.is_admin() then
@@ -527,7 +527,7 @@ create function public.admin_set_report_status(
 returns void
 language plpgsql
 security definer
-set search_path = public
+set search_path = public, extensions
 as $$
 begin
   if not public.is_admin() then
@@ -571,7 +571,7 @@ returns setof public.payment_proofs
 language plpgsql
 stable
 security definer
-set search_path = public
+set search_path = public, extensions
 as $$
 begin
   if not public.is_admin() then
@@ -599,7 +599,7 @@ create function public.admin_review_payment_proof(
 returns void
 language plpgsql
 security definer
-set search_path = public
+set search_path = public, extensions
 as $$
 declare
   v_proof   public.payment_proofs;
@@ -662,7 +662,7 @@ returns table (username text, is_premium boolean, is_banned boolean,
 language plpgsql
 stable
 security definer
-set search_path = public
+set search_path = public, extensions
 as $$
 begin
   if not public.is_admin() then
@@ -694,7 +694,7 @@ returns text
 language plpgsql
 stable
 security definer
-set search_path = public
+set search_path = public, extensions
 as $$
 begin
   if not public.is_admin() then
@@ -740,7 +740,7 @@ create function public.admin_unlock(
 returns text
 language plpgsql
 security definer
-set search_path = public
+set search_path = public, extensions
 as $$
 declare
   v_row          public.admin_access;
@@ -830,7 +830,7 @@ returns table (
 language plpgsql
 stable
 security definer
-set search_path = public
+set search_path = public, extensions
 as $$
 begin
   return query
@@ -858,7 +858,7 @@ returns table (open_reports bigint, pending_payments bigint)
 language plpgsql
 stable
 security definer
-set search_path = public
+set search_path = public, extensions
 as $$
 begin
   if not public.is_admin() then
