@@ -9,7 +9,7 @@ class SignalingService {
 
   static final SignalingService instance = SignalingService._();
 
-  static const String server = "wss://crypt.runsite.app/ws";
+  static const String server = "wss://fleet-shows-plumbing-symbols.trycloudflare.com/ws";
 
   /// The broadcast stream listeners subscribe to.
   ///
@@ -60,13 +60,13 @@ class SignalingService {
   Timer? _reconnectTimer;
 
   /// Backoff schedule for an unexpected drop, in milliseconds.
+  /// Optimized: faster reconnection, max 5s instead of 15s.
   static const List<int> _reconnectDelaysMs = <int>[
     500,
     1000,
     2000,
     4000,
-    8000,
-    15000,
+    5000,
   ];
 
   int _reconnectAttempt = 0;
@@ -74,6 +74,9 @@ class SignalingService {
   /// Fires once a socket has been up long enough to be considered healthy, at
   /// which point the backoff is allowed to reset.
   Timer? _stabilityTimer;
+
+  /// Timer for periodic ban checks while connected.
+  Timer? _banCheckTimer;
 
   // ============================================================
   // CONNECTION
@@ -147,6 +150,9 @@ class SignalingService {
       // Hand over anything that was produced while the socket was opening.
       _flushPendingFrames();
 
+      // Start periodic ban check while connected (every 30 seconds)
+      _startBanCheckTimer(username);
+
       // Only treat the socket as healthy once it has actually stayed up. A
       // server that accepts and immediately drops would otherwise reset the
       // backoff on every attempt and turn into a tight 500ms loop.
@@ -163,11 +169,42 @@ class SignalingService {
     }
   }
 
+  /// Periodically check ban status with the server while connected.
+  void _startBanCheckTimer(String username) {
+    _banCheckTimer?.cancel();
+    _banCheckTimer = Timer.periodic(const Duration(seconds: 30), (timer) {
+      if (!_connected || _closedDeliberately) {
+        timer.cancel();
+        return;
+      }
+      // Send a ban check request to the server
+      _send({"type": "ban_check", "username": username});
+    });
+  }
+
+  /// Handle incoming ban check response or forced disconnect from server.
+  void _handleBanCheckResponse(Map<String, dynamic> data) {
+    final bool banned = data["banned"] == true;
+    final String? reason = data["reason"]?.toString();
+
+    if (banned) {
+      debugPrint("[Signaling] Server reported ban: $reason");
+      // Emit a ban event to all listeners
+      if (!_events.isClosed) {
+        _events.add({
+          "type": "force_disconnect",
+          "reason": reason ?? "Your account has been banned.",
+        });
+      }
+      // Close the connection
+      disconnect();
+    }
+  }
+
   /// Retries the socket after a drop, backing off so a server outage does not
   /// turn into a reconnect loop.
   ///
-  /// There was no recovery at all before: once the socket closed, the only way
-  /// back was to restart the app.
+  /// Optimized for faster reconnection: starts at 500ms, caps at 5s instead of 15s.
   void _scheduleReconnect() {
     if (_closedDeliberately) return;
 
@@ -197,6 +234,21 @@ class SignalingService {
         unawaited(connect(username));
       },
     );
+  }
+
+  /// Fast reconnect - attempts immediate reconnection without backoff.
+  /// Used when the app regains focus and we suspect the connection may be stale.
+  void fastReconnect() {
+    if (_closedDeliberately) return;
+    if (_currentUsername == null) return;
+    if (_connected || _connecting) return;
+
+    // Cancel any pending reconnect
+    _reconnectTimer?.cancel();
+    _reconnectTimer = null;
+    _reconnectAttempt = 0;
+
+    unawaited(connect(_currentUsername!));
   }
 
   // ============================================================
@@ -434,6 +486,9 @@ class SignalingService {
     _reconnectTimer?.cancel();
     _reconnectTimer = null;
 
+    _banCheckTimer?.cancel();
+    _banCheckTimer = null;
+
     _pendingFrames.clear();
 
     unawaited(_teardown(closeStream: true));
@@ -452,6 +507,9 @@ class SignalingService {
 
     _stabilityTimer?.cancel();
     _stabilityTimer = null;
+
+    _banCheckTimer?.cancel();
+    _banCheckTimer = null;
 
     final subscription = _channelSubscription;
     final channel = _channel;
