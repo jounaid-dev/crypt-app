@@ -14,7 +14,10 @@ import '../services/conversation_id_service.dart';
 import '../services/chat_lock_service.dart';
 import '../services/signaling_service.dart';
 import '../services/account_service.dart';
+import '../services/account_flags_service.dart';
+import '../services/session_service.dart';
 import '../services/qr_validation_code_service.dart';
+import '../main.dart';
 
 class HomePage extends StatefulWidget {
   final String uid;
@@ -84,6 +87,15 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   StreamSubscription? _signalingSubscription;
 
+  /// Periodically re-reads the server-side ban flag.
+  ///
+  /// The ban flag lives in the database and is otherwise only
+  /// checked at login, so an administrator can ban this account
+  /// while the app is running. The signaling blacklist only
+  /// covers deleted accounts, so the flag is polled here to
+  /// catch bans that do not delete the account.
+  Timer? _banMonitorTimer;
+
   bool _isHandlingConversationRequest = false;
 
   // ============================================================
@@ -97,6 +109,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
 
     _searchController = TextEditingController();
+
+    _startBanMonitor();
 
     loadConversations();
 
@@ -164,6 +178,11 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
       final type = data["type"]?.toString();
 
+      if (type == "force_disconnect") {
+        await _handleForceDisconnect(data);
+        return;
+      }
+
       if (type == "conversation_request") {
         await _handleConversationRequest(data);
         return;
@@ -184,6 +203,81 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         "$e\n$stack",
       );
     }
+  }
+
+  // ============================================================
+  // BAN MONITOR
+  // ============================================================
+
+  /// Polls the database ban flag while the app is running.
+  ///
+  /// The interval matches the flags cache lifetime, so no poll
+  /// wastes a request. A banned account is signed out
+  /// immediately with the server's reason.
+  void _startBanMonitor() {
+    _banMonitorTimer?.cancel();
+
+    _banMonitorTimer = Timer.periodic(
+      const Duration(seconds: 60),
+      (_) async {
+        try {
+          final banned =
+              await AccountFlagsService.instance.isBanned();
+
+          if (!banned) return;
+
+          final reason =
+              await AccountFlagsService.instance.banReason();
+
+          await _handleForceDisconnect({
+            "reason": reason ??
+                "This account has been suspended by an "
+                "administrator.",
+          });
+        } catch (e) {
+          // The flags read failed, e.g. no network. The next
+          // poll retries; the signaling blacklist still covers
+          // deleted accounts in real time.
+          debugPrint("[Home] Ban flag poll failed: $e");
+        }
+      },
+    );
+  }
+
+  /// The server reported this account as banned.
+  ///
+  /// Shows the reason, then ends the session so the app
+  /// returns to the login screen.
+  Future<void> _handleForceDisconnect(
+    Map<String, dynamic> data,
+  ) async {
+    final reason = data["reason"]?.toString() ??
+        "This account has been suspended by an administrator.";
+
+    if (mounted) {
+      await showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => AlertDialog(
+          title: const Text("Account suspended"),
+          content: Text(reason),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text("OK"),
+            ),
+          ],
+        ),
+      );
+    }
+
+    _signaling.disconnect();
+    await _accountService.logout();
+    SessionService.instance.lock();
+
+    if (!mounted) return;
+
+    CryptApp.restartStartup(context);
   }
 
   // ============================================================
@@ -645,6 +739,9 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+
+    _banMonitorTimer?.cancel();
+    _banMonitorTimer = null;
 
     _signalingSubscription?.cancel();
     _signalingSubscription = null;

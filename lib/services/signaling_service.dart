@@ -9,7 +9,7 @@ class SignalingService {
 
   static final SignalingService instance = SignalingService._();
 
-  static const String server = "wss://fleet-shows-plumbing-symbols.trycloudflare.com/ws";
+  static const String server = "wss://crypt.fadehost.app/ws";
 
   /// The broadcast stream listeners subscribe to.
   ///
@@ -110,6 +110,10 @@ class SignalingService {
           try {
             final decoded = jsonDecode(data.toString());
 
+            if (decoded is Map<String, dynamic>) {
+              _checkBlacklistForBan(decoded);
+            }
+
             if (!_events.isClosed) {
               _events.add(decoded);
             }
@@ -161,7 +165,8 @@ class SignalingService {
       _stabilityTimer = Timer(const Duration(seconds: 30), () {
         _reconnectAttempt = 0;
       });
-    } catch (_) {
+    } catch (error) {
+      print("[Signaling] Connection to $server failed: $error");
       _connected = false;
       _connecting = false;
 
@@ -169,7 +174,13 @@ class SignalingService {
     }
   }
 
-  /// Periodically check ban status with the server while connected.
+  /// Periodically refresh the blacklist while connected.
+  ///
+  /// The server answers blacklist_request with the full
+  /// blacklist, so this doubles as a ban check: when the
+  /// account has been deleted server-side, the next
+  /// blacklist_update contains this username and triggers
+  /// a force disconnect.
   void _startBanCheckTimer(String username) {
     _banCheckTimer?.cancel();
     _banCheckTimer = Timer.periodic(const Duration(seconds: 30), (timer) {
@@ -177,27 +188,55 @@ class SignalingService {
         timer.cancel();
         return;
       }
-      // Send a ban check request to the server
-      _send({"type": "ban_check", "username": username});
+      requestBlacklist();
     });
   }
 
-  /// Handle incoming ban check response or forced disconnect from server.
-  void _handleBanCheckResponse(Map<String, dynamic> data) {
-    final bool banned = data["banned"] == true;
-    final String? reason = data["reason"]?.toString();
+  /// Checks a server blacklist update for this account.
+  ///
+  /// The server sends the blacklist on register, on every
+  /// blacklist_request, and broadcasts it whenever an account
+  /// is deleted. If this username appears in the entries, the
+  /// account was removed server-side: notify the UI and drop
+  /// the socket.
+  void _checkBlacklistForBan(Map<String, dynamic> data) {
+    if (data["type"]?.toString() != "blacklist_update") {
+      return;
+    }
 
-    if (banned) {
-      debugPrint("[Signaling] Server reported ban: $reason");
-      // Emit a ban event to all listeners
-      if (!_events.isClosed) {
-        _events.add({
-          "type": "force_disconnect",
-          "reason": reason ?? "Your account has been banned.",
-        });
+    final username = _currentUsername;
+
+    if (username == null || username.isEmpty) {
+      return;
+    }
+
+    final payload = data["payload"];
+
+    if (payload is! Map) {
+      return;
+    }
+
+    final entries = payload["entries"];
+
+    if (entries is! List) {
+      return;
+    }
+
+    for (final entry in entries) {
+      if (entry is Map &&
+          entry["username"]?.toString() == username) {
+        print("[Signaling] Account banned on server: $username");
+
+        if (!_events.isClosed) {
+          _events.add({
+            "type": "force_disconnect",
+            "reason": "Your account has been banned.",
+          });
+        }
+
+        disconnect();
+        return;
       }
-      // Close the connection
-      disconnect();
     }
   }
 

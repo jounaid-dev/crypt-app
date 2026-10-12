@@ -17,6 +17,7 @@ import '../services/webrtc_service.dart';
 import '../services/session_service.dart';
 import '../services/key_exchange_service.dart';
 import '../services/signature_service.dart';
+import '../main.dart';
 
 class ChatPage extends StatefulWidget {
   final Conversation conversation;
@@ -835,6 +836,11 @@ class _ChatPageState extends State<ChatPage> {
 
       final type = data["type"] as String?;
 
+      if (type == "force_disconnect") {
+        await _handleForceDisconnect(data);
+        return;
+      }
+
       final sender = data["sender"] as String?;
 
       if (sender != null && sender != widget.conversation.username) {
@@ -866,6 +872,42 @@ class _ChatPageState extends State<ChatPage> {
         "$e\n$stack",
       );
     }
+  }
+
+  /// The server reported this account as banned.
+  ///
+  /// Shows the reason, then ends the session so the app
+  /// returns to the login screen.
+  Future<void> _handleForceDisconnect(
+    Map<String, dynamic> data,
+  ) async {
+    final reason = data["reason"]?.toString() ??
+        "This account has been suspended by an administrator.";
+
+    if (mounted) {
+      await showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => AlertDialog(
+          title: const Text("Account suspended"),
+          content: Text(reason),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text("OK"),
+            ),
+          ],
+        ),
+      );
+    }
+
+    _signaling.disconnect();
+    await _accountService.logout();
+    SessionService.instance.lock();
+
+    if (!mounted) return;
+
+    CryptApp.restartStartup(context);
   }
 
   Future<void> _handleOffer(Map<String, dynamic> payload) async {
