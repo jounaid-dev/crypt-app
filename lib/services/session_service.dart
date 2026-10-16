@@ -1,4 +1,5 @@
 import 'identity_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SessionService {
   SessionService._();
@@ -22,7 +23,20 @@ class SessionService {
   /// point cannot forget it.
   void lock() {
     _password = null;
-
     IdentityService.clearKeyCache();
+  }
+
+  /// Persists the master password to SharedPreferences.
+  /// Call this after a successful login so the app can restore the session
+  /// after a kill/reboot.
+  Future<void> savePassword(String password) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('saved_password', password);
+  }
+
+  /// Retrieves the previously saved master password, or null if none exists.
+  Future<String?> getSavedPassword() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('saved_password');
   }
 }
