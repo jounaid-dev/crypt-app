@@ -563,53 +563,54 @@ class AppLocalizationsNl extends AppLocalizations {
       'Bewijs ingediend. Handmatige beoordeling: 24–48 uur (weekenden uitgesloten).';
 
   @override
-  String get loadingChats => 'Loading chats...';
+  String get loadingChats => 'Chats laden...';
 
   @override
-  String get noChatsYetTitle => 'No chats yet';
+  String get noChatsYetTitle => 'Geen berichten';
 
   @override
   String get noChatsYetHint =>
-      'A chat starts when you scan the other person\'s CRYPT QR code. Open your identity page to share yours so they can scan it.';
+      'Een chat begint wanneer je de CRYPT QR-code van de andere persoon scant. Open je identiteitspagina om die van jou te delen, zodat ze deze kunnen scannen.';
 
   @override
-  String get scanQrToStartChat => 'Scan a QR code';
+  String get scanQrToStartChat => 'SCAN DE QR-CODE';
 
   @override
-  String get noChatsMatchSearch => 'No chats match your search';
+  String get noChatsMatchSearch =>
+      'Geen chats die overeenkomen met je zoekopdracht';
 
   @override
   String get noChatsMatchSearchHint =>
-      'Try a different name, or clear the search to see every chat.';
+      'Probeer een andere naam of wis de zoekopdracht om elke chat te zien.';
 
   @override
-  String get requestSentTitle => 'Request sent';
+  String get requestSentTitle => 'Aanvraag verzonden';
 
   @override
   String requestSentBody(String username) {
-    return 'Your request went to $username. Please wait while they accept it.';
+    return 'Je verzoek is verstuurd naar$username. Wacht terwijl ze het accepteren.';
   }
 
   @override
   String get requestSentKeepOpen =>
-      'The chat opens as soon as they accept. Keep CRYPT open on this device so you do not miss it.';
+      'De chat wordt geopend zodra ze accepteren. Houd CRYPT open op dit apparaat zodat je het niet mist.';
 
   @override
-  String get requestSentGotIt => 'Got it';
+  String get requestSentGotIt => 'Begrepen';
 
   @override
   String get scanCouldNotReadCode =>
-      'That code could not be read. Scan a CRYPT QR code.';
+      'Die code kon niet worden gelezen. Scan een CRYPT QR-code.';
 
   @override
   String get scanMissingTheirIdentity =>
-      'That code is missing the person\'s identity. Scan the code from their identity page.';
+      'In die code ontbreekt de identiteit van de persoon. Scan de code vanaf hun identiteitspagina.';
 
   @override
   String get scanOwnIdentityMissing =>
-      'Your own encryption key is missing. Sign out and back in, then scan again.';
+      'Uw eigen coderingssleutel ontbreekt. Log uit en weer in en scan opnieuw.';
 
   @override
   String get noLightningWalletFound =>
-      'No Lightning wallet found. Install one, or copy the address and paste it into a wallet.';
+      'Geen Lightning-portemonnee gevonden. Installeer er een of kopieer het adres en plak het in een wallet.';
 }

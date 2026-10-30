@@ -562,53 +562,54 @@ class AppLocalizationsKn extends AppLocalizations {
       'ಪುರಾವೆ ಸಲ್ಲಿಸಲಾಗಿದೆ. ಹಸ್ತಚಾಲಿತ ಪರಿಶೀಲನೆ: 24–48 ಗಂಟೆಗಳು (ವಾರಾಂತ್ಯಗಳನ್ನು ಹೊರತುಪಡಿಸಿ).';
 
   @override
-  String get loadingChats => 'Loading chats...';
+  String get loadingChats => 'ಚಾಟ್‌ಗಳನ್ನು ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ...';
 
   @override
-  String get noChatsYetTitle => 'No chats yet';
+  String get noChatsYetTitle => 'ಇನ್ನೂ ಯಾವುದೇ ಚಾಟ್‌ಗಳಿಲ್ಲ';
 
   @override
   String get noChatsYetHint =>
-      'A chat starts when you scan the other person\'s CRYPT QR code. Open your identity page to share yours so they can scan it.';
+      'ನೀವು ಇತರ ವ್ಯಕ್ತಿಯ ಕ್ರಿಪ್ಟ್ QR ಕೋಡ್ ಅನ್ನು ಸ್ಕ್ಯಾನ್ ಮಾಡಿದಾಗ ಚಾಟ್ ಪ್ರಾರಂಭವಾಗುತ್ತದೆ. ನಿಮ್ಮ ಗುರುತಿನ ಪುಟವನ್ನು ಹಂಚಿಕೊಳ್ಳಲು ತೆರೆಯಿರಿ ಇದರಿಂದ ಅವರು ಅದನ್ನು ಸ್ಕ್ಯಾನ್ ಮಾಡಬಹುದು.';
 
   @override
-  String get scanQrToStartChat => 'Scan a QR code';
+  String get scanQrToStartChat => 'QR ಕೋಡ್ ಅನ್ನು ಸ್ಕ್ಯಾನ್ ಮಾಡಿ';
 
   @override
-  String get noChatsMatchSearch => 'No chats match your search';
+  String get noChatsMatchSearch =>
+      'ನಿಮ್ಮ ಹುಡುಕಾಟಕ್ಕೆ ಯಾವುದೇ ಚಾಟ್‌ಗಳು ಹೊಂದಿಕೆಯಾಗುವುದಿಲ್ಲ';
 
   @override
   String get noChatsMatchSearchHint =>
-      'Try a different name, or clear the search to see every chat.';
+      'ಬೇರೆ ಹೆಸರನ್ನು ಪ್ರಯತ್ನಿಸಿ ಅಥವಾ ಪ್ರತಿ ಚಾಟ್ ನೋಡಲು ಹುಡುಕಾಟವನ್ನು ತೆರವುಗೊಳಿಸಿ.';
 
   @override
-  String get requestSentTitle => 'Request sent';
+  String get requestSentTitle => 'ವಿನಂತಿಯನ್ನು ಕಳುಹಿಸಲಾಗಿದೆ';
 
   @override
   String requestSentBody(String username) {
-    return 'Your request went to $username. Please wait while they accept it.';
+    return 'ನಿಮ್ಮ ವಿನಂತಿಯು ಗೆ ಹೋಯಿತು$username. ಅವರು ಅದನ್ನು ಸ್ವೀಕರಿಸುವವರೆಗೆ ದಯವಿಟ್ಟು ಕಾಯಿರಿ.';
   }
 
   @override
   String get requestSentKeepOpen =>
-      'The chat opens as soon as they accept. Keep CRYPT open on this device so you do not miss it.';
+      'ಅವರು ಸ್ವೀಕರಿಸಿದ ಕೂಡಲೇ ಚಾಟ್ ತೆರೆಯುತ್ತದೆ. ಈ ಸಾಧನದಲ್ಲಿ ಕ್ರಿಪ್ಟೋಕರೆನ್ಸಿ ತೆರೆಯಿರಿ ಇದರಿಂದ ನೀವು ಅದನ್ನು ಕಳೆದುಕೊಳ್ಳುವುದಿಲ್ಲ.';
 
   @override
-  String get requestSentGotIt => 'Got it';
+  String get requestSentGotIt => 'ಅರ್ಥವಾಯಿತು';
 
   @override
   String get scanCouldNotReadCode =>
-      'That code could not be read. Scan a CRYPT QR code.';
+      'ಆ ಕೋಡ್ ಅನ್ನು ಓದಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ಕ್ರಿಪ್ಟ್ QR ಕೋಡ್ ಅನ್ನು ಸ್ಕ್ಯಾನ್ ಮಾಡಿ.';
 
   @override
   String get scanMissingTheirIdentity =>
-      'That code is missing the person\'s identity. Scan the code from their identity page.';
+      'ಆ ಕೋಡ್ ವ್ಯಕ್ತಿಯ ಗುರುತನ್ನು ಕಳೆದುಕೊಂಡಿದೆ. ಅವರ ಗುರುತಿನ ಪುಟದಿಂದ ಕೋಡ್ ಅನ್ನು ಸ್ಕ್ಯಾನ್ ಮಾಡಿ.';
 
   @override
   String get scanOwnIdentityMissing =>
-      'Your own encryption key is missing. Sign out and back in, then scan again.';
+      'ನಿಮ್ಮ ಸ್ವಂತ ಎನ್‌ಕ್ರಿಪ್ಷನ್ ಕೀ ಕಾಣೆಯಾಗಿದೆ. ಸೈನ್ ಔಟ್ ಮಾಡಿ ಮತ್ತು ಹಿಂತಿರುಗಿ, ನಂತರ ಮತ್ತೆ ಸ್ಕ್ಯಾನ್ ಮಾಡಿ.';
 
   @override
   String get noLightningWalletFound =>
-      'No Lightning wallet found. Install one, or copy the address and paste it into a wallet.';
+      'ಯಾವುದೇ ಮಿಂಚಿನ ವಾಲೆಟ್ ಕಂಡುಬಂದಿಲ್ಲ. ಒಂದನ್ನು ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಿ, ಅಥವಾ ವಿಳಾಸವನ್ನು ನಕಲಿಸಿ ಮತ್ತು ಅದನ್ನು ವ್ಯಾಲೆಟ್‌ಗೆ ಅಂಟಿಸಿ.';
 }

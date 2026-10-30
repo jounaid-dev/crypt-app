@@ -562,53 +562,53 @@ class AppLocalizationsTr extends AppLocalizations {
       'Kanıt gönderildi. Manuel inceleme 24–48 saat sürer (hafta sonları hariç).';
 
   @override
-  String get loadingChats => 'Loading chats...';
+  String get loadingChats => 'Sohbetler yükleniyor...';
 
   @override
-  String get noChatsYetTitle => 'No chats yet';
+  String get noChatsYetTitle => 'Henüz sohbet yok';
 
   @override
   String get noChatsYetHint =>
-      'A chat starts when you scan the other person\'s CRYPT QR code. Open your identity page to share yours so they can scan it.';
+      'Karşınızdaki kişinin şifreli QR kodunu taradığınızda sohbet başlar. Tarayabilmeleri için kimlik sayfanızı açarak sizinkini paylaşın.';
 
   @override
-  String get scanQrToStartChat => 'Scan a QR code';
+  String get scanQrToStartChat => 'Karekodu Tara';
 
   @override
-  String get noChatsMatchSearch => 'No chats match your search';
+  String get noChatsMatchSearch => 'Aramanızla eşleşen sohbet yok';
 
   @override
   String get noChatsMatchSearchHint =>
-      'Try a different name, or clear the search to see every chat.';
+      'Farklı bir ad deneyin veya her sohbeti görmek için aramayı temizleyin.';
 
   @override
-  String get requestSentTitle => 'Request sent';
+  String get requestSentTitle => 'İstek gönderildi';
 
   @override
   String requestSentBody(String username) {
-    return 'Your request went to $username. Please wait while they accept it.';
+    return 'İsteğiniz $username adlı kullanıcıya gönderildi. Lütfen onlar kabul ederken bekleyin.';
   }
 
   @override
   String get requestSentKeepOpen =>
-      'The chat opens as soon as they accept. Keep CRYPT open on this device so you do not miss it.';
+      'Sohbet kabul ettikleri anda açılır. Bu cihazda Crypt\'i açık tutun, böylece kaçırmazsınız.';
 
   @override
-  String get requestSentGotIt => 'Got it';
+  String get requestSentGotIt => 'Anladım';
 
   @override
   String get scanCouldNotReadCode =>
-      'That code could not be read. Scan a CRYPT QR code.';
+      'Bu kod okunamadı. CRYPT QR kodunu tarayın.';
 
   @override
   String get scanMissingTheirIdentity =>
-      'That code is missing the person\'s identity. Scan the code from their identity page.';
+      'Bu kodda kişinin kimliği eksik. Kimlik sayfasından kodu tarayın.';
 
   @override
   String get scanOwnIdentityMissing =>
-      'Your own encryption key is missing. Sign out and back in, then scan again.';
+      'Kendi şifreleme anahtarınız eksik. Oturumu kapatıp tekrar açın, ardından tekrar tarayın.';
 
   @override
   String get noLightningWalletFound =>
-      'No Lightning wallet found. Install one, or copy the address and paste it into a wallet.';
+      'Lightning cüzdanı bulunamadı. Bir tane yükleyin veya adresi kopyalayıp bir cüzdana yapıştırın.';
 }

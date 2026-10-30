@@ -568,53 +568,54 @@ class AppLocalizationsSw extends AppLocalizations {
       'Uthibitisho umetumwa. Ukaguzi wa mwongozo huchukua saa 24–48 (bila kujumuisha wikendi). Unaweza kuendelea kutumia programu kama kawaida.';
 
   @override
-  String get loadingChats => 'Loading chats...';
+  String get loadingChats => 'Inapakia gumzo...';
 
   @override
-  String get noChatsYetTitle => 'No chats yet';
+  String get noChatsYetTitle => 'Hakuna gumzo bado';
 
   @override
   String get noChatsYetHint =>
-      'A chat starts when you scan the other person\'s CRYPT QR code. Open your identity page to share yours so they can scan it.';
+      'Gumzo huanza wakati unachanganua msimbo wa kisirisiri wa QR WA mtu mwingine. Fungua ukurasa wako wa utambulisho ili ushiriki wako ili aweze kuuchanganua.';
 
   @override
-  String get scanQrToStartChat => 'Scan a QR code';
+  String get scanQrToStartChat => 'Skani Msimbo au namba ya QR';
 
   @override
-  String get noChatsMatchSearch => 'No chats match your search';
+  String get noChatsMatchSearch =>
+      'Hakuna gumzo linalolingana na utafutaji wako';
 
   @override
   String get noChatsMatchSearchHint =>
-      'Try a different name, or clear the search to see every chat.';
+      'Jaribu jina tofauti, au futa utafutaji ili uone kila gumzo.';
 
   @override
-  String get requestSentTitle => 'Request sent';
+  String get requestSentTitle => 'Ombi limetumwa';
 
   @override
   String requestSentBody(String username) {
-    return 'Your request went to $username. Please wait while they accept it.';
+    return 'Ombi lako limeenda kwa $username. Tafadhali subiri wakati wanaikubali.';
   }
 
   @override
   String get requestSentKeepOpen =>
-      'The chat opens as soon as they accept. Keep CRYPT open on this device so you do not miss it.';
+      'Gumzo hufunguliwa mara tu anapokubali. WEKA fumbo wazi kwenye kifaa hiki ili usikose.';
 
   @override
-  String get requestSentGotIt => 'Got it';
+  String get requestSentGotIt => 'Nimeelewa';
 
   @override
   String get scanCouldNotReadCode =>
-      'That code could not be read. Scan a CRYPT QR code.';
+      'Msimbo huo haukuweza kusomwa. Changanua msimbo WA siri wa QR.';
 
   @override
   String get scanMissingTheirIdentity =>
-      'That code is missing the person\'s identity. Scan the code from their identity page.';
+      'Msimbo huo unakosa utambulisho wa mtu huyo. Changanua msimbo kutoka kwenye ukurasa wake wa utambulisho.';
 
   @override
   String get scanOwnIdentityMissing =>
-      'Your own encryption key is missing. Sign out and back in, then scan again.';
+      'Ufunguo wako wa usimbaji fiche haupo. Toka na uingie tena, kisha uchanganue tena.';
 
   @override
   String get noLightningWalletFound =>
-      'No Lightning wallet found. Install one, or copy the address and paste it into a wallet.';
+      'Hakuna pochi ya Umeme iliyopatikana. Weka moja, au nakili anwani na uibandike kwenye pochi.';
 }

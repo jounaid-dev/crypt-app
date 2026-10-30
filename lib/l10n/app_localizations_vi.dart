@@ -564,53 +564,53 @@ class AppLocalizationsVi extends AppLocalizations {
       'Đã gửi bằng chứng! Quá trình xem xét thủ công mất 24–48 giờ (không bao gồm cuối tuần). Bạn có thể tiếp tục sử dụng ứng dụng bình thường!';
 
   @override
-  String get loadingChats => 'Loading chats...';
+  String get loadingChats => 'Đang tải trò chuyện...';
 
   @override
-  String get noChatsYetTitle => 'No chats yet';
+  String get noChatsYetTitle => 'Chưa có cuộc trò chuyện nào';
 
   @override
   String get noChatsYetHint =>
-      'A chat starts when you scan the other person\'s CRYPT QR code. Open your identity page to share yours so they can scan it.';
+      'Một cuộc trò chuyện bắt đầu khi bạn quét mã QR MẬT mã của người khác. Mở trang danh tính của bạn để chia sẻ danh tính của bạn để họ có thể quét.';
 
   @override
-  String get scanQrToStartChat => 'Scan a QR code';
+  String get scanQrToStartChat => 'hoặc Quét Mã QR';
 
   @override
-  String get noChatsMatchSearch => 'No chats match your search';
+  String get noChatsMatchSearch =>
+      'Không có cuộc trò chuyện nào phù hợp với tìm kiếm của bạn';
 
   @override
   String get noChatsMatchSearchHint =>
-      'Try a different name, or clear the search to see every chat.';
+      'Hãy thử một tên khác hoặc xóa tìm kiếm để xem mọi cuộc trò chuyện.';
 
   @override
-  String get requestSentTitle => 'Request sent';
+  String get requestSentTitle => 'Đã gửi yêu cầu';
 
   @override
   String requestSentBody(String username) {
-    return 'Your request went to $username. Please wait while they accept it.';
+    return 'Yêu cầu của bạn đã được gửi đến $username. Vui lòng chờ trong khi họ chấp nhận.';
   }
 
   @override
   String get requestSentKeepOpen =>
-      'The chat opens as soon as they accept. Keep CRYPT open on this device so you do not miss it.';
+      'Cuộc trò chuyện sẽ mở ra ngay khi họ chấp nhận. Giữ MẬT MÃ mở trên thiết bị này để bạn không bỏ lỡ nó.';
 
   @override
-  String get requestSentGotIt => 'Got it';
+  String get requestSentGotIt => 'Đã hiểu';
 
   @override
-  String get scanCouldNotReadCode =>
-      'That code could not be read. Scan a CRYPT QR code.';
+  String get scanCouldNotReadCode => 'Không thể đọc mã đó. Quét mã QR MẬT mã.';
 
   @override
   String get scanMissingTheirIdentity =>
-      'That code is missing the person\'s identity. Scan the code from their identity page.';
+      'Mã đó thiếu danh tính của người đó. Quét mã từ trang danh tính của họ.';
 
   @override
   String get scanOwnIdentityMissing =>
-      'Your own encryption key is missing. Sign out and back in, then scan again.';
+      'Thiếu khóa mã hóa của riêng bạn. Đăng xuất và quay lại, sau đó quét lại.';
 
   @override
   String get noLightningWalletFound =>
-      'No Lightning wallet found. Install one, or copy the address and paste it into a wallet.';
+      'Không tìm thấy ví Lightning. Cài đặt một địa chỉ hoặc sao chép địa chỉ và dán vào ví.';
 }

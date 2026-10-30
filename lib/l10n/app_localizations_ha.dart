@@ -567,53 +567,53 @@ class AppLocalizationsHa extends AppLocalizations {
       'An wasilisha shaidar! Bita ta hannu tana ɗaukar sa\'o\'i 24-48 (banda karshen mako). Kuna iya ci gaba da amfani da aikace-aikacen kamar yadda kuka saba!';
 
   @override
-  String get loadingChats => 'Loading chats...';
+  String get loadingChats => 'Loading hira...';
 
   @override
-  String get noChatsYetTitle => 'No chats yet';
+  String get noChatsYetTitle => 'Babu hira tukuna';
 
   @override
   String get noChatsYetHint =>
-      'A chat starts when you scan the other person\'s CRYPT QR code. Open your identity page to share yours so they can scan it.';
+      'Tattaunawa yana farawa lokacin da kuka bincika lambar QR na sauran mutum. Bude shafinku na ainihi don raba naku don su iya bincika shi.';
 
   @override
-  String get scanQrToStartChat => 'Scan a QR code';
+  String get scanQrToStartChat => 'Binciken lambar QR';
 
   @override
-  String get noChatsMatchSearch => 'No chats match your search';
+  String get noChatsMatchSearch => 'Babu tattaunawar da ta dace da bincikenku';
 
   @override
   String get noChatsMatchSearchHint =>
-      'Try a different name, or clear the search to see every chat.';
+      'Gwada wani sunan daban, ko share bincike don ganin kowane hira.';
 
   @override
-  String get requestSentTitle => 'Request sent';
+  String get requestSentTitle => 'Bukatar da aka aiko';
 
   @override
   String requestSentBody(String username) {
-    return 'Your request went to $username. Please wait while they accept it.';
+    return 'Bukatarku ta tafi $username. Don Allah jira yayin da suka yarda da shi.';
   }
 
   @override
   String get requestSentKeepOpen =>
-      'The chat opens as soon as they accept. Keep CRYPT open on this device so you do not miss it.';
+      'Tattaunawar tana buɗewa da zarar sun yarda. Ci gaba da kuka a bude a kan wannan na\'urar don haka ba ka rasa shi.';
 
   @override
-  String get requestSentGotIt => 'Got it';
+  String get requestSentGotIt => 'Got shi';
 
   @override
   String get scanCouldNotReadCode =>
-      'That code could not be read. Scan a CRYPT QR code.';
+      'Ba za a iya karanta wannan lambar ba. Scan wani CRYPT QR code.';
 
   @override
   String get scanMissingTheirIdentity =>
-      'That code is missing the person\'s identity. Scan the code from their identity page.';
+      'Wannan lambar ta rasa asalin mutumin. Scan lambar daga shafin su na ainihi.';
 
   @override
   String get scanOwnIdentityMissing =>
-      'Your own encryption key is missing. Sign out and back in, then scan again.';
+      'Your own boye-boye key ya ɓace. Shiga waje da baya a ciki, sa\'an nan kuma duba sake.';
 
   @override
   String get noLightningWalletFound =>
-      'No Lightning wallet found. Install one, or copy the address and paste it into a wallet.';
+      'Babu walat walƙiya da aka samo. Shigar da ɗaya, ko kwafa adireshin kuma liƙa shi a cikin walat.';
 }

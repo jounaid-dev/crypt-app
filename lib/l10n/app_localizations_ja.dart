@@ -544,53 +544,51 @@ class AppLocalizationsJa extends AppLocalizations {
   String get proofSubmittedSnackbar => '証明を送信しました。手動審査：24～48時間（週末を除く）。';
 
   @override
-  String get loadingChats => 'Loading chats...';
+  String get loadingChats => 'チャットを読み込んでいます...';
 
   @override
-  String get noChatsYetTitle => 'No chats yet';
+  String get noChatsYetTitle => 'チャットはまだありません';
 
   @override
   String get noChatsYetHint =>
-      'A chat starts when you scan the other person\'s CRYPT QR code. Open your identity page to share yours so they can scan it.';
+      '相手の暗号QRコードをスキャンするとチャットが開始されます。本人確認ページを開いて共有し、スキャンしてもらいましょう。';
 
   @override
-  String get scanQrToStartChat => 'Scan a QR code';
+  String get scanQrToStartChat => '新しいQRコードをスキャン';
 
   @override
-  String get noChatsMatchSearch => 'No chats match your search';
+  String get noChatsMatchSearch => '検索に一致するチャットはありません';
 
   @override
-  String get noChatsMatchSearchHint =>
-      'Try a different name, or clear the search to see every chat.';
+  String get noChatsMatchSearchHint => '別の名前を試すか、検索をクリアするとすべてのチャットが表示されます。';
 
   @override
-  String get requestSentTitle => 'Request sent';
+  String get requestSentTitle => 'リクエストを送信しました';
 
   @override
   String requestSentBody(String username) {
-    return 'Your request went to $username. Please wait while they accept it.';
+    return 'リクエストはに送信されました$username。承認されるまでお待ちください。';
   }
 
   @override
   String get requestSentKeepOpen =>
-      'The chat opens as soon as they accept. Keep CRYPT open on this device so you do not miss it.';
+      '承認するとすぐにチャットが開きます。このデバイスでクリプトを開いたままにして、見逃さないようにしてください。';
 
   @override
-  String get requestSentGotIt => 'Got it';
+  String get requestSentGotIt => '了解';
 
   @override
-  String get scanCouldNotReadCode =>
-      'That code could not be read. Scan a CRYPT QR code.';
+  String get scanCouldNotReadCode => 'そのコードは読み取れませんでした。暗号QRコードをスキャンします。';
 
   @override
   String get scanMissingTheirIdentity =>
-      'That code is missing the person\'s identity. Scan the code from their identity page.';
+      'そのコードにはその人物の身元が記載されていません。本人確認ページからコードをスキャンします。';
 
   @override
   String get scanOwnIdentityMissing =>
-      'Your own encryption key is missing. Sign out and back in, then scan again.';
+      '独自の暗号化キーがありません。サインアウトして再度サインインし、再度スキャンしてください。';
 
   @override
   String get noLightningWalletFound =>
-      'No Lightning wallet found. Install one, or copy the address and paste it into a wallet.';
+      'Lightningウォレットが見つかりません。インストールするか、アドレスをコピーしてウォレットに貼り付けます。';
 }

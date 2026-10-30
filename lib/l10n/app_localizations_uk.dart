@@ -567,53 +567,54 @@ class AppLocalizationsUk extends AppLocalizations {
       'Підтвердження надіслано. Ручна перевірка: 24–48 годин (крім вихідних).';
 
   @override
-  String get loadingChats => 'Loading chats...';
+  String get loadingChats => 'Завантаження чатів...';
 
   @override
-  String get noChatsYetTitle => 'No chats yet';
+  String get noChatsYetTitle => 'Ще немає чатів';
 
   @override
   String get noChatsYetHint =>
-      'A chat starts when you scan the other person\'s CRYPT QR code. Open your identity page to share yours so they can scan it.';
+      'Чат починається, коли ви скануєте QR-код КРИПТИ іншої людини. Відкрийте сторінку посвідчення особи, щоб поділитися своїми, щоб вони могли відсканувати її.';
 
   @override
-  String get scanQrToStartChat => 'Scan a QR code';
+  String get scanQrToStartChat => 'Проскануйте QR-код';
 
   @override
-  String get noChatsMatchSearch => 'No chats match your search';
+  String get noChatsMatchSearch =>
+      'Немає чатів, які відповідають вашому пошуку';
 
   @override
   String get noChatsMatchSearchHint =>
-      'Try a different name, or clear the search to see every chat.';
+      'Спробуйте інше ім \'я або очистіть пошук, щоб переглянути кожен чат.';
 
   @override
-  String get requestSentTitle => 'Request sent';
+  String get requestSentTitle => 'Запит надіслано:';
 
   @override
   String requestSentBody(String username) {
-    return 'Your request went to $username. Please wait while they accept it.';
+    return 'Ваш запит надіслано користувачу $username. Будь ласка, зачекайте, поки він прийме його.';
   }
 
   @override
   String get requestSentKeepOpen =>
-      'The chat opens as soon as they accept. Keep CRYPT open on this device so you do not miss it.';
+      'Чат відкриється, як тільки клієнт прийме запит. Тримайте CRYPT відкритим на цьому пристрої, щоб не пропустити його.';
 
   @override
-  String get requestSentGotIt => 'Got it';
+  String get requestSentGotIt => 'Зрозуміло&#10;';
 
   @override
   String get scanCouldNotReadCode =>
-      'That code could not be read. Scan a CRYPT QR code.';
+      'Не вдалося прочитати цей код. Відскануйте QR-код CRYPT.';
 
   @override
   String get scanMissingTheirIdentity =>
-      'That code is missing the person\'s identity. Scan the code from their identity page.';
+      'У цьому коді відсутня особа людини. Відскануйте код зі сторінки посвідчення особи.';
 
   @override
   String get scanOwnIdentityMissing =>
-      'Your own encryption key is missing. Sign out and back in, then scan again.';
+      'Відсутній власний ключ шифрування. Вийдіть і знову ввійдіть, а потім скануйте знову.';
 
   @override
   String get noLightningWalletFound =>
-      'No Lightning wallet found. Install one, or copy the address and paste it into a wallet.';
+      'Гаманець Lightning не знайдено. Встановіть його або скопіюйте адресу та вставте її в гаманець.';
 }
