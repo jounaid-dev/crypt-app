@@ -28,17 +28,30 @@ class WebRTCService {
     _remoteCandidateQueue.clear();
 
     peerConnection = await createPeerConnection({
+      // Several independent STUN servers, including one on port 443, so a
+      // restrictive mobile or office network still gets a reflexive address
+      // to offer. With only one provider a blocked STUN host left both devices
+      // gathering nothing and the handshake timed out.
       "iceServers": [
         {
           "urls": [
             "stun:stun.l.google.com:19302",
             "stun:stun1.l.google.com:19302",
+            "stun:stun2.l.google.com:19302",
+            "stun:stun3.l.google.com:19302",
+          ],
+        },
+        {
+          "urls": [
+            "stun:stun.cloudflare.com:3478",
+            "stun:stun.nextcloud.com:443",
           ],
         },
       ],
       "iceTransportPolicy": "all",
       "bundlePolicy": "balanced",
       "rtcpMuxPolicy": "require",
+      "sdpSemantics": "unified-plan",
     });
 
     peerConnection!.onIceConnectionState = (state) {

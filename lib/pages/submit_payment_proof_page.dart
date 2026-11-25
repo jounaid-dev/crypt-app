@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../l10n/app_localizations.dart';
 import '../models/payment_proof.dart';
 import '../services/moderation_service.dart';
 import '../services/moderation_validation.dart';
@@ -65,10 +66,7 @@ class _SubmitPaymentProofPageState extends State<SubmitPaymentProofPage> {
 
     if (!mounted) return;
 
-    _showError(
-      'No Lightning wallet found on this device. Install one, or copy the '
-      'Lightning address and paste it into a wallet.',
-    );
+    _showError(AppLocalizations.of(context)!.noLightningWalletFound);
   }
 
   Future<void> _copyAddress() async {
@@ -79,9 +77,9 @@ class _SubmitPaymentProofPageState extends State<SubmitPaymentProofPage> {
     if (!mounted) return;
 
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
+      SnackBar(
         behavior: SnackBarBehavior.floating,
-        content: Text('Lightning address copied.'),
+        content: Text(AppLocalizations.of(context)!.premiumAddressCopied),
       ),
     );
   }
@@ -94,7 +92,9 @@ class _SubmitPaymentProofPageState extends State<SubmitPaymentProofPage> {
     final Uint8List? proof = _proofImage;
 
     if (proof == null) {
-      _showError('Attach a screenshot of your payment confirmation.');
+      _showError(
+        AppLocalizations.of(context)!.premiumAttachConfirmation,
+      );
 
       return;
     }
@@ -117,8 +117,9 @@ class _SubmitPaymentProofPageState extends State<SubmitPaymentProofPage> {
         SnackBar(
           behavior: SnackBarBehavior.floating,
           content: Text(
-            'Proof received. Premium is switched on within '
-            '${PremiumOffer.activationWindow}.',
+            AppLocalizations.of(context)!.premiumProofReceived(
+              PremiumOffer.activationWindow,
+            ),
           ),
         ),
       );
@@ -130,7 +131,7 @@ class _SubmitPaymentProofPageState extends State<SubmitPaymentProofPage> {
       _showError(
         e is ModerationException
             ? e.message
-            : 'Could not send the payment proof.',
+            : AppLocalizations.of(context)!.premiumSendProofFailed,
       );
     } finally {
       if (mounted) {
@@ -153,10 +154,11 @@ class _SubmitPaymentProofPageState extends State<SubmitPaymentProofPage> {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations loc = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Get Lifetime Premium'),
+        title: Text(loc.premiumTileTitle),
       ),
 
       body: SafeArea(
@@ -170,8 +172,10 @@ class _SubmitPaymentProofPageState extends State<SubmitPaymentProofPage> {
               // ==================================================
 
               Text(
-                '${PremiumOffer.minimumAmountLabel} once, '
-                '${PremiumOffer.lifetimeLabel}.',
+                loc.premiumOfferSummary(
+                  PremiumOffer.minimumAmountLabel,
+                  PremiumOffer.lifetimeLabel,
+                ),
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -180,19 +184,17 @@ class _SubmitPaymentProofPageState extends State<SubmitPaymentProofPage> {
               const SizedBox(height: 6),
 
               Text(
-                'No subscription and nothing to renew. Pay with '
-                '${PremiumOffer.paymentMethodLabel}, send a screenshot of '
-                'the '
-                'confirmation, and premium is switched on within '
-                '${PremiumOffer.activationWindow}.',
+                loc.premiumOfferBody(
+                  PremiumOffer.paymentMethodLabel,
+                  PremiumOffer.activationWindow,
+                ),
                 style: theme.textTheme.bodyMedium,
               ),
 
               const SizedBox(height: 8),
 
               Text(
-                'CRYPT is built by a solo developer. Premium is what keeps it '
-                'ad-free and actively maintained.',
+                loc.premiumSoloNote,
                 style: theme.textTheme.bodySmall?.copyWith(
                   fontStyle: FontStyle.italic,
                 ),
@@ -208,15 +210,15 @@ class _SubmitPaymentProofPageState extends State<SubmitPaymentProofPage> {
               // STEP 1: PAY
               // ==================================================
 
-              const _StepHeading(
+              _StepHeading(
                 number: 1,
-                title: 'Pay with your wallet',
+                title: loc.premiumStepPay,
               ),
 
               const SizedBox(height: 10),
 
               Text(
-                'Lightning address',
+                loc.premiumLightningAddressLabel,
                 style: theme.textTheme.labelMedium,
               ),
 
@@ -259,7 +261,7 @@ class _SubmitPaymentProofPageState extends State<SubmitPaymentProofPage> {
                         foregroundColor: Colors.black,
                       ),
                       icon: const Icon(Icons.bolt),
-                      label: const Text('Open wallet'),
+                      label: Text(loc.premiumOpenWallet),
                     ),
                   ),
 
@@ -269,7 +271,7 @@ class _SubmitPaymentProofPageState extends State<SubmitPaymentProofPage> {
                     child: OutlinedButton.icon(
                       onPressed: _copyAddress,
                       icon: const Icon(Icons.copy, size: 18),
-                      label: const Text('Copy address'),
+                      label: Text(loc.premiumCopyAddress),
                     ),
                   ),
                 ],
@@ -278,7 +280,7 @@ class _SubmitPaymentProofPageState extends State<SubmitPaymentProofPage> {
               const SizedBox(height: 10),
 
               Text(
-                'Works with Phoenix and any other Lightning wallet.',
+                loc.premiumWorksWith,
                 style: theme.textTheme.bodySmall?.copyWith(fontSize: 11),
                 textAlign: TextAlign.center,
               ),
@@ -289,17 +291,15 @@ class _SubmitPaymentProofPageState extends State<SubmitPaymentProofPage> {
               // STEP 2: SEND THE SCREENSHOT
               // ==================================================
 
-              const _StepHeading(
+              _StepHeading(
                 number: 2,
-                title: 'Send your screenshot',
+                title: loc.premiumStepScreenshot,
               ),
 
               const SizedBox(height: 10),
 
               Text(
-                'Take a screenshot of the payment confirmation in your '
-                'Lightning wallet and '
-                'attach it below.',
+                loc.premiumScreenshotHint,
                 style: theme.textTheme.bodyMedium,
               ),
 
@@ -327,8 +327,8 @@ class _SubmitPaymentProofPageState extends State<SubmitPaymentProofPage> {
                 ),
                 label: Text(
                   _proofImage == null
-                      ? 'Attach screenshot'
-                      : 'Replace screenshot',
+                      ? loc.premiumAttachScreenshot
+                      : loc.premiumReplaceScreenshot,
                 ),
               ),
 
@@ -342,9 +342,9 @@ class _SubmitPaymentProofPageState extends State<SubmitPaymentProofPage> {
               // a Lightning payment has no transaction id to copy.
               // ==================================================
 
-              const _StepHeading(
+              _StepHeading(
                 number: 3,
-                title: 'Confirm the amount',
+                title: loc.premiumStepAmount,
               ),
 
               const SizedBox(height: 10),
@@ -355,9 +355,10 @@ class _SubmitPaymentProofPageState extends State<SubmitPaymentProofPage> {
                   decimal: true,
                 ),
                 decoration: InputDecoration(
-                  labelText: 'Amount you paid (USD)',
-                  helperText:
-                      'Minimum ${PremiumOffer.minimumAmountLabel}.',
+                  labelText: loc.premiumAmountLabel,
+                  helperText: loc.premiumAmountHelper(
+                    PremiumOffer.minimumAmountLabel,
+                  ),
                 ),
                 validator: (value) {
                   final error =
@@ -378,8 +379,8 @@ class _SubmitPaymentProofPageState extends State<SubmitPaymentProofPage> {
                 minLines: 2,
                 maxLines: 4,
                 maxLength: ModerationValidation.maxNoteLength,
-                decoration: const InputDecoration(
-                  labelText: 'Note (optional)',
+                decoration: InputDecoration(
+                  labelText: loc.premiumNoteLabel,
                 ),
               ),
 
@@ -396,13 +397,15 @@ class _SubmitPaymentProofPageState extends State<SubmitPaymentProofPage> {
                         width: 20,
                         child: CircularProgressIndicator(strokeWidth: 2),
                       )
-                    : const Text('Send my proof'),
+                    : Text(loc.premiumSendProof),
               ),
 
               const SizedBox(height: 16),
 
               Text(
-                'Activation takes ${PremiumOffer.activationWindow}.',
+                loc.premiumActivationNote(
+                  PremiumOffer.activationWindow,
+                ),
                 style: theme.textTheme.bodySmall,
                 textAlign: TextAlign.center,
               ),

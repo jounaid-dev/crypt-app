@@ -308,7 +308,7 @@ class _SettingsPageState extends State<SettingsPage>
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           behavior: SnackBarBehavior.floating,
-          content: Text("Could not save that setting. Try again."),
+          content: Text(AppLocalizations.of(context)!.settingsSaveFailed),
         ),
       );
 
@@ -1056,10 +1056,10 @@ class _SettingsPageState extends State<SettingsPage>
                         }
 
                         ScaffoldMessenger.of(dialogContext).showSnackBar(
-                          const SnackBar(
+                          SnackBar(
                             content: Text(
-                              'Lightning address copied. Paste it into '
-                              'wallet to pay.',
+                              AppLocalizations.of(dialogContext)!
+                                  .lightningAddressCopied,
                             ),
                             duration: Duration(seconds: 3),
                           ),
@@ -1176,7 +1176,7 @@ class _SettingsPageState extends State<SettingsPage>
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             behavior: SnackBarBehavior.floating,
-            content: Text("Could not lock this chat. Try again."),
+            content: Text(AppLocalizations.of(context)!.settingsLockFailed),
           ),
         );
 
@@ -1205,7 +1205,7 @@ class _SettingsPageState extends State<SettingsPage>
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             behavior: SnackBarBehavior.floating,
-            content: Text("Could not unlock this chat. Try again."),
+            content: Text(AppLocalizations.of(context)!.settingsUnlockFailed),
           ),
         );
 
@@ -1286,9 +1286,8 @@ class _SettingsPageState extends State<SettingsPage>
     final loc = AppLocalizations.of(context)!;
 
     final String? first = await _askForPin(
-      title: "Set a PIN for $chatName",
-      helper: "This PIN opens $chatName only. Every chat has its own PIN, "
-          "chosen by you. There is no single code for the app.",
+      title: loc.pinSetTitle(chatName),
+      helper: loc.pinSetHelper(chatName),
     );
 
     if (first == null) return null;
@@ -1296,7 +1295,7 @@ class _SettingsPageState extends State<SettingsPage>
     if (!mounted) return null;
 
     final String? second = await _askForPin(
-      title: "Confirm the PIN for $chatName",
+      title: loc.pinConfirmTitle(chatName),
       helper: loc.secureKeyPasscode,
     );
 
@@ -1308,7 +1307,7 @@ class _SettingsPageState extends State<SettingsPage>
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           behavior: SnackBarBehavior.floating,
-          content: Text("The PINs did not match. Lock not enabled."),
+          content: Text(AppLocalizations.of(context)!.pinMismatch),
         ),
       );
 
@@ -1358,7 +1357,7 @@ class _SettingsPageState extends State<SettingsPage>
           SnackBar(
             behavior: SnackBarBehavior.floating,
             content: Text(
-              "No fingerprint or face unlock is set up on this device.",
+              AppLocalizations.of(context)!.biometricNotSetUp,
             ),
           ),
         );
@@ -1384,7 +1383,7 @@ class _SettingsPageState extends State<SettingsPage>
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           behavior: SnackBarBehavior.floating,
-          content: Text("Could not verify it is you on this device."),
+          content: Text(AppLocalizations.of(context)!.biometricVerifyFailed),
         ),
       );
 
@@ -1529,7 +1528,7 @@ class _SettingsPageState extends State<SettingsPage>
         // that way took down this whole screen with a red error. These tiles
         // have no subtitle, so the flag has to stay off.
         // ======================================================
-        const _SettingsSectionHeader('Appearance'),
+        _SettingsSectionHeader(loc.settingsSectionAppearance),
 
         SwitchListTile(
           title: Text(loc.darkThemeMode, softWrap: true),
@@ -1562,11 +1561,11 @@ class _SettingsPageState extends State<SettingsPage>
         // Both kinds of lock live here: the master password that guards this
         // whole screen, and the per-chat codes listed underneath it.
         // ======================================================
-        const _SettingsSectionHeader('Privacy and security'),
+        _SettingsSectionHeader(loc.settingsSectionPrivacy),
 
         SwitchListTile(
-          title: const Text('Protect settings with master password'),
-          subtitle: const Text('Require password to access settings'),
+          title: Text(loc.settingsProtectTitle),
+          subtitle: Text(loc.settingsProtectSubtitle),
           value: _settingsProtectionEnabled,
           onChanged: _handleSettingsProtectionChanged,
         ),
@@ -1597,9 +1596,10 @@ class _SettingsPageState extends State<SettingsPage>
               // this one chat rather than to the app.
               subtitle: Text(
                 _lockedChatIds.contains(chat["id"])
-                    ? "${_lockTypeLabel(chat["id"]!)} — own code, "
-                        "this chat only"
-                    : "Tap to set your own PIN for this chat",
+                    ? loc.chatLockOwnCodeSubtitle(
+                        _lockTypeLabel(chat["id"]!),
+                      )
+                    : loc.chatLockSetPinSubtitle,
                 style: const TextStyle(fontSize: 12),
               ),
               value: _lockedChatIds.contains(chat["id"]),
@@ -1615,19 +1615,19 @@ class _SettingsPageState extends State<SettingsPage>
         // seeing a receipt. Spell that out rather than leaving people to
         // guess why paying changed nothing.
         // ======================================================
-        const _SettingsSectionHeader('Premium'),
+        _SettingsSectionHeader(loc.settingsSectionPremium),
 
         ListTile(
           leading: const Icon(Icons.receipt_long_outlined),
-          title: const Text('Get Lifetime Premium'),
+          title: Text(loc.premiumTileTitle),
           subtitle: Text(
             _isPremiumUser
-                ? 'Premium is on for your account'
+                ? loc.premiumActiveSubtitle
                 : _pendingProof
-                    ? 'Waiting for an admin to review your screenshot'
-                    : '${PremiumOffer.minimumAmountLabel} once with your '
-                        'Lightning wallet, '
-                        'then send a screenshot',
+                    ? loc.premiumPendingSubtitle
+                    : loc.premiumPayOnceSubtitle(
+                        PremiumOffer.minimumAmountLabel,
+                      ),
           ),
           trailing: const Icon(Icons.chevron_right),
           onTap: () {
@@ -1664,7 +1664,7 @@ class _SettingsPageState extends State<SettingsPage>
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      'How premium works',
+                      loc.premiumHowItWorks,
                       style: theme.textTheme.titleSmall,
                     ),
                   ],
@@ -1672,17 +1672,14 @@ class _SettingsPageState extends State<SettingsPage>
                 const SizedBox(height: 8),
                 Text(
                   _pendingProof
-                      ? 'Your screenshot is in. An admin checks it and premium '
-                          'turns on for your account within '
-                          '${PremiumOffer.activationWindow}.'
-                      : '1. Pay ${PremiumOffer.minimumAmountLabel} with '
-                          '${PremiumOffer.paymentMethodLabel}, or '
-                          '${PremiumOffer.recommendedWallet}.\n'
-                          '2. Screenshot the payment confirmation.\n'
-                          '3. Send it from Submit payment proof.\n'
-                          '4. Premium turns on and stays on for life.\n\n'
-                          'CRYPT is built by a solo developer, and this is '
-                          'the whole offer: one payment, no subscription.',
+                      ? loc.premiumPendingBody(
+                          PremiumOffer.activationWindow,
+                        )
+                      : loc.premiumHowItWorksBody(
+                          PremiumOffer.minimumAmountLabel,
+                          PremiumOffer.paymentMethodLabel,
+                          PremiumOffer.recommendedWallet,
+                        ),
                   style: theme.textTheme.bodySmall,
                 ),
               ],
@@ -1692,12 +1689,12 @@ class _SettingsPageState extends State<SettingsPage>
         // ======================================================
         // HELP AND LEGAL
         // ======================================================
-        const _SettingsSectionHeader('Help and legal'),
+        _SettingsSectionHeader(loc.settingsSectionHelp),
 
         ListTile(
           leading: const Icon(Icons.report_gmailerrorred_outlined),
-          title: const Text('Report a problem'),
-          subtitle: const Text('Bugs, abuse or spam'),
+          title: Text(loc.reportProblemTitle),
+          subtitle: Text(loc.reportProblemSubtitle),
           trailing: const Icon(Icons.chevron_right),
           onTap: () {
             Navigator.push(
@@ -1725,12 +1722,12 @@ class _SettingsPageState extends State<SettingsPage>
         // The access code is verified by the server, so it is not stored in
         // the app and cannot be pulled out of the APK.
         // ======================================================
-        const _SettingsSectionHeader('Administration'),
+        _SettingsSectionHeader(loc.settingsSectionAdministration),
 
         ListTile(
           leading: const Icon(Icons.shield_outlined),
-          title: const Text('Admin access'),
-          subtitle: const Text('Enter your admin code to open the panel'),
+          title: Text(loc.adminAccessTitle),
+          subtitle: Text(loc.adminAccessSubtitle),
           trailing: const Icon(Icons.chevron_right),
           onTap: () async {
             final unlocked = await Navigator.push<bool>(
@@ -1753,7 +1750,7 @@ class _SettingsPageState extends State<SettingsPage>
         // Last on purpose: signing out and wiping the device are the two
         // actions on this screen that cannot be undone.
         // ======================================================
-        const _SettingsSectionHeader('Account'),
+        _SettingsSectionHeader(loc.settingsSectionAccount),
 
         SizedBox(
           width: double.infinity,

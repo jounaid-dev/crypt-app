@@ -6,6 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'l10n/app_localizations.dart';
 
 import 'services/language_service.dart';
+import 'services/signaling_service.dart';
 import 'services/account_service.dart';
 import 'services/hive_storage_service.dart';
 import 'services/qr_validation_code_service.dart';
@@ -113,6 +114,12 @@ class _CryptAppState extends State<CryptApp> with WidgetsBindingObserver {
     // check the saved settings again.
     if (state == AppLifecycleState.resumed) {
       _loadPreferences();
+
+      // A socket that sat idle in the background can be half-open: the phone
+      // keeps it, but nothing reaches the server any more. Rebuilding it as
+      // soon as the app is visible means the first offer or message is not
+      // written into a dead connection.
+      SignalingService.instance.fastReconnect();
     }
   }
 

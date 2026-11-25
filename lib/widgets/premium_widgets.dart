@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../l10n/app_localizations.dart';
 import '../services/premium_offer.dart';
 
 /// Free against Premium, side by side.
@@ -13,20 +14,51 @@ import '../services/premium_offer.dart';
 class PremiumComparisonTable extends StatelessWidget {
   const PremiumComparisonTable({super.key});
 
-  /// feature, free, premium
-  static const List<(String, String, String)> rows =
-      <(String, String, String)>[
-        ('Encrypted peer-to-peer messaging', 'Included', 'Included'),
-        ('Messages stay on your devices', 'Included', 'Included'),
-        ('Chats locked with your own PIN', '1 chat', 'Unlimited'),
-        ('Unlock with fingerprint or face', 'Not included', 'Included'),
-        ('Price', 'Free', r'One payment of $5'),
-        ('Access', 'While the app is free', 'Lifetime'),
-      ];
-
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations loc = AppLocalizations.of(context)!;
+
+    // feature, free, premium, premiumIsUpgrade
+    final List<(String, String, String, bool)> rows =
+        <(String, String, String, bool)>[
+      (
+        loc.premiumTableEncrypted,
+        loc.premiumTableIncluded,
+        loc.premiumTableIncluded,
+        true,
+      ),
+      (
+        loc.premiumTableMessagesStay,
+        loc.premiumTableIncluded,
+        loc.premiumTableIncluded,
+        true,
+      ),
+      (
+        loc.premiumTableChatLocks,
+        loc.premiumTableOneChat,
+        loc.premiumTableUnlimited,
+        true,
+      ),
+      (
+        loc.premiumTableFingerprint,
+        loc.premiumTableNotIncluded,
+        loc.premiumTableIncluded,
+        true,
+      ),
+      (
+        loc.premiumTablePrice,
+        loc.premiumTableFreeValue,
+        loc.premiumTableOnePayment(PremiumOffer.minimumAmountLabel),
+        false,
+      ),
+      (
+        loc.premiumTableAccess,
+        loc.premiumTableWhileFree,
+        loc.premiumTableLifetime,
+        false,
+      ),
+    ];
 
     return Table(
       border: TableBorder.symmetric(
@@ -43,18 +75,24 @@ class PremiumComparisonTable extends StatelessWidget {
       children: [
         TableRow(
           children: [
-            _cell(context, 'Feature', bold: true),
+            _cell(context, loc.premiumTableFeature, bold: true),
             _cell(
               context,
-              'Free',
+              loc.premiumTableFree,
               bold: true,
               color: theme.colorScheme.onSurfaceVariant,
             ),
-            _cell(context, 'Premium', bold: true, color: Colors.amber),
+            _cell(
+              context,
+              loc.premiumTablePremium,
+              bold: true,
+              color: Colors.amber,
+            ),
           ],
         ),
 
-        for (final (String feature, String free, String premium) in rows)
+        for (final (String feature, String free, String premium, bool upgrade)
+            in rows)
           TableRow(
             children: [
               _cell(context, feature),
@@ -66,18 +104,13 @@ class PremiumComparisonTable extends StatelessWidget {
               _cell(
                 context,
                 premium,
-                color: _isUpgrade(premium) ? Colors.amber : null,
-                bold: _isUpgrade(premium),
+                color: upgrade ? Colors.amber : null,
+                bold: upgrade,
               ),
             ],
           ),
       ],
     );
-  }
-
-  /// Premium column values that describe what the payment adds.
-  static bool _isUpgrade(String premium) {
-    return premium == 'Included' || premium == 'Unlimited';
   }
 
   Widget _cell(
@@ -112,6 +145,16 @@ class PremiumPaymentInstructions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations loc = AppLocalizations.of(context)!;
+
+    final List<String> steps = <String>[
+      loc.premiumActivationStep1(
+        PremiumOffer.minimumAmountLabel,
+        PremiumOffer.paymentMethodLabel,
+      ),
+      loc.premiumActivationStep2,
+      loc.premiumActivationNote(PremiumOffer.activationWindow),
+    ];
 
     return Container(
       width: double.infinity,
@@ -125,7 +168,7 @@ class PremiumPaymentInstructions extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            PremiumOffer.lifetimeLabel,
+            loc.premiumLifetimeAccess,
             style: theme.textTheme.titleSmall?.copyWith(
               color: Colors.amber,
               fontWeight: FontWeight.bold,
@@ -135,15 +178,14 @@ class PremiumPaymentInstructions extends StatelessWidget {
           const SizedBox(height: 4),
 
           Text(
-            'One payment of ${PremiumOffer.minimumAmountLabel} and premium is '
-            'yours for life. There is no subscription and nothing to renew.',
+            loc.premiumPaymentOneTime(PremiumOffer.minimumAmountLabel),
             style: const TextStyle(fontSize: 11, height: 1.35),
           ),
 
           const SizedBox(height: 12),
 
           Text(
-            'Lightning address',
+            loc.premiumLightningAddressLabel,
             style: TextStyle(
               fontSize: 11,
               fontWeight: FontWeight.bold,
@@ -164,11 +206,11 @@ class PremiumPaymentInstructions extends StatelessWidget {
 
           const SizedBox(height: 12),
 
-          for (int i = 0; i < PremiumOffer.activationSteps.length; i++)
+          for (int i = 0; i < steps.length; i++)
             Padding(
               padding: const EdgeInsets.only(bottom: 4),
               child: Text(
-                '${i + 1}. ${PremiumOffer.activationSteps[i]}',
+                '${i + 1}. ${steps[i]}',
                 style: const TextStyle(fontSize: 11, height: 1.3),
               ),
             ),
@@ -176,8 +218,7 @@ class PremiumPaymentInstructions extends StatelessWidget {
           const SizedBox(height: 6),
 
           Text(
-            'CRYPT is built by a solo developer. Premium is what keeps it '
-            'ad-free and actively maintained.',
+            loc.premiumSoloNote,
             style: TextStyle(
               fontSize: 10,
               height: 1.3,

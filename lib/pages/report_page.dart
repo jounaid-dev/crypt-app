@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../l10n/app_localizations.dart';
 import '../models/report.dart';
 import '../services/moderation_service.dart';
 import '../services/moderation_validation.dart';
@@ -92,9 +93,9 @@ class _ReportPageState extends State<ReportPage> {
       if (!mounted) return;
 
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
           behavior: SnackBarBehavior.floating,
-          content: Text('Report sent. Thank you.'),
+          content: Text(AppLocalizations.of(context)!.reportSent),
         ),
       );
 
@@ -103,7 +104,9 @@ class _ReportPageState extends State<ReportPage> {
       if (!mounted) return;
 
       _showError(
-        e is ModerationException ? e.message : 'Could not send the report.',
+        e is ModerationException
+            ? e.message
+            : AppLocalizations.of(context)!.reportSendFailed,
       );
     } finally {
       if (mounted) {
@@ -126,9 +129,10 @@ class _ReportPageState extends State<ReportPage> {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations loc = AppLocalizations.of(context)!;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Report a problem')),
+      appBar: AppBar(title: Text(loc.reportProblemTitle)),
 
       body: SafeArea(
         child: Form(
@@ -137,14 +141,13 @@ class _ReportPageState extends State<ReportPage> {
             padding: const EdgeInsets.fromLTRB(20, 20, 20, 32),
             children: [
               Text(
-                'Tell us what happened. If you are reporting another person, '
-                'add their username so we can act on the right account.',
+                loc.reportIntro,
                 style: theme.textTheme.bodyMedium,
               ),
 
               const SizedBox(height: 24),
 
-              Text('Type of report', style: theme.textTheme.titleSmall),
+              Text(loc.reportTypeLabel, style: theme.textTheme.titleSmall),
 
               const SizedBox(height: 8),
 
@@ -171,28 +174,34 @@ class _ReportPageState extends State<ReportPage> {
                     ),
                   ),
                 ),
-                segments: const [
+                segments: [
                   ButtonSegment(
                     value: ReportCategory.bug,
-                    label: _SegmentLabel('Bug', Icons.bug_report_outlined),
+                    label: _SegmentLabel(
+                      loc.reportCategoryBug,
+                      Icons.bug_report_outlined,
+                    ),
                   ),
                   ButtonSegment(
                     value: ReportCategory.abuse,
                     label: _SegmentLabel(
-                      'Abuse',
+                      loc.reportCategoryAbuse,
                       Icons.gavel_outlined,
                     ),
                   ),
                   ButtonSegment(
                     value: ReportCategory.spam,
                     label: _SegmentLabel(
-                      'Spam',
+                      loc.reportCategorySpam,
                       Icons.campaign_outlined,
                     ),
                   ),
                   ButtonSegment(
                     value: ReportCategory.other,
-                    label: _SegmentLabel('Other', Icons.more_horiz),
+                    label: _SegmentLabel(
+                      loc.reportCategoryOther,
+                      Icons.more_horiz,
+                    ),
                   ),
                 ],
                 selected: <ReportCategory>{_category},
@@ -208,9 +217,9 @@ class _ReportPageState extends State<ReportPage> {
               TextFormField(
                 controller: _reportedController,
                 textInputAction: TextInputAction.next,
-                decoration: const InputDecoration(
-                  labelText: 'Their username (optional)',
-                  hintText: 'e.g. someone_you_want_reported',
+                decoration: InputDecoration(
+                  labelText: loc.reportUsernameLabel,
+                  hintText: loc.reportUsernameHint,
                 ),
                 validator: (value) {
                   final text = value?.trim() ?? '';
@@ -234,8 +243,8 @@ class _ReportPageState extends State<ReportPage> {
                 maxLines: 10,
                 maxLength: ModerationValidation.maxDetailsLength,
                 textInputAction: TextInputAction.newline,
-                decoration: const InputDecoration(
-                  labelText: 'What happened?',
+                decoration: InputDecoration(
+                  labelText: loc.reportDetailsLabel,
                   alignLabelWithHint: true,
                 ),
                 validator: (value) {
@@ -253,7 +262,7 @@ class _ReportPageState extends State<ReportPage> {
               Row(
                 children: [
                   Text(
-                    'Screenshots',
+                    loc.reportScreenshotsLabel,
                     style: theme.textTheme.titleSmall,
                   ),
 
@@ -322,7 +331,7 @@ class _ReportPageState extends State<ReportPage> {
                     ? null
                     : _addScreenshot,
                 icon: const Icon(Icons.add_photo_alternate_outlined),
-                label: const Text('Add screenshot'),
+                label: Text(loc.reportAddScreenshot),
               ),
 
               const SizedBox(height: 28),
@@ -338,14 +347,13 @@ class _ReportPageState extends State<ReportPage> {
                         width: 20,
                         child: CircularProgressIndicator(strokeWidth: 2),
                       )
-                    : const Text('Send report'),
+                    : Text(loc.reportSendButton),
               ),
 
               const SizedBox(height: 12),
 
               Text(
-                'Reports are reviewed by an administrator. Screenshots are '
-                'stored privately and are only visible to moderators.',
+                loc.reportPrivacyNote,
                 style: theme.textTheme.bodySmall,
                 textAlign: TextAlign.center,
               ),

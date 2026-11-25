@@ -965,7 +965,9 @@ class _ChatPageState extends State<ChatPage> {
         context: context,
         barrierDismissible: false,
         builder: (context) => AlertDialog(
-          title: const Text("Account suspended"),
+          title: Text(
+            AppLocalizations.of(context)!.accountSuspended,
+          ),
           content: Text(reason),
           actions: [
             TextButton(

@@ -1215,6 +1215,546 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No Lightning wallet found. Install one, or copy the address and paste it into a wallet.'**
   String get noLightningWalletFound;
+
+  /// UI text: settingsSectionAppearance
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance'**
+  String get settingsSectionAppearance;
+
+  /// UI text: settingsSectionPrivacy
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy and security'**
+  String get settingsSectionPrivacy;
+
+  /// UI text: settingsSectionPremium
+  ///
+  /// In en, this message translates to:
+  /// **'Premium'**
+  String get settingsSectionPremium;
+
+  /// UI text: settingsSectionHelp
+  ///
+  /// In en, this message translates to:
+  /// **'Help and legal'**
+  String get settingsSectionHelp;
+
+  /// UI text: settingsSectionAdministration
+  ///
+  /// In en, this message translates to:
+  /// **'Administration'**
+  String get settingsSectionAdministration;
+
+  /// UI text: settingsSectionAccount
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get settingsSectionAccount;
+
+  /// UI text: settingsProtectTitle
+  ///
+  /// In en, this message translates to:
+  /// **'Protect settings with master password'**
+  String get settingsProtectTitle;
+
+  /// UI text: settingsProtectSubtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Require password to access settings'**
+  String get settingsProtectSubtitle;
+
+  /// UI text: chatLockSetPinSubtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to set your own PIN for this chat'**
+  String get chatLockSetPinSubtitle;
+
+  /// UI text: premiumTileTitle
+  ///
+  /// In en, this message translates to:
+  /// **'Get Lifetime Premium'**
+  String get premiumTileTitle;
+
+  /// UI text: premiumActiveSubtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Premium is on for your account'**
+  String get premiumActiveSubtitle;
+
+  /// UI text: premiumPendingSubtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for an admin to review your screenshot'**
+  String get premiumPendingSubtitle;
+
+  /// UI text: premiumHowItWorks
+  ///
+  /// In en, this message translates to:
+  /// **'How premium works'**
+  String get premiumHowItWorks;
+
+  /// UI text: reportProblemTitle
+  ///
+  /// In en, this message translates to:
+  /// **'Report a problem'**
+  String get reportProblemTitle;
+
+  /// UI text: reportProblemSubtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Bugs, abuse or spam'**
+  String get reportProblemSubtitle;
+
+  /// UI text: adminAccessTitle
+  ///
+  /// In en, this message translates to:
+  /// **'Admin access'**
+  String get adminAccessTitle;
+
+  /// UI text: adminAccessSubtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your admin code to open the panel'**
+  String get adminAccessSubtitle;
+
+  /// UI text: chatLockOwnCodeSubtitle
+  ///
+  /// In en, this message translates to:
+  /// **'{method} — own code, this chat only'**
+  String chatLockOwnCodeSubtitle(String method);
+
+  /// UI text: premiumPayOnceSubtitle
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} once with your Lightning wallet, then send a screenshot'**
+  String premiumPayOnceSubtitle(String amount);
+
+  /// UI text: premiumPendingBody
+  ///
+  /// In en, this message translates to:
+  /// **'Your screenshot is in. An admin checks it and premium turns on for your account within {window}.'**
+  String premiumPendingBody(String window);
+
+  /// UI text: premiumHowItWorksBody
+  ///
+  /// In en, this message translates to:
+  /// **'1. Pay {amount} with {method}, or {wallet}.\n2. Screenshot the payment confirmation.\n3. Send it from Submit payment proof.\n4. Premium turns on and stays on for life.\n\nCRYPT is built by a solo developer, and this is the whole offer: one payment, no subscription.'**
+  String premiumHowItWorksBody(String amount, String method, String wallet);
+
+  /// UI text: reportIntro
+  ///
+  /// In en, this message translates to:
+  /// **'Tell us what happened. If you are reporting another person, add their username so we can act on the right account.'**
+  String get reportIntro;
+
+  /// UI text: reportSent
+  ///
+  /// In en, this message translates to:
+  /// **'Report sent. Thank you.'**
+  String get reportSent;
+
+  /// UI text: reportSendFailed
+  ///
+  /// In en, this message translates to:
+  /// **'Could not send the report.'**
+  String get reportSendFailed;
+
+  /// UI text: reportTypeLabel
+  ///
+  /// In en, this message translates to:
+  /// **'Type of report'**
+  String get reportTypeLabel;
+
+  /// UI text: reportCategoryBug
+  ///
+  /// In en, this message translates to:
+  /// **'Bug'**
+  String get reportCategoryBug;
+
+  /// UI text: reportCategoryAbuse
+  ///
+  /// In en, this message translates to:
+  /// **'Abuse'**
+  String get reportCategoryAbuse;
+
+  /// UI text: reportCategorySpam
+  ///
+  /// In en, this message translates to:
+  /// **'Spam'**
+  String get reportCategorySpam;
+
+  /// UI text: reportCategoryOther
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get reportCategoryOther;
+
+  /// UI text: reportUsernameLabel
+  ///
+  /// In en, this message translates to:
+  /// **'Their username (optional)'**
+  String get reportUsernameLabel;
+
+  /// UI text: reportUsernameHint
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. someone_you_want_reported'**
+  String get reportUsernameHint;
+
+  /// UI text: reportDetailsLabel
+  ///
+  /// In en, this message translates to:
+  /// **'What happened?'**
+  String get reportDetailsLabel;
+
+  /// UI text: reportScreenshotsLabel
+  ///
+  /// In en, this message translates to:
+  /// **'Screenshots'**
+  String get reportScreenshotsLabel;
+
+  /// UI text: reportAddScreenshot
+  ///
+  /// In en, this message translates to:
+  /// **'Add screenshot'**
+  String get reportAddScreenshot;
+
+  /// UI text: reportSendButton
+  ///
+  /// In en, this message translates to:
+  /// **'Send report'**
+  String get reportSendButton;
+
+  /// UI text: reportPrivacyNote
+  ///
+  /// In en, this message translates to:
+  /// **'Reports are reviewed by an administrator. Screenshots are stored privately and are only visible to moderators.'**
+  String get reportPrivacyNote;
+
+  /// UI text: premiumOfferSummary
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} once, {lifetime}.'**
+  String premiumOfferSummary(String amount, String lifetime);
+
+  /// UI text: premiumOfferBody
+  ///
+  /// In en, this message translates to:
+  /// **'No subscription and nothing to renew. Pay with {method}, send a screenshot of the confirmation, and premium is switched on within {window}.'**
+  String premiumOfferBody(String method, String window);
+
+  /// UI text: premiumSoloNote
+  ///
+  /// In en, this message translates to:
+  /// **'CRYPT is built by a solo developer. Premium is what keeps it ad-free and actively maintained.'**
+  String get premiumSoloNote;
+
+  /// UI text: premiumStepPay
+  ///
+  /// In en, this message translates to:
+  /// **'Pay with your wallet'**
+  String get premiumStepPay;
+
+  /// UI text: premiumLightningAddressLabel
+  ///
+  /// In en, this message translates to:
+  /// **'Lightning address'**
+  String get premiumLightningAddressLabel;
+
+  /// UI text: premiumOpenWallet
+  ///
+  /// In en, this message translates to:
+  /// **'Open wallet'**
+  String get premiumOpenWallet;
+
+  /// UI text: premiumCopyAddress
+  ///
+  /// In en, this message translates to:
+  /// **'Copy address'**
+  String get premiumCopyAddress;
+
+  /// UI text: premiumWorksWith
+  ///
+  /// In en, this message translates to:
+  /// **'Works with Phoenix and any other Lightning wallet.'**
+  String get premiumWorksWith;
+
+  /// UI text: premiumStepScreenshot
+  ///
+  /// In en, this message translates to:
+  /// **'Send your screenshot'**
+  String get premiumStepScreenshot;
+
+  /// UI text: premiumScreenshotHint
+  ///
+  /// In en, this message translates to:
+  /// **'Take a screenshot of the payment confirmation in your Lightning wallet and attach it below.'**
+  String get premiumScreenshotHint;
+
+  /// UI text: premiumAttachScreenshot
+  ///
+  /// In en, this message translates to:
+  /// **'Attach screenshot'**
+  String get premiumAttachScreenshot;
+
+  /// UI text: premiumReplaceScreenshot
+  ///
+  /// In en, this message translates to:
+  /// **'Replace screenshot'**
+  String get premiumReplaceScreenshot;
+
+  /// UI text: premiumStepAmount
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm the amount'**
+  String get premiumStepAmount;
+
+  /// UI text: premiumAmountLabel
+  ///
+  /// In en, this message translates to:
+  /// **'Amount you paid (USD)'**
+  String get premiumAmountLabel;
+
+  /// UI text: premiumNoteLabel
+  ///
+  /// In en, this message translates to:
+  /// **'Note (optional)'**
+  String get premiumNoteLabel;
+
+  /// UI text: premiumSendProof
+  ///
+  /// In en, this message translates to:
+  /// **'Send my proof'**
+  String get premiumSendProof;
+
+  /// UI text: premiumAddressCopied
+  ///
+  /// In en, this message translates to:
+  /// **'Lightning address copied.'**
+  String get premiumAddressCopied;
+
+  /// UI text: premiumAttachConfirmation
+  ///
+  /// In en, this message translates to:
+  /// **'Attach a screenshot of your payment confirmation.'**
+  String get premiumAttachConfirmation;
+
+  /// UI text: premiumSendProofFailed
+  ///
+  /// In en, this message translates to:
+  /// **'Could not send the payment proof.'**
+  String get premiumSendProofFailed;
+
+  /// UI text: premiumAmountHelper
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum {amount}.'**
+  String premiumAmountHelper(String amount);
+
+  /// UI text: premiumActivationNote
+  ///
+  /// In en, this message translates to:
+  /// **'Activation takes {window}.'**
+  String premiumActivationNote(String window);
+
+  /// UI text: premiumProofReceived
+  ///
+  /// In en, this message translates to:
+  /// **'Proof received. Premium is switched on within {window}.'**
+  String premiumProofReceived(String window);
+
+  /// UI text: premiumTableFeature
+  ///
+  /// In en, this message translates to:
+  /// **'Feature'**
+  String get premiumTableFeature;
+
+  /// UI text: premiumTableFree
+  ///
+  /// In en, this message translates to:
+  /// **'Free'**
+  String get premiumTableFree;
+
+  /// UI text: premiumTablePremium
+  ///
+  /// In en, this message translates to:
+  /// **'Premium'**
+  String get premiumTablePremium;
+
+  /// UI text: premiumTableEncrypted
+  ///
+  /// In en, this message translates to:
+  /// **'Encrypted peer-to-peer messaging'**
+  String get premiumTableEncrypted;
+
+  /// UI text: premiumTableMessagesStay
+  ///
+  /// In en, this message translates to:
+  /// **'Messages stay on your devices'**
+  String get premiumTableMessagesStay;
+
+  /// UI text: premiumTableChatLocks
+  ///
+  /// In en, this message translates to:
+  /// **'Chats locked with your own PIN'**
+  String get premiumTableChatLocks;
+
+  /// UI text: premiumTableFingerprint
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock with fingerprint or face'**
+  String get premiumTableFingerprint;
+
+  /// UI text: premiumTablePrice
+  ///
+  /// In en, this message translates to:
+  /// **'Price'**
+  String get premiumTablePrice;
+
+  /// UI text: premiumTableAccess
+  ///
+  /// In en, this message translates to:
+  /// **'Access'**
+  String get premiumTableAccess;
+
+  /// UI text: premiumTableIncluded
+  ///
+  /// In en, this message translates to:
+  /// **'Included'**
+  String get premiumTableIncluded;
+
+  /// UI text: premiumTableOneChat
+  ///
+  /// In en, this message translates to:
+  /// **'1 chat'**
+  String get premiumTableOneChat;
+
+  /// UI text: premiumTableUnlimited
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited'**
+  String get premiumTableUnlimited;
+
+  /// UI text: premiumTableNotIncluded
+  ///
+  /// In en, this message translates to:
+  /// **'Not included'**
+  String get premiumTableNotIncluded;
+
+  /// UI text: premiumTableFreeValue
+  ///
+  /// In en, this message translates to:
+  /// **'Free'**
+  String get premiumTableFreeValue;
+
+  /// UI text: premiumTableWhileFree
+  ///
+  /// In en, this message translates to:
+  /// **'While the app is free'**
+  String get premiumTableWhileFree;
+
+  /// UI text: premiumTableLifetime
+  ///
+  /// In en, this message translates to:
+  /// **'Lifetime'**
+  String get premiumTableLifetime;
+
+  /// UI text: premiumTableOnePayment
+  ///
+  /// In en, this message translates to:
+  /// **'One payment of {amount}'**
+  String premiumTableOnePayment(String amount);
+
+  /// UI text: premiumPaymentOneTime
+  ///
+  /// In en, this message translates to:
+  /// **'One payment of {amount} and premium is yours for life. There is no subscription and nothing to renew.'**
+  String premiumPaymentOneTime(String amount);
+
+  /// UI text: settingsSaveFailed
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save that setting. Try again.'**
+  String get settingsSaveFailed;
+
+  /// UI text: settingsLockFailed
+  ///
+  /// In en, this message translates to:
+  /// **'Could not lock this chat. Try again.'**
+  String get settingsLockFailed;
+
+  /// UI text: settingsUnlockFailed
+  ///
+  /// In en, this message translates to:
+  /// **'Could not unlock this chat. Try again.'**
+  String get settingsUnlockFailed;
+
+  /// UI text: pinSetTitle
+  ///
+  /// In en, this message translates to:
+  /// **'Set a PIN for {chat}'**
+  String pinSetTitle(String chat);
+
+  /// UI text: pinConfirmTitle
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm the PIN for {chat}'**
+  String pinConfirmTitle(String chat);
+
+  /// UI text: pinSetHelper
+  ///
+  /// In en, this message translates to:
+  /// **'This PIN opens {chat} only. Every chat has its own PIN, chosen by you. There is no single code for the app.'**
+  String pinSetHelper(String chat);
+
+  /// UI text: pinMismatch
+  ///
+  /// In en, this message translates to:
+  /// **'The PINs did not match. Lock not enabled.'**
+  String get pinMismatch;
+
+  /// UI text: biometricNotSetUp
+  ///
+  /// In en, this message translates to:
+  /// **'No fingerprint or face unlock is set up on this device.'**
+  String get biometricNotSetUp;
+
+  /// UI text: biometricVerifyFailed
+  ///
+  /// In en, this message translates to:
+  /// **'Could not verify it is you on this device.'**
+  String get biometricVerifyFailed;
+
+  /// UI text: lightningAddressCopied
+  ///
+  /// In en, this message translates to:
+  /// **'Lightning address copied. Paste it into a wallet to pay.'**
+  String get lightningAddressCopied;
+
+  /// UI text: accountSuspended
+  ///
+  /// In en, this message translates to:
+  /// **'Account suspended'**
+  String get accountSuspended;
+
+  /// UI text: premiumLifetimeAccess
+  ///
+  /// In en, this message translates to:
+  /// **'Lifetime Premium Access'**
+  String get premiumLifetimeAccess;
+
+  /// UI text: premiumActivationStep1
+  ///
+  /// In en, this message translates to:
+  /// **'Pay {amount} from {method} to the Lightning address above.'**
+  String premiumActivationStep1(String amount, String method);
+
+  /// UI text: premiumActivationStep2
+  ///
+  /// In en, this message translates to:
+  /// **'Take a screenshot of the payment confirmation and send it in as your proof of payment.'**
+  String get premiumActivationStep2;
 }
 
 class _AppLocalizationsDelegate

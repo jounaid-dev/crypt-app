@@ -359,5 +359,455 @@
   "noLightningWalletFound": "No Lightning wallet found. Install one, or copy the address and paste it into a wallet.",
   "@noLightningWalletFound": {
     "description": "Premium payment: noLightningWalletFound"
+  },
+  "settingsSectionAppearance": "Appearance",
+  "@settingsSectionAppearance": {
+    "description": "UI text: settingsSectionAppearance"
+  },
+  "settingsSectionPrivacy": "Privacy and security",
+  "@settingsSectionPrivacy": {
+    "description": "UI text: settingsSectionPrivacy"
+  },
+  "settingsSectionPremium": "Premium",
+  "@settingsSectionPremium": {
+    "description": "UI text: settingsSectionPremium"
+  },
+  "settingsSectionHelp": "Help and legal",
+  "@settingsSectionHelp": {
+    "description": "UI text: settingsSectionHelp"
+  },
+  "settingsSectionAdministration": "Administration",
+  "@settingsSectionAdministration": {
+    "description": "UI text: settingsSectionAdministration"
+  },
+  "settingsSectionAccount": "Account",
+  "@settingsSectionAccount": {
+    "description": "UI text: settingsSectionAccount"
+  },
+  "settingsProtectTitle": "Protect settings with master password",
+  "@settingsProtectTitle": {
+    "description": "UI text: settingsProtectTitle"
+  },
+  "settingsProtectSubtitle": "Require password to access settings",
+  "@settingsProtectSubtitle": {
+    "description": "UI text: settingsProtectSubtitle"
+  },
+  "chatLockSetPinSubtitle": "Tap to set your own PIN for this chat",
+  "@chatLockSetPinSubtitle": {
+    "description": "UI text: chatLockSetPinSubtitle"
+  },
+  "premiumTileTitle": "Get Lifetime Premium",
+  "@premiumTileTitle": {
+    "description": "UI text: premiumTileTitle"
+  },
+  "premiumActiveSubtitle": "Premium is on for your account",
+  "@premiumActiveSubtitle": {
+    "description": "UI text: premiumActiveSubtitle"
+  },
+  "premiumPendingSubtitle": "Waiting for an admin to review your screenshot",
+  "@premiumPendingSubtitle": {
+    "description": "UI text: premiumPendingSubtitle"
+  },
+  "premiumHowItWorks": "How premium works",
+  "@premiumHowItWorks": {
+    "description": "UI text: premiumHowItWorks"
+  },
+  "reportProblemTitle": "Report a problem",
+  "@reportProblemTitle": {
+    "description": "UI text: reportProblemTitle"
+  },
+  "reportProblemSubtitle": "Bugs, abuse or spam",
+  "@reportProblemSubtitle": {
+    "description": "UI text: reportProblemSubtitle"
+  },
+  "adminAccessTitle": "Admin access",
+  "@adminAccessTitle": {
+    "description": "UI text: adminAccessTitle"
+  },
+  "adminAccessSubtitle": "Enter your admin code to open the panel",
+  "@adminAccessSubtitle": {
+    "description": "UI text: adminAccessSubtitle"
+  },
+  "chatLockOwnCodeSubtitle": "{method} — own code, this chat only",
+  "@chatLockOwnCodeSubtitle": {
+    "placeholders": {
+      "method": {
+        "type": "String"
+      }
+    },
+    "description": "UI text: chatLockOwnCodeSubtitle"
+  },
+  "premiumPayOnceSubtitle": "{amount} once with your Lightning wallet, then send a screenshot",
+  "@premiumPayOnceSubtitle": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    },
+    "description": "UI text: premiumPayOnceSubtitle"
+  },
+  "premiumPendingBody": "Your screenshot is in. An admin checks it and premium turns on for your account within {window}.",
+  "@premiumPendingBody": {
+    "placeholders": {
+      "window": {
+        "type": "String"
+      }
+    },
+    "description": "UI text: premiumPendingBody"
+  },
+  "premiumHowItWorksBody": "1. Pay {amount} with {method}, or {wallet}.\n2. Screenshot the payment confirmation.\n3. Send it from Submit payment proof.\n4. Premium turns on and stays on for life.\n\nCRYPT is built by a solo developer, and this is the whole offer: one payment, no subscription.",
+  "@premiumHowItWorksBody": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "method": {
+        "type": "String"
+      },
+      "wallet": {
+        "type": "String"
+      }
+    },
+    "description": "UI text: premiumHowItWorksBody"
+  },
+  "reportIntro": "Tell us what happened. If you are reporting another person, add their username so we can act on the right account.",
+  "@reportIntro": {
+    "description": "UI text: reportIntro"
+  },
+  "reportSent": "Report sent. Thank you.",
+  "@reportSent": {
+    "description": "UI text: reportSent"
+  },
+  "reportSendFailed": "Could not send the report.",
+  "@reportSendFailed": {
+    "description": "UI text: reportSendFailed"
+  },
+  "reportTypeLabel": "Type of report",
+  "@reportTypeLabel": {
+    "description": "UI text: reportTypeLabel"
+  },
+  "reportCategoryBug": "Bug",
+  "@reportCategoryBug": {
+    "description": "UI text: reportCategoryBug"
+  },
+  "reportCategoryAbuse": "Abuse",
+  "@reportCategoryAbuse": {
+    "description": "UI text: reportCategoryAbuse"
+  },
+  "reportCategorySpam": "Spam",
+  "@reportCategorySpam": {
+    "description": "UI text: reportCategorySpam"
+  },
+  "reportCategoryOther": "Other",
+  "@reportCategoryOther": {
+    "description": "UI text: reportCategoryOther"
+  },
+  "reportUsernameLabel": "Their username (optional)",
+  "@reportUsernameLabel": {
+    "description": "UI text: reportUsernameLabel"
+  },
+  "reportUsernameHint": "e.g. someone_you_want_reported",
+  "@reportUsernameHint": {
+    "description": "UI text: reportUsernameHint"
+  },
+  "reportDetailsLabel": "What happened?",
+  "@reportDetailsLabel": {
+    "description": "UI text: reportDetailsLabel"
+  },
+  "reportScreenshotsLabel": "Screenshots",
+  "@reportScreenshotsLabel": {
+    "description": "UI text: reportScreenshotsLabel"
+  },
+  "reportAddScreenshot": "Add screenshot",
+  "@reportAddScreenshot": {
+    "description": "UI text: reportAddScreenshot"
+  },
+  "reportSendButton": "Send report",
+  "@reportSendButton": {
+    "description": "UI text: reportSendButton"
+  },
+  "reportPrivacyNote": "Reports are reviewed by an administrator. Screenshots are stored privately and are only visible to moderators.",
+  "@reportPrivacyNote": {
+    "description": "UI text: reportPrivacyNote"
+  },
+  "premiumOfferSummary": "{amount} once, {lifetime}.",
+  "@premiumOfferSummary": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "lifetime": {
+        "type": "String"
+      }
+    },
+    "description": "UI text: premiumOfferSummary"
+  },
+  "premiumOfferBody": "No subscription and nothing to renew. Pay with {method}, send a screenshot of the confirmation, and premium is switched on within {window}.",
+  "@premiumOfferBody": {
+    "placeholders": {
+      "method": {
+        "type": "String"
+      },
+      "window": {
+        "type": "String"
+      }
+    },
+    "description": "UI text: premiumOfferBody"
+  },
+  "premiumSoloNote": "CRYPT is built by a solo developer. Premium is what keeps it ad-free and actively maintained.",
+  "@premiumSoloNote": {
+    "description": "UI text: premiumSoloNote"
+  },
+  "premiumStepPay": "Pay with your wallet",
+  "@premiumStepPay": {
+    "description": "UI text: premiumStepPay"
+  },
+  "premiumLightningAddressLabel": "Lightning address",
+  "@premiumLightningAddressLabel": {
+    "description": "UI text: premiumLightningAddressLabel"
+  },
+  "premiumOpenWallet": "Open wallet",
+  "@premiumOpenWallet": {
+    "description": "UI text: premiumOpenWallet"
+  },
+  "premiumCopyAddress": "Copy address",
+  "@premiumCopyAddress": {
+    "description": "UI text: premiumCopyAddress"
+  },
+  "premiumWorksWith": "Works with Phoenix and any other Lightning wallet.",
+  "@premiumWorksWith": {
+    "description": "UI text: premiumWorksWith"
+  },
+  "premiumStepScreenshot": "Send your screenshot",
+  "@premiumStepScreenshot": {
+    "description": "UI text: premiumStepScreenshot"
+  },
+  "premiumScreenshotHint": "Take a screenshot of the payment confirmation in your Lightning wallet and attach it below.",
+  "@premiumScreenshotHint": {
+    "description": "UI text: premiumScreenshotHint"
+  },
+  "premiumAttachScreenshot": "Attach screenshot",
+  "@premiumAttachScreenshot": {
+    "description": "UI text: premiumAttachScreenshot"
+  },
+  "premiumReplaceScreenshot": "Replace screenshot",
+  "@premiumReplaceScreenshot": {
+    "description": "UI text: premiumReplaceScreenshot"
+  },
+  "premiumStepAmount": "Confirm the amount",
+  "@premiumStepAmount": {
+    "description": "UI text: premiumStepAmount"
+  },
+  "premiumAmountLabel": "Amount you paid (USD)",
+  "@premiumAmountLabel": {
+    "description": "UI text: premiumAmountLabel"
+  },
+  "premiumNoteLabel": "Note (optional)",
+  "@premiumNoteLabel": {
+    "description": "UI text: premiumNoteLabel"
+  },
+  "premiumSendProof": "Send my proof",
+  "@premiumSendProof": {
+    "description": "UI text: premiumSendProof"
+  },
+  "premiumAddressCopied": "Lightning address copied.",
+  "@premiumAddressCopied": {
+    "description": "UI text: premiumAddressCopied"
+  },
+  "premiumAttachConfirmation": "Attach a screenshot of your payment confirmation.",
+  "@premiumAttachConfirmation": {
+    "description": "UI text: premiumAttachConfirmation"
+  },
+  "premiumSendProofFailed": "Could not send the payment proof.",
+  "@premiumSendProofFailed": {
+    "description": "UI text: premiumSendProofFailed"
+  },
+  "premiumAmountHelper": "Minimum {amount}.",
+  "@premiumAmountHelper": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    },
+    "description": "UI text: premiumAmountHelper"
+  },
+  "premiumActivationNote": "Activation takes {window}.",
+  "@premiumActivationNote": {
+    "placeholders": {
+      "window": {
+        "type": "String"
+      }
+    },
+    "description": "UI text: premiumActivationNote"
+  },
+  "premiumProofReceived": "Proof received. Premium is switched on within {window}.",
+  "@premiumProofReceived": {
+    "placeholders": {
+      "window": {
+        "type": "String"
+      }
+    },
+    "description": "UI text: premiumProofReceived"
+  },
+  "premiumTableFeature": "Feature",
+  "@premiumTableFeature": {
+    "description": "UI text: premiumTableFeature"
+  },
+  "premiumTableFree": "Free",
+  "@premiumTableFree": {
+    "description": "UI text: premiumTableFree"
+  },
+  "premiumTablePremium": "Premium",
+  "@premiumTablePremium": {
+    "description": "UI text: premiumTablePremium"
+  },
+  "premiumTableEncrypted": "Encrypted peer-to-peer messaging",
+  "@premiumTableEncrypted": {
+    "description": "UI text: premiumTableEncrypted"
+  },
+  "premiumTableMessagesStay": "Messages stay on your devices",
+  "@premiumTableMessagesStay": {
+    "description": "UI text: premiumTableMessagesStay"
+  },
+  "premiumTableChatLocks": "Chats locked with your own PIN",
+  "@premiumTableChatLocks": {
+    "description": "UI text: premiumTableChatLocks"
+  },
+  "premiumTableFingerprint": "Unlock with fingerprint or face",
+  "@premiumTableFingerprint": {
+    "description": "UI text: premiumTableFingerprint"
+  },
+  "premiumTablePrice": "Price",
+  "@premiumTablePrice": {
+    "description": "UI text: premiumTablePrice"
+  },
+  "premiumTableAccess": "Access",
+  "@premiumTableAccess": {
+    "description": "UI text: premiumTableAccess"
+  },
+  "premiumTableIncluded": "Included",
+  "@premiumTableIncluded": {
+    "description": "UI text: premiumTableIncluded"
+  },
+  "premiumTableOneChat": "1 chat",
+  "@premiumTableOneChat": {
+    "description": "UI text: premiumTableOneChat"
+  },
+  "premiumTableUnlimited": "Unlimited",
+  "@premiumTableUnlimited": {
+    "description": "UI text: premiumTableUnlimited"
+  },
+  "premiumTableNotIncluded": "Not included",
+  "@premiumTableNotIncluded": {
+    "description": "UI text: premiumTableNotIncluded"
+  },
+  "premiumTableFreeValue": "Free",
+  "@premiumTableFreeValue": {
+    "description": "UI text: premiumTableFreeValue"
+  },
+  "premiumTableWhileFree": "While the app is free",
+  "@premiumTableWhileFree": {
+    "description": "UI text: premiumTableWhileFree"
+  },
+  "premiumTableLifetime": "Lifetime",
+  "@premiumTableLifetime": {
+    "description": "UI text: premiumTableLifetime"
+  },
+  "premiumTableOnePayment": "One payment of {amount}",
+  "@premiumTableOnePayment": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    },
+    "description": "UI text: premiumTableOnePayment"
+  },
+  "premiumPaymentOneTime": "One payment of {amount} and premium is yours for life. There is no subscription and nothing to renew.",
+  "@premiumPaymentOneTime": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    },
+    "description": "UI text: premiumPaymentOneTime"
+  },
+  "settingsSaveFailed": "Could not save that setting. Try again.",
+  "@settingsSaveFailed": {
+    "description": "UI text: settingsSaveFailed"
+  },
+  "settingsLockFailed": "Could not lock this chat. Try again.",
+  "@settingsLockFailed": {
+    "description": "UI text: settingsLockFailed"
+  },
+  "settingsUnlockFailed": "Could not unlock this chat. Try again.",
+  "@settingsUnlockFailed": {
+    "description": "UI text: settingsUnlockFailed"
+  },
+  "pinSetTitle": "Set a PIN for {chat}",
+  "@pinSetTitle": {
+    "description": "UI text: pinSetTitle",
+    "placeholders": {
+      "chat": {
+        "type": "String"
+      }
+    }
+  },
+  "pinConfirmTitle": "Confirm the PIN for {chat}",
+  "@pinConfirmTitle": {
+    "description": "UI text: pinConfirmTitle",
+    "placeholders": {
+      "chat": {
+        "type": "String"
+      }
+    }
+  },
+  "pinSetHelper": "This PIN opens {chat} only. Every chat has its own PIN, chosen by you. There is no single code for the app.",
+  "@pinSetHelper": {
+    "description": "UI text: pinSetHelper",
+    "placeholders": {
+      "chat": {
+        "type": "String"
+      }
+    }
+  },
+  "pinMismatch": "The PINs did not match. Lock not enabled.",
+  "@pinMismatch": {
+    "description": "UI text: pinMismatch"
+  },
+  "biometricNotSetUp": "No fingerprint or face unlock is set up on this device.",
+  "@biometricNotSetUp": {
+    "description": "UI text: biometricNotSetUp"
+  },
+  "biometricVerifyFailed": "Could not verify it is you on this device.",
+  "@biometricVerifyFailed": {
+    "description": "UI text: biometricVerifyFailed"
+  },
+  "lightningAddressCopied": "Lightning address copied. Paste it into a wallet to pay.",
+  "@lightningAddressCopied": {
+    "description": "UI text: lightningAddressCopied"
+  },
+  "accountSuspended": "Account suspended",
+  "@accountSuspended": {
+    "description": "UI text: accountSuspended"
+  },
+  "premiumLifetimeAccess": "Lifetime Premium Access",
+  "@premiumLifetimeAccess": {
+    "description": "UI text: premiumLifetimeAccess"
+  },
+  "premiumActivationStep1": "Pay {amount} from {method} to the Lightning address above.",
+  "@premiumActivationStep1": {
+    "description": "UI text: premiumActivationStep1",
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "method": {
+        "type": "String"
+      }
+    }
+  },
+  "premiumActivationStep2": "Take a screenshot of the payment confirmation and send it in as your proof of payment.",
+  "@premiumActivationStep2": {
+    "description": "UI text: premiumActivationStep2"
   }
 }

@@ -59,6 +59,17 @@ class SignalingService {
 
   Timer? _reconnectTimer;
 
+  /// Watches a socket that still looks open but has stopped carrying answers.
+  ///
+  /// A phone that moves between Wi-Fi and mobile data often keeps a socket
+  /// that never reports an error: writes go into a connection that no longer
+  /// reaches the server, so offers and candidates are lost and the chat sits
+  /// on "connecting". The periodic blacklist refresh doubles as a ping; if
+  /// nothing at all comes back the socket is rebuilt.
+  Timer? _livenessTimer;
+
+  static const Duration _livenessTimeout = Duration(seconds: 10);
+
   /// Backoff schedule for an unexpected drop, in milliseconds.
   /// Optimized: faster reconnection, max 5s instead of 15s.
   static const List<int> _reconnectDelaysMs = <int>[
@@ -124,7 +135,11 @@ class SignalingService {
 
     _currentUsername = username;
     _connected = false;
-    _reconnectAttempt = 0;
+
+    // The backoff attempt counter is deliberately NOT reset here. Resetting it
+    // on every attempt made a failing server reconnect forever at 500ms,
+    // because each retry started the schedule over. It is cleared only once a
+    // socket has stayed up long enough to be trusted.
 
     try {
       final channel = WebSocketChannel.connect(Uri.parse(server));
@@ -133,6 +148,10 @@ class SignalingService {
 
       _channelSubscription = channel.stream.listen(
         (data) {
+          // Anything at all from the server proves the socket is alive.
+          _livenessTimer?.cancel();
+          _livenessTimer = null;
+
           try {
             final decoded = jsonDecode(data.toString());
 
@@ -397,6 +416,52 @@ class SignalingService {
     }
 
     _send({"type": "blacklist_request", "sender": _currentUsername});
+
+    _armLivenessCheck();
+  }
+
+  /// Starts the "did the server answer?" watchdog.
+  void _armLivenessCheck() {
+    if (!_connected || _closedDeliberately) return;
+
+    _livenessTimer?.cancel();
+
+    _livenessTimer = Timer(_livenessTimeout, () {
+      _livenessTimer = null;
+
+      if (!_connected || _closedDeliberately) return;
+
+      print(
+        "[Signaling] Server stopped answering; rebuilding the socket.",
+      );
+
+      unawaited(_recoverStaleSocket());
+    });
+  }
+
+  /// Drops a socket that stopped answering and reconnects immediately.
+  Future<void> _recoverStaleSocket() async {
+    if (_closedDeliberately) return;
+
+    _livenessTimer?.cancel();
+    _livenessTimer = null;
+
+    final subscription = _channelSubscription;
+    final channel = _channel;
+
+    _channelSubscription = null;
+    _channel = null;
+
+    _connected = false;
+    _connecting = false;
+
+    await subscription?.cancel();
+
+    try {
+      await channel?.sink.close();
+    } catch (_) {}
+
+    _scheduleReconnect();
   }
 
   // ============================================================
@@ -556,6 +621,9 @@ class SignalingService {
     _banCheckTimer?.cancel();
     _banCheckTimer = null;
 
+    _livenessTimer?.cancel();
+    _livenessTimer = null;
+
     _pendingFrames.clear();
 
     unawaited(_teardown(closeStream: true));
@@ -577,6 +645,9 @@ class SignalingService {
 
     _banCheckTimer?.cancel();
     _banCheckTimer = null;
+
+    _livenessTimer?.cancel();
+    _livenessTimer = null;
 
     final subscription = _channelSubscription;
     final channel = _channel;
