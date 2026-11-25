@@ -564,239 +564,244 @@ class AppLocalizationsDe extends AppLocalizations {
       'Nachweis übermittelt. Manuelle Prüfung: 24–48 Stunden (Wochenenden ausgenommen).';
 
   @override
-  String get loadingChats => 'Loading chats...';
+  String get loadingChats => 'Chats werden geladen...';
 
   @override
-  String get noChatsYetTitle => 'No chats yet';
+  String get noChatsYetTitle => 'Noch keine Chats';
 
   @override
   String get noChatsYetHint =>
-      'A chat starts when you scan the other person\'s CRYPT QR code. Open your identity page to share yours so they can scan it.';
+      'Ein Chat beginnt, wenn Sie den CRYPT-QR-Code der anderen Person scannen. Öffnen Sie Ihre Identitätsseite, um Ihre Identität zu teilen, damit sie sie scannen können.';
 
   @override
-  String get scanQrToStartChat => 'Scan a QR code';
+  String get scanQrToStartChat => 'Scannen Sie einen QR-Code';
 
   @override
-  String get noChatsMatchSearch => 'No chats match your search';
+  String get noChatsMatchSearch => 'Keine Chats entsprechen Ihrer Suche';
 
   @override
   String get noChatsMatchSearchHint =>
-      'Try a different name, or clear the search to see every chat.';
+      'Versuchen Sie es mit einem anderen Namen oder löschen Sie die Suche, um alle Chats anzuzeigen.';
 
   @override
-  String get requestSentTitle => 'Request sent';
+  String get requestSentTitle => 'Anfrage gesendet';
 
   @override
   String requestSentBody(String username) {
-    return 'Your request went to $username. Please wait while they accept it.';
+    return 'Ihre Anfrage ging an $username. Bitte warten Sie, während sie es akzeptieren.';
   }
 
   @override
   String get requestSentKeepOpen =>
-      'The chat opens as soon as they accept. Keep CRYPT open on this device so you do not miss it.';
+      'Der Chat wird geöffnet, sobald sie zustimmen. Lassen Sie CRYPT auf diesem Gerät geöffnet, damit Sie es nicht verpassen.';
 
   @override
-  String get requestSentGotIt => 'Got it';
+  String get requestSentGotIt => 'Verstanden';
 
   @override
   String get scanCouldNotReadCode =>
-      'That code could not be read. Scan a CRYPT QR code.';
+      'Dieser Code konnte nicht gelesen werden. Scannen Sie einen CRYPT-QR-Code.';
 
   @override
   String get scanMissingTheirIdentity =>
-      'That code is missing the person\'s identity. Scan the code from their identity page.';
+      'In diesem Code fehlt die Identität der Person. Scannen Sie den Code von der Identitätsseite.';
 
   @override
   String get scanOwnIdentityMissing =>
-      'Your own encryption key is missing. Sign out and back in, then scan again.';
+      'Ihr eigener Verschlüsselungsschlüssel fehlt. Melden Sie sich ab und wieder an und scannen Sie dann erneut.';
 
   @override
   String get noLightningWalletFound =>
-      'No Lightning wallet found. Install one, or copy the address and paste it into a wallet.';
+      'Keine Lightning-Wallet gefunden. Installieren Sie eine oder kopieren Sie die Adresse und fügen Sie sie in eine Brieftasche ein.';
 
   @override
-  String get settingsSectionAppearance => 'Appearance';
+  String get settingsSectionAppearance => 'Aussehen';
 
   @override
-  String get settingsSectionPrivacy => 'Privacy and security';
+  String get settingsSectionPrivacy => 'Privatsphäre und Sicherheit';
 
   @override
   String get settingsSectionPremium => 'Premium';
 
   @override
-  String get settingsSectionHelp => 'Help and legal';
+  String get settingsSectionHelp => 'Hilfe und Recht';
 
   @override
-  String get settingsSectionAdministration => 'Administration';
+  String get settingsSectionAdministration => 'Verwaltung';
 
   @override
-  String get settingsSectionAccount => 'Account';
+  String get settingsSectionAccount => 'Konto';
 
   @override
-  String get settingsProtectTitle => 'Protect settings with master password';
+  String get settingsProtectTitle =>
+      'Schützen Sie die Einstellungen mit einem Master-Passwort';
 
   @override
-  String get settingsProtectSubtitle => 'Require password to access settings';
+  String get settingsProtectSubtitle =>
+      'Für den Zugriff auf die Einstellungen ist ein Passwort erforderlich';
 
   @override
-  String get chatLockSetPinSubtitle => 'Tap to set your own PIN for this chat';
+  String get chatLockSetPinSubtitle =>
+      'Tippen Sie hier, um Ihre eigene PIN für diesen Chat festzulegen';
 
   @override
-  String get premiumTileTitle => 'Get Lifetime Premium';
+  String get premiumTileTitle => 'Holen Sie sich Lifetime Premium';
 
   @override
-  String get premiumActiveSubtitle => 'Premium is on for your account';
+  String get premiumActiveSubtitle => 'Premium ist für Ihr Konto aktiviert';
 
   @override
   String get premiumPendingSubtitle =>
-      'Waiting for an admin to review your screenshot';
+      'Ich warte darauf, dass ein Administrator Ihren Screenshot überprüft';
 
   @override
-  String get premiumHowItWorks => 'How premium works';
+  String get premiumHowItWorks => 'So funktioniert Premium';
 
   @override
-  String get reportProblemTitle => 'Report a problem';
+  String get reportProblemTitle => 'Melden Sie ein Problem';
 
   @override
-  String get reportProblemSubtitle => 'Bugs, abuse or spam';
+  String get reportProblemSubtitle => 'Bugs, Missbrauch oder Spam';
 
   @override
-  String get adminAccessTitle => 'Admin access';
+  String get adminAccessTitle => 'Admin-Zugriff';
 
   @override
-  String get adminAccessSubtitle => 'Enter your admin code to open the panel';
+  String get adminAccessSubtitle =>
+      'Geben Sie Ihren Admin-Code ein, um das Panel zu öffnen';
 
   @override
   String chatLockOwnCodeSubtitle(String method) {
-    return '$method — own code, this chat only';
+    return '$method – eigener Code, nur dieser Chat';
   }
 
   @override
   String premiumPayOnceSubtitle(String amount) {
-    return '$amount once with your Lightning wallet, then send a screenshot';
+    return '$amount einmal mit Ihrem Lightning-Wallet, dann senden Sie einen Screenshot';
   }
 
   @override
   String premiumPendingBody(String window) {
-    return 'Your screenshot is in. An admin checks it and premium turns on for your account within $window.';
+    return 'Ihr Screenshot ist da. Ein Administrator überprüft ihn und aktiviert Premium für Ihr Konto $window.';
   }
 
   @override
   String premiumHowItWorksBody(String amount, String method, String wallet) {
-    return '1. Pay $amount with $method, or $wallet.\n2. Screenshot the payment confirmation.\n3. Send it from Submit payment proof.\n4. Premium turns on and stays on for life.\n\nCRYPT is built by a solo developer, and this is the whole offer: one payment, no subscription.';
+    return '1. Bezahlen $amount mit $method, oder $wallet.\n2. Machen Sie einen Screenshot der Zahlungsbestätigung.\n3. Senden Sie es über Zahlungsnachweis einreichen.\n4. Premium schaltet sich ein und bleibt ein Leben lang eingeschaltet.\n\nCRYPT wurde von einem Einzelentwickler entwickelt, und das ist das ganze Angebot: eine Zahlung, kein Abonnement.';
   }
 
   @override
   String get reportIntro =>
-      'Tell us what happened. If you are reporting another person, add their username so we can act on the right account.';
+      'Erzählen Sie uns, was passiert ist. Wenn Sie eine andere Person melden, fügen Sie deren Benutzernamen hinzu, damit wir auf das richtige Konto reagieren können.';
 
   @override
-  String get reportSent => 'Report sent. Thank you.';
+  String get reportSent => 'Bericht gesendet. Danke schön.';
 
   @override
-  String get reportSendFailed => 'Could not send the report.';
+  String get reportSendFailed => 'Der Bericht konnte nicht gesendet werden.';
 
   @override
-  String get reportTypeLabel => 'Type of report';
+  String get reportTypeLabel => 'Art des Berichts';
 
   @override
-  String get reportCategoryBug => 'Bug';
+  String get reportCategoryBug => 'Fehler';
 
   @override
-  String get reportCategoryAbuse => 'Abuse';
+  String get reportCategoryAbuse => 'Missbrauch';
 
   @override
   String get reportCategorySpam => 'Spam';
 
   @override
-  String get reportCategoryOther => 'Other';
+  String get reportCategoryOther => 'Andere';
 
   @override
-  String get reportUsernameLabel => 'Their username (optional)';
+  String get reportUsernameLabel => 'Ihr Benutzername (optional)';
 
   @override
-  String get reportUsernameHint => 'e.g. someone_you_want_reported';
+  String get reportUsernameHint => 'z.B. jemand_Sie_wollen_gemeldet';
 
   @override
-  String get reportDetailsLabel => 'What happened?';
+  String get reportDetailsLabel => 'Was ist passiert?';
 
   @override
   String get reportScreenshotsLabel => 'Screenshots';
 
   @override
-  String get reportAddScreenshot => 'Add screenshot';
+  String get reportAddScreenshot => 'Screenshot hinzufügen';
 
   @override
-  String get reportSendButton => 'Send report';
+  String get reportSendButton => 'Bericht senden';
 
   @override
   String get reportPrivacyNote =>
-      'Reports are reviewed by an administrator. Screenshots are stored privately and are only visible to moderators.';
+      'Berichte werden von einem Administrator überprüft. Screenshots werden privat gespeichert und sind nur für Moderatoren sichtbar.';
 
   @override
   String premiumOfferSummary(String amount, String lifetime) {
-    return '$amount once, $lifetime.';
+    return '$amount einmal, $lifetime.';
   }
 
   @override
   String premiumOfferBody(String method, String window) {
-    return 'No subscription and nothing to renew. Pay with $method, send a screenshot of the confirmation, and premium is switched on within $window.';
+    return 'Kein Abonnement und nichts zu verlängern. Bezahlen Sie mit $method, senden Sie einen Screenshot der Bestätigung und schon ist Premium aktiviert $window.';
   }
 
   @override
   String get premiumSoloNote =>
-      'CRYPT is built by a solo developer. Premium is what keeps it ad-free and actively maintained.';
+      'CRYPT wird von einem Einzelentwickler erstellt. Premium sorgt dafür, dass es werbefrei bleibt und aktiv gewartet wird.';
 
   @override
-  String get premiumStepPay => 'Pay with your wallet';
+  String get premiumStepPay => 'Bezahlen Sie mit Ihrem Portemonnaie';
 
   @override
-  String get premiumLightningAddressLabel => 'Lightning address';
+  String get premiumLightningAddressLabel => 'Blitzadresse';
 
   @override
-  String get premiumOpenWallet => 'Open wallet';
+  String get premiumOpenWallet => 'Wallet öffnen';
 
   @override
-  String get premiumCopyAddress => 'Copy address';
+  String get premiumCopyAddress => 'Adresse kopieren';
 
   @override
   String get premiumWorksWith =>
-      'Works with Phoenix and any other Lightning wallet.';
+      'Funktioniert mit Phoenix und jeder anderen Lightning-Wallet.';
 
   @override
-  String get premiumStepScreenshot => 'Send your screenshot';
+  String get premiumStepScreenshot => 'Senden Sie Ihren Screenshot';
 
   @override
   String get premiumScreenshotHint =>
-      'Take a screenshot of the payment confirmation in your Lightning wallet and attach it below.';
+      'Machen Sie einen Screenshot der Zahlungsbestätigung in Ihrem Lightning-Wallet und hängen Sie ihn unten an.';
 
   @override
-  String get premiumAttachScreenshot => 'Attach screenshot';
+  String get premiumAttachScreenshot => 'Screenshot anhängen';
 
   @override
-  String get premiumReplaceScreenshot => 'Replace screenshot';
+  String get premiumReplaceScreenshot => 'Screenshot ersetzen';
 
   @override
-  String get premiumStepAmount => 'Confirm the amount';
+  String get premiumStepAmount => 'Bestätigen Sie den Betrag';
 
   @override
-  String get premiumAmountLabel => 'Amount you paid (USD)';
+  String get premiumAmountLabel => 'Von Ihnen gezahlter Betrag (USD)';
 
   @override
-  String get premiumNoteLabel => 'Note (optional)';
+  String get premiumNoteLabel => 'Hinweis (optional)';
 
   @override
-  String get premiumSendProof => 'Send my proof';
+  String get premiumSendProof => 'Schicken Sie meinen Beweis';
 
   @override
-  String get premiumAddressCopied => 'Lightning address copied.';
+  String get premiumAddressCopied => 'Lightning-Adresse kopiert.';
 
   @override
   String get premiumAttachConfirmation =>
-      'Attach a screenshot of your payment confirmation.';
+      'Fügen Sie einen Screenshot Ihrer Zahlungsbestätigung bei.';
 
   @override
-  String get premiumSendProofFailed => 'Could not send the payment proof.';
+  String get premiumSendProofFailed =>
+      'Der Zahlungsnachweis konnte nicht gesendet werden.';
 
   @override
   String premiumAmountHelper(String amount) {
@@ -805,123 +810,130 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String premiumActivationNote(String window) {
-    return 'Activation takes $window.';
+    return 'Die Aktivierung dauert $window.';
   }
 
   @override
   String premiumProofReceived(String window) {
-    return 'Proof received. Premium is switched on within $window.';
+    return 'Beweis erhalten. Premium ist innerhalb eingeschaltet $window.';
   }
 
   @override
-  String get premiumTableFeature => 'Feature';
+  String get premiumTableFeature => 'Funktion';
 
   @override
-  String get premiumTableFree => 'Free';
+  String get premiumTableFree => 'Kostenlos';
 
   @override
   String get premiumTablePremium => 'Premium';
 
   @override
-  String get premiumTableEncrypted => 'Encrypted peer-to-peer messaging';
+  String get premiumTableEncrypted =>
+      'Verschlüsselte Peer-to-Peer-Nachrichtenübermittlung';
 
   @override
-  String get premiumTableMessagesStay => 'Messages stay on your devices';
+  String get premiumTableMessagesStay =>
+      'Nachrichten bleiben auf Ihren Geräten';
 
   @override
-  String get premiumTableChatLocks => 'Chats locked with your own PIN';
+  String get premiumTableChatLocks => 'Mit Ihrer eigenen PIN gesperrte Chats';
 
   @override
-  String get premiumTableFingerprint => 'Unlock with fingerprint or face';
+  String get premiumTableFingerprint =>
+      'Mit Fingerabdruck oder Gesicht entsperren';
 
   @override
-  String get premiumTablePrice => 'Price';
+  String get premiumTablePrice => 'Preis';
 
   @override
-  String get premiumTableAccess => 'Access';
+  String get premiumTableAccess => 'Zugang';
 
   @override
-  String get premiumTableIncluded => 'Included';
+  String get premiumTableIncluded => 'Im Lieferumfang enthalten';
 
   @override
-  String get premiumTableOneChat => '1 chat';
+  String get premiumTableOneChat => '1 Chat';
 
   @override
-  String get premiumTableUnlimited => 'Unlimited';
+  String get premiumTableUnlimited => 'Unbegrenzt';
 
   @override
-  String get premiumTableNotIncluded => 'Not included';
+  String get premiumTableNotIncluded => 'Nicht im Lieferumfang enthalten';
 
   @override
-  String get premiumTableFreeValue => 'Free';
+  String get premiumTableFreeValue => 'Kostenlos';
 
   @override
-  String get premiumTableWhileFree => 'While the app is free';
+  String get premiumTableWhileFree => 'Während die App kostenlos ist';
 
   @override
-  String get premiumTableLifetime => 'Lifetime';
+  String get premiumTableLifetime => 'Lebenszeit';
 
   @override
   String premiumTableOnePayment(String amount) {
-    return 'One payment of $amount';
+    return 'Eine Zahlung von $amount';
   }
 
   @override
   String premiumPaymentOneTime(String amount) {
-    return 'One payment of $amount and premium is yours for life. There is no subscription and nothing to renew.';
+    return 'Eine Zahlung von $amount und Premium gehört Ihnen ein Leben lang. Es gibt kein Abonnement und es gibt nichts zu verlängern.';
   }
 
   @override
-  String get settingsSaveFailed => 'Could not save that setting. Try again.';
+  String get settingsSaveFailed =>
+      'Diese Einstellung konnte nicht gespeichert werden. Versuchen Sie es erneut.';
 
   @override
-  String get settingsLockFailed => 'Could not lock this chat. Try again.';
+  String get settingsLockFailed =>
+      'Dieser Chat konnte nicht gesperrt werden. Versuchen Sie es erneut.';
 
   @override
-  String get settingsUnlockFailed => 'Could not unlock this chat. Try again.';
+  String get settingsUnlockFailed =>
+      'Dieser Chat konnte nicht entsperrt werden. Versuchen Sie es erneut.';
 
   @override
   String pinSetTitle(String chat) {
-    return 'Set a PIN for $chat';
+    return 'Legen Sie eine PIN fest für $chat';
   }
 
   @override
   String pinConfirmTitle(String chat) {
-    return 'Confirm the PIN for $chat';
+    return 'Bestätigen Sie die PIN für $chat';
   }
 
   @override
   String pinSetHelper(String chat) {
-    return 'This PIN opens $chat only. Every chat has its own PIN, chosen by you. There is no single code for the app.';
+    return 'Diese PIN wird geöffnet $chat nur. Jeder Chat hat eine eigene, von Ihnen gewählte PIN. Es gibt keinen einzelnen Code für die App.';
   }
 
   @override
-  String get pinMismatch => 'The PINs did not match. Lock not enabled.';
+  String get pinMismatch =>
+      'Die PINs stimmten nicht überein. Sperre nicht aktiviert.';
 
   @override
   String get biometricNotSetUp =>
-      'No fingerprint or face unlock is set up on this device.';
+      'Auf diesem Gerät ist weder Fingerabdruck noch Gesichtsentsperrung eingerichtet.';
 
   @override
   String get biometricVerifyFailed =>
-      'Could not verify it is you on this device.';
+      'Auf diesem Gerät konnte Ihre Identität nicht bestätigt werden.';
 
   @override
   String get lightningAddressCopied =>
-      'Lightning address copied. Paste it into a wallet to pay.';
+      'Lightning-Adresse kopiert. Fügen Sie es zum Bezahlen in eine Brieftasche ein.';
 
   @override
-  String get accountSuspended => 'Account suspended';
+  String get accountSuspended => 'Konto gesperrt';
 
   @override
-  String get premiumLifetimeAccess => 'Lifetime Premium Access';
+  String get premiumLifetimeAccess => 'Lebenslanger Premium-Zugang';
 
   @override
   String premiumActivationStep1(String amount, String method) {
-    return 'Pay $amount from $method to the Lightning address above.';
+    return 'Zahlen $amount aus $method an die oben angegebene Lightning-Adresse.';
   }
 
   @override
   String get premiumActivationStep2 =>
-      'Take a screenshot of the payment confirmation and send it in as your proof of payment.';
+      'Machen Sie einen Screenshot der Zahlungsbestätigung und senden Sie ihn als Zahlungsnachweis ein.';
 }

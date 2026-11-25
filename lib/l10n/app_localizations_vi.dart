@@ -564,364 +564,371 @@ class AppLocalizationsVi extends AppLocalizations {
       'Đã gửi bằng chứng! Quá trình xem xét thủ công mất 24–48 giờ (không bao gồm cuối tuần). Bạn có thể tiếp tục sử dụng ứng dụng bình thường!';
 
   @override
-  String get loadingChats => 'Loading chats...';
+  String get loadingChats => 'Đang tải cuộc trò chuyện...';
 
   @override
-  String get noChatsYetTitle => 'No chats yet';
+  String get noChatsYetTitle => 'Chưa có cuộc trò chuyện nào';
 
   @override
   String get noChatsYetHint =>
-      'A chat starts when you scan the other person\'s CRYPT QR code. Open your identity page to share yours so they can scan it.';
+      'Cuộc trò chuyện bắt đầu khi bạn quét mã QR CRYPT của người khác. Mở trang nhận dạng của bạn để chia sẻ thông tin của bạn để họ có thể quét nó.';
 
   @override
-  String get scanQrToStartChat => 'Scan a QR code';
+  String get scanQrToStartChat => 'Quét mã QR';
 
   @override
-  String get noChatsMatchSearch => 'No chats match your search';
+  String get noChatsMatchSearch =>
+      'Không có cuộc trò chuyện nào phù hợp với tìm kiếm của bạn';
 
   @override
   String get noChatsMatchSearchHint =>
-      'Try a different name, or clear the search to see every chat.';
+      'Hãy thử một tên khác hoặc xóa tìm kiếm để xem mọi cuộc trò chuyện.';
 
   @override
-  String get requestSentTitle => 'Request sent';
+  String get requestSentTitle => 'Đã gửi yêu cầu';
 
   @override
   String requestSentBody(String username) {
-    return 'Your request went to $username. Please wait while they accept it.';
+    return 'Yêu cầu của bạn đã đi đến $username. Vui lòng đợi trong khi họ chấp nhận nó.';
   }
 
   @override
   String get requestSentKeepOpen =>
-      'The chat opens as soon as they accept. Keep CRYPT open on this device so you do not miss it.';
+      'Cuộc trò chuyện sẽ mở ra ngay khi họ chấp nhận. Giữ CRYPT mở trên thiết bị này để bạn không bỏ lỡ nó.';
 
   @override
-  String get requestSentGotIt => 'Got it';
+  String get requestSentGotIt => 'Hiểu rồi';
 
   @override
   String get scanCouldNotReadCode =>
-      'That code could not be read. Scan a CRYPT QR code.';
+      'Mã đó không thể đọc được. Quét mã QR CRYPT.';
 
   @override
   String get scanMissingTheirIdentity =>
-      'That code is missing the person\'s identity. Scan the code from their identity page.';
+      'Mã đó thiếu danh tính của người đó. Quét mã từ trang nhận dạng của họ.';
 
   @override
   String get scanOwnIdentityMissing =>
-      'Your own encryption key is missing. Sign out and back in, then scan again.';
+      'Khóa mã hóa của riêng bạn bị thiếu. Đăng xuất và đăng nhập lại, sau đó quét lại.';
 
   @override
   String get noLightningWalletFound =>
-      'No Lightning wallet found. Install one, or copy the address and paste it into a wallet.';
+      'Không tìm thấy ví Lightning. Cài đặt một cái hoặc sao chép địa chỉ và dán vào ví.';
 
   @override
-  String get settingsSectionAppearance => 'Appearance';
+  String get settingsSectionAppearance => 'Ngoại hình';
 
   @override
-  String get settingsSectionPrivacy => 'Privacy and security';
+  String get settingsSectionPrivacy => 'Quyền riêng tư và bảo mật';
 
   @override
-  String get settingsSectionPremium => 'Premium';
+  String get settingsSectionPremium => 'Cao cấp';
 
   @override
-  String get settingsSectionHelp => 'Help and legal';
+  String get settingsSectionHelp => 'Trợ giúp và pháp lý';
 
   @override
-  String get settingsSectionAdministration => 'Administration';
+  String get settingsSectionAdministration => 'Quản trị';
 
   @override
-  String get settingsSectionAccount => 'Account';
+  String get settingsSectionAccount => 'Tài khoản';
 
   @override
-  String get settingsProtectTitle => 'Protect settings with master password';
+  String get settingsProtectTitle => 'Bảo vệ cài đặt bằng mật khẩu chính';
 
   @override
-  String get settingsProtectSubtitle => 'Require password to access settings';
+  String get settingsProtectSubtitle => 'Yêu cầu mật khẩu để truy cập cài đặt';
 
   @override
-  String get chatLockSetPinSubtitle => 'Tap to set your own PIN for this chat';
+  String get chatLockSetPinSubtitle =>
+      'Nhấn để đặt mã PIN của riêng bạn cho cuộc trò chuyện này';
 
   @override
-  String get premiumTileTitle => 'Get Lifetime Premium';
+  String get premiumTileTitle => 'Nhận Premium trọn đời';
 
   @override
-  String get premiumActiveSubtitle => 'Premium is on for your account';
+  String get premiumActiveSubtitle => 'Premium đang bật cho tài khoản của bạn';
 
   @override
   String get premiumPendingSubtitle =>
-      'Waiting for an admin to review your screenshot';
+      'Đang chờ quản trị viên xem lại ảnh chụp màn hình của bạn';
 
   @override
-  String get premiumHowItWorks => 'How premium works';
+  String get premiumHowItWorks => 'Premium hoạt động như thế nào';
 
   @override
-  String get reportProblemTitle => 'Report a problem';
+  String get reportProblemTitle => 'Báo cáo sự cố';
 
   @override
-  String get reportProblemSubtitle => 'Bugs, abuse or spam';
+  String get reportProblemSubtitle => 'Lỗi, lạm dụng hoặc thư rác';
 
   @override
-  String get adminAccessTitle => 'Admin access';
+  String get adminAccessTitle => 'Quyền truy cập của quản trị viên';
 
   @override
-  String get adminAccessSubtitle => 'Enter your admin code to open the panel';
+  String get adminAccessSubtitle =>
+      'Nhập mã quản trị của bạn để mở bảng điều khiển';
 
   @override
   String chatLockOwnCodeSubtitle(String method) {
-    return '$method — own code, this chat only';
+    return '$method - mã riêng, chỉ cuộc trò chuyện này';
   }
 
   @override
   String premiumPayOnceSubtitle(String amount) {
-    return '$amount once with your Lightning wallet, then send a screenshot';
+    return '$amount một lần bằng ví Lightning của bạn, sau đó gửi ảnh chụp màn hình';
   }
 
   @override
   String premiumPendingBody(String window) {
-    return 'Your screenshot is in. An admin checks it and premium turns on for your account within $window.';
+    return 'Ảnh chụp màn hình của bạn đã được đưa vào. Quản trị viên sẽ kiểm tra nó và tính năng trả phí sẽ bật cho tài khoản của bạn trong vòng $window.';
   }
 
   @override
   String premiumHowItWorksBody(String amount, String method, String wallet) {
-    return '1. Pay $amount with $method, or $wallet.\n2. Screenshot the payment confirmation.\n3. Send it from Submit payment proof.\n4. Premium turns on and stays on for life.\n\nCRYPT is built by a solo developer, and this is the whole offer: one payment, no subscription.';
+    return '1. Trả tiền $amount với $method, hoặc $wallet.\n2. Chụp màn hình xác nhận thanh toán.\n3. Gửi từ Gửi bằng chứng thanh toán.\n4. Premium bật và duy trì suốt đời.\n\nCRYPT được xây dựng bởi một nhà phát triển solo và đây là toàn bộ ưu đãi: thanh toán một lần, không cần đăng ký.';
   }
 
   @override
   String get reportIntro =>
-      'Tell us what happened. If you are reporting another person, add their username so we can act on the right account.';
+      'Hãy cho chúng tôi biết chuyện gì đã xảy ra. Nếu bạn đang báo cáo người khác, hãy thêm tên người dùng của họ để chúng tôi có thể xử lý đúng tài khoản.';
 
   @override
-  String get reportSent => 'Report sent. Thank you.';
+  String get reportSent => 'Đã gửi báo cáo. Cảm ơn.';
 
   @override
-  String get reportSendFailed => 'Could not send the report.';
+  String get reportSendFailed => 'Không thể gửi báo cáo.';
 
   @override
-  String get reportTypeLabel => 'Type of report';
+  String get reportTypeLabel => 'Loại báo cáo';
 
   @override
-  String get reportCategoryBug => 'Bug';
+  String get reportCategoryBug => 'Lỗi';
 
   @override
-  String get reportCategoryAbuse => 'Abuse';
+  String get reportCategoryAbuse => 'Lạm dụng';
 
   @override
-  String get reportCategorySpam => 'Spam';
+  String get reportCategorySpam => 'Thư rác';
 
   @override
-  String get reportCategoryOther => 'Other';
+  String get reportCategoryOther => 'Khác';
 
   @override
-  String get reportUsernameLabel => 'Their username (optional)';
+  String get reportUsernameLabel => 'Tên người dùng của họ (tùy chọn)';
 
   @override
-  String get reportUsernameHint => 'e.g. someone_you_want_reported';
+  String get reportUsernameHint => 'ví dụ: ai đó_bạn_muốn_báo cáo';
 
   @override
-  String get reportDetailsLabel => 'What happened?';
+  String get reportDetailsLabel => 'Chuyện gì đã xảy ra vậy?';
 
   @override
-  String get reportScreenshotsLabel => 'Screenshots';
+  String get reportScreenshotsLabel => 'Ảnh chụp màn hình';
 
   @override
-  String get reportAddScreenshot => 'Add screenshot';
+  String get reportAddScreenshot => 'Thêm ảnh chụp màn hình';
 
   @override
-  String get reportSendButton => 'Send report';
+  String get reportSendButton => 'Gửi báo cáo';
 
   @override
   String get reportPrivacyNote =>
-      'Reports are reviewed by an administrator. Screenshots are stored privately and are only visible to moderators.';
+      'Các báo cáo được xem xét bởi quản trị viên. Ảnh chụp màn hình được lưu trữ riêng tư và chỉ người kiểm duyệt mới hiển thị.';
 
   @override
   String premiumOfferSummary(String amount, String lifetime) {
-    return '$amount once, $lifetime.';
+    return '$amount một lần, $lifetime.';
   }
 
   @override
   String premiumOfferBody(String method, String window) {
-    return 'No subscription and nothing to renew. Pay with $method, send a screenshot of the confirmation, and premium is switched on within $window.';
+    return 'Không có đăng ký và không có gì để gia hạn. Thanh toán bằng $method, gửi ảnh chụp màn hình xác nhận và tính năng trả phí sẽ được bật trong vòng $window.';
   }
 
   @override
   String get premiumSoloNote =>
-      'CRYPT is built by a solo developer. Premium is what keeps it ad-free and actively maintained.';
+      'CRYPT được xây dựng bởi một nhà phát triển solo. Premium là thứ giúp nó không có quảng cáo và được duy trì tích cực.';
 
   @override
-  String get premiumStepPay => 'Pay with your wallet';
+  String get premiumStepPay => 'Thanh toán bằng ví của bạn';
 
   @override
-  String get premiumLightningAddressLabel => 'Lightning address';
+  String get premiumLightningAddressLabel => 'Địa chỉ sét';
 
   @override
-  String get premiumOpenWallet => 'Open wallet';
+  String get premiumOpenWallet => 'Mở ví';
 
   @override
-  String get premiumCopyAddress => 'Copy address';
+  String get premiumCopyAddress => 'Sao chép địa chỉ';
 
   @override
   String get premiumWorksWith =>
-      'Works with Phoenix and any other Lightning wallet.';
+      'Hoạt động với Phoenix và bất kỳ ví Lightning nào khác.';
 
   @override
-  String get premiumStepScreenshot => 'Send your screenshot';
+  String get premiumStepScreenshot => 'Gửi ảnh chụp màn hình của bạn';
 
   @override
   String get premiumScreenshotHint =>
-      'Take a screenshot of the payment confirmation in your Lightning wallet and attach it below.';
+      'Chụp ảnh màn hình xác nhận thanh toán trong ví Lightning của bạn và đính kèm bên dưới.';
 
   @override
-  String get premiumAttachScreenshot => 'Attach screenshot';
+  String get premiumAttachScreenshot => 'Đính kèm ảnh chụp màn hình';
 
   @override
-  String get premiumReplaceScreenshot => 'Replace screenshot';
+  String get premiumReplaceScreenshot => 'Thay thế ảnh chụp màn hình';
 
   @override
-  String get premiumStepAmount => 'Confirm the amount';
+  String get premiumStepAmount => 'Xác nhận số tiền';
 
   @override
-  String get premiumAmountLabel => 'Amount you paid (USD)';
+  String get premiumAmountLabel => 'Số tiền bạn đã trả (USD)';
 
   @override
-  String get premiumNoteLabel => 'Note (optional)';
+  String get premiumNoteLabel => 'Lưu ý (tùy chọn)';
 
   @override
-  String get premiumSendProof => 'Send my proof';
+  String get premiumSendProof => 'Gửi bằng chứng của tôi';
 
   @override
-  String get premiumAddressCopied => 'Lightning address copied.';
+  String get premiumAddressCopied => 'Đã sao chép địa chỉ Lightning.';
 
   @override
   String get premiumAttachConfirmation =>
-      'Attach a screenshot of your payment confirmation.';
+      'Đính kèm ảnh chụp màn hình xác nhận thanh toán của bạn.';
 
   @override
-  String get premiumSendProofFailed => 'Could not send the payment proof.';
+  String get premiumSendProofFailed => 'Không thể gửi bằng chứng thanh toán.';
 
   @override
   String premiumAmountHelper(String amount) {
-    return 'Minimum $amount.';
+    return 'tối thiểu $amount.';
   }
 
   @override
   String premiumActivationNote(String window) {
-    return 'Activation takes $window.';
+    return 'Kích hoạt mất $window.';
   }
 
   @override
   String premiumProofReceived(String window) {
-    return 'Proof received. Premium is switched on within $window.';
+    return 'Đã nhận được bằng chứng. Premium được bật trong vòng $window.';
   }
 
   @override
-  String get premiumTableFeature => 'Feature';
+  String get premiumTableFeature => 'tính năng';
 
   @override
-  String get premiumTableFree => 'Free';
+  String get premiumTableFree => 'miễn phí';
 
   @override
-  String get premiumTablePremium => 'Premium';
+  String get premiumTablePremium => 'Cao cấp';
 
   @override
-  String get premiumTableEncrypted => 'Encrypted peer-to-peer messaging';
+  String get premiumTableEncrypted => 'Tin nhắn ngang hàng được mã hóa';
 
   @override
-  String get premiumTableMessagesStay => 'Messages stay on your devices';
+  String get premiumTableMessagesStay =>
+      'Tin nhắn vẫn còn trên thiết bị của bạn';
 
   @override
-  String get premiumTableChatLocks => 'Chats locked with your own PIN';
+  String get premiumTableChatLocks =>
+      'Trò chuyện bị khóa bằng mã PIN của riêng bạn';
 
   @override
-  String get premiumTableFingerprint => 'Unlock with fingerprint or face';
+  String get premiumTableFingerprint => 'Mở khóa bằng vân tay hoặc khuôn mặt';
 
   @override
-  String get premiumTablePrice => 'Price';
+  String get premiumTablePrice => 'Giá';
 
   @override
-  String get premiumTableAccess => 'Access';
+  String get premiumTableAccess => 'Truy cập';
 
   @override
-  String get premiumTableIncluded => 'Included';
+  String get premiumTableIncluded => 'Bao gồm';
 
   @override
-  String get premiumTableOneChat => '1 chat';
+  String get premiumTableOneChat => '1 cuộc trò chuyện';
 
   @override
-  String get premiumTableUnlimited => 'Unlimited';
+  String get premiumTableUnlimited => 'Không giới hạn';
 
   @override
-  String get premiumTableNotIncluded => 'Not included';
+  String get premiumTableNotIncluded => 'Không bao gồm';
 
   @override
-  String get premiumTableFreeValue => 'Free';
+  String get premiumTableFreeValue => 'miễn phí';
 
   @override
-  String get premiumTableWhileFree => 'While the app is free';
+  String get premiumTableWhileFree => 'Mặc dù ứng dụng này miễn phí';
 
   @override
-  String get premiumTableLifetime => 'Lifetime';
+  String get premiumTableLifetime => 'Trọn đời';
 
   @override
   String premiumTableOnePayment(String amount) {
-    return 'One payment of $amount';
+    return 'Một khoản thanh toán $amount';
   }
 
   @override
   String premiumPaymentOneTime(String amount) {
-    return 'One payment of $amount and premium is yours for life. There is no subscription and nothing to renew.';
+    return 'Một lần thanh toán $amount và Premium là của bạn trọn đời. Không có đăng ký và không cần gia hạn.';
   }
 
   @override
-  String get settingsSaveFailed => 'Could not save that setting. Try again.';
+  String get settingsSaveFailed => 'Không thể lưu cài đặt đó. Hãy thử lại.';
 
   @override
-  String get settingsLockFailed => 'Could not lock this chat. Try again.';
+  String get settingsLockFailed =>
+      'Không thể khóa cuộc trò chuyện này. Hãy thử lại.';
 
   @override
-  String get settingsUnlockFailed => 'Could not unlock this chat. Try again.';
+  String get settingsUnlockFailed =>
+      'Không thể mở khóa cuộc trò chuyện này. Hãy thử lại.';
 
   @override
   String pinSetTitle(String chat) {
-    return 'Set a PIN for $chat';
+    return 'Đặt mã PIN cho $chat';
   }
 
   @override
   String pinConfirmTitle(String chat) {
-    return 'Confirm the PIN for $chat';
+    return 'Xác nhận mã PIN cho $chat';
   }
 
   @override
   String pinSetHelper(String chat) {
-    return 'This PIN opens $chat only. Every chat has its own PIN, chosen by you. There is no single code for the app.';
+    return 'Mã PIN này mở ra $chat chỉ một. Mỗi cuộc trò chuyện đều có mã PIN riêng do bạn chọn. Không có mã duy nhất cho ứng dụng.';
   }
 
   @override
-  String get pinMismatch => 'The PINs did not match. Lock not enabled.';
+  String get pinMismatch => 'Mã PIN không khớp. Khóa không được kích hoạt.';
 
   @override
   String get biometricNotSetUp =>
-      'No fingerprint or face unlock is set up on this device.';
+      'Không có tính năng mở khóa bằng vân tay hoặc khuôn mặt nào được thiết lập trên thiết bị này.';
 
   @override
   String get biometricVerifyFailed =>
-      'Could not verify it is you on this device.';
+      'Không thể xác minh đó là bạn trên thiết bị này.';
 
   @override
   String get lightningAddressCopied =>
-      'Lightning address copied. Paste it into a wallet to pay.';
+      'Đã sao chép địa chỉ Lightning. Dán nó vào ví để thanh toán.';
 
   @override
-  String get accountSuspended => 'Account suspended';
+  String get accountSuspended => 'Tài khoản bị đình chỉ';
 
   @override
-  String get premiumLifetimeAccess => 'Lifetime Premium Access';
+  String get premiumLifetimeAccess => 'Quyền truy cập cao cấp trọn đời';
 
   @override
   String premiumActivationStep1(String amount, String method) {
-    return 'Pay $amount from $method to the Lightning address above.';
+    return 'Chi trả $amount từ $method đến địa chỉ Lightning ở trên.';
   }
 
   @override
   String get premiumActivationStep2 =>
-      'Take a screenshot of the payment confirmation and send it in as your proof of payment.';
+      'Chụp ảnh màn hình xác nhận thanh toán và gửi nó làm bằng chứng thanh toán của bạn.';
 }

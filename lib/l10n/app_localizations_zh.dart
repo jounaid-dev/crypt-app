@@ -544,364 +544,347 @@ class AppLocalizationsZh extends AppLocalizations {
       '证明已提交！人工审核需要 24–48 小时（周末除外）。您可以继续正常使用应用！';
 
   @override
-  String get loadingChats => 'Loading chats...';
+  String get loadingChats => '正在加载聊天记录...';
 
   @override
-  String get noChatsYetTitle => 'No chats yet';
+  String get noChatsYetTitle => '还没有聊天记录';
 
   @override
   String get noChatsYetHint =>
-      'A chat starts when you scan the other person\'s CRYPT QR code. Open your identity page to share yours so they can scan it.';
+      '当您扫描对方的 CRYPT QR 码时，聊天就会开始。打开您的身份页面以分享您的身份页面，以便他们可以扫描。';
 
   @override
-  String get scanQrToStartChat => 'Scan a QR code';
+  String get scanQrToStartChat => '扫描二维码';
 
   @override
-  String get noChatsMatchSearch => 'No chats match your search';
+  String get noChatsMatchSearch => '没有与您的搜索匹配的聊天记录';
 
   @override
-  String get noChatsMatchSearchHint =>
-      'Try a different name, or clear the search to see every chat.';
+  String get noChatsMatchSearchHint => '尝试使用不同的名称，或清除搜索以查看每条聊天记录。';
 
   @override
-  String get requestSentTitle => 'Request sent';
+  String get requestSentTitle => '请求已发送';
 
   @override
   String requestSentBody(String username) {
-    return 'Your request went to $username. Please wait while they accept it.';
+    return '您的请求已发送至$username。请等待他们接受。';
   }
 
   @override
-  String get requestSentKeepOpen =>
-      'The chat opens as soon as they accept. Keep CRYPT open on this device so you do not miss it.';
+  String get requestSentKeepOpen => '他们一接受，聊天就会打开。在此设备上保持 CRYPT 打开，这样您就不会错过它。';
 
   @override
-  String get requestSentGotIt => 'Got it';
+  String get requestSentGotIt => '明白了';
 
   @override
-  String get scanCouldNotReadCode =>
-      'That code could not be read. Scan a CRYPT QR code.';
+  String get scanCouldNotReadCode => '该代码无法读取。扫描 CRYPT 二维码。';
 
   @override
-  String get scanMissingTheirIdentity =>
-      'That code is missing the person\'s identity. Scan the code from their identity page.';
+  String get scanMissingTheirIdentity => '该代码缺少此人的身份。从他们的身份页面扫描代码。';
 
   @override
-  String get scanOwnIdentityMissing =>
-      'Your own encryption key is missing. Sign out and back in, then scan again.';
+  String get scanOwnIdentityMissing => '您自己的加密密钥丢失。注销并重新登录，然后再次扫描。';
 
   @override
-  String get noLightningWalletFound =>
-      'No Lightning wallet found. Install one, or copy the address and paste it into a wallet.';
+  String get noLightningWalletFound => '未找到Lightning钱包。安装一个，或复制地址并将其粘贴到钱包中。';
 
   @override
-  String get settingsSectionAppearance => 'Appearance';
+  String get settingsSectionAppearance => '外观';
 
   @override
-  String get settingsSectionPrivacy => 'Privacy and security';
+  String get settingsSectionPrivacy => '隐私和安全';
 
   @override
-  String get settingsSectionPremium => 'Premium';
+  String get settingsSectionPremium => '高级版';
 
   @override
-  String get settingsSectionHelp => 'Help and legal';
+  String get settingsSectionHelp => '帮助和法律';
 
   @override
-  String get settingsSectionAdministration => 'Administration';
+  String get settingsSectionAdministration => '行政管理';
 
   @override
-  String get settingsSectionAccount => 'Account';
+  String get settingsSectionAccount => '账户';
 
   @override
-  String get settingsProtectTitle => 'Protect settings with master password';
+  String get settingsProtectTitle => '使用主密码保护设置';
 
   @override
-  String get settingsProtectSubtitle => 'Require password to access settings';
+  String get settingsProtectSubtitle => '需要密码才能访问设置';
 
   @override
-  String get chatLockSetPinSubtitle => 'Tap to set your own PIN for this chat';
+  String get chatLockSetPinSubtitle => '点击即可为此聊天设置您自己的 PIN';
 
   @override
-  String get premiumTileTitle => 'Get Lifetime Premium';
+  String get premiumTileTitle => '获取终身 Premium';
 
   @override
-  String get premiumActiveSubtitle => 'Premium is on for your account';
+  String get premiumActiveSubtitle => '您的帐户已启用高级功能';
 
   @override
-  String get premiumPendingSubtitle =>
-      'Waiting for an admin to review your screenshot';
+  String get premiumPendingSubtitle => '等待管理员审核您的屏幕截图';
 
   @override
-  String get premiumHowItWorks => 'How premium works';
+  String get premiumHowItWorks => '高级版如何运作';
 
   @override
-  String get reportProblemTitle => 'Report a problem';
+  String get reportProblemTitle => '报告问题';
 
   @override
-  String get reportProblemSubtitle => 'Bugs, abuse or spam';
+  String get reportProblemSubtitle => '错误、滥用或垃圾邮件';
 
   @override
-  String get adminAccessTitle => 'Admin access';
+  String get adminAccessTitle => '管理员访问权限';
 
   @override
-  String get adminAccessSubtitle => 'Enter your admin code to open the panel';
+  String get adminAccessSubtitle => '输入您的管理代码以打开面板';
 
   @override
   String chatLockOwnCodeSubtitle(String method) {
-    return '$method — own code, this chat only';
+    return '$method— 自己的代码，仅限此聊天';
   }
 
   @override
   String premiumPayOnceSubtitle(String amount) {
-    return '$amount once with your Lightning wallet, then send a screenshot';
+    return '$amount使用您的Lightning钱包一次，然后发送屏幕截图';
   }
 
   @override
   String premiumPendingBody(String window) {
-    return 'Your screenshot is in. An admin checks it and premium turns on for your account within $window.';
+    return '您的屏幕截图已在。管理员会对其进行检查，并在以下时间内为您的帐户启用高级功能$window。';
   }
 
   @override
   String premiumHowItWorksBody(String amount, String method, String wallet) {
-    return '1. Pay $amount with $method, or $wallet.\n2. Screenshot the payment confirmation.\n3. Send it from Submit payment proof.\n4. Premium turns on and stays on for life.\n\nCRYPT is built by a solo developer, and this is the whole offer: one payment, no subscription.';
+    return '1. 支付$amount和$method， 或者$wallet。\n2. 截图支付确认。\n3. 从提交付款证明发送。\n4. Premium 开启并终身保持。\n\nCRYPT 是由一位独立开发者构建的，这就是全部优惠：一次付款，无需订阅。';
   }
 
   @override
-  String get reportIntro =>
-      'Tell us what happened. If you are reporting another person, add their username so we can act on the right account.';
+  String get reportIntro => '告诉我们发生了什么事。如果您要举报其他人，请添加他们的用户名，以便我们对正确的帐户采取行动。';
 
   @override
-  String get reportSent => 'Report sent. Thank you.';
+  String get reportSent => '报告已发送。谢谢。';
 
   @override
-  String get reportSendFailed => 'Could not send the report.';
+  String get reportSendFailed => '无法发送报告。';
 
   @override
-  String get reportTypeLabel => 'Type of report';
+  String get reportTypeLabel => '报告类型';
 
   @override
-  String get reportCategoryBug => 'Bug';
+  String get reportCategoryBug => '错误';
 
   @override
-  String get reportCategoryAbuse => 'Abuse';
+  String get reportCategoryAbuse => '滥用';
 
   @override
-  String get reportCategorySpam => 'Spam';
+  String get reportCategorySpam => '垃圾邮件';
 
   @override
-  String get reportCategoryOther => 'Other';
+  String get reportCategoryOther => '其他';
 
   @override
-  String get reportUsernameLabel => 'Their username (optional)';
+  String get reportUsernameLabel => '他们的用户名（可选）';
 
   @override
-  String get reportUsernameHint => 'e.g. someone_you_want_reported';
+  String get reportUsernameHint => '例如某人_你_想要_举报';
 
   @override
-  String get reportDetailsLabel => 'What happened?';
+  String get reportDetailsLabel => '发生了什么事？';
 
   @override
-  String get reportScreenshotsLabel => 'Screenshots';
+  String get reportScreenshotsLabel => '截图';
 
   @override
-  String get reportAddScreenshot => 'Add screenshot';
+  String get reportAddScreenshot => '添加屏幕截图';
 
   @override
-  String get reportSendButton => 'Send report';
+  String get reportSendButton => '发送报告';
 
   @override
-  String get reportPrivacyNote =>
-      'Reports are reviewed by an administrator. Screenshots are stored privately and are only visible to moderators.';
+  String get reportPrivacyNote => '报告由管理员审核。屏幕截图是私密存储的，只有版主才能看到。';
 
   @override
   String premiumOfferSummary(String amount, String lifetime) {
-    return '$amount once, $lifetime.';
+    return '$amount一次，$lifetime。';
   }
 
   @override
   String premiumOfferBody(String method, String window) {
-    return 'No subscription and nothing to renew. Pay with $method, send a screenshot of the confirmation, and premium is switched on within $window.';
+    return '无需订阅，也无需续订。付款方式$method，发送确认截图，高级功能将在$window.';
   }
 
   @override
-  String get premiumSoloNote =>
-      'CRYPT is built by a solo developer. Premium is what keeps it ad-free and actively maintained.';
+  String get premiumSoloNote => 'CRYPT 是由一位独立开发人员构建的。高级是让它无广告并积极维护的原因。';
 
   @override
-  String get premiumStepPay => 'Pay with your wallet';
+  String get premiumStepPay => '用你的钱包支付';
 
   @override
-  String get premiumLightningAddressLabel => 'Lightning address';
+  String get premiumLightningAddressLabel => 'Lightning地址';
 
   @override
-  String get premiumOpenWallet => 'Open wallet';
+  String get premiumOpenWallet => '打开钱包';
 
   @override
-  String get premiumCopyAddress => 'Copy address';
+  String get premiumCopyAddress => '复制地址';
 
   @override
-  String get premiumWorksWith =>
-      'Works with Phoenix and any other Lightning wallet.';
+  String get premiumWorksWith => '适用于 Phoenix 和任何其他Lightning钱包。';
 
   @override
-  String get premiumStepScreenshot => 'Send your screenshot';
+  String get premiumStepScreenshot => '发送您的屏幕截图';
 
   @override
-  String get premiumScreenshotHint =>
-      'Take a screenshot of the payment confirmation in your Lightning wallet and attach it below.';
+  String get premiumScreenshotHint => '截取您Lightning钱包中付款确认的屏幕截图并将其附在下面。';
 
   @override
-  String get premiumAttachScreenshot => 'Attach screenshot';
+  String get premiumAttachScreenshot => '附上截图';
 
   @override
-  String get premiumReplaceScreenshot => 'Replace screenshot';
+  String get premiumReplaceScreenshot => '替换截图';
 
   @override
-  String get premiumStepAmount => 'Confirm the amount';
+  String get premiumStepAmount => '确认金额';
 
   @override
-  String get premiumAmountLabel => 'Amount you paid (USD)';
+  String get premiumAmountLabel => '您支付的金额（美元）';
 
   @override
-  String get premiumNoteLabel => 'Note (optional)';
+  String get premiumNoteLabel => '注意（可选）';
 
   @override
-  String get premiumSendProof => 'Send my proof';
+  String get premiumSendProof => '发送我的证明';
 
   @override
-  String get premiumAddressCopied => 'Lightning address copied.';
+  String get premiumAddressCopied => 'Lightning地址已复制。';
 
   @override
-  String get premiumAttachConfirmation =>
-      'Attach a screenshot of your payment confirmation.';
+  String get premiumAttachConfirmation => '附上您的付款确认的屏幕截图。';
 
   @override
-  String get premiumSendProofFailed => 'Could not send the payment proof.';
+  String get premiumSendProofFailed => '无法发送付款证明。';
 
   @override
   String premiumAmountHelper(String amount) {
-    return 'Minimum $amount.';
+    return '最低 $amount。';
   }
 
   @override
   String premiumActivationNote(String window) {
-    return 'Activation takes $window.';
+    return '激活需要 $window。';
   }
 
   @override
   String premiumProofReceived(String window) {
-    return 'Proof received. Premium is switched on within $window.';
+    return '已收到证明。Premium 将在 $window 内开启。';
   }
 
   @override
-  String get premiumTableFeature => 'Feature';
+  String get premiumTableFeature => '特点';
 
   @override
-  String get premiumTableFree => 'Free';
+  String get premiumTableFree => '免费';
 
   @override
-  String get premiumTablePremium => 'Premium';
+  String get premiumTablePremium => '高级版';
 
   @override
-  String get premiumTableEncrypted => 'Encrypted peer-to-peer messaging';
+  String get premiumTableEncrypted => '加密的点对点消息传递';
 
   @override
-  String get premiumTableMessagesStay => 'Messages stay on your devices';
+  String get premiumTableMessagesStay => '消息保留在您的设备上';
 
   @override
-  String get premiumTableChatLocks => 'Chats locked with your own PIN';
+  String get premiumTableChatLocks => '使用您自己的 PIN 码锁定聊天';
 
   @override
-  String get premiumTableFingerprint => 'Unlock with fingerprint or face';
+  String get premiumTableFingerprint => '通过指纹或人脸解锁';
 
   @override
-  String get premiumTablePrice => 'Price';
+  String get premiumTablePrice => '价格';
 
   @override
-  String get premiumTableAccess => 'Access';
+  String get premiumTableAccess => '访问权限';
 
   @override
-  String get premiumTableIncluded => 'Included';
+  String get premiumTableIncluded => '包含';
 
   @override
-  String get premiumTableOneChat => '1 chat';
+  String get premiumTableOneChat => '1 次聊天';
 
   @override
-  String get premiumTableUnlimited => 'Unlimited';
+  String get premiumTableUnlimited => '无限';
 
   @override
-  String get premiumTableNotIncluded => 'Not included';
+  String get premiumTableNotIncluded => '不包括在内';
 
   @override
-  String get premiumTableFreeValue => 'Free';
+  String get premiumTableFreeValue => '免费';
 
   @override
-  String get premiumTableWhileFree => 'While the app is free';
+  String get premiumTableWhileFree => '虽然该应用程序是免费的';
 
   @override
-  String get premiumTableLifetime => 'Lifetime';
+  String get premiumTableLifetime => '终身';
 
   @override
   String premiumTableOnePayment(String amount) {
-    return 'One payment of $amount';
+    return '一次支付 $amount';
   }
 
   @override
   String premiumPaymentOneTime(String amount) {
-    return 'One payment of $amount and premium is yours for life. There is no subscription and nothing to renew.';
+    return '一次支付 $amount，Premium 终身归你所有。没有订阅，也无需续费。';
   }
 
   @override
-  String get settingsSaveFailed => 'Could not save that setting. Try again.';
+  String get settingsSaveFailed => '无法保存该设置。再试一次。';
 
   @override
-  String get settingsLockFailed => 'Could not lock this chat. Try again.';
+  String get settingsLockFailed => '无法锁定此聊天。再试一次。';
 
   @override
-  String get settingsUnlockFailed => 'Could not unlock this chat. Try again.';
+  String get settingsUnlockFailed => '无法解锁此聊天。再试一次。';
 
   @override
   String pinSetTitle(String chat) {
-    return 'Set a PIN for $chat';
+    return '为 $chat 设置 PIN';
   }
 
   @override
   String pinConfirmTitle(String chat) {
-    return 'Confirm the PIN for $chat';
+    return '确认 $chat 的 PIN';
   }
 
   @override
   String pinSetHelper(String chat) {
-    return 'This PIN opens $chat only. Every chat has its own PIN, chosen by you. There is no single code for the app.';
+    return '此 PIN 只能打开 $chat。每个聊天都有你自己设置的独立 PIN，应用没有统一密码。';
   }
 
   @override
-  String get pinMismatch => 'The PINs did not match. Lock not enabled.';
+  String get pinMismatch => 'PIN 不匹配。锁定未启用。';
 
   @override
-  String get biometricNotSetUp =>
-      'No fingerprint or face unlock is set up on this device.';
+  String get biometricNotSetUp => '此设备上未设置指纹或面部解锁。';
 
   @override
-  String get biometricVerifyFailed =>
-      'Could not verify it is you on this device.';
+  String get biometricVerifyFailed => '无法验证您是否在此设备上。';
 
   @override
-  String get lightningAddressCopied =>
-      'Lightning address copied. Paste it into a wallet to pay.';
+  String get lightningAddressCopied => 'Lightning地址已复制。将其粘贴到钱包中即可付款。';
 
   @override
-  String get accountSuspended => 'Account suspended';
+  String get accountSuspended => '帐户被暂停';
 
   @override
-  String get premiumLifetimeAccess => 'Lifetime Premium Access';
+  String get premiumLifetimeAccess => '终身高级访问权限';
 
   @override
   String premiumActivationStep1(String amount, String method) {
-    return 'Pay $amount from $method to the Lightning address above.';
+    return '用 $method 向上面的 Lightning 地址支付 $amount。';
   }
 
   @override
-  String get premiumActivationStep2 =>
-      'Take a screenshot of the payment confirmation and send it in as your proof of payment.';
+  String get premiumActivationStep2 => '截取付款确认的屏幕截图并将其作为您的付款证明发送。';
 }

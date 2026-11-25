@@ -567,364 +567,376 @@ class AppLocalizationsUk extends AppLocalizations {
       'Підтвердження надіслано. Ручна перевірка: 24–48 годин (крім вихідних).';
 
   @override
-  String get loadingChats => 'Loading chats...';
+  String get loadingChats => 'Завантаження чатів...';
 
   @override
-  String get noChatsYetTitle => 'No chats yet';
+  String get noChatsYetTitle => 'Чатів ще немає';
 
   @override
   String get noChatsYetHint =>
-      'A chat starts when you scan the other person\'s CRYPT QR code. Open your identity page to share yours so they can scan it.';
+      'Чат починається, коли ви скануєте QR-код CRYPT іншої особи. Відкрийте сторінку своєї особи, щоб поділитися своєю, щоб вони могли її сканувати.';
 
   @override
-  String get scanQrToStartChat => 'Scan a QR code';
+  String get scanQrToStartChat => 'Відскануйте QR-код';
 
   @override
-  String get noChatsMatchSearch => 'No chats match your search';
+  String get noChatsMatchSearch => 'Немає чатів, що відповідають вашому запиту';
 
   @override
   String get noChatsMatchSearchHint =>
-      'Try a different name, or clear the search to see every chat.';
+      'Спробуйте інше ім’я або очистіть пошук, щоб побачити кожен чат.';
 
   @override
-  String get requestSentTitle => 'Request sent';
+  String get requestSentTitle => 'Запит надіслано';
 
   @override
   String requestSentBody(String username) {
-    return 'Your request went to $username. Please wait while they accept it.';
+    return 'Ваш запит надійшов до $username. Будь ласка, зачекайте, поки вони це приймуть.';
   }
 
   @override
   String get requestSentKeepOpen =>
-      'The chat opens as soon as they accept. Keep CRYPT open on this device so you do not miss it.';
+      'Чат відкривається, щойно вони приймуть. Тримайте CRYPT відкритим на цьому пристрої, щоб не пропустити його.';
 
   @override
-  String get requestSentGotIt => 'Got it';
+  String get requestSentGotIt => 'зрозумів';
 
   @override
   String get scanCouldNotReadCode =>
-      'That code could not be read. Scan a CRYPT QR code.';
+      'Цей код не вдалося прочитати. Відскануйте QR-код CRYPT.';
 
   @override
   String get scanMissingTheirIdentity =>
-      'That code is missing the person\'s identity. Scan the code from their identity page.';
+      'У цьому коді не вказано особу особи. Відскануйте код зі сторінки ідентифікації.';
 
   @override
   String get scanOwnIdentityMissing =>
-      'Your own encryption key is missing. Sign out and back in, then scan again.';
+      'Ваш власний ключ шифрування відсутній. Вийдіть і знову ввійдіть, а потім повторіть сканування.';
 
   @override
   String get noLightningWalletFound =>
-      'No Lightning wallet found. Install one, or copy the address and paste it into a wallet.';
+      'Гаманця Lightning не знайдено. Встановіть його або скопіюйте адресу та вставте її в гаманець.';
 
   @override
-  String get settingsSectionAppearance => 'Appearance';
+  String get settingsSectionAppearance => 'Зовнішній вигляд';
 
   @override
-  String get settingsSectionPrivacy => 'Privacy and security';
+  String get settingsSectionPrivacy => 'Конфіденційність і безпека';
 
   @override
-  String get settingsSectionPremium => 'Premium';
+  String get settingsSectionPremium => 'Преміум';
 
   @override
-  String get settingsSectionHelp => 'Help and legal';
+  String get settingsSectionHelp => 'Допомога та юридична';
 
   @override
-  String get settingsSectionAdministration => 'Administration';
+  String get settingsSectionAdministration => 'Адміністрація';
 
   @override
-  String get settingsSectionAccount => 'Account';
+  String get settingsSectionAccount => 'Обліковий запис';
 
   @override
-  String get settingsProtectTitle => 'Protect settings with master password';
+  String get settingsProtectTitle => 'Захистіть налаштування головним паролем';
 
   @override
-  String get settingsProtectSubtitle => 'Require password to access settings';
+  String get settingsProtectSubtitle =>
+      'Вимагати пароль для доступу до налаштувань';
 
   @override
-  String get chatLockSetPinSubtitle => 'Tap to set your own PIN for this chat';
+  String get chatLockSetPinSubtitle =>
+      'Натисніть, щоб установити власний PIN-код для цього чату';
 
   @override
-  String get premiumTileTitle => 'Get Lifetime Premium';
+  String get premiumTileTitle => 'Отримайте довічний Преміум';
 
   @override
-  String get premiumActiveSubtitle => 'Premium is on for your account';
+  String get premiumActiveSubtitle =>
+      'Преміум увімкнено для вашого облікового запису';
 
   @override
   String get premiumPendingSubtitle =>
-      'Waiting for an admin to review your screenshot';
+      'Чекаємо, поки адміністратор перегляне ваш знімок екрана';
 
   @override
-  String get premiumHowItWorks => 'How premium works';
+  String get premiumHowItWorks => 'Як працює преміум';
 
   @override
-  String get reportProblemTitle => 'Report a problem';
+  String get reportProblemTitle => 'Повідомте про проблему';
 
   @override
-  String get reportProblemSubtitle => 'Bugs, abuse or spam';
+  String get reportProblemSubtitle => 'Помилки, зловживання або спам';
 
   @override
-  String get adminAccessTitle => 'Admin access';
+  String get adminAccessTitle => 'Доступ адміністратора';
 
   @override
-  String get adminAccessSubtitle => 'Enter your admin code to open the panel';
+  String get adminAccessSubtitle =>
+      'Введіть код адміністратора, щоб відкрити панель';
 
   @override
   String chatLockOwnCodeSubtitle(String method) {
-    return '$method — own code, this chat only';
+    return '$method — власний код, тільки цей чат';
   }
 
   @override
   String premiumPayOnceSubtitle(String amount) {
-    return '$amount once with your Lightning wallet, then send a screenshot';
+    return '$amount один раз за допомогою вашого гаманця Lightning, а потім надішліть знімок екрана';
   }
 
   @override
   String premiumPendingBody(String window) {
-    return 'Your screenshot is in. An admin checks it and premium turns on for your account within $window.';
+    return 'Ваш знімок екрана є. Адміністратор перевіряє його та вмикає преміум для вашого облікового запису $window.';
   }
 
   @override
   String premiumHowItWorksBody(String amount, String method, String wallet) {
-    return '1. Pay $amount with $method, or $wallet.\n2. Screenshot the payment confirmation.\n3. Send it from Submit payment proof.\n4. Premium turns on and stays on for life.\n\nCRYPT is built by a solo developer, and this is the whole offer: one payment, no subscription.';
+    return '1. Оплатити $amount з $method, або $wallet.\n2. Скріншот підтвердження платежу.\n3. Надішліть його з Надіслати підтвердження платежу.\n4. Преміум включається і залишається на все життя.\n\nCRYPT створений приватним розробником, і це вся пропозиція: один платіж, без підписки.';
   }
 
   @override
   String get reportIntro =>
-      'Tell us what happened. If you are reporting another person, add their username so we can act on the right account.';
+      'Розкажіть нам, що сталося. Якщо ви повідомляєте про іншу особу, додайте її ім’я користувача, щоб ми могли діяти з потрібним обліковим записом.';
 
   @override
-  String get reportSent => 'Report sent. Thank you.';
+  String get reportSent => 'Звіт надіслано. дякую';
 
   @override
-  String get reportSendFailed => 'Could not send the report.';
+  String get reportSendFailed => 'Не вдалося надіслати звіт.';
 
   @override
-  String get reportTypeLabel => 'Type of report';
+  String get reportTypeLabel => 'Тип звіту';
 
   @override
-  String get reportCategoryBug => 'Bug';
+  String get reportCategoryBug => 'помилка';
 
   @override
-  String get reportCategoryAbuse => 'Abuse';
+  String get reportCategoryAbuse => 'Зловживання';
 
   @override
-  String get reportCategorySpam => 'Spam';
+  String get reportCategorySpam => 'Спам';
 
   @override
-  String get reportCategoryOther => 'Other';
+  String get reportCategoryOther => 'інше';
 
   @override
-  String get reportUsernameLabel => 'Their username (optional)';
+  String get reportUsernameLabel => 'Їх ім\'я користувача (необов\'язково)';
 
   @override
-  String get reportUsernameHint => 'e.g. someone_you_want_reported';
+  String get reportUsernameHint => 'напр. хтось_ви_бажаєте_повідомити';
 
   @override
-  String get reportDetailsLabel => 'What happened?';
+  String get reportDetailsLabel => 'що сталося';
 
   @override
-  String get reportScreenshotsLabel => 'Screenshots';
+  String get reportScreenshotsLabel => 'Скріншоти';
 
   @override
-  String get reportAddScreenshot => 'Add screenshot';
+  String get reportAddScreenshot => 'Додайте скріншот';
 
   @override
-  String get reportSendButton => 'Send report';
+  String get reportSendButton => 'Відправити звіт';
 
   @override
   String get reportPrivacyNote =>
-      'Reports are reviewed by an administrator. Screenshots are stored privately and are only visible to moderators.';
+      'Звіти розглядаються адміністратором. Скріншоти зберігаються приватно та доступні лише модераторам.';
 
   @override
   String premiumOfferSummary(String amount, String lifetime) {
-    return '$amount once, $lifetime.';
+    return '$amount раз, $lifetime.';
   }
 
   @override
   String premiumOfferBody(String method, String window) {
-    return 'No subscription and nothing to renew. Pay with $method, send a screenshot of the confirmation, and premium is switched on within $window.';
+    return 'Немає підписки та нічого для поновлення. Платити з $method, надішліть знімок екрана підтвердження, і преміум увімкнеться в межах $window.';
   }
 
   @override
   String get premiumSoloNote =>
-      'CRYPT is built by a solo developer. Premium is what keeps it ad-free and actively maintained.';
+      'CRYPT створений приватним розробником. Преміум – це те, що забезпечує без реклами та активне обслуговування.';
 
   @override
-  String get premiumStepPay => 'Pay with your wallet';
+  String get premiumStepPay => 'Платіть своїм гаманцем';
 
   @override
-  String get premiumLightningAddressLabel => 'Lightning address';
+  String get premiumLightningAddressLabel => 'Блискавична адреса';
 
   @override
-  String get premiumOpenWallet => 'Open wallet';
+  String get premiumOpenWallet => 'Відкрити гаманець';
 
   @override
-  String get premiumCopyAddress => 'Copy address';
+  String get premiumCopyAddress => 'Скопіюйте адресу';
 
   @override
   String get premiumWorksWith =>
-      'Works with Phoenix and any other Lightning wallet.';
+      'Працює з Phoenix та будь-яким іншим гаманцем Lightning.';
 
   @override
-  String get premiumStepScreenshot => 'Send your screenshot';
+  String get premiumStepScreenshot => 'Надішліть свій скріншот';
 
   @override
   String get premiumScreenshotHint =>
-      'Take a screenshot of the payment confirmation in your Lightning wallet and attach it below.';
+      'Зробіть знімок екрана підтвердження платежу у своєму гаманці Lightning і прикріпіть його нижче.';
 
   @override
-  String get premiumAttachScreenshot => 'Attach screenshot';
+  String get premiumAttachScreenshot => 'Прикріпити скріншот';
 
   @override
-  String get premiumReplaceScreenshot => 'Replace screenshot';
+  String get premiumReplaceScreenshot => 'Замінити скріншот';
 
   @override
-  String get premiumStepAmount => 'Confirm the amount';
+  String get premiumStepAmount => 'Підтвердьте суму';
 
   @override
-  String get premiumAmountLabel => 'Amount you paid (USD)';
+  String get premiumAmountLabel => 'Сума, яку ви заплатили (USD)';
 
   @override
-  String get premiumNoteLabel => 'Note (optional)';
+  String get premiumNoteLabel => 'Примітка (необов\'язково)';
 
   @override
-  String get premiumSendProof => 'Send my proof';
+  String get premiumSendProof => 'Надішліть мій доказ';
 
   @override
-  String get premiumAddressCopied => 'Lightning address copied.';
+  String get premiumAddressCopied => 'Адресу Lightning скопійовано.';
 
   @override
   String get premiumAttachConfirmation =>
-      'Attach a screenshot of your payment confirmation.';
+      'Додайте знімок екрана підтвердження платежу.';
 
   @override
-  String get premiumSendProofFailed => 'Could not send the payment proof.';
+  String get premiumSendProofFailed =>
+      'Не вдалося надіслати підтвердження платежу.';
 
   @override
   String premiumAmountHelper(String amount) {
-    return 'Minimum $amount.';
+    return 'Мінімум $amount.';
   }
 
   @override
   String premiumActivationNote(String window) {
-    return 'Activation takes $window.';
+    return 'Активація бере $window.';
   }
 
   @override
   String premiumProofReceived(String window) {
-    return 'Proof received. Premium is switched on within $window.';
+    return 'Доказ отримано. Преміум увімкнено в межах $window.';
   }
 
   @override
-  String get premiumTableFeature => 'Feature';
+  String get premiumTableFeature => 'Особливість';
 
   @override
-  String get premiumTableFree => 'Free';
+  String get premiumTableFree => 'безкоштовно';
 
   @override
-  String get premiumTablePremium => 'Premium';
+  String get premiumTablePremium => 'Преміум';
 
   @override
-  String get premiumTableEncrypted => 'Encrypted peer-to-peer messaging';
+  String get premiumTableEncrypted =>
+      'Зашифрований одноранговий обмін повідомленнями';
 
   @override
-  String get premiumTableMessagesStay => 'Messages stay on your devices';
+  String get premiumTableMessagesStay =>
+      'Повідомлення залишаються на ваших пристроях';
 
   @override
-  String get premiumTableChatLocks => 'Chats locked with your own PIN';
+  String get premiumTableChatLocks =>
+      'Чати, заблоковані вашим власним PIN-кодом';
 
   @override
-  String get premiumTableFingerprint => 'Unlock with fingerprint or face';
+  String get premiumTableFingerprint =>
+      'Розблокуйте за допомогою відбитка пальця або обличчя';
 
   @override
-  String get premiumTablePrice => 'Price';
+  String get premiumTablePrice => 'Ціна';
 
   @override
-  String get premiumTableAccess => 'Access';
+  String get premiumTableAccess => 'Доступ';
 
   @override
-  String get premiumTableIncluded => 'Included';
+  String get premiumTableIncluded => 'В комплекті';
 
   @override
-  String get premiumTableOneChat => '1 chat';
+  String get premiumTableOneChat => '1 чат';
 
   @override
-  String get premiumTableUnlimited => 'Unlimited';
+  String get premiumTableUnlimited => 'Необмежений';
 
   @override
-  String get premiumTableNotIncluded => 'Not included';
+  String get premiumTableNotIncluded => 'Не включено';
 
   @override
-  String get premiumTableFreeValue => 'Free';
+  String get premiumTableFreeValue => 'безкоштовно';
 
   @override
-  String get premiumTableWhileFree => 'While the app is free';
+  String get premiumTableWhileFree => 'Поки додаток безкоштовний';
 
   @override
-  String get premiumTableLifetime => 'Lifetime';
+  String get premiumTableLifetime => 'Довічно';
 
   @override
   String premiumTableOnePayment(String amount) {
-    return 'One payment of $amount';
+    return 'Один платіж $amount';
   }
 
   @override
   String premiumPaymentOneTime(String amount) {
-    return 'One payment of $amount and premium is yours for life. There is no subscription and nothing to renew.';
+    return 'Один платіж $amount а преміум – ваш на все життя. Немає підписки і нема чого поновлювати.';
   }
 
   @override
-  String get settingsSaveFailed => 'Could not save that setting. Try again.';
+  String get settingsSaveFailed =>
+      'Не вдалося зберегти це налаштування. Спробуйте знову.';
 
   @override
-  String get settingsLockFailed => 'Could not lock this chat. Try again.';
+  String get settingsLockFailed =>
+      'Не вдалося заблокувати цей чат. Спробуйте знову.';
 
   @override
-  String get settingsUnlockFailed => 'Could not unlock this chat. Try again.';
+  String get settingsUnlockFailed =>
+      'Не вдалося розблокувати цей чат. Спробуйте знову.';
 
   @override
   String pinSetTitle(String chat) {
-    return 'Set a PIN for $chat';
+    return 'Встановіть PIN-код для $chat';
   }
 
   @override
   String pinConfirmTitle(String chat) {
-    return 'Confirm the PIN for $chat';
+    return 'Підтвердьте PIN-код для $chat';
   }
 
   @override
   String pinSetHelper(String chat) {
-    return 'This PIN opens $chat only. Every chat has its own PIN, chosen by you. There is no single code for the app.';
+    return 'Відкриється цей PIN-код $chat тільки. Кожен чат має власний PIN-код, який обираєте ви. Єдиного коду для програми немає.';
   }
 
   @override
-  String get pinMismatch => 'The PINs did not match. Lock not enabled.';
+  String get pinMismatch => 'PIN-коди не збігаються. Блокування не ввімкнено.';
 
   @override
   String get biometricNotSetUp =>
-      'No fingerprint or face unlock is set up on this device.';
+      'На цьому пристрої не налаштовано розблокування відбитком пальця чи обличчям.';
 
   @override
   String get biometricVerifyFailed =>
-      'Could not verify it is you on this device.';
+      'Не вдалося підтвердити, що це ви на цьому пристрої.';
 
   @override
   String get lightningAddressCopied =>
-      'Lightning address copied. Paste it into a wallet to pay.';
+      'Адресу Lightning скопійовано. Вставте його в гаманець, щоб заплатити.';
 
   @override
-  String get accountSuspended => 'Account suspended';
+  String get accountSuspended => 'Обліковий запис призупинено';
 
   @override
-  String get premiumLifetimeAccess => 'Lifetime Premium Access';
+  String get premiumLifetimeAccess => 'Довічний преміум-доступ';
 
   @override
   String premiumActivationStep1(String amount, String method) {
-    return 'Pay $amount from $method to the Lightning address above.';
+    return 'платити $amount від $method на адресу Lightning вище.';
   }
 
   @override
   String get premiumActivationStep2 =>
-      'Take a screenshot of the payment confirmation and send it in as your proof of payment.';
+      'Зробіть знімок екрана підтвердження платежу та надішліть його як підтвердження платежу.';
 }

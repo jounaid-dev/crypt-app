@@ -567,364 +567,372 @@ class AppLocalizationsUr extends AppLocalizations {
       'ثبوت جمع کر دیا گیا! دستی جائزے میں 24–48 گھنٹے لگتے ہیں (ہفتہ وار تعطیلات کے علاوہ)۔ آپ ایپ کو معمول کے مطابق استعمال کرتے رہ سکتے ہیں۔';
 
   @override
-  String get loadingChats => 'Loading chats...';
+  String get loadingChats => 'چیٹس لوڈ ہو رہی ہیں...';
 
   @override
-  String get noChatsYetTitle => 'No chats yet';
+  String get noChatsYetTitle => 'ابھی تک کوئی چیٹس نہیں ہیں۔';
 
   @override
   String get noChatsYetHint =>
-      'A chat starts when you scan the other person\'s CRYPT QR code. Open your identity page to share yours so they can scan it.';
+      'جب آپ دوسرے شخص کا CRYPT QR کوڈ اسکین کرتے ہیں تو چیٹ شروع ہوتی ہے۔ اپنا اشتراک کرنے کے لیے اپنا شناختی صفحہ کھولیں تاکہ وہ اسے اسکین کر سکیں۔';
 
   @override
-  String get scanQrToStartChat => 'Scan a QR code';
+  String get scanQrToStartChat => 'QR کوڈ اسکین کریں۔';
 
   @override
-  String get noChatsMatchSearch => 'No chats match your search';
+  String get noChatsMatchSearch => 'کوئی چیٹ آپ کی تلاش سے مماثل نہیں ہے۔';
 
   @override
   String get noChatsMatchSearchHint =>
-      'Try a different name, or clear the search to see every chat.';
+      'ایک مختلف نام آزمائیں، یا ہر چیٹ دیکھنے کے لیے تلاش کو صاف کریں۔';
 
   @override
-  String get requestSentTitle => 'Request sent';
+  String get requestSentTitle => 'درخواست بھیج دی گئی۔';
 
   @override
   String requestSentBody(String username) {
-    return 'Your request went to $username. Please wait while they accept it.';
+    return 'آپ کی فرمائش اس کے پاس گئی۔ $username. براہ کرم انتظار کریں جب تک وہ اسے قبول کریں۔';
   }
 
   @override
   String get requestSentKeepOpen =>
-      'The chat opens as soon as they accept. Keep CRYPT open on this device so you do not miss it.';
+      'جیسے ہی وہ قبول کرتے ہیں چیٹ کھل جاتی ہے۔ اس ڈیوائس پر CRYPT کو کھلا رکھیں تاکہ آپ اسے یاد نہ کریں۔';
 
   @override
-  String get requestSentGotIt => 'Got it';
+  String get requestSentGotIt => 'سمجھ گیا';
 
   @override
   String get scanCouldNotReadCode =>
-      'That code could not be read. Scan a CRYPT QR code.';
+      'وہ کوڈ پڑھا نہیں جا سکا۔ ایک CRYPT QR کوڈ اسکین کریں۔';
 
   @override
   String get scanMissingTheirIdentity =>
-      'That code is missing the person\'s identity. Scan the code from their identity page.';
+      'اس کوڈ میں اس شخص کی شناخت موجود نہیں ہے۔ کوڈ کو ان کے شناختی صفحہ سے اسکین کریں۔';
 
   @override
   String get scanOwnIdentityMissing =>
-      'Your own encryption key is missing. Sign out and back in, then scan again.';
+      'آپ کی اپنی خفیہ کاری کی کلید غائب ہے۔ سائن آؤٹ اور واپس ان کریں، پھر دوبارہ اسکین کریں۔';
 
   @override
   String get noLightningWalletFound =>
-      'No Lightning wallet found. Install one, or copy the address and paste it into a wallet.';
+      'کوئی Lightning والا پرس نہیں ملا۔ ایک انسٹال کریں، یا ایڈریس کاپی کریں اور اسے بٹوے میں چسپاں کریں۔';
 
   @override
-  String get settingsSectionAppearance => 'Appearance';
+  String get settingsSectionAppearance => 'ظاہری شکل';
 
   @override
-  String get settingsSectionPrivacy => 'Privacy and security';
+  String get settingsSectionPrivacy => 'رازداری اور سلامتی';
 
   @override
-  String get settingsSectionPremium => 'Premium';
+  String get settingsSectionPremium => 'پریمیم';
 
   @override
-  String get settingsSectionHelp => 'Help and legal';
+  String get settingsSectionHelp => 'مدد اور قانونی';
 
   @override
-  String get settingsSectionAdministration => 'Administration';
+  String get settingsSectionAdministration => 'انتظامیہ';
 
   @override
-  String get settingsSectionAccount => 'Account';
+  String get settingsSectionAccount => 'اکاؤنٹ';
 
   @override
-  String get settingsProtectTitle => 'Protect settings with master password';
+  String get settingsProtectTitle =>
+      'ماسٹر پاس ورڈ کے ساتھ ترتیبات کی حفاظت کریں۔';
 
   @override
-  String get settingsProtectSubtitle => 'Require password to access settings';
+  String get settingsProtectSubtitle =>
+      'ترتیبات تک رسائی کے لیے پاس ورڈ کی ضرورت ہے۔';
 
   @override
-  String get chatLockSetPinSubtitle => 'Tap to set your own PIN for this chat';
+  String get chatLockSetPinSubtitle =>
+      'اس چیٹ کے لیے اپنا PIN سیٹ کرنے کے لیے تھپتھپائیں۔';
 
   @override
-  String get premiumTileTitle => 'Get Lifetime Premium';
+  String get premiumTileTitle => 'لائف ٹائم پریمیم حاصل کریں۔';
 
   @override
-  String get premiumActiveSubtitle => 'Premium is on for your account';
+  String get premiumActiveSubtitle => 'آپ کے اکاؤنٹ کے لیے پریمیم آن ہے۔';
 
   @override
   String get premiumPendingSubtitle =>
-      'Waiting for an admin to review your screenshot';
+      'آپ کے اسکرین شاٹ کا جائزہ لینے کے لیے منتظم کا انتظار ہے۔';
 
   @override
-  String get premiumHowItWorks => 'How premium works';
+  String get premiumHowItWorks => 'پریمیم کیسے کام کرتا ہے۔';
 
   @override
-  String get reportProblemTitle => 'Report a problem';
+  String get reportProblemTitle => 'کسی مسئلے کی اطلاع دیں۔';
 
   @override
-  String get reportProblemSubtitle => 'Bugs, abuse or spam';
+  String get reportProblemSubtitle => 'کیڑے، غلط استعمال یا فضول';
 
   @override
-  String get adminAccessTitle => 'Admin access';
+  String get adminAccessTitle => 'ایڈمن تک رسائی';
 
   @override
-  String get adminAccessSubtitle => 'Enter your admin code to open the panel';
+  String get adminAccessSubtitle =>
+      'پینل کھولنے کے لیے اپنا ایڈمن کوڈ درج کریں۔';
 
   @override
   String chatLockOwnCodeSubtitle(String method) {
-    return '$method — own code, this chat only';
+    return '$method - اپنا کوڈ، صرف یہ چیٹ';
   }
 
   @override
   String premiumPayOnceSubtitle(String amount) {
-    return '$amount once with your Lightning wallet, then send a screenshot';
+    return '$amount ایک بار اپنے لائٹننگ والیٹ کے ساتھ، پھر اسکرین شاٹ بھیجیں۔';
   }
 
   @override
   String premiumPendingBody(String window) {
-    return 'Your screenshot is in. An admin checks it and premium turns on for your account within $window.';
+    return 'آپ کا اسکرین شاٹ اندر ہے۔ ایک منتظم اسے چیک کرتا ہے اور اندر ہی آپ کے اکاؤنٹ کے لیے پریمیم آن ہو جاتا ہے۔ $window.';
   }
 
   @override
   String premiumHowItWorksBody(String amount, String method, String wallet) {
-    return '1. Pay $amount with $method, or $wallet.\n2. Screenshot the payment confirmation.\n3. Send it from Submit payment proof.\n4. Premium turns on and stays on for life.\n\nCRYPT is built by a solo developer, and this is the whole offer: one payment, no subscription.';
+    return '1. ادا کرنا $amount کے ساتھ $method، یا $wallet.\n2. ادائیگی کی تصدیق کا اسکرین شاٹ۔\n3. اسے جمع کروائیں ادائیگی کے ثبوت سے بھیجیں۔\n4. پریمیم آن ہوتا ہے اور تاحیات جاری رہتا ہے۔\n\nCRYPT ایک سولو ڈویلپر کے ذریعہ بنایا گیا ہے، اور یہ پوری پیشکش ہے: ایک ادائیگی، کوئی رکنیت نہیں۔';
   }
 
   @override
   String get reportIntro =>
-      'Tell us what happened. If you are reporting another person, add their username so we can act on the right account.';
+      'ہمیں بتائیں کیا ہوا؟ اگر آپ کسی دوسرے شخص کی اطلاع دے رہے ہیں، تو اس کا صارف نام شامل کریں تاکہ ہم صحیح اکاؤنٹ پر کام کر سکیں۔';
 
   @override
-  String get reportSent => 'Report sent. Thank you.';
+  String get reportSent => 'رپورٹ بھیج دی گئی۔ شکریہ';
 
   @override
-  String get reportSendFailed => 'Could not send the report.';
+  String get reportSendFailed => 'رپورٹ نہیں بھیج سکی۔';
 
   @override
-  String get reportTypeLabel => 'Type of report';
+  String get reportTypeLabel => 'رپورٹ کی قسم';
 
   @override
-  String get reportCategoryBug => 'Bug';
+  String get reportCategoryBug => 'بگ';
 
   @override
-  String get reportCategoryAbuse => 'Abuse';
+  String get reportCategoryAbuse => 'گالی';
 
   @override
-  String get reportCategorySpam => 'Spam';
+  String get reportCategorySpam => 'سپیم';
 
   @override
-  String get reportCategoryOther => 'Other';
+  String get reportCategoryOther => 'دیگر';
 
   @override
-  String get reportUsernameLabel => 'Their username (optional)';
+  String get reportUsernameLabel => 'ان کا صارف نام (اختیاری)';
 
   @override
-  String get reportUsernameHint => 'e.g. someone_you_want_reported';
+  String get reportUsernameHint => 'جیسے کسی نے_آپ_چاہتی_رپورٹ کی';
 
   @override
-  String get reportDetailsLabel => 'What happened?';
+  String get reportDetailsLabel => 'کیا ہوا؟';
 
   @override
-  String get reportScreenshotsLabel => 'Screenshots';
+  String get reportScreenshotsLabel => 'اسکرین شاٹس';
 
   @override
-  String get reportAddScreenshot => 'Add screenshot';
+  String get reportAddScreenshot => 'اسکرین شاٹ شامل کریں۔';
 
   @override
-  String get reportSendButton => 'Send report';
+  String get reportSendButton => 'رپورٹ بھیجیں۔';
 
   @override
   String get reportPrivacyNote =>
-      'Reports are reviewed by an administrator. Screenshots are stored privately and are only visible to moderators.';
+      'رپورٹس کا جائزہ منتظم کے ذریعے کیا جاتا ہے۔ اسکرین شاٹس پرائیویٹ طور پر اسٹور کیے جاتے ہیں اور صرف ماڈریٹرز کو دکھائی دیتے ہیں۔';
 
   @override
   String premiumOfferSummary(String amount, String lifetime) {
-    return '$amount once, $lifetime.';
+    return '$amount ایک بار، $lifetime.';
   }
 
   @override
   String premiumOfferBody(String method, String window) {
-    return 'No subscription and nothing to renew. Pay with $method, send a screenshot of the confirmation, and premium is switched on within $window.';
+    return 'کوئی رکنیت نہیں اور تجدید کے لیے کچھ نہیں۔ کے ساتھ ادائیگی کریں۔ $method تصدیق کا ایک اسکرین شاٹ بھیجیں، اور پریمیم اندر ہی آن کر دیا جاتا ہے۔ $window.';
   }
 
   @override
   String get premiumSoloNote =>
-      'CRYPT is built by a solo developer. Premium is what keeps it ad-free and actively maintained.';
+      'CRYPT ایک سولو ڈویلپر کے ذریعہ بنایا گیا ہے۔ پریمیم وہی ہے جو اسے اشتہارات سے پاک اور فعال طور پر برقرار رکھتا ہے۔';
 
   @override
-  String get premiumStepPay => 'Pay with your wallet';
+  String get premiumStepPay => 'اپنے بٹوے سے ادائیگی کریں۔';
 
   @override
-  String get premiumLightningAddressLabel => 'Lightning address';
+  String get premiumLightningAddressLabel => 'Lightning کا پتہ';
 
   @override
-  String get premiumOpenWallet => 'Open wallet';
+  String get premiumOpenWallet => 'پرس کھولیں۔';
 
   @override
-  String get premiumCopyAddress => 'Copy address';
+  String get premiumCopyAddress => 'ایڈریس کاپی کریں۔';
 
   @override
   String get premiumWorksWith =>
-      'Works with Phoenix and any other Lightning wallet.';
+      'فینکس اور کسی دوسرے لائٹننگ والیٹ کے ساتھ کام کرتا ہے۔';
 
   @override
-  String get premiumStepScreenshot => 'Send your screenshot';
+  String get premiumStepScreenshot => 'اپنا اسکرین شاٹ بھیجیں۔';
 
   @override
   String get premiumScreenshotHint =>
-      'Take a screenshot of the payment confirmation in your Lightning wallet and attach it below.';
+      'اپنے Lightning والیٹ میں ادائیگی کی تصدیق کا اسکرین شاٹ لیں اور اسے نیچے منسلک کریں۔';
 
   @override
-  String get premiumAttachScreenshot => 'Attach screenshot';
+  String get premiumAttachScreenshot => 'اسکرین شاٹ منسلک کریں۔';
 
   @override
-  String get premiumReplaceScreenshot => 'Replace screenshot';
+  String get premiumReplaceScreenshot => 'اسکرین شاٹ کو تبدیل کریں۔';
 
   @override
-  String get premiumStepAmount => 'Confirm the amount';
+  String get premiumStepAmount => 'رقم کی تصدیق کریں۔';
 
   @override
-  String get premiumAmountLabel => 'Amount you paid (USD)';
+  String get premiumAmountLabel => 'آپ کی ادا کردہ رقم (USD)';
 
   @override
-  String get premiumNoteLabel => 'Note (optional)';
+  String get premiumNoteLabel => 'نوٹ (اختیاری)';
 
   @override
-  String get premiumSendProof => 'Send my proof';
+  String get premiumSendProof => 'میرا ثبوت بھیج دو';
 
   @override
-  String get premiumAddressCopied => 'Lightning address copied.';
+  String get premiumAddressCopied => 'Lightning کا پتہ کاپی ہو گیا۔';
 
   @override
   String get premiumAttachConfirmation =>
-      'Attach a screenshot of your payment confirmation.';
+      'اپنی ادائیگی کی تصدیق کا اسکرین شاٹ منسلک کریں۔';
 
   @override
-  String get premiumSendProofFailed => 'Could not send the payment proof.';
+  String get premiumSendProofFailed => 'ادائیگی کا ثبوت نہیں بھیج سکا۔';
 
   @override
   String premiumAmountHelper(String amount) {
-    return 'Minimum $amount.';
+    return 'کم از کم $amount.';
   }
 
   @override
   String premiumActivationNote(String window) {
-    return 'Activation takes $window.';
+    return 'ایکٹیویشن لیتا ہے۔ $window.';
   }
 
   @override
   String premiumProofReceived(String window) {
-    return 'Proof received. Premium is switched on within $window.';
+    return 'ثبوت مل گیا۔ پریمیم اندر ہی آن ہے۔ $window.';
   }
 
   @override
-  String get premiumTableFeature => 'Feature';
+  String get premiumTableFeature => 'فیچر';
 
   @override
-  String get premiumTableFree => 'Free';
+  String get premiumTableFree => 'مفت';
 
   @override
-  String get premiumTablePremium => 'Premium';
+  String get premiumTablePremium => 'پریمیم';
 
   @override
-  String get premiumTableEncrypted => 'Encrypted peer-to-peer messaging';
+  String get premiumTableEncrypted => 'انکرپٹڈ پیئر ٹو پیئر میسجنگ';
 
   @override
-  String get premiumTableMessagesStay => 'Messages stay on your devices';
+  String get premiumTableMessagesStay => 'پیغامات آپ کے آلات پر رہتے ہیں۔';
 
   @override
-  String get premiumTableChatLocks => 'Chats locked with your own PIN';
+  String get premiumTableChatLocks => 'چیٹس آپ کے اپنے PIN کے ساتھ مقفل ہیں۔';
 
   @override
-  String get premiumTableFingerprint => 'Unlock with fingerprint or face';
+  String get premiumTableFingerprint =>
+      'فنگر پرنٹ یا چہرے کے ساتھ غیر مقفل کریں۔';
 
   @override
-  String get premiumTablePrice => 'Price';
+  String get premiumTablePrice => 'قیمت';
 
   @override
-  String get premiumTableAccess => 'Access';
+  String get premiumTableAccess => 'رسائی';
 
   @override
-  String get premiumTableIncluded => 'Included';
+  String get premiumTableIncluded => 'شامل';
 
   @override
-  String get premiumTableOneChat => '1 chat';
+  String get premiumTableOneChat => '1 چیٹ';
 
   @override
-  String get premiumTableUnlimited => 'Unlimited';
+  String get premiumTableUnlimited => 'لا محدود';
 
   @override
-  String get premiumTableNotIncluded => 'Not included';
+  String get premiumTableNotIncluded => 'شامل نہیں';
 
   @override
-  String get premiumTableFreeValue => 'Free';
+  String get premiumTableFreeValue => 'مفت';
 
   @override
-  String get premiumTableWhileFree => 'While the app is free';
+  String get premiumTableWhileFree => 'جبکہ ایپ مفت ہے۔';
 
   @override
-  String get premiumTableLifetime => 'Lifetime';
+  String get premiumTableLifetime => 'زندگی بھر';
 
   @override
   String premiumTableOnePayment(String amount) {
-    return 'One payment of $amount';
+    return 'کی ایک ادائیگی $amount';
   }
 
   @override
   String premiumPaymentOneTime(String amount) {
-    return 'One payment of $amount and premium is yours for life. There is no subscription and nothing to renew.';
+    return 'کی ایک ادائیگی $amount اور پریمیم زندگی کے لیے آپ کا ہے۔ کوئی رکنیت نہیں ہے اور تجدید کرنے کے لئے کچھ بھی نہیں ہے۔';
   }
 
   @override
-  String get settingsSaveFailed => 'Could not save that setting. Try again.';
+  String get settingsSaveFailed =>
+      'اس ترتیب کو محفوظ نہیں کیا جا سکا۔ دوبارہ کوشش کریں۔';
 
   @override
-  String get settingsLockFailed => 'Could not lock this chat. Try again.';
+  String get settingsLockFailed =>
+      'اس چیٹ کو لاک نہیں کیا جا سکا۔ دوبارہ کوشش کریں۔';
 
   @override
-  String get settingsUnlockFailed => 'Could not unlock this chat. Try again.';
+  String get settingsUnlockFailed =>
+      'اس چیٹ کو غیر مقفل نہیں کیا جا سکا۔ دوبارہ کوشش کریں۔';
 
   @override
   String pinSetTitle(String chat) {
-    return 'Set a PIN for $chat';
+    return 'کے لیے ایک پن سیٹ کریں۔ $chat';
   }
 
   @override
   String pinConfirmTitle(String chat) {
-    return 'Confirm the PIN for $chat';
+    return 'کے لیے پن کی تصدیق کریں۔ $chat';
   }
 
   @override
   String pinSetHelper(String chat) {
-    return 'This PIN opens $chat only. Every chat has its own PIN, chosen by you. There is no single code for the app.';
+    return 'یہ PIN کھلتا ہے۔ $chat صرف ہر چیٹ کا اپنا PIN ہوتا ہے، جسے آپ نے منتخب کیا ہے۔ ایپ کے لیے کوئی واحد کوڈ نہیں ہے۔';
   }
 
   @override
-  String get pinMismatch => 'The PINs did not match. Lock not enabled.';
+  String get pinMismatch => 'PINs مماثل نہیں ہیں۔ لاک فعال نہیں ہے۔';
 
   @override
   String get biometricNotSetUp =>
-      'No fingerprint or face unlock is set up on this device.';
+      'اس ڈیوائس پر کوئی فنگر پرنٹ یا فیس ان لاک سیٹ اپ نہیں ہے۔';
 
   @override
   String get biometricVerifyFailed =>
-      'Could not verify it is you on this device.';
+      'اس بات کی توثیق نہیں کی جا سکی کہ یہ اس آلہ پر آپ ہی ہیں۔';
 
   @override
   String get lightningAddressCopied =>
-      'Lightning address copied. Paste it into a wallet to pay.';
+      'Lightning کا پتہ کاپی ہو گیا۔ ادائیگی کے لیے اسے بٹوے میں چسپاں کریں۔';
 
   @override
-  String get accountSuspended => 'Account suspended';
+  String get accountSuspended => 'اکاؤنٹ معطل';
 
   @override
-  String get premiumLifetimeAccess => 'Lifetime Premium Access';
+  String get premiumLifetimeAccess => 'لائف ٹائم پریمیم رسائی';
 
   @override
   String premiumActivationStep1(String amount, String method) {
-    return 'Pay $amount from $method to the Lightning address above.';
+    return 'ادا کریں۔ $amount سے $method اوپر Lightning کے پتے پر۔';
   }
 
   @override
   String get premiumActivationStep2 =>
-      'Take a screenshot of the payment confirmation and send it in as your proof of payment.';
+      'ادائیگی کی تصدیق کا اسکرین شاٹ لیں اور اسے اپنے ادائیگی کے ثبوت کے طور پر بھیجیں۔';
 }
