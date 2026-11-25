@@ -556,53 +556,53 @@ class AppLocalizationsAr extends AppLocalizations {
       'تم إرسال الإثبات. المراجعة اليدوية: 24–48 ساعة (باستثناء عطلات نهاية الأسبوع).';
 
   @override
-  String get loadingChats => 'جارٍ تحميل الدردشات...';
+  String get loadingChats => 'Loading chats...';
 
   @override
-  String get noChatsYetTitle => 'لا توجد دردشات حتى الآن';
+  String get noChatsYetTitle => 'No chats yet';
 
   @override
   String get noChatsYetHint =>
-      'تبدأ الدردشة عند مسح رمز الاستجابة السريعة المشفر الخاص بالشخص الآخر. افتح صفحة هويتك لمشاركتها حتى يتمكنوا من مسحها ضوئيًا.';
+      'A chat starts when you scan the other person\'s CRYPT QR code. Open your identity page to share yours so they can scan it.';
 
   @override
-  String get scanQrToStartChat => 'إمسح رمز الاستجابة السريعة ضوئيًا';
+  String get scanQrToStartChat => 'Scan a QR code';
 
   @override
-  String get noChatsMatchSearch => 'لا توجد دردشات تطابق بحثك';
+  String get noChatsMatchSearch => 'No chats match your search';
 
   @override
   String get noChatsMatchSearchHint =>
-      'جرب اسمًا مختلفًا، أو امسح البحث لرؤية كل دردشة.';
+      'Try a different name, or clear the search to see every chat.';
 
   @override
-  String get requestSentTitle => 'تم إرسال الطلب';
+  String get requestSentTitle => 'Request sent';
 
   @override
   String requestSentBody(String username) {
-    return 'تم إرسال طلبك إلى $username. يرجى الانتظار حتى يقبلوه.';
+    return 'Your request went to $username. Please wait while they accept it.';
   }
 
   @override
   String get requestSentKeepOpen =>
-      'تفتح الدردشة بمجرد قبولها. احتفظ بالسرية مفتوحة على هذا الجهاز حتى لا تفوتك.';
+      'The chat opens as soon as they accept. Keep CRYPT open on this device so you do not miss it.';
 
   @override
-  String get requestSentGotIt => 'حسنا';
+  String get requestSentGotIt => 'Got it';
 
   @override
   String get scanCouldNotReadCode =>
-      'لا يمكن قراءة هذا الرمز. امسح رمز الاستجابة السريعة المشفر ضوئيًا.';
+      'That code could not be read. Scan a CRYPT QR code.';
 
   @override
   String get scanMissingTheirIdentity =>
-      'هذا الرمز يفتقد إلى هوية الشخص. امسح الرمز ضوئيًا من صفحة هويته.';
+      'That code is missing the person\'s identity. Scan the code from their identity page.';
 
   @override
   String get scanOwnIdentityMissing =>
-      'مفتاح التشفير الخاص بك مفقود. قم بتسجيل الخروج والعودة، ثم قم بالمسح الضوئي مرة أخرى.';
+      'Your own encryption key is missing. Sign out and back in, then scan again.';
 
   @override
   String get noLightningWalletFound =>
-      'لم يتم العثور على محفظة Lightning. قم بتثبيت واحدة، أو انسخ العنوان والصقه في محفظة.';
+      'No Lightning wallet found. Install one, or copy the address and paste it into a wallet.';
 }

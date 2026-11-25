@@ -74,7 +74,19 @@ class ConversationService {
   Future<bool> updateConversation(Conversation conversation) async {
     final conversations = await getConversations();
 
-    final index = conversations.indexWhere((c) => c.id == conversation.id);
+    var index = conversations.indexWhere((c) => c.id == conversation.id);
+
+    if (index == -1) {
+      // A chat is identified by its pair of public keys. A record written by
+      // an older build can carry a different id, and returning false here
+      // made a scan look like it had failed when the contact was already
+      // stored under its key.
+      index = conversations.indexWhere(
+        (c) =>
+            conversation.publicEncryptionKey.isNotEmpty &&
+            c.publicEncryptionKey == conversation.publicEncryptionKey,
+      );
+    }
 
     if (index == -1) {
       return false;

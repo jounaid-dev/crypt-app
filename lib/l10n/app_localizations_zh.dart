@@ -544,47 +544,53 @@ class AppLocalizationsZh extends AppLocalizations {
       '证明已提交！人工审核需要 24–48 小时（周末除外）。您可以继续正常使用应用！';
 
   @override
-  String get loadingChats => '正在加载聊天...';
+  String get loadingChats => 'Loading chats...';
 
   @override
-  String get noChatsYetTitle => '还没有聊天记录';
+  String get noChatsYetTitle => 'No chats yet';
 
   @override
   String get noChatsYetHint =>
-      '当您扫描对方的加密二维码时，聊天就开始了。打开您的身份证件页面，分享您的身份证件，以便他们扫描。';
+      'A chat starts when you scan the other person\'s CRYPT QR code. Open your identity page to share yours so they can scan it.';
 
   @override
-  String get scanQrToStartChat => '扫描 QR 码';
+  String get scanQrToStartChat => 'Scan a QR code';
 
   @override
-  String get noChatsMatchSearch => '没有与您的搜索匹配的聊天';
+  String get noChatsMatchSearch => 'No chats match your search';
 
   @override
-  String get noChatsMatchSearchHint => '请尝试使用其他名称，或清除搜索以查看每个聊天。';
+  String get noChatsMatchSearchHint =>
+      'Try a different name, or clear the search to see every chat.';
 
   @override
-  String get requestSentTitle => '请求已发送';
+  String get requestSentTitle => 'Request sent';
 
   @override
   String requestSentBody(String username) {
-    return '您的请求已发送至$username。他们正在接受邀请，请稍候。';
+    return 'Your request went to $username. Please wait while they accept it.';
   }
 
   @override
-  String get requestSentKeepOpen => '他们接受后，聊天将立即打开。在此设备上保持加密打开，以免错过。';
+  String get requestSentKeepOpen =>
+      'The chat opens as soon as they accept. Keep CRYPT open on this device so you do not miss it.';
 
   @override
-  String get requestSentGotIt => '明白';
+  String get requestSentGotIt => 'Got it';
 
   @override
-  String get scanCouldNotReadCode => '无法读取该代码。扫描加密二维码。';
+  String get scanCouldNotReadCode =>
+      'That code could not be read. Scan a CRYPT QR code.';
 
   @override
-  String get scanMissingTheirIdentity => '该代码缺少此人的身份。从他们的身份页面扫描验证码。';
+  String get scanMissingTheirIdentity =>
+      'That code is missing the person\'s identity. Scan the code from their identity page.';
 
   @override
-  String get scanOwnIdentityMissing => '缺少您自己的加密密钥。退出并重新登录，然后再次扫描。';
+  String get scanOwnIdentityMissing =>
+      'Your own encryption key is missing. Sign out and back in, then scan again.';
 
   @override
-  String get noLightningWalletFound => '未找到Lightning钱包。安装一个，或复制地址并将其粘贴到钱包中。';
+  String get noLightningWalletFound =>
+      'No Lightning wallet found. Install one, or copy the address and paste it into a wallet.';
 }

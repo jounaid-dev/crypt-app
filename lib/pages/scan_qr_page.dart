@@ -218,6 +218,9 @@ class _ScanQrPageState extends State<ScanQrPage> {
           "alreadyExists": true,
           "conversation": updatedConversation,
           "qrData": payload.toJson(),
+          "username": peerUsername,
+          "publicEncryptionKey": peerEncryptionKey,
+          "publicSigningKey": peerSigningKey,
         });
 
         return;
@@ -272,10 +275,17 @@ class _ScanQrPageState extends State<ScanQrPage> {
 
       if (!mounted) return;
 
+      // The home page reads the peer identity from the top level of this
+      // result. Without these three fields a first scan looked like a code
+      // that was missing the person's identity, so the chat never opened and
+      // the same code had to be scanned a second time.
       Navigator.pop(context, {
         "alreadyExists": false,
         "conversation": conversation,
         "qrData": payload.toJson(),
+        "username": peerUsername,
+        "publicEncryptionKey": peerEncryptionKey,
+        "publicSigningKey": peerSigningKey,
       });
     } catch (error) {
       // ==========================================================

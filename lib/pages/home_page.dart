@@ -776,18 +776,24 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   // ============================================================
 
   Future<void> loadConversations() async {
-    // Hold the spinner for a moment even when the list arrives instantly.
-    // Without this the first frame after the splash is the finished list, so
-    // the loading state is never actually seen and the app looks like it
-    // skipped straight past a blank screen.
+    // Hold the spinner for a moment on the FIRST load only.
+    //
+    // Without it the first frame after the splash is the finished list. On
+    // every later refresh (returning from a chat, a new contact arriving)
+    // the same wait was pure dead time before the list could update.
+    final bool firstLoad = _isLoadingConversations;
+
     final Stopwatch sinceStart = Stopwatch()..start();
 
     final list = await conversationService.getConversations();
 
-    final int remaining = _minimumLoadingMs - sinceStart.elapsedMilliseconds;
+    if (firstLoad) {
+      final int remaining =
+          _minimumLoadingMs - sinceStart.elapsedMilliseconds;
 
-    if (remaining > 0) {
-      await Future<void>.delayed(Duration(milliseconds: remaining));
+      if (remaining > 0) {
+        await Future<void>.delayed(Duration(milliseconds: remaining));
+      }
     }
 
     if (!mounted) return;

@@ -54,6 +54,13 @@ class _ChatPageState extends State<ChatPage> {
   bool get _isP2PActive =>
       _channelState == RTCDataChannelState.RTCDataChannelOpen;
 
+  /// The device with the greater username offers, the other one answers.
+  ///
+  /// Both sides compute this the same way, so they never offer at the same
+  /// time and there is no glare to resolve.
+  bool get _isOfferer =>
+      (_currentUsername ?? "").compareTo(widget.conversation.username) > 0;
+
   StreamSubscription? _signalingSubscription;
 
   String? _currentUsername;
@@ -86,6 +93,15 @@ class _ChatPageState extends State<ChatPage> {
   bool _connectionFailed = false;
 
   Timer? _connectionTimeoutTimer;
+
+  /// Retries the P2P handshake for as long as this chat is open.
+  Timer? _autoReconnectTimer;
+
+  /// When the last offer, answer or ICE candidate was sent or received.
+  ///
+  /// The automatic retry uses it to stay out of the way of a negotiation
+  /// that is already in flight.
+  DateTime? _lastNegotiationAt;
 
   /*
    * Periodic outbox retry timer.
@@ -128,6 +144,7 @@ class _ChatPageState extends State<ChatPage> {
 
     _loadMessages();
     _connect();
+    _startAutoReconnect();
   }
 
   // ============================================================
@@ -447,8 +464,9 @@ class _ChatPageState extends State<ChatPage> {
 
     if (mounted && !_disposed) {
       setState(() {
-        _isConnecting = true;
-        _connectionFailed = false;
+        // Keep a failure banner that is already showing: the automatic retry
+        // must not make it flicker on and off every few seconds.
+        _isConnecting = !_connectionFailed;
       });
     }
 
@@ -459,10 +477,11 @@ class _ChatPageState extends State<ChatPage> {
         return;
       }
 
-      await _getOrDeriveSharedKey();
-
       // --------------------------------------------------------
-      // SIGNALING
+      // SIGNALING SOCKET
+      //
+      // The handshake does not need the shared key, so it no longer waits
+      // for the key derivation to finish first.
       // --------------------------------------------------------
 
       if (!_signaling.isConnected) {
@@ -470,10 +489,29 @@ class _ChatPageState extends State<ChatPage> {
       }
 
       // --------------------------------------------------------
-      // WEBRTC
+      // LISTEN BEFORE ANYTHING SLOW
+      //
+      // The listener used to be attached after the WebRTC setup. An offer
+      // that arrived while this page was still starting was therefore
+      // dropped, and the chat sat on "Connecting to P2P..." until it timed
+      // out.
       // --------------------------------------------------------
 
-      await _webrtc.initialize();
+      await _signalingSubscription?.cancel();
+      _signalingSubscription = _signaling.stream.listen((event) async {
+        await _handleSignalingEvent(event);
+      });
+
+      // --------------------------------------------------------
+      // WEBRTC
+      //
+      // An offer may already have built the connection while the steps above
+      // were running; re-initialising here would throw that work away.
+      // --------------------------------------------------------
+
+      if (_webrtc.peerConnection == null) {
+        await _webrtc.initialize();
+      }
 
       _webrtc.onConnectionFailed = () {
         debugPrint("=== ChatPage: WebRTC connection failed ===");
@@ -561,37 +599,17 @@ class _ChatPageState extends State<ChatPage> {
       };
 
       // --------------------------------------------------------
-      // SIGNALING
-      // --------------------------------------------------------
-
-      await _signalingSubscription?.cancel();
-      _signalingSubscription = _signaling.stream.listen((event) async {
-        await _handleSignalingEvent(event);
-      });
-
-      // --------------------------------------------------------
       // OFFERER SELECTION
+      //
+      // The offer is no longer delayed: the listener above is already
+      // attached, and the automatic retry keeps sending it until the other
+      // device has this chat open.
       // --------------------------------------------------------
 
-      if (_currentUsername!.compareTo(widget.conversation.username) > 0) {
-        _startConnectionTimeout();
+      _startConnectionTimeout();
 
-        await Future.delayed(const Duration(milliseconds: 600));
-
-        if (!mounted || _disposed) return;
-
-        final offer = await _webrtc.createOffer();
-
-        if (!mounted || _disposed) return;
-
-        _signaling.sendOffer(
-          target: widget.conversation.username,
-          offer: offer,
-        );
-
-        debugPrint("[WebRTC] Offer sent.");
-      } else {
-        _startConnectionTimeout();
+      if (_isOfferer) {
+        await _sendOffer();
       }
     } catch (e, stack) {
       debugPrint(
@@ -603,6 +621,58 @@ class _ChatPageState extends State<ChatPage> {
     } finally {
       _isConnectionAttemptRunning = false;
     }
+  }
+
+  /// Sends a fresh offer to the other device.
+  Future<void> _sendOffer() async {
+    if (_disposed || !mounted || _isP2PActive) {
+      return;
+    }
+
+    final offer = await _webrtc.createOffer();
+
+    if (!mounted || _disposed) return;
+
+    _signaling.sendOffer(
+      target: widget.conversation.username,
+      offer: offer,
+    );
+
+    _lastNegotiationAt = DateTime.now();
+
+    debugPrint("[WebRTC] Offer sent.");
+  }
+
+  /// Keeps retrying the P2P handshake while this chat is open.
+  ///
+  /// A single offer with one timeout left both devices on "Connecting to
+  /// P2P..." whenever the other person opened the chat a moment later, and
+  /// the only way out was the Retry button. The retry now runs by itself, so
+  /// the chat connects as soon as both devices have it open.
+  void _startAutoReconnect() {
+    _autoReconnectTimer?.cancel();
+
+    _autoReconnectTimer = Timer.periodic(
+      const Duration(seconds: 3),
+      (_) {
+        if (_disposed || !mounted) return;
+        if (_isP2PActive) return;
+        if (_isConnectionAttemptRunning) return;
+
+        // Let a negotiation that is already in flight finish. Tearing the
+        // peer connection down while an answer is on its way would only make
+        // the two devices miss each other.
+        final last = _lastNegotiationAt;
+
+        if (last != null &&
+            DateTime.now().difference(last) <
+                const Duration(seconds: 6)) {
+          return;
+        }
+
+        unawaited(_connect());
+      },
+    );
   }
 
   // ============================================================
@@ -785,6 +855,13 @@ class _ChatPageState extends State<ChatPage> {
     _connectionTimeoutTimer?.cancel();
     _connectionTimeoutTimer = null;
 
+    if (_connectionFailed) {
+      setState(() {
+        _connectionFailed = false;
+        _isConnecting = true;
+      });
+    }
+
     unawaited(_connect());
   }
 
@@ -806,8 +883,7 @@ class _ChatPageState extends State<ChatPage> {
 
     setState(() {
       _channelState = RTCDataChannelState.RTCDataChannelClosed;
-      _isConnecting = true;
-      _connectionFailed = false;
+      _isConnecting = !_connectionFailed;
     });
   }
 
@@ -919,7 +995,19 @@ class _ChatPageState extends State<ChatPage> {
       return;
     }
 
+    _lastNegotiationAt = DateTime.now();
+
+    // A late duplicate offer must not tear down a channel that is already up.
+    if (_isP2PActive) {
+      return;
+    }
+
     debugPrint("[WebRTC] Received offer.");
+
+    // Every offer starts a fresh negotiation. Applying a repeated offer to
+    // the previous connection fails, because that connection already holds a
+    // local answer.
+    await _webrtc.initialize();
 
     await _webrtc.setRemoteOffer(RTCSessionDescription(sdp, offerType));
 
@@ -945,6 +1033,8 @@ class _ChatPageState extends State<ChatPage> {
 
     debugPrint("[WebRTC] Received answer.");
 
+    _lastNegotiationAt = DateTime.now();
+
     await _webrtc.setRemoteAnswer(RTCSessionDescription(sdp, answerType));
   }
 
@@ -954,6 +1044,8 @@ class _ChatPageState extends State<ChatPage> {
     if (candidate == null) {
       return;
     }
+
+    _lastNegotiationAt = DateTime.now();
 
     await _webrtc.addCandidate(
       RTCIceCandidate(candidate, payload["sdpMid"], payload["sdpMLineIndex"]),
@@ -1479,6 +1571,20 @@ class _ChatPageState extends State<ChatPage> {
       }
 
       // --------------------------------------------------------
+      // NOT CONNECTED YET
+      //
+      // The message is already saved as pending, so queue it instead of
+      // refusing to send. The outbox flushes it the moment the channel
+      // opens.
+      // --------------------------------------------------------
+
+      if (!_isP2PActive) {
+        debugPrint("[Message] $messageId queued until P2P is open.");
+
+        return;
+      }
+
+      // --------------------------------------------------------
       // SEND
       // --------------------------------------------------------
 
@@ -1896,6 +2002,9 @@ class _ChatPageState extends State<ChatPage> {
     _connectionTimeoutTimer?.cancel();
     _connectionTimeoutTimer = null;
 
+    _autoReconnectTimer?.cancel();
+    _autoReconnectTimer = null;
+
     _pendingRetryTimer?.cancel();
     _pendingRetryTimer = null;
 
@@ -2119,7 +2228,7 @@ class _ChatPageState extends State<ChatPage> {
                   const SizedBox(width: 8),
                   IconButton(
                     icon: const Icon(Icons.send),
-                    onPressed: _isP2PActive ? _sendMessage : null,
+                    onPressed: _sendMessage,
                   ),
                 ],
               ),

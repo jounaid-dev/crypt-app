@@ -561,53 +561,53 @@ class AppLocalizationsTh extends AppLocalizations {
       'ส่งหลักฐานแล้ว! การตรวจสอบด้วยตนเองใช้เวลา 24–48 ชั่วโมง (ไม่รวมวันหยุดสุดสัปดาห์) คุณสามารถใช้งานแอปต่อได้ตามปกติ';
 
   @override
-  String get loadingChats => 'กำลังโหลดการแชท...';
+  String get loadingChats => 'Loading chats...';
 
   @override
-  String get noChatsYetTitle => 'ยังไม่มีแชท!';
+  String get noChatsYetTitle => 'No chats yet';
 
   @override
   String get noChatsYetHint =>
-      'การแชทจะเริ่มขึ้นเมื่อคุณสแกนรหัส QR ลับของอีกฝ่ายเปิดหน้าข้อมูลประจำตัวของคุณเพื่อแชร์ข้อมูลของคุณเพื่อให้พวกเขาสแกนได้';
+      'A chat starts when you scan the other person\'s CRYPT QR code. Open your identity page to share yours so they can scan it.';
 
   @override
-  String get scanQrToStartChat => 'สแกนคิวอาร์โค้ด';
+  String get scanQrToStartChat => 'Scan a QR code';
 
   @override
-  String get noChatsMatchSearch => 'ไม่มีแชทที่ตรงกับการค้นหาของคุณ';
+  String get noChatsMatchSearch => 'No chats match your search';
 
   @override
   String get noChatsMatchSearchHint =>
-      'ลองใช้ชื่ออื่นหรือล้างการค้นหาเพื่อดูทุกแชท';
+      'Try a different name, or clear the search to see every chat.';
 
   @override
-  String get requestSentTitle => 'ส่งคำขอแล้ว';
+  String get requestSentTitle => 'Request sent';
 
   @override
   String requestSentBody(String username) {
-    return 'คำขอของคุณไปที่ $username โปรดรอสักครู่ขณะที่พวกเขากดรับ';
+    return 'Your request went to $username. Please wait while they accept it.';
   }
 
   @override
   String get requestSentKeepOpen =>
-      'แชทจะเปิดขึ้นทันทีที่พวกเขายอมรับเปิด CRYPT ไว้บนอุปกรณ์นี้เพื่อที่คุณจะได้ไม่พลาด';
+      'The chat opens as soon as they accept. Keep CRYPT open on this device so you do not miss it.';
 
   @override
-  String get requestSentGotIt => 'เข้าใจแล้ว';
+  String get requestSentGotIt => 'Got it';
 
   @override
   String get scanCouldNotReadCode =>
-      'ไม่สามารถอ่านรหัสนั้นได้สแกนคิวอาร์โค้ด CRYPT';
+      'That code could not be read. Scan a CRYPT QR code.';
 
   @override
   String get scanMissingTheirIdentity =>
-      'รหัสนั้นไม่มีข้อมูลประจำตัวของบุคคลนั้นสแกนรหัสจากหน้าข้อมูลประจำตัว';
+      'That code is missing the person\'s identity. Scan the code from their identity page.';
 
   @override
   String get scanOwnIdentityMissing =>
-      'คีย์การเข้ารหัสของคุณหายไปออกจากระบบและกลับเข้ามาแล้วสแกนอีกครั้ง';
+      'Your own encryption key is missing. Sign out and back in, then scan again.';
 
   @override
   String get noLightningWalletFound =>
-      'ไม่พบกระเป๋าเงิน Lightning ติดตั้งหรือคัดลอกที่อยู่แล้ววางลงในกระเป๋าเงิน';
+      'No Lightning wallet found. Install one, or copy the address and paste it into a wallet.';
 }

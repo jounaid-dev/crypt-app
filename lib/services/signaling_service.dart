@@ -82,7 +82,33 @@ class SignalingService {
   // CONNECTION
   // ============================================================
 
-  Future<void> connect(String username) async {
+  /// The attempt currently opening a socket, if any.
+  ///
+  /// HomePage and ChatPage both call connect() when they start. Two
+  /// overlapping attempts used to tear down each other's socket, which left
+  /// the app flapping between reconnecting and online. A second caller now
+  /// waits for the attempt that is already running instead.
+  Future<void>? _connectInFlight;
+
+  Future<void> connect(String username) {
+    final inFlight = _connectInFlight;
+
+    if (inFlight != null) {
+      return inFlight;
+    }
+
+    final future = _openSocket(username);
+
+    _connectInFlight = future;
+
+    return future.whenComplete(() {
+      if (identical(_connectInFlight, future)) {
+        _connectInFlight = null;
+      }
+    });
+  }
+
+  Future<void> _openSocket(String username) async {
     // The event stream deliberately survives: listeners subscribed to it must
     // keep receiving events across a reconnect.
     await _teardown(closeStream: false);
@@ -140,7 +166,9 @@ class SignalingService {
         cancelOnError: false,
       );
 
-      await channel.ready;
+      // Bound the wait. A socket that never reports ready used to leave the
+      // app stuck in "connecting" with no reconnect scheduled at all.
+      await channel.ready.timeout(const Duration(seconds: 10));
 
       _connected = true;
       _connecting = false;

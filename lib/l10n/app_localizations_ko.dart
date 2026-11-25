@@ -542,51 +542,53 @@ class AppLocalizationsKo extends AppLocalizations {
   String get proofSubmittedSnackbar => '증빙이 제출되었습니다. 수동 검토: 24~48시간 (주말 제외).';
 
   @override
-  String get loadingChats => '채팅 로드 중...';
+  String get loadingChats => 'Loading chats...';
 
   @override
-  String get noChatsYetTitle => '아직 채팅 없음';
+  String get noChatsYetTitle => 'No chats yet';
 
   @override
   String get noChatsYetHint =>
-      '상대방의 암호 QR 코드를 스캔하면 채팅이 시작됩니다. 신분증 페이지를 열어 신분증을 공유하면 게스트가 스캔할 수 있습니다.';
+      'A chat starts when you scan the other person\'s CRYPT QR code. Open your identity page to share yours so they can scan it.';
 
   @override
-  String get scanQrToStartChat => 'QR코드 스캔';
+  String get scanQrToStartChat => 'Scan a QR code';
 
   @override
-  String get noChatsMatchSearch => '검색 조건에 일치하는 채팅이 없습니다';
+  String get noChatsMatchSearch => 'No chats match your search';
 
   @override
-  String get noChatsMatchSearchHint => '다른 이름을 사용하거나 검색을 지워 모든 채팅을 확인하세요.';
+  String get noChatsMatchSearchHint =>
+      'Try a different name, or clear the search to see every chat.';
 
   @override
-  String get requestSentTitle => '요청 보냄';
+  String get requestSentTitle => 'Request sent';
 
   @override
   String requestSentBody(String username) {
-    return '요청이 (으) 로 전송되었습니다$username. 그들이 수락하는 동안 기다려주십시오.';
+    return 'Your request went to $username. Please wait while they accept it.';
   }
 
   @override
   String get requestSentKeepOpen =>
-      '호스트가 수락하는 즉시 채팅이 시작됩니다. 놓치지 않도록 이 장치에 암호화폐를 열어 두세요.';
+      'The chat opens as soon as they accept. Keep CRYPT open on this device so you do not miss it.';
 
   @override
-  String get requestSentGotIt => '확인';
+  String get requestSentGotIt => 'Got it';
 
   @override
-  String get scanCouldNotReadCode => '해당 코드를 읽을 수 없습니다. 암호화폐 QR 코드를 스캔하세요.';
+  String get scanCouldNotReadCode =>
+      'That code could not be read. Scan a CRYPT QR code.';
 
   @override
   String get scanMissingTheirIdentity =>
-      '해당 코드에 해당 개인의 신원이 누락되었습니다. 본인 인증 페이지에서 코드를 스캔하세요.';
+      'That code is missing the person\'s identity. Scan the code from their identity page.';
 
   @override
   String get scanOwnIdentityMissing =>
-      '자신의 암호화 키가 누락되었습니다. 로그아웃했다가 다시 로그인한 다음 다시 스캔하세요.';
+      'Your own encryption key is missing. Sign out and back in, then scan again.';
 
   @override
   String get noLightningWalletFound =>
-      '라이트닝 지갑을 찾을 수 없습니다. 하나를 설치하거나 주소를 복사하여 지갑에 붙여 넣습니다.';
+      'No Lightning wallet found. Install one, or copy the address and paste it into a wallet.';
 }
