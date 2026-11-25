@@ -1,5 +1,5 @@
 name: crypt_messenger
-description: "A new Flutter project."
+description: "A secure way of communicating across the web"
 publish_to: 'none'
 
 version: 1.0.0+1
