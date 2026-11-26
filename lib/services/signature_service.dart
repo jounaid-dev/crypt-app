@@ -10,12 +10,8 @@ class SignatureService {
     required SimpleKeyPair privateKey,
     required Map<String, dynamic> payloadData,
   }) async {
-  
-  // Encode the payload deterministically using the same JSON construction on
-  // both signing and verification sides.
     final payloadBytes = utf8.encode(jsonEncode(payloadData));
-    
-    // Generate the cryptographic signature
+
     final signatureObj = await _ed25519.sign(
       payloadBytes,
       keyPair: privateKey,
@@ -24,28 +20,29 @@ class SignatureService {
     return base64Url.encode(signatureObj.bytes);
   }
 
-  /// Verifies a message signature against the sender's public key and payload.
   Future<bool> verifyMessage({
     required String base64Signature,
     required Map<String, dynamic> payloadData,
     required SimplePublicKey senderPublicKey,
   }) async {
     try {
+      final signatureBytes = _decodeSignature(base64Signature);
       final payloadBytes = utf8.encode(jsonEncode(payloadData));
-      final signatureBytes = base64Url.decode(base64Signature);
-
-      final signatureObj = Signature(
-        signatureBytes,
-        publicKey: senderPublicKey,
-      );
 
       return await _ed25519.verify(
         payloadBytes,
-        signature: signatureObj,
+        signature: Signature(signatureBytes, publicKey: senderPublicKey),
       );
     } catch (_) {
-      // Return false safely if decoding or verification fails
       return false;
     }
+  }
+
+  /// Accepts base64url and standard base64 signatures so a signature from one
+  /// encoding still verifies on the other side. [base64Url.normalize] maps both
+  /// alphabets onto base64url and restores any missing padding, so the same
+  /// signature decodes to the same bytes no matter which side encoded it.
+  static List<int> _decodeSignature(String base64Signature) {
+    return base64Url.decode(base64Url.normalize(base64Signature));
   }
 }

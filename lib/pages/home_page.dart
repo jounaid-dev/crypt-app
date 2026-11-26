@@ -364,7 +364,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       final myUsername = await _accountService.getUsername();
 
       if (myUsername == null || myUsername.trim().isEmpty) {
-        debugPrint("[Home] Our username is missing.");
+        await _showRequestFailedDialog(
+          l10n: l10n,
+          reason: l10n.conversationRequestFailedOwnUsernameMissing,
+        );
         return;
       }
 
@@ -432,7 +435,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           .getPublicEncryptionKey();
 
       if (myPublicEncryptionKey == null || myPublicEncryptionKey.isEmpty) {
-        debugPrint("[Home] Our public encryption key is missing.");
+        await _showRequestFailedDialog(
+          l10n: l10n,
+          reason: l10n.conversationRequestFailedOwnIdentityMissing,
+        );
         return;
       }
 
@@ -457,7 +463,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       if (requestedConversationId != null &&
           requestedConversationId.isNotEmpty &&
           requestedConversationId != conversationId) {
-        debugPrint("[Security] Conversation ID mismatch.");
+        await _showRequestFailedDialog(
+          l10n: l10n,
+          reason: l10n.conversationRequestFailedIdMismatch,
+        );
         return;
       }
 
@@ -538,9 +547,9 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       // ========================================================
 
       if (!_signaling.isConnected) {
-        debugPrint(
-          "[Home] Signaling is disconnected. "
-          "Cannot send acceptance.",
+        await _showRequestFailedDialog(
+          l10n: l10n,
+          reason: l10n.conversationRequestFailedSignaling,
         );
         return;
       }
@@ -592,6 +601,66 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     } finally {
       _isHandlingConversationRequest = false;
     }
+  }
+
+  /// Shows an explicit dialog when a conversation request cannot be
+  /// accepted, rather than leaving the sender waiting in silence.
+  Future<void> _showRequestFailedDialog({
+    required AppLocalizations l10n,
+    required String reason,
+  }) async {
+    if (!mounted) return;
+
+    await showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (dialogContext) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(
+                Icons.warning_amber_rounded,
+                color: Colors.orange,
+                size: 40,
+              ),
+
+              const SizedBox(height: 16),
+
+              Text(
+                l10n.conversationRequestFailedTitle,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
+              const SizedBox(height: 12),
+
+              Text(
+                reason,
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 13, height: 1.4),
+              ),
+            ],
+          ),
+
+          actions: [
+            FilledButton(
+              onPressed: () {
+                Navigator.of(dialogContext).pop();
+              },
+              child: Text(l10n.ok),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   // ============================================================
@@ -1041,6 +1110,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
     if (!mounted) return;
 
+    await loadConversations();
+
+    if (!mounted) return;
+
     await Navigator.push(
       context,
       MaterialPageRoute(builder: (_) => ChatPage(conversation: conversation)),
@@ -1073,7 +1146,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   }) async {
     await showDialog<void>(
       context: context,
-      barrierDismissible: false,
+      barrierDismissible: true,
       builder: (dialogContext) {
         return AlertDialog(
           shape: RoundedRectangleBorder(

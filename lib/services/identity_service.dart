@@ -546,9 +546,28 @@ class IdentityService {
     return await _keyStorage.getIdentity() != null;
   }
 
-  Future<Identity?> getLocalIdentity() async {
-    // Identity is encrypted and requires the password
-    // to be unlocked.
+  /// Explicit unlock indicator for the UI.
+  ///
+  /// Returns:
+  /// - a username when the password is correct and the identity is unlocked
+  /// - null when the password is wrong
+  ///
+  /// This is the function that warms the key cache and tells the user
+  /// whether the app is currently able to decrypt messages. If this
+  /// returns null, the user sees an explicit reason instead of a spinner.
+  Future<String?> unlockAndIdentify(String password) async {
+    if (await hasStoredIdentity()) {
+      try {
+        final identity = await getLocalIdentityWithPassword(password);
+
+        if (identity != null) {
+          await warmKeyCache(password);
+
+          return identity.username;
+        }
+      } catch (_) {}
+    }
+
     return null;
   }
 

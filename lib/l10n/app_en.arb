@@ -815,5 +815,25 @@
   "couldNotGenerateQrImage": "Could not generate QR image",
   "conversationUpdateFailed": "Conversation update failed. Try again.",
   "conversationCreationFailed": "Conversation creation failed. Try again.",
-  "accountSuspendedByAdmin": "This account has been suspended by an administrator."
+  "accountSuspendedByAdmin": "This account has been suspended by an administrator.",
+  "conversationRequestFailedTitle": "Could not connect",
+  "@conversationRequestFailedTitle": {
+    "description": "Dialog title shown when an incoming conversation request cannot be accepted"
+  },
+  "conversationRequestFailedOwnUsernameMissing": "Your account is missing a username. Sign out and back in, then try again.",
+  "@conversationRequestFailedOwnUsernameMissing": {
+    "description": "Reason shown when our own username is missing"
+  },
+  "conversationRequestFailedOwnIdentityMissing": "Your own encryption key is missing. Sign out and back in, then try again.",
+  "@conversationRequestFailedOwnIdentityMissing": {
+    "description": "Reason shown when our own public key is missing"
+  },
+  "conversationRequestFailedIdMismatch": "That code does not match this connection. Scan the code from their identity page again.",
+  "@conversationRequestFailedIdMismatch": {
+    "description": "Reason shown when the conversation ID does not match"
+  },
+  "conversationRequestFailedSignaling": "Could not reach the server to accept this request. Check your connection and try again.",
+  "@conversationRequestFailedSignaling": {
+    "description": "Reason shown when signaling is disconnected"
+  }
 }

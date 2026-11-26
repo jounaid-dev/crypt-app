@@ -517,22 +517,6 @@ class SignalingService {
   }
 
   // ============================================================
-  // ENCRYPTED SIGNAL
-  // ============================================================
-
-  void sendSignal({
-    required String target,
-    required Map<String, dynamic> payload,
-  }) {
-    _send({
-      "type": "signal",
-      "sender": _currentUsername,
-      "target": target,
-      "payload": payload,
-    });
-  }
-
-  // ============================================================
   // INTERNAL SEND
   // ============================================================
 

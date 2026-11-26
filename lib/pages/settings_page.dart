@@ -622,13 +622,13 @@ class _SettingsPageState extends State<SettingsPage>
     );
 
     try {
-      final identity = await _identityService.getLocalIdentityWithPassword(
+      final username = await _identityService.unlockAndIdentify(
         inputPassword,
       );
 
-      if (identity != null) {
+      if (username != null) {
         verifySuccess = true;
-        _currentUsername = identity.username;
+        _currentUsername = username;
       }
     } catch (e, stackTrace) {
       verifySuccess = false;

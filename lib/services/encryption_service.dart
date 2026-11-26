@@ -4,6 +4,33 @@ import 'package:cryptography/cryptography.dart';
 class EncryptionService {
   final Cipher algorithm = AesGcm.with256bits();
 
+  /// Encrypts a plaintext string for the given shared key.
+  ///
+  /// This is the outbound path used by the chat page and the unit tests.
+  /// It produces a base64 string whose layout matches the [decryptMessage]
+  /// expectations, so the two paths always pair.
+  Future<String> encryptMessage({
+    required String message,
+    required SecretKey key,
+  }) async {
+    final bytes = utf8.encode(message);
+
+    final nonce = algorithm.newNonce();
+
+    final secretBox = await algorithm.encrypt(
+      bytes,
+      secretKey: key,
+      nonce: nonce,
+    );
+
+    final ciphertext = secretBox.concatenation(
+      nonceLength: algorithm.nonceLength,
+      macLength: algorithm.macAlgorithm.macLength,
+    );
+
+    return base64Encode(ciphertext);
+  }
+
   /// The critical decryption path must never surface a "failed/no result"
   /// boolean to the UI. It either returns the plaintext or throws, so the
   /// caller can treat any non-success as a true error rather than a silent

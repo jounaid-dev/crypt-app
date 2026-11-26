@@ -414,55 +414,6 @@ class MessageService {
   }
 
   // ============================================================
-  // UPDATE MESSAGE STATUS
-  // ============================================================
-
-  Future<void> updateMessageStatus(
-    String messageId,
-    MessageStatus newStatus,
-  ) async {
-    await _enqueueWrite(() async {
-      final keys = HiveStorageService.getKeys()
-          .where(
-            (key) => key
-                .toString()
-                .startsWith(_messagePrefix),
-          )
-          .toList();
-
-      for (final key in keys) {
-        final conversationId = key
-            .toString()
-            .substring(_messagePrefix.length);
-
-        final messages = await _readMessages(
-          conversationId,
-        );
-
-        final index = messages.indexWhere(
-          (message) => message.id == messageId,
-        );
-
-        if (index == -1) {
-          continue;
-        }
-
-        messages[index] =
-            messages[index].copyWith(
-          status: newStatus,
-        );
-
-        await _saveMessagesUnsafe(
-          conversationId,
-          messages,
-        );
-
-        return;
-      }
-    });
-  }
-
-  // ============================================================
   // DELETE MESSAGE
   // ============================================================
 
@@ -518,39 +469,6 @@ class MessageService {
     });
   }
 
-  // ============================================================
-  // SEARCH
-  // ============================================================
-  //
-  // NOTE:
-  // Messages are encrypted, so searching encryptedText
-  // does NOT search plaintext messages.
-  //
-  // This method is kept because your existing architecture
-  // may still use it elsewhere.
-  // ============================================================
-
-  Future<List<Message>> searchMessages(
-    String conversationId,
-    String query,
-  ) async {
-    final messages = await _readMessagesCopy(
-      conversationId,
-    );
-
-    final normalizedQuery =
-        query.trim().toLowerCase();
-
-    if (normalizedQuery.isEmpty) {
-      return messages;
-    }
-
-    return messages.where((message) {
-      return message.encryptedText
-          .toLowerCase()
-          .contains(normalizedQuery);
-    }).toList();
-  }
 
   // ============================================================
   // BLACKLIST
