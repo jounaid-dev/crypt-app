@@ -43,7 +43,7 @@ class _PinEntryDialogState extends State<PinEntryDialog> {
 
     if (digits.length != 4) {
       setState(() {
-        _errorText = "Enter exactly 4 digits.";
+        _errorText = AppLocalizations.of(context)!.pinFourDigits;
       });
 
       return;

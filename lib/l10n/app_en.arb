@@ -809,5 +809,11 @@
   "premiumActivationStep2": "Take a screenshot of the payment confirmation and send it in as your proof of payment.",
   "@premiumActivationStep2": {
     "description": "UI text: premiumActivationStep2"
-  }
+  },
+  "pinFourDigits": "Enter exactly 4 digits.",
+  "scanOwnCode": "That is your own code. Scan someone else's CRYPT code to start a chat with them.",
+  "couldNotGenerateQrImage": "Could not generate QR image",
+  "conversationUpdateFailed": "Conversation update failed. Try again.",
+  "conversationCreationFailed": "Conversation creation failed. Try again.",
+  "accountSuspendedByAdmin": "This account has been suspended by an administrator."
 }

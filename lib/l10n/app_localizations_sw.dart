@@ -936,4 +936,26 @@ class AppLocalizationsSw extends AppLocalizations {
   @override
   String get premiumActivationStep2 =>
       'Piga picha ya skrini ya uthibitishaji wa malipo na uitume kama thibitisho lako la malipo.';
+
+  @override
+  String get pinFourDigits => 'Weka tarakimu 4 haswa.';
+
+  @override
+  String get scanOwnCode =>
+      'Hiyo ni kanuni yako mwenyewe. Changanua msimbo wa CRYPT wa mtu mwingine ili uanzishe gumzo naye.';
+
+  @override
+  String get couldNotGenerateQrImage => 'Haikuweza kuzalisha picha ya QR';
+
+  @override
+  String get conversationUpdateFailed =>
+      'Usasishaji wa mazungumzo haukufaulu. Jaribu tena.';
+
+  @override
+  String get conversationCreationFailed =>
+      'Imeshindwa kuunda mazungumzo. Jaribu tena.';
+
+  @override
+  String get accountSuspendedByAdmin =>
+      'Akaunti hii imesimamishwa na msimamizi.';
 }

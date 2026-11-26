@@ -401,5 +401,11 @@
     "accountSuspended": "계정이 정지되었습니다",
     "premiumLifetimeAccess": "평생 프리미엄 액세스",
     "premiumActivationStep1": "지불하다{amount}~에서{method}위의 라이트닝 주소로",
-    "premiumActivationStep2": "결제 확인 스크린샷을 찍어 결제 증빙 자료로 보내주세요."
+    "premiumActivationStep2": "결제 확인 스크린샷을 찍어 결제 증빙 자료로 보내주세요.",
+    "pinFourDigits": "정확히 4자리를 입력하세요.",
+    "scanOwnCode": "그것은 당신 자신의 코드입니다. 다른 사람의 CRYPT 코드를 스캔하여 채팅을 시작하세요.",
+    "couldNotGenerateQrImage": "QR 이미지를 생성할 수 없습니다.",
+    "conversationUpdateFailed": "대화를 업데이트하지 못했습니다. 다시 시도해 보세요.",
+    "conversationCreationFailed": "대화 생성에 실패했습니다. 다시 시도해 보세요.",
+    "accountSuspendedByAdmin": "이 계정은 관리자에 의해 정지되었습니다."
 }

@@ -401,5 +401,11 @@
     "accountSuspended": "Akaunti imesimamishwa",
     "premiumLifetimeAccess": "Ufikiaji wa Premium wa Maisha yote",
     "premiumActivationStep1": "Lipa {amount} kutoka {method} kwa anwani ya Umeme hapo juu.",
-    "premiumActivationStep2": "Piga picha ya skrini ya uthibitishaji wa malipo na uitume kama thibitisho lako la malipo."
+    "premiumActivationStep2": "Piga picha ya skrini ya uthibitishaji wa malipo na uitume kama thibitisho lako la malipo.",
+    "pinFourDigits": "Weka tarakimu 4 haswa.",
+    "scanOwnCode": "Hiyo ni kanuni yako mwenyewe. Changanua msimbo wa CRYPT wa mtu mwingine ili uanzishe gumzo naye.",
+    "couldNotGenerateQrImage": "Haikuweza kuzalisha picha ya QR",
+    "conversationUpdateFailed": "Usasishaji wa mazungumzo haukufaulu. Jaribu tena.",
+    "conversationCreationFailed": "Imeshindwa kuunda mazungumzo. Jaribu tena.",
+    "accountSuspendedByAdmin": "Akaunti hii imesimamishwa na msimamizi."
 }

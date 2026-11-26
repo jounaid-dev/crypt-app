@@ -939,4 +939,26 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get premiumActivationStep2 =>
       'Faça uma captura de tela da confirmação de pagamento e envie-a como comprovante de pagamento.';
+
+  @override
+  String get pinFourDigits => 'Insira exatamente 4 dígitos.';
+
+  @override
+  String get scanOwnCode =>
+      'Esse é o seu próprio código. Digitalize o código CRYPT de outra pessoa para iniciar um bate-papo com ela.';
+
+  @override
+  String get couldNotGenerateQrImage => 'Não foi possível gerar a imagem QR';
+
+  @override
+  String get conversationUpdateFailed =>
+      'Falha na atualização da conversa. Tente novamente.';
+
+  @override
+  String get conversationCreationFailed =>
+      'Falha na criação da conversa. Tente novamente.';
+
+  @override
+  String get accountSuspendedByAdmin =>
+      'Esta conta foi suspensa por um administrador.';
 }

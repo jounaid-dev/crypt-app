@@ -401,5 +401,11 @@
     "accountSuspended": "บัญชีถูกระงับ",
     "premiumLifetimeAccess": "การเข้าถึงระดับพรีเมียมตลอดชีพ",
     "premiumActivationStep1": "จ่าย{amount}จาก{method}ไปยังที่อยู่ Lightning ด้านบน",
-    "premiumActivationStep2": "ถ่ายภาพหน้าจอยืนยันการชำระเงินแล้วส่งเป็นหลักฐานการชำระเงิน"
+    "premiumActivationStep2": "ถ่ายภาพหน้าจอยืนยันการชำระเงินแล้วส่งเป็นหลักฐานการชำระเงิน",
+    "pinFourDigits": "ป้อนตัวเลข 4 หลักให้ตรงกัน",
+    "scanOwnCode": "นั่นคือรหัสของคุณเอง สแกนรหัส CRYPT ของผู้อื่นเพื่อเริ่มแชทกับพวกเขา",
+    "couldNotGenerateQrImage": "ไม่สามารถสร้างอิมเมจ QR ได้",
+    "conversationUpdateFailed": "การอัปเดตการสนทนาล้มเหลว ลองอีกครั้ง",
+    "conversationCreationFailed": "การสร้างการสนทนาล้มเหลว ลองอีกครั้ง",
+    "accountSuspendedByAdmin": "บัญชีนี้ถูกระงับโดยผู้ดูแลระบบ"
 }

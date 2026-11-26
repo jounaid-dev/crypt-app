@@ -1755,6 +1755,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Take a screenshot of the payment confirmation and send it in as your proof of payment.'**
   String get premiumActivationStep2;
+
+  /// No description provided for @pinFourDigits.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter exactly 4 digits.'**
+  String get pinFourDigits;
+
+  /// No description provided for @scanOwnCode.
+  ///
+  /// In en, this message translates to:
+  /// **'That is your own code. Scan someone else\'s CRYPT code to start a chat with them.'**
+  String get scanOwnCode;
+
+  /// No description provided for @couldNotGenerateQrImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not generate QR image'**
+  String get couldNotGenerateQrImage;
+
+  /// No description provided for @conversationUpdateFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Conversation update failed. Try again.'**
+  String get conversationUpdateFailed;
+
+  /// No description provided for @conversationCreationFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Conversation creation failed. Try again.'**
+  String get conversationCreationFailed;
+
+  /// No description provided for @accountSuspendedByAdmin.
+  ///
+  /// In en, this message translates to:
+  /// **'This account has been suspended by an administrator.'**
+  String get accountSuspendedByAdmin;
 }
 
 class _AppLocalizationsDelegate

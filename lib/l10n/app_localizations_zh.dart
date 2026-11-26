@@ -887,4 +887,22 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get premiumActivationStep2 => '截取付款确认的屏幕截图并将其作为您的付款证明发送。';
+
+  @override
+  String get pinFourDigits => '准确输入 4 位数字。';
+
+  @override
+  String get scanOwnCode => '那是你自己的代码。扫描其他人的 CRYPT 代码即可开始与他们聊天。';
+
+  @override
+  String get couldNotGenerateQrImage => '无法生成二维码图像';
+
+  @override
+  String get conversationUpdateFailed => '对话更新失败。再试一次。';
+
+  @override
+  String get conversationCreationFailed => '对话创建失败。再试一次。';
+
+  @override
+  String get accountSuspendedByAdmin => '该帐户已被管理员暂停。';
 }

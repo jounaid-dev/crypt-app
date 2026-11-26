@@ -931,4 +931,26 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get premiumActivationStep2 =>
       'Chụp ảnh màn hình xác nhận thanh toán và gửi nó làm bằng chứng thanh toán của bạn.';
+
+  @override
+  String get pinFourDigits => 'Nhập chính xác 4 chữ số.';
+
+  @override
+  String get scanOwnCode =>
+      'Đó là mã của riêng bạn. Quét mã CRYPT của người khác để bắt đầu trò chuyện với họ.';
+
+  @override
+  String get couldNotGenerateQrImage => 'Không thể tạo hình ảnh QR';
+
+  @override
+  String get conversationUpdateFailed =>
+      'Cập nhật cuộc trò chuyện không thành công. Hãy thử lại.';
+
+  @override
+  String get conversationCreationFailed =>
+      'Tạo cuộc trò chuyện không thành công. Hãy thử lại.';
+
+  @override
+  String get accountSuspendedByAdmin =>
+      'Tài khoản này đã bị quản trị viên đình chỉ.';
 }

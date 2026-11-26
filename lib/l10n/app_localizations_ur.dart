@@ -935,4 +935,26 @@ class AppLocalizationsUr extends AppLocalizations {
   @override
   String get premiumActivationStep2 =>
       'ادائیگی کی تصدیق کا اسکرین شاٹ لیں اور اسے اپنے ادائیگی کے ثبوت کے طور پر بھیجیں۔';
+
+  @override
+  String get pinFourDigits => 'بالکل 4 ہندسے درج کریں۔';
+
+  @override
+  String get scanOwnCode =>
+      'یہ آپ کا اپنا کوڈ ہے۔ کسی اور کے ساتھ چیٹ شروع کرنے کے لیے اس کا CRYPT کوڈ اسکین کریں۔';
+
+  @override
+  String get couldNotGenerateQrImage => 'QR تصویر نہیں بن سکی';
+
+  @override
+  String get conversationUpdateFailed =>
+      'بات چیت کی تازہ کاری ناکام ہو گئی۔ دوبارہ کوشش کریں۔';
+
+  @override
+  String get conversationCreationFailed =>
+      'بات چیت کی تخلیق ناکام ہو گئی۔ دوبارہ کوشش کریں۔';
+
+  @override
+  String get accountSuspendedByAdmin =>
+      'اس اکاؤنٹ کو ایک منتظم نے معطل کر دیا ہے۔';
 }

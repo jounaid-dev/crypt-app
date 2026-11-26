@@ -401,5 +401,11 @@
     "accountSuspended": "An dakatar da asusun",
     "premiumLifetimeAccess": "Samun Mahimmanci na Rayuwa",
     "premiumActivationStep1": "Biya {amount} daga {method} zuwa adireshin Lightning a sama.",
-    "premiumActivationStep2": "Ɗauki hoton tabbacin biyan kuɗi kuma aika shi a matsayin shaidar biyan kuɗi."
+    "premiumActivationStep2": "Ɗauki hoton tabbacin biyan kuɗi kuma aika shi a matsayin shaidar biyan kuɗi.",
+    "pinFourDigits": "Shigar da lambobi 4 daidai.",
+    "scanOwnCode": "Wannan shine lambar ku. Duba lambar CRYPT na wani don fara hira da su.",
+    "couldNotGenerateQrImage": "An kasa samar da hoton QR",
+    "conversationUpdateFailed": "An gaza sabunta taɗi Gwada kuma.",
+    "conversationCreationFailed": "Ƙirƙirar tattaunawa ta kasa. Gwada kuma.",
+    "accountSuspendedByAdmin": "Wani mai gudanarwa ya dakatar da wannan asusun."
 }

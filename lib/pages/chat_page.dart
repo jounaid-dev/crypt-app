@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:crypt_messenger/l10n/app_localizations.dart';
 import 'package:uuid/uuid.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart' hide MessageType;
@@ -78,6 +79,14 @@ class _ChatPageState extends State<ChatPage> {
 
   final Set<String> _decryptingMessageIds = {};
 
+  // Message IDs whose ciphertext could not be decrypted.
+  //
+  // Without this the bubble had no way to tell "still decrypting" apart from
+  // "decryption failed", so a failed message kept a spinner forever and
+  // looked like infinite loading. A failed message now shows an explicit
+  // "unable to decrypt" state instead.
+  final Set<String> _failedDecryptions = {};
+
   /*
    * Messages that have been sent but have NOT yet received
    * a verified delivery ACK.
@@ -88,6 +97,13 @@ class _ChatPageState extends State<ChatPage> {
   final Map<String, Message> _pendingMessages = {};
 
   bool _isLoading = true;
+
+  // Whether the user has scrolled away from the newest message.
+  //
+  // While true we show a "jump to latest" button so a long conversation
+  // stays easy to catch up with, instead of forcing the user to scroll
+  // manually back to the bottom.
+  bool _showScrollToBottom = false;
 
   bool _isConnecting = true;
   bool _connectionFailed = false;
@@ -252,6 +268,10 @@ class _ChatPageState extends State<ChatPage> {
 
         if (text != null) {
           _decryptedTexts[messages[i].id] = text;
+          _failedDecryptions.remove(messages[i].id);
+        } else {
+          // Stop showing a spinner for a message that will never decrypt.
+          _failedDecryptions.add(messages[i].id);
         }
       }
 
@@ -266,6 +286,16 @@ class _ChatPageState extends State<ChatPage> {
         "[Messages] Initial batch decryption failed: "
         "$e\n$stack",
       );
+
+      // The whole batch failed (for example the identity is locked). Mark
+      // these messages so the UI shows an error instead of spinning forever.
+      for (final message in messages) {
+        _failedDecryptions.add(message.id);
+      }
+
+      if (mounted && !_disposed) {
+        setState(() {});
+      }
     }
   }
 
@@ -317,8 +347,11 @@ class _ChatPageState extends State<ChatPage> {
 
           if (text != null && !_disposed && mounted) {
             _decryptedTexts[message.id] = text;
+            _failedDecryptions.remove(message.id);
 
             decryptedInBatch++;
+          } else if (!_disposed && mounted) {
+            _failedDecryptions.add(message.id);
           }
         } catch (e) {
           debugPrint(
@@ -352,6 +385,14 @@ class _ChatPageState extends State<ChatPage> {
         "[Messages] Background decryption error: "
         "$e\n$stack",
       );
+
+      for (final message in messages) {
+        _failedDecryptions.add(message.id);
+      }
+
+      if (!_disposed && mounted) {
+        setState(() {});
+      }
     }
   }
 
@@ -958,7 +999,7 @@ class _ChatPageState extends State<ChatPage> {
     Map<String, dynamic> data,
   ) async {
     final reason = data["reason"]?.toString() ??
-        "This account has been suspended by an administrator.";
+        AppLocalizations.of(context)!.accountSuspendedByAdmin;
 
     if (mounted) {
       await showDialog(
@@ -972,7 +1013,7 @@ class _ChatPageState extends State<ChatPage> {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: const Text("OK"),
+              child: Text(AppLocalizations.of(context)!.ok),
             ),
           ],
         ),
@@ -1423,9 +1464,16 @@ class _ChatPageState extends State<ChatPage> {
 
         if (text != null && mounted && !_disposed) {
           _decryptedTexts[message.id] = text;
+          _failedDecryptions.remove(message.id);
+        } else if (mounted && !_disposed) {
+          _failedDecryptions.add(message.id);
         }
       } catch (e) {
         debugPrint("[Crypto] Incoming decryption failed: $e");
+
+        if (mounted && !_disposed) {
+          _failedDecryptions.add(message.id);
+        }
       }
 
       if (!mounted || _disposed) return;
@@ -1444,9 +1492,18 @@ class _ChatPageState extends State<ChatPage> {
 
       await _sendAck(message.id, "delivered");
 
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        _scrollToBottom();
-      });
+      // Only yank the scroll position when the user is already looking at
+      // the newest message; otherwise keep their place and surface the
+      // "jump to latest" button instead.
+      if (!_showScrollToBottom) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          _scrollToBottom();
+        });
+      }
+
+      // A light haptic makes an incoming message feel alive even when the
+      // phone is in a pocket or the screen is dimmed.
+      HapticFeedback.lightImpact();
     } catch (e, stack) {
       debugPrint(
         "[ChatPage] P2P packet error: "
@@ -1618,6 +1675,9 @@ class _ChatPageState extends State<ChatPage> {
         "[Message] $messageId sent. "
         "Waiting for ACK...",
       );
+
+      // A small confirmation tap, separate from the incoming-message impact.
+      HapticFeedback.selectionClick();
     } catch (e, stack) {
       debugPrint(
         "[ChatPage] Send message failed: "
@@ -1912,6 +1972,18 @@ class _ChatPageState extends State<ChatPage> {
         _scrollController.position.maxScrollExtent - 200) {
       unawaited(_loadOlderMessages());
     }
+
+    // Track whether the user is looking at the newest message. A small
+    // threshold keeps the button from flickering on tiny scroll bounces.
+    final bool atBottom = _scrollController.position.pixels < 80;
+
+    if (atBottom != !_showScrollToBottom) {
+      if (mounted && !_disposed) {
+        setState(() {
+          _showScrollToBottom = !atBottom;
+        });
+      }
+    }
   }
 
   Future<void> _loadOlderMessages() async {
@@ -2127,11 +2199,13 @@ class _ChatPageState extends State<ChatPage> {
           // MESSAGES
           // ====================================================
           Expanded(
-            child: _isLoading
-                ? const Center(child: CircularProgressIndicator())
-                : _messages.isEmpty
-                ? Center(child: Text(l10n.noMessagesYet))
-                : ListView.builder(
+            child: Stack(
+              children: [
+                _isLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : _messages.isEmpty
+                    ? Center(child: Text(l10n.noMessagesYet))
+                    : ListView.builder(
                     controller: _scrollController,
                     reverse: true,
                     padding: const EdgeInsets.all(12),
@@ -2169,6 +2243,27 @@ class _ChatPageState extends State<ChatPage> {
                                   decryptedText,
                                   style: const TextStyle(color: Colors.white),
                                 )
+                              else if (_failedDecryptions.contains(message.id))
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const Icon(
+                                      Icons.lock_outline,
+                                      size: 14,
+                                      color: Colors.white70,
+                                    ),
+                                    const SizedBox(width: 4),
+                                    Flexible(
+                                      child: Text(
+                                        l10n.decryptionError,
+                                        style: const TextStyle(
+                                          color: Colors.white70,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                )
                               else
                                 const SizedBox(
                                   width: 16,
@@ -2203,6 +2298,18 @@ class _ChatPageState extends State<ChatPage> {
                       );
                     },
                   ),
+                if (_showScrollToBottom)
+                  Positioned(
+                    right: 12,
+                    bottom: 12,
+                    child: FloatingActionButton.small(
+                      heroTag: 'scrollToBottom',
+                      onPressed: _scrollToBottom,
+                      child: const Icon(Icons.keyboard_arrow_down),
+                    ),
+                  ),
+              ],
+            ),
           ),
 
           // ====================================================

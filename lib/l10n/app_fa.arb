@@ -401,5 +401,11 @@
     "accountSuspended": "حساب به حالت تعلیق درآمد",
     "premiumLifetimeAccess": "دسترسی Premium مادام العمر",
     "premiumActivationStep1": "پرداخت کنید {amount} از {method} به آدرس لایتنینگ بالا",
-    "premiumActivationStep2": "یک اسکرین شات از تایید پرداخت بگیرید و آن را به عنوان مدرک پرداخت خود ارسال کنید."
+    "premiumActivationStep2": "یک اسکرین شات از تایید پرداخت بگیرید و آن را به عنوان مدرک پرداخت خود ارسال کنید.",
+    "pinFourDigits": "دقیقا 4 رقم وارد کنید.",
+    "scanOwnCode": "این کد خود شماست. کد CRYPT شخص دیگری را اسکن کنید تا با او چت کنید.",
+    "couldNotGenerateQrImage": "تصویر QR ایجاد نشد",
+    "conversationUpdateFailed": "به‌روزرسانی مکالمه انجام نشد. دوباره امتحان کنید.",
+    "conversationCreationFailed": "مکالمه ایجاد نشد. دوباره امتحان کنید.",
+    "accountSuspendedByAdmin": "این حساب توسط یک سرپرست به حالت تعلیق درآمده است."
 }

@@ -892,4 +892,23 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get premiumActivationStep2 => '결제 확인 스크린샷을 찍어 결제 증빙 자료로 보내주세요.';
+
+  @override
+  String get pinFourDigits => '정확히 4자리를 입력하세요.';
+
+  @override
+  String get scanOwnCode =>
+      '그것은 당신 자신의 코드입니다. 다른 사람의 CRYPT 코드를 스캔하여 채팅을 시작하세요.';
+
+  @override
+  String get couldNotGenerateQrImage => 'QR 이미지를 생성할 수 없습니다.';
+
+  @override
+  String get conversationUpdateFailed => '대화를 업데이트하지 못했습니다. 다시 시도해 보세요.';
+
+  @override
+  String get conversationCreationFailed => '대화 생성에 실패했습니다. 다시 시도해 보세요.';
+
+  @override
+  String get accountSuspendedByAdmin => '이 계정은 관리자에 의해 정지되었습니다.';
 }

@@ -322,8 +322,7 @@ class _ScanQrPageState extends State<ScanQrPage> {
           behavior: SnackBarBehavior.floating,
           content: Text(
             error is _SelfScanException
-                ? "That is your own code. Scan someone else's CRYPT code "
-                    "to start a chat with them."
+                ? l10n.scanOwnCode
                 : l10n.invalidCryptQrFormat,
           ),
         ),

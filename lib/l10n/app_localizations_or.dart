@@ -940,4 +940,26 @@ class AppLocalizationsOr extends AppLocalizations {
   @override
   String get premiumActivationStep2 =>
       'ଦେୟ ନିଶ୍ଚିତକରଣର ଏକ ସ୍କ୍ରିନସଟ୍ ନିଅ ଏବଂ ଏହାକୁ ତୁମର ଦେୟର ପ୍ରମାଣ ଭାବରେ ପଠାନ୍ତୁ |';
+
+  @override
+  String get pinFourDigits => 'ଠିକ୍ 4 ଅଙ୍କ ପ୍ରବେଶ କରନ୍ତୁ |';
+
+  @override
+  String get scanOwnCode =>
+      'ତାହା ହେଉଛି ଆପଣଙ୍କର ନିଜ କୋଡ୍ | ସେମାନଙ୍କ ସହିତ ଚାଟ୍ ଆରମ୍ଭ କରିବାକୁ ଅନ୍ୟର CRYPT କୋଡ୍ ସ୍କାନ୍ କରନ୍ତୁ |';
+
+  @override
+  String get couldNotGenerateQrImage => 'QR ପ୍ରତିଛବି ସୃଷ୍ଟି କରିପାରିବ ନାହିଁ |';
+
+  @override
+  String get conversationUpdateFailed =>
+      'ବାର୍ତ୍ତାଳାପ ଅଦ୍ୟତନ ବିଫଳ ହେଲା | ପୁନର୍ବାର ଚେଷ୍ଟା କରନ୍ତୁ |';
+
+  @override
+  String get conversationCreationFailed =>
+      'ବାର୍ତ୍ତାଳାପ ସୃଷ୍ଟି ବିଫଳ ହେଲା | ପୁନର୍ବାର ଚେଷ୍ଟା କରନ୍ତୁ |';
+
+  @override
+  String get accountSuspendedByAdmin =>
+      'ଏହି ଆକାଉଣ୍ଟକୁ ଜଣେ ପ୍ରଶାସକ ସ୍ଥଗିତ ରଖିଛନ୍ତି |';
 }

@@ -941,4 +941,26 @@ class AppLocalizationsMl extends AppLocalizations {
   @override
   String get premiumActivationStep2 =>
       'പേയ്‌മെൻ്റ് സ്ഥിരീകരണത്തിൻ്റെ സ്‌ക്രീൻഷോട്ട് എടുത്ത് നിങ്ങളുടെ പേയ്‌മെൻ്റ് തെളിവായി അയയ്‌ക്കുക.';
+
+  @override
+  String get pinFourDigits => 'കൃത്യമായി 4 അക്കങ്ങൾ നൽകുക.';
+
+  @override
+  String get scanOwnCode =>
+      'അത് നിങ്ങളുടെ സ്വന്തം കോഡാണ്. മറ്റൊരാളുമായി ഒരു ചാറ്റ് ആരംഭിക്കാൻ അവരുടെ CRYPT കോഡ് സ്കാൻ ചെയ്യുക.';
+
+  @override
+  String get couldNotGenerateQrImage => 'QR ഇമേജ് സൃഷ്ടിക്കാൻ കഴിഞ്ഞില്ല';
+
+  @override
+  String get conversationUpdateFailed =>
+      'സംഭാഷണ അപ്‌ഡേറ്റ് പരാജയപ്പെട്ടു. വീണ്ടും ശ്രമിക്കുക.';
+
+  @override
+  String get conversationCreationFailed =>
+      'സംഭാഷണം സൃഷ്‌ടിക്കാനായില്ല. വീണ്ടും ശ്രമിക്കുക.';
+
+  @override
+  String get accountSuspendedByAdmin =>
+      'ഈ അക്കൗണ്ട് ഒരു അഡ്‌മിനിസ്‌ട്രേറ്റർ സസ്പെൻഡ് ചെയ്‌തിരിക്കുന്നു.';
 }

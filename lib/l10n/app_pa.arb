@@ -401,5 +401,11 @@
     "accountSuspended": "ਖਾਤਾ ਮੁਅੱਤਲ ਕੀਤਾ ਗਿਆ",
     "premiumLifetimeAccess": "ਲਾਈਫਟਾਈਮ ਪ੍ਰੀਮੀਅਮ ਐਕਸੈਸ",
     "premiumActivationStep1": "ਭੁਗਤਾਨ ਕਰੋ {amount} ਤੋਂ {method} ਉੱਪਰ ਦਿੱਤੇ ਲਾਈਟਨਿੰਗ ਪਤੇ 'ਤੇ।",
-    "premiumActivationStep2": "ਭੁਗਤਾਨ ਦੀ ਪੁਸ਼ਟੀ ਦਾ ਇੱਕ ਸਕ੍ਰੀਨਸ਼ੌਟ ਲਓ ਅਤੇ ਇਸਨੂੰ ਆਪਣੇ ਭੁਗਤਾਨ ਦੇ ਸਬੂਤ ਵਜੋਂ ਭੇਜੋ।"
+    "premiumActivationStep2": "ਭੁਗਤਾਨ ਦੀ ਪੁਸ਼ਟੀ ਦਾ ਇੱਕ ਸਕ੍ਰੀਨਸ਼ੌਟ ਲਓ ਅਤੇ ਇਸਨੂੰ ਆਪਣੇ ਭੁਗਤਾਨ ਦੇ ਸਬੂਤ ਵਜੋਂ ਭੇਜੋ।",
+    "pinFourDigits": "ਬਿਲਕੁਲ 4 ਅੰਕ ਦਾਖਲ ਕਰੋ।",
+    "scanOwnCode": "ਇਹ ਤੁਹਾਡਾ ਆਪਣਾ ਕੋਡ ਹੈ। ਕਿਸੇ ਹੋਰ ਵਿਅਕਤੀ ਦੇ ਨਾਲ ਚੈਟ ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਉਸ ਦਾ CRYPT ਕੋਡ ਸਕੈਨ ਕਰੋ।",
+    "couldNotGenerateQrImage": "QR ਚਿੱਤਰ ਤਿਆਰ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ",
+    "conversationUpdateFailed": "ਗੱਲਬਾਤ ਅੱਪਡੇਟ ਅਸਫਲ ਰਿਹਾ। ਫਿਰ ਕੋਸ਼ਿਸ਼ ਕਰੋ.",
+    "conversationCreationFailed": "ਗੱਲਬਾਤ ਬਣਾਉਣਾ ਅਸਫਲ ਰਿਹਾ। ਫਿਰ ਕੋਸ਼ਿਸ਼ ਕਰੋ.",
+    "accountSuspendedByAdmin": "ਇਸ ਖਾਤੇ ਨੂੰ ਇੱਕ ਪ੍ਰਸ਼ਾਸਕ ਦੁਆਰਾ ਮੁਅੱਤਲ ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ।"
 }

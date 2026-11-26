@@ -948,4 +948,26 @@ class AppLocalizationsTl extends AppLocalizations {
   @override
   String get premiumActivationStep2 =>
       'Kumuha ng screenshot ng kumpirmasyon sa pagbabayad at ipadala ito bilang iyong patunay ng pagbabayad.';
+
+  @override
+  String get pinFourDigits => 'Maglagay ng eksaktong 4 na digit.';
+
+  @override
+  String get scanOwnCode =>
+      'Iyan ang sarili mong code. I-scan ang CRYPT code ng ibang tao para magsimula ng chat sa kanila.';
+
+  @override
+  String get couldNotGenerateQrImage => 'Hindi makabuo ng QR na larawan';
+
+  @override
+  String get conversationUpdateFailed =>
+      'Nabigo ang pag-update ng pag-uusap. Subukan muli.';
+
+  @override
+  String get conversationCreationFailed =>
+      'Nabigo ang paggawa ng pag-uusap. Subukan muli.';
+
+  @override
+  String get accountSuspendedByAdmin =>
+      'Ang account na ito ay sinuspinde ng isang administrator.';
 }

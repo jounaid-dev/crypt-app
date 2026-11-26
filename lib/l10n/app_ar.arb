@@ -401,5 +401,11 @@
     "accountSuspended": "تم تعليق الحساب",
     "premiumLifetimeAccess": "الوصول المميز مدى الحياة",
     "premiumActivationStep1": "يدفع {amount} من {method} إلى عنوان Lightning أعلاه.",
-    "premiumActivationStep2": "التقط لقطة شاشة لتأكيد الدفع وأرسلها كإثبات للدفع."
+    "premiumActivationStep2": "التقط لقطة شاشة لتأكيد الدفع وأرسلها كإثبات للدفع.",
+    "pinFourDigits": "أدخل 4 أرقام بالضبط.",
+    "scanOwnCode": "هذا هو الرمز الخاص بك. امسح رمز CRYPT الخاص بشخص آخر لبدء محادثة معه.",
+    "couldNotGenerateQrImage": "لا يمكن إنشاء صورة QR",
+    "conversationUpdateFailed": "فشل تحديث المحادثة. حاول ثانية.",
+    "conversationCreationFailed": "فشل إنشاء المحادثة. حاول ثانية.",
+    "accountSuspendedByAdmin": "لقد تم تعليق هذا الحساب من قبل المسؤول."
 }

@@ -934,4 +934,26 @@ class AppLocalizationsKn extends AppLocalizations {
   @override
   String get premiumActivationStep2 =>
       'ಪಾವತಿ ದೃಢೀಕರಣದ ಸ್ಕ್ರೀನ್‌ಶಾಟ್ ತೆಗೆದುಕೊಳ್ಳಿ ಮತ್ತು ಅದನ್ನು ನಿಮ್ಮ ಪಾವತಿಯ ಪುರಾವೆಯಾಗಿ ಕಳುಹಿಸಿ.';
+
+  @override
+  String get pinFourDigits => 'ನಿಖರವಾಗಿ 4 ಅಂಕೆಗಳನ್ನು ನಮೂದಿಸಿ.';
+
+  @override
+  String get scanOwnCode =>
+      'ಅದು ನಿಮ್ಮ ಸ್ವಂತ ಕೋಡ್ ಆಗಿದೆ. ಬೇರೆಯವರೊಂದಿಗೆ ಚಾಟ್ ಆರಂಭಿಸಲು ಅವರ CRYPT ಕೋಡ್ ಅನ್ನು ಸ್ಕ್ಯಾನ್ ಮಾಡಿ.';
+
+  @override
+  String get couldNotGenerateQrImage => 'QR ಚಿತ್ರವನ್ನು ರಚಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ';
+
+  @override
+  String get conversationUpdateFailed =>
+      'ಸಂವಾದ ನವೀಕರಣ ವಿಫಲವಾಗಿದೆ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.';
+
+  @override
+  String get conversationCreationFailed =>
+      'ಸಂವಾದ ರಚನೆ ವಿಫಲವಾಗಿದೆ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.';
+
+  @override
+  String get accountSuspendedByAdmin =>
+      'ಈ ಖಾತೆಯನ್ನು ನಿರ್ವಾಹಕರು ಅಮಾನತುಗೊಳಿಸಿದ್ದಾರೆ.';
 }

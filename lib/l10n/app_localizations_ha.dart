@@ -928,4 +928,25 @@ class AppLocalizationsHa extends AppLocalizations {
   @override
   String get premiumActivationStep2 =>
       'Ɗauki hoton tabbacin biyan kuɗi kuma aika shi a matsayin shaidar biyan kuɗi.';
+
+  @override
+  String get pinFourDigits => 'Shigar da lambobi 4 daidai.';
+
+  @override
+  String get scanOwnCode =>
+      'Wannan shine lambar ku. Duba lambar CRYPT na wani don fara hira da su.';
+
+  @override
+  String get couldNotGenerateQrImage => 'An kasa samar da hoton QR';
+
+  @override
+  String get conversationUpdateFailed => 'An gaza sabunta taɗi Gwada kuma.';
+
+  @override
+  String get conversationCreationFailed =>
+      'Ƙirƙirar tattaunawa ta kasa. Gwada kuma.';
+
+  @override
+  String get accountSuspendedByAdmin =>
+      'Wani mai gudanarwa ya dakatar da wannan asusun.';
 }

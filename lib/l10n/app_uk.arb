@@ -401,5 +401,11 @@
     "accountSuspended": "Обліковий запис призупинено",
     "premiumLifetimeAccess": "Довічний преміум-доступ",
     "premiumActivationStep1": "платити {amount} від {method} на адресу Lightning вище.",
-    "premiumActivationStep2": "Зробіть знімок екрана підтвердження платежу та надішліть його як підтвердження платежу."
+    "premiumActivationStep2": "Зробіть знімок екрана підтвердження платежу та надішліть його як підтвердження платежу.",
+    "pinFourDigits": "Введіть рівно 4 цифри.",
+    "scanOwnCode": "Це ваш власний код. Відскануйте чужий код CRYPT, щоб почати з ним чат.",
+    "couldNotGenerateQrImage": "Не вдалося створити QR-зображення",
+    "conversationUpdateFailed": "Не вдалося оновити розмову. Спробуйте знову.",
+    "conversationCreationFailed": "Не вдалося створити розмову. Спробуйте знову.",
+    "accountSuspendedByAdmin": "Цей обліковий запис призупинено адміністратором."
 }

@@ -928,4 +928,25 @@ class AppLocalizationsMr extends AppLocalizations {
   @override
   String get premiumActivationStep2 =>
       'पेमेंट कन्फर्मेशनचा स्क्रीनशॉट घ्या आणि तो तुमच्या पेमेंटचा पुरावा म्हणून पाठवा.';
+
+  @override
+  String get pinFourDigits => 'अचूक 4 अंक प्रविष्ट करा.';
+
+  @override
+  String get scanOwnCode =>
+      'तो तुमचा स्वतःचा कोड आहे. त्यांच्याशी चॅट सुरू करण्यासाठी इतर कोणाचा CRYPT कोड स्कॅन करा.';
+
+  @override
+  String get couldNotGenerateQrImage => 'QR प्रतिमा व्युत्पन्न करू शकलो नाही';
+
+  @override
+  String get conversationUpdateFailed =>
+      'संभाषण अद्यतन अयशस्वी. पुन्हा प्रयत्न करा.';
+
+  @override
+  String get conversationCreationFailed =>
+      'संभाषण निर्मिती अयशस्वी. पुन्हा प्रयत्न करा.';
+
+  @override
+  String get accountSuspendedByAdmin => 'हे खाते प्रशासकाने निलंबित केले आहे.';
 }

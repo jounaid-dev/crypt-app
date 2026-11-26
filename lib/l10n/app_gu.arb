@@ -401,5 +401,11 @@
     "accountSuspended": "એકાઉન્ટ સસ્પેન્ડ કર્યું",
     "premiumLifetimeAccess": "આજીવન પ્રીમિયમ ઍક્સેસ",
     "premiumActivationStep1": "પે {amount} થી {method} ઉપરના લાઈટનિંગ સરનામા પર.",
-    "premiumActivationStep2": "ચુકવણી પુષ્ટિકરણનો સ્ક્રીનશોટ લો અને તેને તમારા ચુકવણીના પુરાવા તરીકે મોકલો."
+    "premiumActivationStep2": "ચુકવણી પુષ્ટિકરણનો સ્ક્રીનશોટ લો અને તેને તમારા ચુકવણીના પુરાવા તરીકે મોકલો.",
+    "pinFourDigits": "બરાબર 4 અંકો દાખલ કરો.",
+    "scanOwnCode": "તે તમારો પોતાનો કોડ છે. તેમની સાથે ચેટ શરૂ કરવા માટે અન્ય કોઈનો CRYPT કોડ સ્કેન કરો.",
+    "couldNotGenerateQrImage": "QR છબી જનરેટ કરી શકાઈ નથી",
+    "conversationUpdateFailed": "વાતચીત અપડેટ નિષ્ફળ. ફરી પ્રયાસ કરો.",
+    "conversationCreationFailed": "વાર્તાલાપ બનાવટ નિષ્ફળ. ફરી પ્રયાસ કરો.",
+    "accountSuspendedByAdmin": "આ એકાઉન્ટ એડમિનિસ્ટ્રેટર દ્વારા સસ્પેન્ડ કરવામાં આવ્યું છે."
 }

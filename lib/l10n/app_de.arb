@@ -401,5 +401,11 @@
     "accountSuspended": "Konto gesperrt",
     "premiumLifetimeAccess": "Lebenslanger Premium-Zugang",
     "premiumActivationStep1": "Zahlen {amount} aus {method} an die oben angegebene Lightning-Adresse.",
-    "premiumActivationStep2": "Machen Sie einen Screenshot der Zahlungsbestätigung und senden Sie ihn als Zahlungsnachweis ein."
+    "premiumActivationStep2": "Machen Sie einen Screenshot der Zahlungsbestätigung und senden Sie ihn als Zahlungsnachweis ein.",
+    "pinFourDigits": "Geben Sie genau 4 Ziffern ein.",
+    "scanOwnCode": "Das ist Ihr eigener Code. Scannen Sie den CRYPT-Code einer anderen Person, um einen Chat mit dieser Person zu starten.",
+    "couldNotGenerateQrImage": "Das QR-Bild konnte nicht generiert werden",
+    "conversationUpdateFailed": "Konversationsaktualisierung fehlgeschlagen. Versuchen Sie es erneut.",
+    "conversationCreationFailed": "Die Konversationserstellung ist fehlgeschlagen. Versuchen Sie es erneut.",
+    "accountSuspendedByAdmin": "Dieses Konto wurde von einem Administrator gesperrt."
 }

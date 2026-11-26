@@ -401,5 +401,11 @@
     "accountSuspended": "Conto sospeso",
     "premiumLifetimeAccess": "Accesso Premium a vita",
     "premiumActivationStep1": "Paga {amount} da {method} all'indirizzo Lightning riportato sopra.",
-    "premiumActivationStep2": "Fai uno screenshot della conferma di pagamento e invialo come prova di pagamento."
+    "premiumActivationStep2": "Fai uno screenshot della conferma di pagamento e invialo come prova di pagamento.",
+    "pinFourDigits": "Inserisci esattamente 4 cifre.",
+    "scanOwnCode": "Questo è il tuo codice. Scansiona il codice CRYPT di qualcun altro per avviare una chat con loro.",
+    "couldNotGenerateQrImage": "Impossibile generare l'immagine QR",
+    "conversationUpdateFailed": "Aggiornamento della conversazione non riuscito. Riprova.",
+    "conversationCreationFailed": "Creazione della conversazione non riuscita. Riprova.",
+    "accountSuspendedByAdmin": "Questo account è stato sospeso da un amministratore."
 }

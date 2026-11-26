@@ -401,5 +401,11 @@
     "accountSuspended": "Аккаунт заблокирован",
     "premiumLifetimeAccess": "Пожизненный премиум-доступ",
     "premiumActivationStep1": "Платить {amount} от {method} по указанному выше адресу Lightning.",
-    "premiumActivationStep2": "Сделайте скриншот подтверждения платежа и отправьте его в качестве доказательства оплаты."
+    "premiumActivationStep2": "Сделайте скриншот подтверждения платежа и отправьте его в качестве доказательства оплаты.",
+    "pinFourDigits": "Введите ровно 4 цифры.",
+    "scanOwnCode": "Это ваш собственный код. Отсканируйте чужой код CRYPT, чтобы начать с ним чат.",
+    "couldNotGenerateQrImage": "Не удалось создать QR-изображение",
+    "conversationUpdateFailed": "Не удалось обновить беседу. Попробуйте еще раз.",
+    "conversationCreationFailed": "Не удалось создать беседу. Попробуйте еще раз.",
+    "accountSuspendedByAdmin": "Эта учетная запись заблокирована администратором."
 }

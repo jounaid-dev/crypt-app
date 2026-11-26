@@ -922,4 +922,26 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get premiumActivationStep2 =>
       'পেমেন্ট নিশ্চিতকরণের একটি স্ক্রিনশট নিন এবং আপনার অর্থপ্রদানের প্রমাণ হিসাবে এটি পাঠান।';
+
+  @override
+  String get pinFourDigits => 'ঠিক 4 সংখ্যা লিখুন।';
+
+  @override
+  String get scanOwnCode =>
+      'যে আপনার নিজের কোড. তাদের সাথে চ্যাট শুরু করতে অন্য কারো CRYPT কোড স্ক্যান করুন।';
+
+  @override
+  String get couldNotGenerateQrImage => 'QR ছবি তৈরি করা যায়নি';
+
+  @override
+  String get conversationUpdateFailed =>
+      'কথোপকথন আপডেট ব্যর্থ হয়েছে৷ আবার চেষ্টা করুন';
+
+  @override
+  String get conversationCreationFailed =>
+      'কথোপকথন তৈরি করা ব্যর্থ হয়েছে৷ আবার চেষ্টা করুন';
+
+  @override
+  String get accountSuspendedByAdmin =>
+      'এই অ্যাকাউন্টটি একজন প্রশাসক দ্বারা স্থগিত করা হয়েছে৷';
 }

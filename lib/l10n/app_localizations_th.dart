@@ -924,4 +924,24 @@ class AppLocalizationsTh extends AppLocalizations {
   @override
   String get premiumActivationStep2 =>
       'ถ่ายภาพหน้าจอยืนยันการชำระเงินแล้วส่งเป็นหลักฐานการชำระเงิน';
+
+  @override
+  String get pinFourDigits => 'ป้อนตัวเลข 4 หลักให้ตรงกัน';
+
+  @override
+  String get scanOwnCode =>
+      'นั่นคือรหัสของคุณเอง สแกนรหัส CRYPT ของผู้อื่นเพื่อเริ่มแชทกับพวกเขา';
+
+  @override
+  String get couldNotGenerateQrImage => 'ไม่สามารถสร้างอิมเมจ QR ได้';
+
+  @override
+  String get conversationUpdateFailed => 'การอัปเดตการสนทนาล้มเหลว ลองอีกครั้ง';
+
+  @override
+  String get conversationCreationFailed =>
+      'การสร้างการสนทนาล้มเหลว ลองอีกครั้ง';
+
+  @override
+  String get accountSuspendedByAdmin => 'บัญชีนี้ถูกระงับโดยผู้ดูแลระบบ';
 }

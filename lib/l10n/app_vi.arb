@@ -401,5 +401,11 @@
     "accountSuspended": "Tài khoản bị đình chỉ",
     "premiumLifetimeAccess": "Quyền truy cập cao cấp trọn đời",
     "premiumActivationStep1": "Chi trả {amount} từ {method} đến địa chỉ Lightning ở trên.",
-    "premiumActivationStep2": "Chụp ảnh màn hình xác nhận thanh toán và gửi nó làm bằng chứng thanh toán của bạn."
+    "premiumActivationStep2": "Chụp ảnh màn hình xác nhận thanh toán và gửi nó làm bằng chứng thanh toán của bạn.",
+    "pinFourDigits": "Nhập chính xác 4 chữ số.",
+    "scanOwnCode": "Đó là mã của riêng bạn. Quét mã CRYPT của người khác để bắt đầu trò chuyện với họ.",
+    "couldNotGenerateQrImage": "Không thể tạo hình ảnh QR",
+    "conversationUpdateFailed": "Cập nhật cuộc trò chuyện không thành công. Hãy thử lại.",
+    "conversationCreationFailed": "Tạo cuộc trò chuyện không thành công. Hãy thử lại.",
+    "accountSuspendedByAdmin": "Tài khoản này đã bị quản trị viên đình chỉ."
 }

@@ -401,5 +401,11 @@
     "accountSuspended": "Account opgeschort",
     "premiumLifetimeAccess": "Levenslange premiumtoegang",
     "premiumActivationStep1": "Betalen {amount} van {method} naar het Lightning-adres hierboven.",
-    "premiumActivationStep2": "Maak een screenshot van de betalingsbevestiging en stuur deze mee als betalingsbewijs."
+    "premiumActivationStep2": "Maak een screenshot van de betalingsbevestiging en stuur deze mee als betalingsbewijs.",
+    "pinFourDigits": "Voer precies 4 cijfers in.",
+    "scanOwnCode": "Dat is je eigen code. Scan de CRYPT-code van iemand anders om een ​​chat met hem/haar te starten.",
+    "couldNotGenerateQrImage": "Kon geen QR-afbeelding genereren",
+    "conversationUpdateFailed": "Gespreksupdate mislukt. Probeer het opnieuw.",
+    "conversationCreationFailed": "Het maken van een gesprek is mislukt. Probeer het opnieuw.",
+    "accountSuspendedByAdmin": "Dit account is opgeschort door een beheerder."
 }

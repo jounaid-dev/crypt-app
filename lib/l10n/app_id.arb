@@ -401,5 +401,11 @@
     "accountSuspended": "Akun ditangguhkan",
     "premiumLifetimeAccess": "Akses Premium Seumur Hidup",
     "premiumActivationStep1": "Membayar {amount} dari {method} ke alamat Lightning di atas.",
-    "premiumActivationStep2": "Ambil screenshot konfirmasi pembayaran dan kirimkan sebagai bukti pembayaran Anda."
+    "premiumActivationStep2": "Ambil screenshot konfirmasi pembayaran dan kirimkan sebagai bukti pembayaran Anda.",
+    "pinFourDigits": "Masukkan tepat 4 digit.",
+    "scanOwnCode": "Itu adalah kode Anda sendiri. Pindai kode CRYPT orang lain untuk memulai obrolan dengan mereka.",
+    "couldNotGenerateQrImage": "Tidak dapat membuat gambar QR",
+    "conversationUpdateFailed": "Pembaruan percakapan gagal. Coba lagi.",
+    "conversationCreationFailed": "Pembuatan percakapan gagal. Coba lagi.",
+    "accountSuspendedByAdmin": "Akun ini telah ditangguhkan oleh administrator."
 }

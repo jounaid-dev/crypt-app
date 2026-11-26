@@ -401,5 +401,11 @@
     "accountSuspended": "Hesap askıya alındı",
     "premiumLifetimeAccess": "Ömür Boyu Premium Erişim",
     "premiumActivationStep1": "Ödemek {amount} itibaren {method} Yukarıdaki Lightning adresine.",
-    "premiumActivationStep2": "Ödeme onayının ekran görüntüsünü alın ve ödeme kanıtı olarak gönderin."
+    "premiumActivationStep2": "Ödeme onayının ekran görüntüsünü alın ve ödeme kanıtı olarak gönderin.",
+    "pinFourDigits": "Tam olarak 4 hane girin.",
+    "scanOwnCode": "Bu sizin kendi kodunuzdur. Başka biriyle sohbet başlatmak için başka birinin CRYPT kodunu tarayın.",
+    "couldNotGenerateQrImage": "QR görüntüsü oluşturulamadı",
+    "conversationUpdateFailed": "Konuşma güncellemesi başarısız oldu. Tekrar deneyin.",
+    "conversationCreationFailed": "Konuşma oluşturma başarısız oldu. Tekrar deneyin.",
+    "accountSuspendedByAdmin": "Bu hesap bir yönetici tarafından askıya alındı."
 }

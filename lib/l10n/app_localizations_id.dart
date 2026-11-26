@@ -937,4 +937,26 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get premiumActivationStep2 =>
       'Ambil screenshot konfirmasi pembayaran dan kirimkan sebagai bukti pembayaran Anda.';
+
+  @override
+  String get pinFourDigits => 'Masukkan tepat 4 digit.';
+
+  @override
+  String get scanOwnCode =>
+      'Itu adalah kode Anda sendiri. Pindai kode CRYPT orang lain untuk memulai obrolan dengan mereka.';
+
+  @override
+  String get couldNotGenerateQrImage => 'Tidak dapat membuat gambar QR';
+
+  @override
+  String get conversationUpdateFailed =>
+      'Pembaruan percakapan gagal. Coba lagi.';
+
+  @override
+  String get conversationCreationFailed =>
+      'Pembuatan percakapan gagal. Coba lagi.';
+
+  @override
+  String get accountSuspendedByAdmin =>
+      'Akun ini telah ditangguhkan oleh administrator.';
 }

@@ -401,5 +401,11 @@
     "accountSuspended": "帐户被暂停",
     "premiumLifetimeAccess": "终身高级访问权限",
     "premiumActivationStep1": "用 {method} 向上面的 Lightning 地址支付 {amount}。",
-    "premiumActivationStep2": "截取付款确认的屏幕截图并将其作为您的付款证明发送。"
+    "premiumActivationStep2": "截取付款确认的屏幕截图并将其作为您的付款证明发送。",
+    "pinFourDigits": "准确输入 4 位数字。",
+    "scanOwnCode": "那是你自己的代码。扫描其他人的 CRYPT 代码即可开始与他们聊天。",
+    "couldNotGenerateQrImage": "无法生成二维码图像",
+    "conversationUpdateFailed": "对话更新失败。再试一次。",
+    "conversationCreationFailed": "对话创建失败。再试一次。",
+    "accountSuspendedByAdmin": "该帐户已被管理员暂停。"
 }

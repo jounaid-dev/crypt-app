@@ -942,4 +942,26 @@ class AppLocalizationsTa extends AppLocalizations {
   @override
   String get premiumActivationStep2 =>
       'பணம் செலுத்தியதை உறுதிப்படுத்தும் ஸ்கிரீன் ஷாட்டை எடுத்து, பணம் செலுத்தியதற்கான ஆதாரமாக அதை அனுப்பவும்.';
+
+  @override
+  String get pinFourDigits => 'சரியாக 4 இலக்கங்களை உள்ளிடவும்.';
+
+  @override
+  String get scanOwnCode =>
+      'அது உங்கள் சொந்த குறியீடு. வேறொருவருடன் அரட்டையைத் தொடங்க அவர்களின் CRYPT குறியீட்டை ஸ்கேன் செய்யவும்.';
+
+  @override
+  String get couldNotGenerateQrImage => 'QR படத்தை உருவாக்க முடியவில்லை';
+
+  @override
+  String get conversationUpdateFailed =>
+      'உரையாடல் புதுப்பிப்பு தோல்வியடைந்தது. மீண்டும் முயற்சிக்கவும்.';
+
+  @override
+  String get conversationCreationFailed =>
+      'உரையாடலை உருவாக்க முடியவில்லை. மீண்டும் முயற்சிக்கவும்.';
+
+  @override
+  String get accountSuspendedByAdmin =>
+      'இந்தக் கணக்கு நிர்வாகியால் இடைநிறுத்தப்பட்டுள்ளது.';
 }

@@ -930,4 +930,26 @@ class AppLocalizationsPa extends AppLocalizations {
   @override
   String get premiumActivationStep2 =>
       'ਭੁਗਤਾਨ ਦੀ ਪੁਸ਼ਟੀ ਦਾ ਇੱਕ ਸਕ੍ਰੀਨਸ਼ੌਟ ਲਓ ਅਤੇ ਇਸਨੂੰ ਆਪਣੇ ਭੁਗਤਾਨ ਦੇ ਸਬੂਤ ਵਜੋਂ ਭੇਜੋ।';
+
+  @override
+  String get pinFourDigits => 'ਬਿਲਕੁਲ 4 ਅੰਕ ਦਾਖਲ ਕਰੋ।';
+
+  @override
+  String get scanOwnCode =>
+      'ਇਹ ਤੁਹਾਡਾ ਆਪਣਾ ਕੋਡ ਹੈ। ਕਿਸੇ ਹੋਰ ਵਿਅਕਤੀ ਦੇ ਨਾਲ ਚੈਟ ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਉਸ ਦਾ CRYPT ਕੋਡ ਸਕੈਨ ਕਰੋ।';
+
+  @override
+  String get couldNotGenerateQrImage => 'QR ਚਿੱਤਰ ਤਿਆਰ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ';
+
+  @override
+  String get conversationUpdateFailed =>
+      'ਗੱਲਬਾਤ ਅੱਪਡੇਟ ਅਸਫਲ ਰਿਹਾ। ਫਿਰ ਕੋਸ਼ਿਸ਼ ਕਰੋ.';
+
+  @override
+  String get conversationCreationFailed =>
+      'ਗੱਲਬਾਤ ਬਣਾਉਣਾ ਅਸਫਲ ਰਿਹਾ। ਫਿਰ ਕੋਸ਼ਿਸ਼ ਕਰੋ.';
+
+  @override
+  String get accountSuspendedByAdmin =>
+      'ਇਸ ਖਾਤੇ ਨੂੰ ਇੱਕ ਪ੍ਰਸ਼ਾਸਕ ਦੁਆਰਾ ਮੁਅੱਤਲ ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ।';
 }

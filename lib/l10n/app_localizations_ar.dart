@@ -919,4 +919,24 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get premiumActivationStep2 =>
       'التقط لقطة شاشة لتأكيد الدفع وأرسلها كإثبات للدفع.';
+
+  @override
+  String get pinFourDigits => 'أدخل 4 أرقام بالضبط.';
+
+  @override
+  String get scanOwnCode =>
+      'هذا هو الرمز الخاص بك. امسح رمز CRYPT الخاص بشخص آخر لبدء محادثة معه.';
+
+  @override
+  String get couldNotGenerateQrImage => 'لا يمكن إنشاء صورة QR';
+
+  @override
+  String get conversationUpdateFailed => 'فشل تحديث المحادثة. حاول ثانية.';
+
+  @override
+  String get conversationCreationFailed => 'فشل إنشاء المحادثة. حاول ثانية.';
+
+  @override
+  String get accountSuspendedByAdmin =>
+      'لقد تم تعليق هذا الحساب من قبل المسؤول.';
 }

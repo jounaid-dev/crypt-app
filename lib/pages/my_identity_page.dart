@@ -266,7 +266,7 @@ class _MyIdentityPageState extends State<MyIdentityPage> {
     );
 
     if (byteData == null) {
-      throw Exception("Could not generate QR image");
+      throw Exception(AppLocalizations.of(context)!.couldNotGenerateQrImage);
     }
 
     return byteData.buffer.asUint8List();

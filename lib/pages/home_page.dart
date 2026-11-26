@@ -231,8 +231,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
           await _handleForceDisconnect({
             "reason": reason ??
-                "This account has been suspended by an "
-                "administrator.",
+                AppLocalizations.of(context)!.accountSuspendedByAdmin,
           });
         } catch (e) {
           // The flags read failed, e.g. no network. The next
@@ -252,7 +251,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     Map<String, dynamic> data,
   ) async {
     final reason = data["reason"]?.toString() ??
-        "This account has been suspended by an administrator.";
+        AppLocalizations.of(context)!.accountSuspendedByAdmin;
 
     if (mounted) {
       await showDialog(
@@ -266,7 +265,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: const Text("OK"),
+              child: Text(AppLocalizations.of(context)!.ok),
             ),
           ],
         ),
@@ -582,6 +581,14 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         "[Home] Failed to handle conversation request: "
         "$e\n$stack",
       );
+
+      // This used to fail silently, leaving the sender waiting for an
+      // acceptance that would never come.
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(l10n.conversationUpdateFailed)),
+        );
+      }
     } finally {
       _isHandlingConversationRequest = false;
     }
@@ -592,6 +599,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   // ============================================================
 
   Future<void> _handleConversationAccept(Map<String, dynamic> data) async {
+    final l10n = AppLocalizations.of(context)!;
+
     try {
       final sender = data["sender"]?.toString();
 
@@ -731,6 +740,12 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         "[Home] Failed to handle conversation acceptance: "
         "$e\n$stack",
       );
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(l10n.conversationCreationFailed)),
+        );
+      }
     }
   }
 

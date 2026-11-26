@@ -940,4 +940,26 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get premiumActivationStep2 =>
       'Сделайте скриншот подтверждения платежа и отправьте его в качестве доказательства оплаты.';
+
+  @override
+  String get pinFourDigits => 'Введите ровно 4 цифры.';
+
+  @override
+  String get scanOwnCode =>
+      'Это ваш собственный код. Отсканируйте чужой код CRYPT, чтобы начать с ним чат.';
+
+  @override
+  String get couldNotGenerateQrImage => 'Не удалось создать QR-изображение';
+
+  @override
+  String get conversationUpdateFailed =>
+      'Не удалось обновить беседу. Попробуйте еще раз.';
+
+  @override
+  String get conversationCreationFailed =>
+      'Не удалось создать беседу. Попробуйте еще раз.';
+
+  @override
+  String get accountSuspendedByAdmin =>
+      'Эта учетная запись заблокирована администратором.';
 }

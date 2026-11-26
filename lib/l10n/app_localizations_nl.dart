@@ -935,4 +935,26 @@ class AppLocalizationsNl extends AppLocalizations {
   @override
   String get premiumActivationStep2 =>
       'Maak een screenshot van de betalingsbevestiging en stuur deze mee als betalingsbewijs.';
+
+  @override
+  String get pinFourDigits => 'Voer precies 4 cijfers in.';
+
+  @override
+  String get scanOwnCode =>
+      'Dat is je eigen code. Scan de CRYPT-code van iemand anders om een ​​chat met hem/haar te starten.';
+
+  @override
+  String get couldNotGenerateQrImage => 'Kon geen QR-afbeelding genereren';
+
+  @override
+  String get conversationUpdateFailed =>
+      'Gespreksupdate mislukt. Probeer het opnieuw.';
+
+  @override
+  String get conversationCreationFailed =>
+      'Het maken van een gesprek is mislukt. Probeer het opnieuw.';
+
+  @override
+  String get accountSuspendedByAdmin =>
+      'Dit account is opgeschort door een beheerder.';
 }

@@ -923,4 +923,26 @@ class AppLocalizationsFa extends AppLocalizations {
   @override
   String get premiumActivationStep2 =>
       'یک اسکرین شات از تایید پرداخت بگیرید و آن را به عنوان مدرک پرداخت خود ارسال کنید.';
+
+  @override
+  String get pinFourDigits => 'دقیقا 4 رقم وارد کنید.';
+
+  @override
+  String get scanOwnCode =>
+      'این کد خود شماست. کد CRYPT شخص دیگری را اسکن کنید تا با او چت کنید.';
+
+  @override
+  String get couldNotGenerateQrImage => 'تصویر QR ایجاد نشد';
+
+  @override
+  String get conversationUpdateFailed =>
+      'به‌روزرسانی مکالمه انجام نشد. دوباره امتحان کنید.';
+
+  @override
+  String get conversationCreationFailed =>
+      'مکالمه ایجاد نشد. دوباره امتحان کنید.';
+
+  @override
+  String get accountSuspendedByAdmin =>
+      'این حساب توسط یک سرپرست به حالت تعلیق درآمده است.';
 }

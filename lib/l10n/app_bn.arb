@@ -401,5 +401,11 @@
     "accountSuspended": "অ্যাকাউন্ট সাসপেন্ড করা হয়েছে",
     "premiumLifetimeAccess": "লাইফটাইম প্রিমিয়াম অ্যাক্সেস",
     "premiumActivationStep1": "বেতন {amount} থেকে {method} উপরের Lightningের ঠিকানায়।",
-    "premiumActivationStep2": "পেমেন্ট নিশ্চিতকরণের একটি স্ক্রিনশট নিন এবং আপনার অর্থপ্রদানের প্রমাণ হিসাবে এটি পাঠান।"
+    "premiumActivationStep2": "পেমেন্ট নিশ্চিতকরণের একটি স্ক্রিনশট নিন এবং আপনার অর্থপ্রদানের প্রমাণ হিসাবে এটি পাঠান।",
+    "pinFourDigits": "ঠিক 4 সংখ্যা লিখুন।",
+    "scanOwnCode": "যে আপনার নিজের কোড. তাদের সাথে চ্যাট শুরু করতে অন্য কারো CRYPT কোড স্ক্যান করুন।",
+    "couldNotGenerateQrImage": "QR ছবি তৈরি করা যায়নি",
+    "conversationUpdateFailed": "কথোপকথন আপডেট ব্যর্থ হয়েছে৷ আবার চেষ্টা করুন",
+    "conversationCreationFailed": "কথোপকথন তৈরি করা ব্যর্থ হয়েছে৷ আবার চেষ্টা করুন",
+    "accountSuspendedByAdmin": "এই অ্যাকাউন্টটি একজন প্রশাসক দ্বারা স্থগিত করা হয়েছে৷"
 }

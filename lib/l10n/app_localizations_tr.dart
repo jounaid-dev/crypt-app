@@ -924,4 +924,26 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get premiumActivationStep2 =>
       'Ödeme onayının ekran görüntüsünü alın ve ödeme kanıtı olarak gönderin.';
+
+  @override
+  String get pinFourDigits => 'Tam olarak 4 hane girin.';
+
+  @override
+  String get scanOwnCode =>
+      'Bu sizin kendi kodunuzdur. Başka biriyle sohbet başlatmak için başka birinin CRYPT kodunu tarayın.';
+
+  @override
+  String get couldNotGenerateQrImage => 'QR görüntüsü oluşturulamadı';
+
+  @override
+  String get conversationUpdateFailed =>
+      'Konuşma güncellemesi başarısız oldu. Tekrar deneyin.';
+
+  @override
+  String get conversationCreationFailed =>
+      'Konuşma oluşturma başarısız oldu. Tekrar deneyin.';
+
+  @override
+  String get accountSuspendedByAdmin =>
+      'Bu hesap bir yönetici tarafından askıya alındı.';
 }

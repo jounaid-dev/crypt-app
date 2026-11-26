@@ -401,5 +401,11 @@
     "accountSuspended": "اکاؤنٹ معطل",
     "premiumLifetimeAccess": "لائف ٹائم پریمیم رسائی",
     "premiumActivationStep1": "ادا کریں۔ {amount} سے {method} اوپر Lightning کے پتے پر۔",
-    "premiumActivationStep2": "ادائیگی کی تصدیق کا اسکرین شاٹ لیں اور اسے اپنے ادائیگی کے ثبوت کے طور پر بھیجیں۔"
+    "premiumActivationStep2": "ادائیگی کی تصدیق کا اسکرین شاٹ لیں اور اسے اپنے ادائیگی کے ثبوت کے طور پر بھیجیں۔",
+    "pinFourDigits": "بالکل 4 ہندسے درج کریں۔",
+    "scanOwnCode": "یہ آپ کا اپنا کوڈ ہے۔ کسی اور کے ساتھ چیٹ شروع کرنے کے لیے اس کا CRYPT کوڈ اسکین کریں۔",
+    "couldNotGenerateQrImage": "QR تصویر نہیں بن سکی",
+    "conversationUpdateFailed": "بات چیت کی تازہ کاری ناکام ہو گئی۔ دوبارہ کوشش کریں۔",
+    "conversationCreationFailed": "بات چیت کی تخلیق ناکام ہو گئی۔ دوبارہ کوشش کریں۔",
+    "accountSuspendedByAdmin": "اس اکاؤنٹ کو ایک منتظم نے معطل کر دیا ہے۔"
 }

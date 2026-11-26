@@ -401,5 +401,11 @@
     "accountSuspended": "खाते निलंबित केले",
     "premiumLifetimeAccess": "आजीवन प्रीमियम प्रवेश",
     "premiumActivationStep1": "पैसे द्या {amount} पासून {method} वरील लाइटनिंग पत्त्यावर.",
-    "premiumActivationStep2": "पेमेंट कन्फर्मेशनचा स्क्रीनशॉट घ्या आणि तो तुमच्या पेमेंटचा पुरावा म्हणून पाठवा."
+    "premiumActivationStep2": "पेमेंट कन्फर्मेशनचा स्क्रीनशॉट घ्या आणि तो तुमच्या पेमेंटचा पुरावा म्हणून पाठवा.",
+    "pinFourDigits": "अचूक 4 अंक प्रविष्ट करा.",
+    "scanOwnCode": "तो तुमचा स्वतःचा कोड आहे. त्यांच्याशी चॅट सुरू करण्यासाठी इतर कोणाचा CRYPT कोड स्कॅन करा.",
+    "couldNotGenerateQrImage": "QR प्रतिमा व्युत्पन्न करू शकलो नाही",
+    "conversationUpdateFailed": "संभाषण अद्यतन अयशस्वी. पुन्हा प्रयत्न करा.",
+    "conversationCreationFailed": "संभाषण निर्मिती अयशस्वी. पुन्हा प्रयत्न करा.",
+    "accountSuspendedByAdmin": "हे खाते प्रशासकाने निलंबित केले आहे."
 }

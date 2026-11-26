@@ -939,4 +939,26 @@ class AppLocalizationsUk extends AppLocalizations {
   @override
   String get premiumActivationStep2 =>
       'Зробіть знімок екрана підтвердження платежу та надішліть його як підтвердження платежу.';
+
+  @override
+  String get pinFourDigits => 'Введіть рівно 4 цифри.';
+
+  @override
+  String get scanOwnCode =>
+      'Це ваш власний код. Відскануйте чужий код CRYPT, щоб почати з ним чат.';
+
+  @override
+  String get couldNotGenerateQrImage => 'Не вдалося створити QR-зображення';
+
+  @override
+  String get conversationUpdateFailed =>
+      'Не вдалося оновити розмову. Спробуйте знову.';
+
+  @override
+  String get conversationCreationFailed =>
+      'Не вдалося створити розмову. Спробуйте знову.';
+
+  @override
+  String get accountSuspendedByAdmin =>
+      'Цей обліковий запис призупинено адміністратором.';
 }

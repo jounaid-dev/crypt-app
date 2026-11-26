@@ -938,4 +938,26 @@ class AppLocalizationsTe extends AppLocalizations {
   @override
   String get premiumActivationStep2 =>
       'చెల్లింపు నిర్ధారణ యొక్క స్క్రీన్‌షాట్‌ని తీసి, మీ చెల్లింపు రుజువుగా పంపండి.';
+
+  @override
+  String get pinFourDigits => 'సరిగ్గా 4 అంకెలను నమోదు చేయండి.';
+
+  @override
+  String get scanOwnCode =>
+      'అది మీ స్వంత కోడ్. వేరొకరితో చాట్ ప్రారంభించడానికి వారి CRYPT కోడ్‌ని స్కాన్ చేయండి.';
+
+  @override
+  String get couldNotGenerateQrImage => 'QR చిత్రాన్ని రూపొందించడం సాధ్యపడలేదు';
+
+  @override
+  String get conversationUpdateFailed =>
+      'సంభాషణ నవీకరణ విఫలమైంది. మళ్లీ ప్రయత్నించండి.';
+
+  @override
+  String get conversationCreationFailed =>
+      'సంభాషణ సృష్టి విఫలమైంది. మళ్లీ ప్రయత్నించండి.';
+
+  @override
+  String get accountSuspendedByAdmin =>
+      'ఈ ఖాతాను అడ్మినిస్ట్రేటర్ సస్పెండ్ చేసారు.';
 }

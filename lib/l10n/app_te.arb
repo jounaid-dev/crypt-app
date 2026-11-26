@@ -401,5 +401,11 @@
     "accountSuspended": "ఖాతా సస్పెండ్ చేయబడింది",
     "premiumLifetimeAccess": "జీవితకాల ప్రీమియం యాక్సెస్",
     "premiumActivationStep1": "చెల్లించండి {amount} నుండి {method} పైన Lightning చిరునామాకు.",
-    "premiumActivationStep2": "చెల్లింపు నిర్ధారణ యొక్క స్క్రీన్‌షాట్‌ని తీసి, మీ చెల్లింపు రుజువుగా పంపండి."
+    "premiumActivationStep2": "చెల్లింపు నిర్ధారణ యొక్క స్క్రీన్‌షాట్‌ని తీసి, మీ చెల్లింపు రుజువుగా పంపండి.",
+    "pinFourDigits": "సరిగ్గా 4 అంకెలను నమోదు చేయండి.",
+    "scanOwnCode": "అది మీ స్వంత కోడ్. వేరొకరితో చాట్ ప్రారంభించడానికి వారి CRYPT కోడ్‌ని స్కాన్ చేయండి.",
+    "couldNotGenerateQrImage": "QR చిత్రాన్ని రూపొందించడం సాధ్యపడలేదు",
+    "conversationUpdateFailed": "సంభాషణ నవీకరణ విఫలమైంది. మళ్లీ ప్రయత్నించండి.",
+    "conversationCreationFailed": "సంభాషణ సృష్టి విఫలమైంది. మళ్లీ ప్రయత్నించండి.",
+    "accountSuspendedByAdmin": "ఈ ఖాతాను అడ్మినిస్ట్రేటర్ సస్పెండ్ చేసారు."
 }

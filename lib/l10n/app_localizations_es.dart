@@ -930,4 +930,26 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get premiumActivationStep2 =>
       'Tome una captura de pantalla de la confirmación de pago y envíela como comprobante de pago.';
+
+  @override
+  String get pinFourDigits => 'Introduzca exactamente 4 dígitos.';
+
+  @override
+  String get scanOwnCode =>
+      'Ese es tu propio código. Escanea el código CRYPT de otra persona para iniciar un chat con esa persona.';
+
+  @override
+  String get couldNotGenerateQrImage => 'No se pudo generar la imagen QR';
+
+  @override
+  String get conversationUpdateFailed =>
+      'Error al actualizar la conversación. Intentar otra vez.';
+
+  @override
+  String get conversationCreationFailed =>
+      'Error al crear la conversación. Intentar otra vez.';
+
+  @override
+  String get accountSuspendedByAdmin =>
+      'Esta cuenta ha sido suspendida por un administrador.';
 }

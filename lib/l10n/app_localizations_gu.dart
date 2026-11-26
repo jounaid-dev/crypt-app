@@ -928,4 +928,25 @@ class AppLocalizationsGu extends AppLocalizations {
   @override
   String get premiumActivationStep2 =>
       'ચુકવણી પુષ્ટિકરણનો સ્ક્રીનશોટ લો અને તેને તમારા ચુકવણીના પુરાવા તરીકે મોકલો.';
+
+  @override
+  String get pinFourDigits => 'બરાબર 4 અંકો દાખલ કરો.';
+
+  @override
+  String get scanOwnCode =>
+      'તે તમારો પોતાનો કોડ છે. તેમની સાથે ચેટ શરૂ કરવા માટે અન્ય કોઈનો CRYPT કોડ સ્કેન કરો.';
+
+  @override
+  String get couldNotGenerateQrImage => 'QR છબી જનરેટ કરી શકાઈ નથી';
+
+  @override
+  String get conversationUpdateFailed => 'વાતચીત અપડેટ નિષ્ફળ. ફરી પ્રયાસ કરો.';
+
+  @override
+  String get conversationCreationFailed =>
+      'વાર્તાલાપ બનાવટ નિષ્ફળ. ફરી પ્રયાસ કરો.';
+
+  @override
+  String get accountSuspendedByAdmin =>
+      'આ એકાઉન્ટ એડમિનિસ્ટ્રેટર દ્વારા સસ્પેન્ડ કરવામાં આવ્યું છે.';
 }

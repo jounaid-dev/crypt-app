@@ -936,4 +936,27 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get premiumActivationStep2 =>
       'Machen Sie einen Screenshot der Zahlungsbestätigung und senden Sie ihn als Zahlungsnachweis ein.';
+
+  @override
+  String get pinFourDigits => 'Geben Sie genau 4 Ziffern ein.';
+
+  @override
+  String get scanOwnCode =>
+      'Das ist Ihr eigener Code. Scannen Sie den CRYPT-Code einer anderen Person, um einen Chat mit dieser Person zu starten.';
+
+  @override
+  String get couldNotGenerateQrImage =>
+      'Das QR-Bild konnte nicht generiert werden';
+
+  @override
+  String get conversationUpdateFailed =>
+      'Konversationsaktualisierung fehlgeschlagen. Versuchen Sie es erneut.';
+
+  @override
+  String get conversationCreationFailed =>
+      'Die Konversationserstellung ist fehlgeschlagen. Versuchen Sie es erneut.';
+
+  @override
+  String get accountSuspendedByAdmin =>
+      'Dieses Konto wurde von einem Administrator gesperrt.';
 }

@@ -401,5 +401,11 @@
     "accountSuspended": "Nasuspinde ang account",
     "premiumLifetimeAccess": "Panghabambuhay na Premium Access",
     "premiumActivationStep1": "Magbayad {amount} mula sa {method} sa Lightning address sa itaas.",
-    "premiumActivationStep2": "Kumuha ng screenshot ng kumpirmasyon sa pagbabayad at ipadala ito bilang iyong patunay ng pagbabayad."
+    "premiumActivationStep2": "Kumuha ng screenshot ng kumpirmasyon sa pagbabayad at ipadala ito bilang iyong patunay ng pagbabayad.",
+    "pinFourDigits": "Maglagay ng eksaktong 4 na digit.",
+    "scanOwnCode": "Iyan ang sarili mong code. I-scan ang CRYPT code ng ibang tao para magsimula ng chat sa kanila.",
+    "couldNotGenerateQrImage": "Hindi makabuo ng QR na larawan",
+    "conversationUpdateFailed": "Nabigo ang pag-update ng pag-uusap. Subukan muli.",
+    "conversationCreationFailed": "Nabigo ang paggawa ng pag-uusap. Subukan muli.",
+    "accountSuspendedByAdmin": "Ang account na ito ay sinuspinde ng isang administrator."
 }
