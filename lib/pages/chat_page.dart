@@ -852,6 +852,12 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
           await _signaling.connect(_currentUsername!);
         }
 
+        // The previous page cancelled its signaling subscription when it
+        // closed, while the socket and channel stayed alive. Without this the
+        // chat would reuse the open channel but stop hearing any ICE restart
+        // or renegotiation sent over the socket it is still holding.
+        await _ensureSignalingListener();
+
         _bindTransportListeners();
 
         if (!mounted || _disposed) return;
