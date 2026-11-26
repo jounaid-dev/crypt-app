@@ -956,4 +956,28 @@ class AppLocalizationsKn extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'ಈ ಖಾತೆಯನ್ನು ನಿರ್ವಾಹಕರು ಅಮಾನತುಗೊಳಿಸಿದ್ದಾರೆ.';
+
+  @override
+  String get unlockCrypt => 'ಅಪ್ಲಿಕೇಶನ್ ಅನ್ಲಾಕ್ ಮಾಡಿ';
+
+  @override
+  String get unlockCryptBody =>
+      'ಈ ಸಾಧನದಲ್ಲಿ ನಿಮ್ಮ ಸಂದೇಶಗಳನ್ನು ಡೀಕ್ರಿಪ್ಟ್ ಮಾಡಲು ನಿಮ್ಮ ಮಾಸ್ಟರ್ ಪಾಸ್‌ವರ್ಡ್ ಅನ್ನು ನಮೂದಿಸಿ.';
+
+  @override
+  String get unlock => 'ಈಗ ಅನ್ಲಾಕ್ ಮಾಡಿ';
+
+  @override
+  String get attachPhoto => 'ಫೋಟೋ';
+
+  @override
+  String get attachFile => 'ಫೈಲ್';
+
+  @override
+  String attachmentTooLarge(int mb) {
+    return 'ಆ ಫೈಲ್ ತುಂಬಾ ದೊಡ್ಡದಾಗಿದೆ. ಮಿತಿಯು $mb MB ಆಗಿದೆ.';
+  }
+
+  @override
+  String get attachmentSendFailed => 'ಆ ಲಗತ್ತನ್ನು ಕಳುಹಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.';
 }

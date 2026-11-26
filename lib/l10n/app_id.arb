@@ -407,5 +407,19 @@
     "couldNotGenerateQrImage": "Tidak dapat membuat gambar QR",
     "conversationUpdateFailed": "Pembaruan percakapan gagal. Coba lagi.",
     "conversationCreationFailed": "Pembuatan percakapan gagal. Coba lagi.",
-    "accountSuspendedByAdmin": "Akun ini telah ditangguhkan oleh administrator."
+    "accountSuspendedByAdmin": "Akun ini telah ditangguhkan oleh administrator.",
+    "unlockCrypt": "Buka kunci aplikasi",
+    "unlockCryptBody": "Masukkan kata sandi utama Anda untuk mendekripsi pesan Anda di perangkat ini.",
+    "unlock": "Buka kunci sekarang",
+    "attachPhoto": "Foto",
+    "attachFile": "File",
+    "attachmentTooLarge": "File itu terlalu besar. Batasnya adalah {mb} MB.",
+    "@attachmentTooLarge": {
+        "placeholders": {
+            "mb": {
+                "type": "int"
+            }
+        }
+    },
+    "attachmentSendFailed": "Tidak dapat mengirimkan lampiran itu."
 }

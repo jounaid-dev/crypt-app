@@ -407,5 +407,19 @@
     "couldNotGenerateQrImage": "No se pudo generar la imagen QR",
     "conversationUpdateFailed": "Error al actualizar la conversación. Intentar otra vez.",
     "conversationCreationFailed": "Error al crear la conversación. Intentar otra vez.",
-    "accountSuspendedByAdmin": "Esta cuenta ha sido suspendida por un administrador."
+    "accountSuspendedByAdmin": "Esta cuenta ha sido suspendida por un administrador.",
+    "unlockCrypt": "Desbloquear aplicación",
+    "unlockCryptBody": "Ingrese su contraseña maestra para descifrar sus mensajes en este dispositivo.",
+    "unlock": "Desbloquear ahora",
+    "attachPhoto": "Foto",
+    "attachFile": "Archivo",
+    "attachmentTooLarge": "Ese archivo es demasiado grande. El límite es {mb} MB.",
+    "@attachmentTooLarge": {
+        "placeholders": {
+            "mb": {
+                "type": "int"
+            }
+        }
+    },
+    "attachmentSendFailed": "No se pudo enviar ese archivo adjunto."
 }

@@ -407,5 +407,19 @@
     "couldNotGenerateQrImage": "Не удалось создать QR-изображение",
     "conversationUpdateFailed": "Не удалось обновить беседу. Попробуйте еще раз.",
     "conversationCreationFailed": "Не удалось создать беседу. Попробуйте еще раз.",
-    "accountSuspendedByAdmin": "Эта учетная запись заблокирована администратором."
+    "accountSuspendedByAdmin": "Эта учетная запись заблокирована администратором.",
+    "unlockCrypt": "Разблокировать приложение",
+    "unlockCryptBody": "Введите свой мастер-пароль, чтобы расшифровать сообщения на этом устройстве.",
+    "unlock": "Разблокировать сейчас",
+    "attachPhoto": "Фото",
+    "attachFile": "Файл",
+    "attachmentTooLarge": "Этот файл слишком велик. Ограничение составляет {mb} МБ.",
+    "@attachmentTooLarge": {
+        "placeholders": {
+            "mb": {
+                "type": "int"
+            }
+        }
+    },
+    "attachmentSendFailed": "Не удалось отправить это вложение."
 }

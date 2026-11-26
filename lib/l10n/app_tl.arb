@@ -407,5 +407,19 @@
     "couldNotGenerateQrImage": "Hindi makabuo ng QR na larawan",
     "conversationUpdateFailed": "Nabigo ang pag-update ng pag-uusap. Subukan muli.",
     "conversationCreationFailed": "Nabigo ang paggawa ng pag-uusap. Subukan muli.",
-    "accountSuspendedByAdmin": "Ang account na ito ay sinuspinde ng isang administrator."
+    "accountSuspendedByAdmin": "Ang account na ito ay sinuspinde ng isang administrator.",
+    "unlockCrypt": "I-unlock ang app",
+    "unlockCryptBody": "Ilagay ang iyong master password para i-decrypt ang iyong mga mensahe sa device na ito.",
+    "unlock": "I-unlock ngayon",
+    "attachPhoto": "Larawan",
+    "attachFile": "file",
+    "attachmentTooLarge": "Masyadong malaki ang file na iyon. Ang limitasyon ay {mb} MB.",
+    "@attachmentTooLarge": {
+        "placeholders": {
+            "mb": {
+                "type": "int"
+            }
+        }
+    },
+    "attachmentSendFailed": "Hindi maipadala ang attachment na iyon."
 }

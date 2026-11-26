@@ -961,4 +961,28 @@ class AppLocalizationsUk extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'Цей обліковий запис призупинено адміністратором.';
+
+  @override
+  String get unlockCrypt => 'Розблокувати додаток';
+
+  @override
+  String get unlockCryptBody =>
+      'Введіть головний пароль, щоб розшифрувати повідомлення на цьому пристрої.';
+
+  @override
+  String get unlock => 'Розблокуйте зараз';
+
+  @override
+  String get attachPhoto => 'Фото';
+
+  @override
+  String get attachFile => 'Файл';
+
+  @override
+  String attachmentTooLarge(int mb) {
+    return 'Цей файл завеликий. Обмеження становить $mb MB.';
+  }
+
+  @override
+  String get attachmentSendFailed => 'Не вдалося надіслати цей вкладений файл.';
 }

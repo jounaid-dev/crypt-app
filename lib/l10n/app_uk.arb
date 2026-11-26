@@ -407,5 +407,19 @@
     "couldNotGenerateQrImage": "Не вдалося створити QR-зображення",
     "conversationUpdateFailed": "Не вдалося оновити розмову. Спробуйте знову.",
     "conversationCreationFailed": "Не вдалося створити розмову. Спробуйте знову.",
-    "accountSuspendedByAdmin": "Цей обліковий запис призупинено адміністратором."
+    "accountSuspendedByAdmin": "Цей обліковий запис призупинено адміністратором.",
+    "unlockCrypt": "Розблокувати додаток",
+    "unlockCryptBody": "Введіть головний пароль, щоб розшифрувати повідомлення на цьому пристрої.",
+    "unlock": "Розблокуйте зараз",
+    "attachPhoto": "Фото",
+    "attachFile": "Файл",
+    "attachmentTooLarge": "Цей файл завеликий. Обмеження становить {mb} MB.",
+    "@attachmentTooLarge": {
+        "placeholders": {
+            "mb": {
+                "type": "int"
+            }
+        }
+    },
+    "attachmentSendFailed": "Не вдалося надіслати цей вкладений файл."
 }

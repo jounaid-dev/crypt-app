@@ -407,5 +407,19 @@
     "couldNotGenerateQrImage": "QR görüntüsü oluşturulamadı",
     "conversationUpdateFailed": "Konuşma güncellemesi başarısız oldu. Tekrar deneyin.",
     "conversationCreationFailed": "Konuşma oluşturma başarısız oldu. Tekrar deneyin.",
-    "accountSuspendedByAdmin": "Bu hesap bir yönetici tarafından askıya alındı."
+    "accountSuspendedByAdmin": "Bu hesap bir yönetici tarafından askıya alındı.",
+    "unlockCrypt": "Uygulamanın kilidini aç",
+    "unlockCryptBody": "Bu cihazdaki mesajlarınızın şifresini çözmek için ana şifrenizi girin.",
+    "unlock": "Şimdi kilidini aç",
+    "attachPhoto": "Fotoğraf",
+    "attachFile": "Dosya",
+    "attachmentTooLarge": "Bu dosya çok büyük. Sınır {mb} MB'tır.",
+    "@attachmentTooLarge": {
+        "placeholders": {
+            "mb": {
+                "type": "int"
+            }
+        }
+    },
+    "attachmentSendFailed": "Bu ek gönderilemedi."
 }

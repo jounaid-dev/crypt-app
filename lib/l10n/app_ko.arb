@@ -407,5 +407,19 @@
     "couldNotGenerateQrImage": "QR 이미지를 생성할 수 없습니다.",
     "conversationUpdateFailed": "대화를 업데이트하지 못했습니다. 다시 시도해 보세요.",
     "conversationCreationFailed": "대화 생성에 실패했습니다. 다시 시도해 보세요.",
-    "accountSuspendedByAdmin": "이 계정은 관리자에 의해 정지되었습니다."
+    "accountSuspendedByAdmin": "이 계정은 관리자에 의해 정지되었습니다.",
+    "unlockCrypt": "앱 잠금 해제",
+    "unlockCryptBody": "이 장치에 있는 메시지를 해독하려면 마스터 비밀번호를 입력하세요.",
+    "unlock": "지금 잠금 해제",
+    "attachPhoto": "사진",
+    "attachFile": "파일",
+    "attachmentTooLarge": "파일이 너무 큽니다. 한도는 {mb}MB입니다.",
+    "@attachmentTooLarge": {
+        "placeholders": {
+            "mb": {
+                "type": "int"
+            }
+        }
+    },
+    "attachmentSendFailed": "첨부파일을 보낼 수 없습니다."
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 
+import 'data_channel_chunker.dart';
+
 class WebRTCService {
   WebRTCService._();
 
@@ -19,6 +21,18 @@ class WebRTCService {
   final List<RTCIceCandidate> _remoteCandidateQueue = [];
   bool _isRemoteDescriptionSet = false;
 
+  // Large messages (attachments) are split into data-channel sized frames on
+  // the way out and stitched back together on the way in, so callers keep
+  // sending and receiving one string per message.
+  final DataChannelChunker _chunker = const DataChannelChunker();
+
+  final IncomingChunkAssembler _assembler = IncomingChunkAssembler();
+
+  /// How much unsent data is allowed to queue in the data channel before the
+  /// sender waits. Without this a 20 MB attachment is handed to the channel in
+  /// one burst and the SCTP send buffer grows without bound.
+  static const int _bufferedAmountLimit = 256 * 1024;
+
   Future<void> initialize() async {
     if (peerConnection != null) {
       await dispose();
@@ -26,6 +40,7 @@ class WebRTCService {
 
     _isRemoteDescriptionSet = false;
     _remoteCandidateQueue.clear();
+    _assembler.reset();
 
     peerConnection = await createPeerConnection({
       // Several independent STUN servers, including one on port 443, so a
@@ -130,11 +145,25 @@ class WebRTCService {
     };
 
     channel.onMessage = (message) {
+      final String? text = message.text;
+
+      if (text == null || text.isEmpty) {
+        return;
+      }
+
+      // A send is complete only when every frame has arrived. Until then the
+      // frame is consumed here and the app never sees a partial payload.
+      final String? complete = _assembler.add(text);
+
+      if (complete == null) {
+        return;
+      }
+
       debugPrint(
         "=== Received P2P Message ===",
       );
 
-      onMessage?.call(message.text);
+      onMessage?.call(complete);
     };
   }
 
@@ -282,14 +311,20 @@ class WebRTCService {
         RTCDataChannelState.RTCDataChannelOpen;
   }
 
-  void sendMessage(String text) {
+  /// Sends [text], splitting it into frames when it is too large for one
+  /// data-channel message.
+  ///
+  /// Throws when the channel is gone or closes mid-transfer, so the caller can
+  /// keep the message in the outbox instead of believing it was delivered.
+  Future<void> sendMessage(String text) async {
     final channel = dataChannel;
 
     if (channel == null) {
       debugPrint(
         "=== P2P SEND FAILED: DataChannel is null ===",
       );
-      return;
+
+      throw StateError('Data channel is not available.');
     }
 
     if (channel.state !=
@@ -297,15 +332,58 @@ class WebRTCService {
       debugPrint(
         "=== P2P SEND FAILED: Channel not open ===",
       );
+
+      throw StateError('Data channel is not open.');
+    }
+
+    if (!_chunker.needsChunking(text)) {
+      channel.send(
+        RTCDataChannelMessage(text),
+      );
+
+      debugPrint(
+        "=== P2P MESSAGE SENT ===",
+      );
+
       return;
     }
 
-    channel.send(
-      RTCDataChannelMessage(text),
+    final String transferId =
+        DateTime.now().microsecondsSinceEpoch.toString();
+
+    final List<String> frames = _chunker.frames(
+      text,
+      transferId: transferId,
     );
 
     debugPrint(
-      "=== P2P MESSAGE SENT ===",
+      "=== P2P TRANSFER START: ${text.length} chars in ${frames.length} frames ===",
+    );
+
+    for (final String frame in frames) {
+      // Wait while the channel's own buffer is full. Sending regardless is
+      // what makes a large transfer stall or fail on a slow link.
+      while ((channel.bufferedAmount ?? 0) > _bufferedAmountLimit) {
+        await Future<void>.delayed(const Duration(milliseconds: 15));
+
+        if (channel.state !=
+            RTCDataChannelState.RTCDataChannelOpen) {
+          throw StateError('Data channel closed during transfer.');
+        }
+      }
+
+      if (channel.state !=
+          RTCDataChannelState.RTCDataChannelOpen) {
+        throw StateError('Data channel closed during transfer.');
+      }
+
+      channel.send(
+        RTCDataChannelMessage(frame),
+      );
+    }
+
+    debugPrint(
+      "=== P2P TRANSFER SENT ===",
     );
   }
 
@@ -322,6 +400,7 @@ class WebRTCService {
       peerConnection = null;
 
       _remoteCandidateQueue.clear();
+      _assembler.reset();
       _isRemoteDescriptionSet = false;
     }
   }

@@ -949,4 +949,28 @@ class AppLocalizationsGu extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'આ એકાઉન્ટ એડમિનિસ્ટ્રેટર દ્વારા સસ્પેન્ડ કરવામાં આવ્યું છે.';
+
+  @override
+  String get unlockCrypt => 'એપ્લિકેશનને અનલૉક કરો';
+
+  @override
+  String get unlockCryptBody =>
+      'આ ઉપકરણ પર તમારા સંદેશાઓને ડિક્રિપ્ટ કરવા માટે તમારો મુખ્ય પાસવર્ડ દાખલ કરો.';
+
+  @override
+  String get unlock => 'હવે અનલૉક કરો';
+
+  @override
+  String get attachPhoto => 'ફોટો';
+
+  @override
+  String get attachFile => 'ફાઈલ';
+
+  @override
+  String attachmentTooLarge(int mb) {
+    return 'તે ફાઇલ ખૂબ મોટી છે. મર્યાદા $mb MB છે.';
+  }
+
+  @override
+  String get attachmentSendFailed => 'તે જોડાણ મોકલી શકાયું નથી.';
 }

@@ -407,5 +407,19 @@
     "couldNotGenerateQrImage": "QR تصویر نہیں بن سکی",
     "conversationUpdateFailed": "بات چیت کی تازہ کاری ناکام ہو گئی۔ دوبارہ کوشش کریں۔",
     "conversationCreationFailed": "بات چیت کی تخلیق ناکام ہو گئی۔ دوبارہ کوشش کریں۔",
-    "accountSuspendedByAdmin": "اس اکاؤنٹ کو ایک منتظم نے معطل کر دیا ہے۔"
+    "accountSuspendedByAdmin": "اس اکاؤنٹ کو ایک منتظم نے معطل کر دیا ہے۔",
+    "unlockCrypt": "ایپ کو غیر مقفل کریں۔",
+    "unlockCryptBody": "اس ڈیوائس پر اپنے پیغامات کو ڈکرپٹ کرنے کے لیے اپنا ماسٹر پاس ورڈ درج کریں۔",
+    "unlock": "ابھی غیر مقفل کریں۔",
+    "attachPhoto": "تصویر",
+    "attachFile": "فائل",
+    "attachmentTooLarge": "وہ فائل بہت بڑی ہے۔ حد {mb} MB ہے۔",
+    "@attachmentTooLarge": {
+        "placeholders": {
+            "mb": {
+                "type": "int"
+            }
+        }
+    },
+    "attachmentSendFailed": "وہ منسلکہ نہیں بھیج سکا۔"
 }

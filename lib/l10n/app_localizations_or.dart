@@ -962,4 +962,28 @@ class AppLocalizationsOr extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'ଏହି ଆକାଉଣ୍ଟକୁ ଜଣେ ପ୍ରଶାସକ ସ୍ଥଗିତ ରଖିଛନ୍ତି |';
+
+  @override
+  String get unlockCrypt => 'ଆପ୍ ଅନଲକ୍ କରନ୍ତୁ |';
+
+  @override
+  String get unlockCryptBody =>
+      'ଏହି ଡିଭାଇସରେ ଆପଣଙ୍କର ସନ୍ଦେଶଗୁଡ଼ିକୁ ଡିକ୍ରିପ୍ଟ କରିବାକୁ ଆପଣଙ୍କର ମୂଖ୍ୟ ପାସୱାର୍ଡ ପ୍ରବେଶ କରନ୍ତୁ |';
+
+  @override
+  String get unlock => 'ବର୍ତ୍ତମାନ ଅନଲକ୍ କରନ୍ତୁ |';
+
+  @override
+  String get attachPhoto => 'ଫଟୋ';
+
+  @override
+  String get attachFile => 'ଫାଇଲ୍ |';
+
+  @override
+  String attachmentTooLarge(int mb) {
+    return 'ସେହି ଫାଇଲ୍ ବହୁତ ବଡ ଅଟେ | ସୀମା ହେଉଛି $mb MB |';
+  }
+
+  @override
+  String get attachmentSendFailed => 'ସେହି ସଂଲଗ୍ନକ ପଠାଇ ପାରିଲା ନାହିଁ |';
 }

@@ -407,5 +407,19 @@
     "couldNotGenerateQrImage": "Kon geen QR-afbeelding genereren",
     "conversationUpdateFailed": "Gespreksupdate mislukt. Probeer het opnieuw.",
     "conversationCreationFailed": "Het maken van een gesprek is mislukt. Probeer het opnieuw.",
-    "accountSuspendedByAdmin": "Dit account is opgeschort door een beheerder."
+    "accountSuspendedByAdmin": "Dit account is opgeschort door een beheerder.",
+    "unlockCrypt": "Ontgrendel app",
+    "unlockCryptBody": "Voer uw hoofdwachtwoord in om uw berichten op dit apparaat te decoderen.",
+    "unlock": "Ontgrendel nu",
+    "attachPhoto": "Foto",
+    "attachFile": "Bestand",
+    "attachmentTooLarge": "Dat bestand is te groot. De limiet is {mb} MB.",
+    "@attachmentTooLarge": {
+        "placeholders": {
+            "mb": {
+                "type": "int"
+            }
+        }
+    },
+    "attachmentSendFailed": "Kan die bijlage niet verzenden."
 }

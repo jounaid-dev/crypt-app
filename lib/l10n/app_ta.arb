@@ -407,5 +407,19 @@
     "couldNotGenerateQrImage": "QR படத்தை உருவாக்க முடியவில்லை",
     "conversationUpdateFailed": "உரையாடல் புதுப்பிப்பு தோல்வியடைந்தது. மீண்டும் முயற்சிக்கவும்.",
     "conversationCreationFailed": "உரையாடலை உருவாக்க முடியவில்லை. மீண்டும் முயற்சிக்கவும்.",
-    "accountSuspendedByAdmin": "இந்தக் கணக்கு நிர்வாகியால் இடைநிறுத்தப்பட்டுள்ளது."
+    "accountSuspendedByAdmin": "இந்தக் கணக்கு நிர்வாகியால் இடைநிறுத்தப்பட்டுள்ளது.",
+    "unlockCrypt": "பயன்பாட்டைத் திறக்கவும்",
+    "unlockCryptBody": "இந்தச் சாதனத்தில் உங்கள் செய்திகளை மறைகுறியாக்க உங்கள் முதன்மை கடவுச்சொல்லை உள்ளிடவும்.",
+    "unlock": "இப்போது திறக்கவும்",
+    "attachPhoto": "புகைப்படம்",
+    "attachFile": "கோப்பு",
+    "attachmentTooLarge": "அந்தக் கோப்பு மிகப் பெரியது. வரம்பு {mb} MB.",
+    "@attachmentTooLarge": {
+        "placeholders": {
+            "mb": {
+                "type": "int"
+            }
+        }
+    },
+    "attachmentSendFailed": "அந்த இணைப்பை அனுப்ப முடியவில்லை."
 }

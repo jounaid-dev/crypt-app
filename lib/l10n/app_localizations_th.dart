@@ -944,4 +944,28 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get accountSuspendedByAdmin => 'บัญชีนี้ถูกระงับโดยผู้ดูแลระบบ';
+
+  @override
+  String get unlockCrypt => 'ปลดล็อคแอพ';
+
+  @override
+  String get unlockCryptBody =>
+      'ป้อนรหัสผ่านหลักของคุณเพื่อถอดรหัสข้อความของคุณบนอุปกรณ์นี้';
+
+  @override
+  String get unlock => 'ปลดล็อคตอนนี้';
+
+  @override
+  String get attachPhoto => 'รูปถ่าย';
+
+  @override
+  String get attachFile => 'ไฟล์';
+
+  @override
+  String attachmentTooLarge(int mb) {
+    return 'ไฟล์นั้นใหญ่เกินไป ขีดจำกัดคือ $mb MB';
+  }
+
+  @override
+  String get attachmentSendFailed => 'ไม่สามารถส่งไฟล์แนบนั้นได้';
 }

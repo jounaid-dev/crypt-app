@@ -952,4 +952,28 @@ class AppLocalizationsPa extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'ਇਸ ਖਾਤੇ ਨੂੰ ਇੱਕ ਪ੍ਰਸ਼ਾਸਕ ਦੁਆਰਾ ਮੁਅੱਤਲ ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ।';
+
+  @override
+  String get unlockCrypt => 'ਐਪ ਨੂੰ ਅਨਲੌਕ ਕਰੋ';
+
+  @override
+  String get unlockCryptBody =>
+      'ਇਸ ਡਿਵਾਈਸ \'ਤੇ ਆਪਣੇ ਸੁਨੇਹਿਆਂ ਨੂੰ ਡੀਕ੍ਰਿਪਟ ਕਰਨ ਲਈ ਆਪਣਾ ਮਾਸਟਰ ਪਾਸਵਰਡ ਦਾਖਲ ਕਰੋ।';
+
+  @override
+  String get unlock => 'ਹੁਣੇ ਅਨਲੌਕ ਕਰੋ';
+
+  @override
+  String get attachPhoto => 'ਫੋਟੋ';
+
+  @override
+  String get attachFile => 'ਫਾਈਲ';
+
+  @override
+  String attachmentTooLarge(int mb) {
+    return 'ਉਹ ਫ਼ਾਈਲ ਬਹੁਤ ਵੱਡੀ ਹੈ। ਸੀਮਾ $mb MB ਹੈ।';
+  }
+
+  @override
+  String get attachmentSendFailed => 'ਉਹ ਅਟੈਚਮੈਂਟ ਨਹੀਂ ਭੇਜੀ ਜਾ ਸਕੀ।';
 }

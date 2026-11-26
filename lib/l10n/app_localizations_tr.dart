@@ -946,4 +946,28 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'Bu hesap bir yönetici tarafından askıya alındı.';
+
+  @override
+  String get unlockCrypt => 'Uygulamanın kilidini aç';
+
+  @override
+  String get unlockCryptBody =>
+      'Bu cihazdaki mesajlarınızın şifresini çözmek için ana şifrenizi girin.';
+
+  @override
+  String get unlock => 'Şimdi kilidini aç';
+
+  @override
+  String get attachPhoto => 'Fotoğraf';
+
+  @override
+  String get attachFile => 'Dosya';
+
+  @override
+  String attachmentTooLarge(int mb) {
+    return 'Bu dosya çok büyük. Sınır $mb MB\'tır.';
+  }
+
+  @override
+  String get attachmentSendFailed => 'Bu ek gönderilemedi.';
 }

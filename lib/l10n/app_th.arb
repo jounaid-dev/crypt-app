@@ -407,5 +407,19 @@
     "couldNotGenerateQrImage": "ไม่สามารถสร้างอิมเมจ QR ได้",
     "conversationUpdateFailed": "การอัปเดตการสนทนาล้มเหลว ลองอีกครั้ง",
     "conversationCreationFailed": "การสร้างการสนทนาล้มเหลว ลองอีกครั้ง",
-    "accountSuspendedByAdmin": "บัญชีนี้ถูกระงับโดยผู้ดูแลระบบ"
+    "accountSuspendedByAdmin": "บัญชีนี้ถูกระงับโดยผู้ดูแลระบบ",
+    "unlockCrypt": "ปลดล็อคแอพ",
+    "unlockCryptBody": "ป้อนรหัสผ่านหลักของคุณเพื่อถอดรหัสข้อความของคุณบนอุปกรณ์นี้",
+    "unlock": "ปลดล็อคตอนนี้",
+    "attachPhoto": "รูปถ่าย",
+    "attachFile": "ไฟล์",
+    "attachmentTooLarge": "ไฟล์นั้นใหญ่เกินไป ขีดจำกัดคือ {mb} MB",
+    "@attachmentTooLarge": {
+        "placeholders": {
+            "mb": {
+                "type": "int"
+            }
+        }
+    },
+    "attachmentSendFailed": "ไม่สามารถส่งไฟล์แนบนั้นได้"
 }

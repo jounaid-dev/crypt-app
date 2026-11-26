@@ -911,4 +911,27 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get accountSuspendedByAdmin => '이 계정은 관리자에 의해 정지되었습니다.';
+
+  @override
+  String get unlockCrypt => '앱 잠금 해제';
+
+  @override
+  String get unlockCryptBody => '이 장치에 있는 메시지를 해독하려면 마스터 비밀번호를 입력하세요.';
+
+  @override
+  String get unlock => '지금 잠금 해제';
+
+  @override
+  String get attachPhoto => '사진';
+
+  @override
+  String get attachFile => '파일';
+
+  @override
+  String attachmentTooLarge(int mb) {
+    return '파일이 너무 큽니다. 한도는 ${mb}MB입니다.';
+  }
+
+  @override
+  String get attachmentSendFailed => '첨부파일을 보낼 수 없습니다.';
 }

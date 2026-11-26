@@ -407,5 +407,19 @@
     "couldNotGenerateQrImage": "QR ছবি তৈরি করা যায়নি",
     "conversationUpdateFailed": "কথোপকথন আপডেট ব্যর্থ হয়েছে৷ আবার চেষ্টা করুন",
     "conversationCreationFailed": "কথোপকথন তৈরি করা ব্যর্থ হয়েছে৷ আবার চেষ্টা করুন",
-    "accountSuspendedByAdmin": "এই অ্যাকাউন্টটি একজন প্রশাসক দ্বারা স্থগিত করা হয়েছে৷"
+    "accountSuspendedByAdmin": "এই অ্যাকাউন্টটি একজন প্রশাসক দ্বারা স্থগিত করা হয়েছে৷",
+    "unlockCrypt": "অ্যাপ আনলক করুন",
+    "unlockCryptBody": "এই ডিভাইসে আপনার বার্তাগুলিকে ডিক্রিপ্ট করতে আপনার মাস্টার পাসওয়ার্ড লিখুন৷",
+    "unlock": "এখনই আনলক করুন",
+    "attachPhoto": "ছবি",
+    "attachFile": "ফাইল",
+    "attachmentTooLarge": "ফাইলটি অনেক বড়। সীমা হল {mb} MB।",
+    "@attachmentTooLarge": {
+        "placeholders": {
+            "mb": {
+                "type": "int"
+            }
+        }
+    },
+    "attachmentSendFailed": "সংযুক্তি পাঠাতে পারেনি."
 }

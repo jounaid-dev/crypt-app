@@ -407,5 +407,19 @@
     "couldNotGenerateQrImage": "QR ಚಿತ್ರವನ್ನು ರಚಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ",
     "conversationUpdateFailed": "ಸಂವಾದ ನವೀಕರಣ ವಿಫಲವಾಗಿದೆ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
     "conversationCreationFailed": "ಸಂವಾದ ರಚನೆ ವಿಫಲವಾಗಿದೆ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
-    "accountSuspendedByAdmin": "ಈ ಖಾತೆಯನ್ನು ನಿರ್ವಾಹಕರು ಅಮಾನತುಗೊಳಿಸಿದ್ದಾರೆ."
+    "accountSuspendedByAdmin": "ಈ ಖಾತೆಯನ್ನು ನಿರ್ವಾಹಕರು ಅಮಾನತುಗೊಳಿಸಿದ್ದಾರೆ.",
+    "unlockCrypt": "ಅಪ್ಲಿಕೇಶನ್ ಅನ್ಲಾಕ್ ಮಾಡಿ",
+    "unlockCryptBody": "ಈ ಸಾಧನದಲ್ಲಿ ನಿಮ್ಮ ಸಂದೇಶಗಳನ್ನು ಡೀಕ್ರಿಪ್ಟ್ ಮಾಡಲು ನಿಮ್ಮ ಮಾಸ್ಟರ್ ಪಾಸ್‌ವರ್ಡ್ ಅನ್ನು ನಮೂದಿಸಿ.",
+    "unlock": "ಈಗ ಅನ್ಲಾಕ್ ಮಾಡಿ",
+    "attachPhoto": "ಫೋಟೋ",
+    "attachFile": "ಫೈಲ್",
+    "attachmentTooLarge": "ಆ ಫೈಲ್ ತುಂಬಾ ದೊಡ್ಡದಾಗಿದೆ. ಮಿತಿಯು {mb} MB ಆಗಿದೆ.",
+    "@attachmentTooLarge": {
+        "placeholders": {
+            "mb": {
+                "type": "int"
+            }
+        }
+    },
+    "attachmentSendFailed": "ಆ ಲಗತ್ತನ್ನು ಕಳುಹಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ."
 }

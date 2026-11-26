@@ -407,5 +407,19 @@
     "couldNotGenerateQrImage": "QR画像を生成できませんでした",
     "conversationUpdateFailed": "会話の更新に失敗しました。もう一度やり直してください。",
     "conversationCreationFailed": "会話の作成に失敗しました。もう一度やり直してください。",
-    "accountSuspendedByAdmin": "このアカウントは管理者によって停止されました。"
+    "accountSuspendedByAdmin": "このアカウントは管理者によって停止されました。",
+    "unlockCrypt": "アプリのロックを解除する",
+    "unlockCryptBody": "マスター パスワードを入力して、このデバイス上のメッセージを復号化します。",
+    "unlock": "今すぐロックを解除する",
+    "attachPhoto": "写真",
+    "attachFile": "ファイル",
+    "attachmentTooLarge": "そのファイルは大きすぎます。制限は {mb} MB です。",
+    "@attachmentTooLarge": {
+        "placeholders": {
+            "mb": {
+                "type": "int"
+            }
+        }
+    },
+    "attachmentSendFailed": "その添付ファイルを送信できませんでした。"
 }

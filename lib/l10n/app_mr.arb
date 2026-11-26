@@ -407,5 +407,19 @@
     "couldNotGenerateQrImage": "QR प्रतिमा व्युत्पन्न करू शकलो नाही",
     "conversationUpdateFailed": "संभाषण अद्यतन अयशस्वी. पुन्हा प्रयत्न करा.",
     "conversationCreationFailed": "संभाषण निर्मिती अयशस्वी. पुन्हा प्रयत्न करा.",
-    "accountSuspendedByAdmin": "हे खाते प्रशासकाने निलंबित केले आहे."
+    "accountSuspendedByAdmin": "हे खाते प्रशासकाने निलंबित केले आहे.",
+    "unlockCrypt": "ॲप अनलॉक करा",
+    "unlockCryptBody": "या डिव्हाइसवर तुमचे संदेश डिक्रिप्ट करण्यासाठी तुमचा मास्टर पासवर्ड एंटर करा.",
+    "unlock": "आता अनलॉक करा",
+    "attachPhoto": "फोटो",
+    "attachFile": "फाईल",
+    "attachmentTooLarge": "ती फाईल खूप मोठी आहे. मर्यादा {mb} MB आहे.",
+    "@attachmentTooLarge": {
+        "placeholders": {
+            "mb": {
+                "type": "int"
+            }
+        }
+    },
+    "attachmentSendFailed": "ते संलग्नक पाठवू शकलो नाही."
 }

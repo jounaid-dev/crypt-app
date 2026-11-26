@@ -956,4 +956,28 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'Questo account è stato sospeso da un amministratore.';
+
+  @override
+  String get unlockCrypt => 'Sblocca l\'app';
+
+  @override
+  String get unlockCryptBody =>
+      'Inserisci la tua password principale per decriptare i tuoi messaggi su questo dispositivo.';
+
+  @override
+  String get unlock => 'Sblocca ora';
+
+  @override
+  String get attachPhoto => 'Foto';
+
+  @override
+  String get attachFile => 'File';
+
+  @override
+  String attachmentTooLarge(int mb) {
+    return 'Quel file è troppo grande. Il limite è $mb MB.';
+  }
+
+  @override
+  String get attachmentSendFailed => 'Impossibile inviare l\'allegato.';
 }

@@ -939,4 +939,28 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'لقد تم تعليق هذا الحساب من قبل المسؤول.';
+
+  @override
+  String get unlockCrypt => 'فتح التطبيق';
+
+  @override
+  String get unlockCryptBody =>
+      'أدخل كلمة المرور الرئيسية لفك تشفير رسائلك على هذا الجهاز.';
+
+  @override
+  String get unlock => 'افتح الآن';
+
+  @override
+  String get attachPhoto => 'صورة';
+
+  @override
+  String get attachFile => 'ملف';
+
+  @override
+  String attachmentTooLarge(int mb) {
+    return 'هذا الملف كبير جدًا. الحد هو $mb ميغابايت.';
+  }
+
+  @override
+  String get attachmentSendFailed => 'تعذر إرسال هذا المرفق.';
 }

@@ -945,4 +945,28 @@ class AppLocalizationsFa extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'این حساب توسط یک سرپرست به حالت تعلیق درآمده است.';
+
+  @override
+  String get unlockCrypt => 'باز کردن قفل برنامه';
+
+  @override
+  String get unlockCryptBody =>
+      'رمز عبور اصلی خود را برای رمزگشایی پیام های خود در این دستگاه وارد کنید.';
+
+  @override
+  String get unlock => 'اکنون قفل را باز کنید';
+
+  @override
+  String get attachPhoto => 'عکس';
+
+  @override
+  String get attachFile => 'فایل';
+
+  @override
+  String attachmentTooLarge(int mb) {
+    return 'اون فایل خیلی بزرگه حد مجاز $mb مگابایت است.';
+  }
+
+  @override
+  String get attachmentSendFailed => 'آن پیوست ارسال نشد.';
 }

@@ -407,5 +407,19 @@
     "couldNotGenerateQrImage": "无法生成二维码图像",
     "conversationUpdateFailed": "对话更新失败。再试一次。",
     "conversationCreationFailed": "对话创建失败。再试一次。",
-    "accountSuspendedByAdmin": "该帐户已被管理员暂停。"
+    "accountSuspendedByAdmin": "该帐户已被管理员暂停。",
+    "unlockCrypt": "解锁应用程序",
+    "unlockCryptBody": "输入您的主密码以解密您在此设备上的消息。",
+    "unlock": "立即解锁",
+    "attachPhoto": "照片",
+    "attachFile": "文件",
+    "attachmentTooLarge": "该文件太大了。限制为 {mb} MB。",
+    "@attachmentTooLarge": {
+        "placeholders": {
+            "mb": {
+                "type": "int"
+            }
+        }
+    },
+    "attachmentSendFailed": "无法发送该附件。"
 }

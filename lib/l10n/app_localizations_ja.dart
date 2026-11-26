@@ -914,4 +914,27 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get accountSuspendedByAdmin => 'このアカウントは管理者によって停止されました。';
+
+  @override
+  String get unlockCrypt => 'アプリのロックを解除する';
+
+  @override
+  String get unlockCryptBody => 'マスター パスワードを入力して、このデバイス上のメッセージを復号化します。';
+
+  @override
+  String get unlock => '今すぐロックを解除する';
+
+  @override
+  String get attachPhoto => '写真';
+
+  @override
+  String get attachFile => 'ファイル';
+
+  @override
+  String attachmentTooLarge(int mb) {
+    return 'そのファイルは大きすぎます。制限は $mb MB です。';
+  }
+
+  @override
+  String get attachmentSendFailed => 'その添付ファイルを送信できませんでした。';
 }

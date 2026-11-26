@@ -407,5 +407,19 @@
     "couldNotGenerateQrImage": "An kasa samar da hoton QR",
     "conversationUpdateFailed": "An gaza sabunta taɗi Gwada kuma.",
     "conversationCreationFailed": "Ƙirƙirar tattaunawa ta kasa. Gwada kuma.",
-    "accountSuspendedByAdmin": "Wani mai gudanarwa ya dakatar da wannan asusun."
+    "accountSuspendedByAdmin": "Wani mai gudanarwa ya dakatar da wannan asusun.",
+    "unlockCrypt": "Buɗe app",
+    "unlockCryptBody": "Shigar da babban kalmar sirri don ɓata saƙon ku akan wannan na'urar.",
+    "unlock": "Buɗe yanzu",
+    "attachPhoto": "Hoto",
+    "attachFile": "Fayil",
+    "attachmentTooLarge": "Fayil ɗin ya yi girma da yawa. Iyaka shine {mb} MB.",
+    "@attachmentTooLarge": {
+        "placeholders": {
+            "mb": {
+                "type": "int"
+            }
+        }
+    },
+    "attachmentSendFailed": "Ba za a iya aika abin da aka makala ba."
 }

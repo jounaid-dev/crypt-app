@@ -10,8 +10,10 @@ import 'services/signaling_service.dart';
 import 'services/account_service.dart';
 import 'services/hive_storage_service.dart';
 import 'services/qr_validation_code_service.dart';
+import 'services/session_service.dart';
 
 import 'pages/home_page.dart';
+import 'pages/unlock_page.dart';
 import 'pages/welcome_page.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -390,6 +392,17 @@ class _CryptAppState extends State<CryptApp> with WidgetsBindingObserver {
         }
 
         if (snapshot.hasData && snapshot.data == true) {
+          // The account lives on this device, but on a cold start the session
+          // does not: the password that unwraps the private keys was only ever
+          // in memory. Opening HomePage anyway left every stored message
+          // undecryptable, which is exactly the endless "decrypting" state the
+          // app used to get stuck in after being killed and reopened. Restoring
+          // the session here is the root fix; the error label in the chat was
+          // only ever the symptom.
+          if (SessionService.instance.password == null) {
+            return UnlockPage(onUnlocked: _restartStartup);
+          }
+
           return FutureBuilder<String?>(
             future: accountService.getPublicEncryptionKey(),
 

@@ -949,4 +949,28 @@ class AppLocalizationsHa extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'Wani mai gudanarwa ya dakatar da wannan asusun.';
+
+  @override
+  String get unlockCrypt => 'Buɗe app';
+
+  @override
+  String get unlockCryptBody =>
+      'Shigar da babban kalmar sirri don ɓata saƙon ku akan wannan na\'urar.';
+
+  @override
+  String get unlock => 'Buɗe yanzu';
+
+  @override
+  String get attachPhoto => 'Hoto';
+
+  @override
+  String get attachFile => 'Fayil';
+
+  @override
+  String attachmentTooLarge(int mb) {
+    return 'Fayil ɗin ya yi girma da yawa. Iyaka shine $mb MB.';
+  }
+
+  @override
+  String get attachmentSendFailed => 'Ba za a iya aika abin da aka makala ba.';
 }

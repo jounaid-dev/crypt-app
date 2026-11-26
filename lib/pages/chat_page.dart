@@ -1,14 +1,20 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:typed_data';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:crypt_messenger/l10n/app_localizations.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:uuid/uuid.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart' hide MessageType;
 import 'package:cryptography/cryptography.dart';
 
 import 'package:crypt_messenger/services/encryption_service.dart';
+import '../services/attachment_service.dart';
+import '../services/conversation_service.dart';
 import '../services/signaling_service.dart';
 import '../services/account_service.dart';
 import '../models/conversation.dart';
@@ -50,6 +56,10 @@ class _ChatPageState extends State<ChatPage> {
 
   final SignatureService _signatureService = SignatureService();
 
+  final ConversationService _conversationService = ConversationService();
+
+  final ImagePicker _imagePicker = ImagePicker();
+
   RTCDataChannelState _channelState = RTCDataChannelState.RTCDataChannelClosed;
 
   bool get _isP2PActive =>
@@ -78,6 +88,41 @@ class _ChatPageState extends State<ChatPage> {
   final Map<String, String> _decryptedTexts = {};
 
   final Set<String> _decryptingMessageIds = {};
+
+  // Messages that are waiting for their turn to be decrypted.
+  //
+  // This is what the bubble renders as "decrypting". It is separate from
+  // _decryptingMessageIds because a message can be queued for a while before
+  // the background pass reaches it, and the background pass skips ids that are
+  // already in flight. Either set present means "not resolved yet"; once both
+  // are absent the bubble must show its final state. That is the guarantee that
+  // removes the endless spinner: a message can never be in neither state and
+  // still render a spinner.
+  final Set<String> _pendingDecryption = {};
+
+  // Decoded attachments, kept small and rebuilt on demand from the encrypted
+  // message itself, so a long chat with photos cannot pin hundreds of
+  // megabytes in memory.
+  final Map<String, ChatAttachment> _attachmentCache = {};
+
+  final Map<String, String> _attachmentEnvelopes = {};
+
+  static const int _attachmentCacheLimit = 4;
+
+  /// A key derivation that hangs (a locked identity, a stalled platform read)
+  /// must not leave every bubble spinning. After this long the message is
+  /// reported as undecryptable instead, with a retry action.
+  static const Duration _decryptionTimeout = Duration(seconds: 45);
+
+  bool _isSendingAttachment = false;
+
+  // Messages whose first send is still in progress.
+  //
+  // The outbox retries every pending message every few seconds. A large
+  // attachment can take longer than that to hand to the data channel, so
+  // without this the retry timer would start a second full transfer while the
+  // first one was still running.
+  final Set<String> _inFlightSends = {};
 
   // Message IDs whose ciphertext could not be decrypted.
   //
@@ -201,6 +246,25 @@ class _ChatPageState extends State<ChatPage> {
        */
       messages.sort((a, b) => b.timestamp.compareTo(a.timestamp));
 
+      // Every message that is about to be drawn starts as pending. Nothing is
+      // left in an undefined state, so a bubble is either decrypting because
+      // it is genuinely queued, or it shows a final result.
+      //
+      // A plaintext already in memory is not marked pending again: the
+      // background pass skips those ids, so marking them would leave a spinner
+      // that nothing would ever clear. Their decoded attachments are kept for
+      // the same reason.
+      _pendingDecryption
+        ..clear()
+        ..addAll(
+          messages
+              .map((message) => message.id)
+              .where((id) => !_decryptedTexts.containsKey(id)),
+        );
+
+      _failedDecryptions.clear();
+      _decryptingMessageIds.clear();
+
       setState(() {
         _messages = messages;
         _loadedMessageCount = messages.length;
@@ -223,6 +287,14 @@ class _ChatPageState extends State<ChatPage> {
       final firstBatch = messages.take(initialCount).toList();
 
       await _decryptInitialBatch(firstBatch);
+
+      if (!mounted || _disposed) return;
+
+      // Store the newest message as this conversation's preview. Without it
+      // the chat list keeps the empty preview written when the contact was
+      // created, which is what made the home screen show "Decrypting..." for
+      // every chat after a restart even though the messages were on disk.
+      await _persistPreviewForMessage(messages.first);
 
       if (!mounted || _disposed) return;
 
@@ -254,8 +326,13 @@ class _ChatPageState extends State<ChatPage> {
       "${messages.length} messages...",
     );
 
+    for (final message in messages) {
+      _pendingDecryption.add(message.id);
+    }
+
     try {
-      final sharedKey = await _getOrDeriveSharedKey();
+      final sharedKey =
+          await _getOrDeriveSharedKey().timeout(_decryptionTimeout);
 
       final results = await Future.wait(
         messages.map((message) => _decryptWithKey(message, sharedKey)),
@@ -267,11 +344,10 @@ class _ChatPageState extends State<ChatPage> {
         final text = results[i];
 
         if (text != null) {
-          _decryptedTexts[messages[i].id] = text;
-          _failedDecryptions.remove(messages[i].id);
+          _registerDecrypted(messages[i], text);
         } else {
           // Stop showing a spinner for a message that will never decrypt.
-          _failedDecryptions.add(messages[i].id);
+          _markDecryptionFailed(messages[i].id);
         }
       }
 
@@ -290,7 +366,7 @@ class _ChatPageState extends State<ChatPage> {
       // The whole batch failed (for example the identity is locked). Mark
       // these messages so the UI shows an error instead of spinning forever.
       for (final message in messages) {
-        _failedDecryptions.add(message.id);
+        _markDecryptionFailed(message.id);
       }
 
       if (mounted && !_disposed) {
@@ -317,7 +393,8 @@ class _ChatPageState extends State<ChatPage> {
     }
 
     try {
-      final sharedKey = await _getOrDeriveSharedKey();
+      final sharedKey =
+          await _getOrDeriveSharedKey().timeout(_decryptionTimeout);
 
       // Rebuilding the list once per message is what made scrolling a long
       // conversation stutter: every decrypted bubble forced a full rebuild of
@@ -333,6 +410,9 @@ class _ChatPageState extends State<ChatPage> {
         }
 
         if (_decryptedTexts.containsKey(message.id)) {
+          // Already resolved; make sure it is not left looking pending.
+          _pendingDecryption.remove(message.id);
+
           continue;
         }
 
@@ -346,18 +426,19 @@ class _ChatPageState extends State<ChatPage> {
           final text = await _decryptWithKey(message, sharedKey);
 
           if (text != null && !_disposed && mounted) {
-            _decryptedTexts[message.id] = text;
-            _failedDecryptions.remove(message.id);
+            _registerDecrypted(message, text);
 
             decryptedInBatch++;
           } else if (!_disposed && mounted) {
-            _failedDecryptions.add(message.id);
+            _markDecryptionFailed(message.id);
           }
         } catch (e) {
           debugPrint(
             "[Crypto] Background decryption failed "
             "for ${message.id}: $e",
           );
+
+          _markDecryptionFailed(message.id);
         } finally {
           _decryptingMessageIds.remove(message.id);
         }
@@ -387,7 +468,7 @@ class _ChatPageState extends State<ChatPage> {
       );
 
       for (final message in messages) {
-        _failedDecryptions.add(message.id);
+        _markDecryptionFailed(message.id);
       }
 
       if (!_disposed && mounted) {
@@ -413,6 +494,186 @@ class _ChatPageState extends State<ChatPage> {
       );
 
       return null;
+    }
+  }
+
+  // ============================================================
+  // DECRYPTION RESULT
+  // ============================================================
+
+  /// Records a successful decryption.
+  ///
+  /// Text messages keep their plaintext. An attachment envelope is recognised
+  /// here so the bubble can draw the image or file directly, while the
+  /// envelope itself stays available for the small decoded-bytes cache.
+  void _registerDecrypted(Message message, String plaintext) {
+    _pendingDecryption.remove(message.id);
+    _decryptingMessageIds.remove(message.id);
+    _failedDecryptions.remove(message.id);
+
+    if (plaintext.length > 32 &&
+        AttachmentService.looksLikeAttachment(plaintext)) {
+      final ChatAttachment? attachment = AttachmentService.tryParse(plaintext);
+
+      if (attachment == null) {
+        // The envelope was tampered with or truncated. Show the same honest
+        // error a failed decryption shows rather than a wall of base64.
+        _failedDecryptions.add(message.id);
+        return;
+      }
+
+      _attachmentEnvelopes[message.id] = plaintext;
+      _attachmentCache[message.id] = attachment;
+      _decryptedTexts[message.id] = '';
+      return;
+    }
+
+    _attachmentEnvelopes.remove(message.id);
+    _attachmentCache.remove(message.id);
+    _decryptedTexts[message.id] = plaintext;
+  }
+
+  /// Ends the pending state for a message that cannot be decrypted.
+  ///
+  /// Every path that starts a decryption ends in either this or
+  /// [_registerDecrypted], so no message is left in limbo.
+  void _markDecryptionFailed(String messageId) {
+    _pendingDecryption.remove(messageId);
+    _decryptingMessageIds.remove(messageId);
+    _failedDecryptions.add(messageId);
+  }
+
+  /// Decoded attachment bytes for a message, re-read from its envelope when
+  /// the small cache has moved on.
+  ChatAttachment? _attachmentFor(String messageId) {
+    final ChatAttachment? cached = _attachmentCache[messageId];
+
+    if (cached != null) {
+      return cached;
+    }
+
+    final String? envelope = _attachmentEnvelopes[messageId];
+
+    if (envelope == null) {
+      return null;
+    }
+
+    final ChatAttachment? parsed = AttachmentService.tryParse(envelope);
+
+    if (parsed == null) {
+      return null;
+    }
+
+    if (_attachmentCache.length >= _attachmentCacheLimit) {
+      _attachmentCache.remove(_attachmentCache.keys.first);
+    }
+
+    _attachmentCache[messageId] = parsed;
+
+    return parsed;
+  }
+
+  /// Tries one message again after a failure, for example once the identity
+  /// has been unlocked. Lets the user recover in place instead of reopening
+  /// the chat.
+  Future<void> _retryDecryption(Message message) async {
+    if (_disabledForDecryption(message.id)) {
+      return;
+    }
+
+    if (mounted) {
+      setState(() {
+        _failedDecryptions.remove(message.id);
+        _pendingDecryption.add(message.id);
+        _decryptingMessageIds.add(message.id);
+      });
+    }
+
+    try {
+      final sharedKey =
+          await _getOrDeriveSharedKey().timeout(_decryptionTimeout);
+
+      final text = await _decryptWithKey(message, sharedKey);
+
+      if (text != null) {
+        _registerDecrypted(message, text);
+      } else {
+        _markDecryptionFailed(message.id);
+      }
+    } catch (e) {
+      debugPrint("[Crypto] Retry failed for ${message.id}: $e");
+
+      _markDecryptionFailed(message.id);
+    } finally {
+      _decryptingMessageIds.remove(message.id);
+
+      if (mounted && !_disposed) {
+        setState(() {});
+      }
+    }
+  }
+
+  bool _disabledForDecryption(String messageId) {
+    return _disposed || !mounted || _decryptingMessageIds.contains(messageId);
+  }
+
+  // ============================================================
+  // CONVERSATION PREVIEW
+  // ============================================================
+
+  /// Saves the last line of this chat so the home list can show it.
+  ///
+  /// The preview is persisted on the device, next to the conversation, so it
+  /// survives a restart. Until this existed the preview stayed empty forever
+  /// and the chat list drew it as "Decrypting...", which is what looked like an
+  /// infinite spinner after the app was killed and reopened.
+  Future<void> _persistConversationPreview(
+    String preview, {
+    bool touch = true,
+  }) async {
+    final String trimmed = preview.trim();
+
+    if (trimmed.isEmpty) {
+      return;
+    }
+
+    final String line = trimmed.length > 120
+        ? '${trimmed.substring(0, 120)}…'
+        : trimmed;
+
+    try {
+      await _conversationService.updateLastMessage(
+        conversationId: widget.conversation.id,
+        lastMessage: line,
+        touch: touch,
+      );
+    } catch (e) {
+      debugPrint("[Messages] Could not save conversation preview: $e");
+    }
+  }
+
+  Future<void> _persistPreviewForMessage(Message message) async {
+    final ChatAttachment? attachment = _attachmentFor(message.id);
+
+    if (attachment != null) {
+      final AppLocalizations? l10n = mounted ? AppLocalizations.of(context) : null;
+
+      await _persistConversationPreview(
+        AttachmentService.previewLabel(
+          attachment,
+          photoLabel: l10n?.attachPhoto ?? 'Photo',
+        ),
+        // Filling in a preview that was never saved must not reorder the list.
+        touch: false,
+      );
+
+      return;
+    }
+
+    final String? text = _decryptedTexts[message.id];
+
+    if (text != null) {
+      await _persistConversationPreview(text, touch: false);
     }
   }
 
@@ -479,7 +740,7 @@ class _ChatPageState extends State<ChatPage> {
     try {
       final encoded = jsonEncode(payload);
 
-      _webrtc.sendMessage(encoded);
+      await _webrtc.sendMessage(encoded);
 
       return true;
     } catch (e) {
@@ -810,6 +1071,10 @@ class _ChatPageState extends State<ChatPage> {
          * processing another message.
          */
         if (!_pendingMessages.containsKey(message.id)) {
+          continue;
+        }
+
+        if (_inFlightSends.contains(message.id)) {
           continue;
         }
 
@@ -1457,24 +1722,31 @@ class _ChatPageState extends State<ChatPage> {
       // DECRYPT
       // --------------------------------------------------------
 
+      _pendingDecryption.add(message.id);
+
       try {
-        final sharedKey = await _getOrDeriveSharedKey();
+        final sharedKey =
+            await _getOrDeriveSharedKey().timeout(_decryptionTimeout);
 
         final text = await _decryptWithKey(message, sharedKey);
 
         if (text != null && mounted && !_disposed) {
-          _decryptedTexts[message.id] = text;
-          _failedDecryptions.remove(message.id);
+          _registerDecrypted(message, text);
         } else if (mounted && !_disposed) {
-          _failedDecryptions.add(message.id);
+          _markDecryptionFailed(message.id);
         }
       } catch (e) {
         debugPrint("[Crypto] Incoming decryption failed: $e");
 
         if (mounted && !_disposed) {
-          _failedDecryptions.add(message.id);
+          _markDecryptionFailed(message.id);
         }
       }
+
+      if (!mounted || _disposed) return;
+
+      // Keep the chat list preview current on the receiving side too.
+      await _persistPreviewForMessage(message);
 
       if (!mounted || _disposed) return;
 
@@ -1523,6 +1795,18 @@ class _ChatPageState extends State<ChatPage> {
 
     _messageController.clear();
 
+    await _queueMessage(text, type: MessageType.text);
+  }
+
+  /// Encrypts, signs, persists and sends one plaintext payload.
+  ///
+  /// Attachments use this too: their plaintext is the attachment envelope, so
+  /// they get exactly the same encryption, signature, outbox retry and storage
+  /// as a typed message.
+  Future<void> _queueMessage(
+    String text, {
+    required MessageType type,
+  }) async {
     try {
       // --------------------------------------------------------
       // SHARED KEY
@@ -1599,7 +1883,7 @@ class _ChatPageState extends State<ChatPage> {
         senderSigningPublicKey: senderPubKeyBase64,
         timestamp: DateTime.fromMillisecondsSinceEpoch(timestampMs),
         outgoing: true,
-        type: MessageType.text,
+        type: type,
         status: MessageStatus.pending,
       );
 
@@ -1615,9 +1899,11 @@ class _ChatPageState extends State<ChatPage> {
 
       _pendingMessages[messageId] = newMessage;
 
-      _decryptedTexts[messageId] = text;
+      _registerDecrypted(newMessage, text);
 
       await _messageService.addMessage(newMessage);
+
+      await _persistConversationPreview(_previewForPlaintext(text));
 
       // --------------------------------------------------------
       // SHOW MESSAGE IMMEDIATELY
@@ -1647,16 +1933,24 @@ class _ChatPageState extends State<ChatPage> {
       // SEND
       // --------------------------------------------------------
 
-      final sendSucceeded = await _sendPayload({
-        "id": messageId,
-        "conversationId": widget.conversation.id,
-        "sender": senderId,
-        "receiver": receiverId,
-        "text": encrypted,
-        "signature": signature,
-        "senderSigningPublicKey": senderPubKeyBase64,
-        "timestamp": timestampMs,
-      });
+      _inFlightSends.add(messageId);
+
+      final bool sendSucceeded;
+
+      try {
+        sendSucceeded = await _sendPayload({
+          "id": messageId,
+          "conversationId": widget.conversation.id,
+          "sender": senderId,
+          "receiver": receiverId,
+          "text": encrypted,
+          "signature": signature,
+          "senderSigningPublicKey": senderPubKeyBase64,
+          "timestamp": timestampMs,
+        });
+      } finally {
+        _inFlightSends.remove(messageId);
+      }
 
       // --------------------------------------------------------
       // SEND FAILED
@@ -1684,6 +1978,283 @@ class _ChatPageState extends State<ChatPage> {
         "$e\n$stack",
       );
     }
+  }
+
+  /// The line shown in the chat list for a message's plaintext.
+  String _previewForPlaintext(String plaintext) {
+    if (!AttachmentService.looksLikeAttachment(plaintext)) {
+      return plaintext;
+    }
+
+    final ChatAttachment? attachment = AttachmentService.tryParse(plaintext);
+
+    if (attachment == null) {
+      return plaintext;
+    }
+
+    final AppLocalizations? l10n = mounted ? AppLocalizations.of(context) : null;
+
+    return AttachmentService.previewLabel(
+      attachment,
+      photoLabel: l10n?.attachPhoto ?? 'Photo',
+    );
+  }
+
+  // ============================================================
+  // ATTACHMENTS
+  // ============================================================
+
+  void _openAttachmentSheet() {
+    if (_disposed || !mounted) return;
+
+    final AppLocalizations l10n = AppLocalizations.of(context)!;
+
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (sheetContext) {
+        return SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: const Icon(Icons.photo_library_outlined),
+                title: Text(l10n.attachPhoto),
+                onTap: () {
+                  Navigator.of(sheetContext).pop();
+
+                  unawaited(_pickAttachment(MessageType.image));
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.attach_file),
+                title: Text(l10n.attachFile),
+                onTap: () {
+                  Navigator.of(sheetContext).pop();
+
+                  unawaited(_pickAttachment(MessageType.file));
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _pickAttachment(MessageType type) async {
+    if (_isSendingAttachment || _disposed || !mounted) return;
+
+    final AppLocalizations l10n = AppLocalizations.of(context)!;
+
+    _isSendingAttachment = true;
+
+    setState(() {});
+
+    try {
+      Uint8List? bytes;
+      String name = '';
+      String mime = '';
+
+      if (type == MessageType.image) {
+        final XFile? picked = await _imagePicker.pickImage(
+          source: ImageSource.gallery,
+        );
+
+        if (picked == null) return;
+
+        bytes = await picked.readAsBytes();
+        name = picked.name.trim().isEmpty ? 'photo' : picked.name;
+        mime = picked.mimeType ?? _mimeFromName(name);
+      } else {
+        final PlatformFile? file = await FilePicker.pickFile();
+
+        if (file == null) return;
+
+        // Ask for the size before reading, so an oversized pick is refused
+        // without first pulling it into memory.
+        final int? declaredLength = await file.length();
+
+        if (declaredLength != null &&
+            declaredLength > AttachmentService.maxBytes) {
+          _showAttachmentProblem(
+            l10n.attachmentTooLarge(AttachmentService.sizeLimitMb),
+          );
+          return;
+        }
+
+        bytes = await file.readAsBytes();
+        name = file.name;
+        mime = _mimeFromName(name);
+      }
+
+      if (bytes.isEmpty) {
+        _showAttachmentProblem(l10n.attachmentSendFailed);
+        return;
+      }
+
+      // Checked before encrypting and before the outbox stores anything, so an
+      // oversized pick costs nothing and cannot wedge the send queue.
+      if (bytes.length > AttachmentService.maxBytes) {
+        _showAttachmentProblem(
+          l10n.attachmentTooLarge(AttachmentService.sizeLimitMb),
+        );
+        return;
+      }
+
+      final String envelope = AttachmentService.encode(
+        kind: type == MessageType.image
+            ? ChatAttachment.kindImage
+            : ChatAttachment.kindFile,
+        name: name,
+        mimeType: mime,
+        bytes: bytes,
+      );
+
+      if (!mounted || _disposed) return;
+
+      await _queueMessage(envelope, type: type);
+    } catch (e, stack) {
+      debugPrint("[Attachment] Pick/send failed: $e\n$stack");
+
+      if (mounted && !_disposed) {
+        _showAttachmentProblem(l10n.attachmentSendFailed);
+      }
+    } finally {
+      _isSendingAttachment = false;
+
+      if (mounted && !_disposed) {
+        setState(() {});
+      }
+    }
+  }
+
+  void _showAttachmentProblem(String message) {
+    if (!mounted) return;
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message)),
+    );
+  }
+
+  /// A rough MIME type from the file extension.
+  ///
+  /// Only used to give the receiving share sheet a sensible type; the bytes
+  /// themselves are what matter and they are encrypted either way.
+  String _mimeFromName(String name) {
+    final int dot = name.lastIndexOf('.');
+
+    if (dot == -1 || dot == name.length - 1) {
+      return 'application/octet-stream';
+    }
+
+    switch (name.substring(dot + 1).toLowerCase()) {
+      case 'jpg':
+      case 'jpeg':
+        return 'image/jpeg';
+      case 'png':
+        return 'image/png';
+      case 'gif':
+        return 'image/gif';
+      case 'webp':
+        return 'image/webp';
+      case 'heic':
+        return 'image/heic';
+      case 'pdf':
+        return 'application/pdf';
+      case 'txt':
+        return 'text/plain';
+      case 'mp4':
+        return 'video/mp4';
+      case 'm4a':
+        return 'audio/mp4';
+      case 'mp3':
+        return 'audio/mpeg';
+      default:
+        return 'application/octet-stream';
+    }
+  }
+
+  /// Opens an attachment with the system share sheet, so the user can save it,
+  /// open it in another app or forward it.
+  Future<void> _openAttachment(ChatAttachment attachment) async {
+    try {
+      await Share.shareXFiles(
+        [
+          XFile.fromData(
+            attachment.bytes,
+            name: attachment.name,
+            mimeType: attachment.mimeType.isEmpty
+                ? 'application/octet-stream'
+                : attachment.mimeType,
+          ),
+        ],
+        subject: attachment.name,
+      );
+    } catch (e) {
+      debugPrint("[Attachment] Could not open: $e");
+
+      if (!mounted) return;
+
+      _showAttachmentProblem(AppLocalizations.of(context)!.attachmentSendFailed);
+    }
+  }
+
+  Widget _buildAttachmentBubble(ChatAttachment attachment) {
+    if (attachment.isImage) {
+      return GestureDetector(
+        onTap: () => unawaited(_openAttachment(attachment)),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(
+              maxWidth: 240,
+              maxHeight: 240,
+            ),
+            child: Image.memory(
+              attachment.bytes,
+              fit: BoxFit.cover,
+              gaplessPlayback: true,
+            ),
+          ),
+        ),
+      );
+    }
+
+    return InkWell(
+      onTap: () => unawaited(_openAttachment(attachment)),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(
+            Icons.insert_drive_file_outlined,
+            color: Colors.white,
+            size: 22,
+          ),
+          const SizedBox(width: 8),
+          Flexible(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  attachment.name,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(color: Colors.white),
+                ),
+                Text(
+                  AttachmentService.formatSize(attachment.size),
+                  style: const TextStyle(
+                    color: Colors.white70,
+                    fontSize: 11,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   // ============================================================
@@ -1946,6 +2517,10 @@ class _ChatPageState extends State<ChatPage> {
     }
 
     _decryptedTexts.clear();
+    _attachmentCache.clear();
+    _attachmentEnvelopes.clear();
+    _pendingDecryption.clear();
+    _failedDecryptions.clear();
 
     if (mounted && !_disposed) {
       setState(() {
@@ -2027,6 +2602,12 @@ class _ChatPageState extends State<ChatPage> {
         }
       }
 
+      _pendingDecryption.addAll(
+        newMessages
+            .map((message) => message.id)
+            .where((id) => !_decryptedTexts.containsKey(id)),
+      );
+
       setState(() {
         _messages.addAll(newMessages);
 
@@ -2097,6 +2678,12 @@ class _ChatPageState extends State<ChatPage> {
     _decryptedTexts.clear();
 
     _decryptingMessageIds.clear();
+
+    _pendingDecryption.clear();
+
+    _attachmentCache.clear();
+
+    _attachmentEnvelopes.clear();
 
     /*
      * This only clears the in-memory copy.
@@ -2215,6 +2802,16 @@ class _ChatPageState extends State<ChatPage> {
 
                       final decryptedText = _decryptedTexts[message.id];
 
+                      final attachment = _attachmentFor(message.id);
+
+                      // A spinner is only ever drawn for a message that is
+                      // actually waiting on decryption right now. A message
+                      // that has fallen out of both sets has a final state, so
+                      // it can never spin forever.
+                      final bool isResolving =
+                          _pendingDecryption.contains(message.id) ||
+                          _decryptingMessageIds.contains(message.id);
+
                       return Align(
                         alignment: message.outgoing
                             ? Alignment.centerRight
@@ -2238,39 +2835,56 @@ class _ChatPageState extends State<ChatPage> {
                               // ------------------------------------------
                               // TEXT
                               // ------------------------------------------
-                              if (decryptedText != null)
+                              if (attachment != null)
+                                _buildAttachmentBubble(attachment)
+                              else if (decryptedText != null &&
+                                  decryptedText.isNotEmpty)
                                 Text(
                                   decryptedText,
                                   style: const TextStyle(color: Colors.white),
                                 )
-                              else if (_failedDecryptions.contains(message.id))
-                                Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    const Icon(
-                                      Icons.lock_outline,
-                                      size: 14,
-                                      color: Colors.white70,
-                                    ),
-                                    const SizedBox(width: 4),
-                                    Flexible(
-                                      child: Text(
-                                        l10n.decryptionError,
-                                        style: const TextStyle(
-                                          color: Colors.white70,
-                                          fontSize: 12,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              else
+                              else if (isResolving)
                                 const SizedBox(
                                   width: 16,
                                   height: 16,
                                   child: CircularProgressIndicator(
                                     strokeWidth: 2,
                                     color: Colors.white,
+                                  ),
+                                )
+                              else
+                                GestureDetector(
+                                  onTap: () =>
+                                      unawaited(_retryDecryption(message)),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      const Icon(
+                                        Icons.lock_outline,
+                                        size: 14,
+                                        color: Colors.white70,
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Flexible(
+                                        child: Text(
+                                          l10n.decryptionError,
+                                          style: const TextStyle(
+                                            color: Colors.white70,
+                                            fontSize: 12,
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(width: 6),
+                                      Text(
+                                        l10n.retry,
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 11,
+                                          decoration:
+                                              TextDecoration.underline,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
 
@@ -2321,6 +2935,18 @@ class _ChatPageState extends State<ChatPage> {
               padding: const EdgeInsets.all(8),
               child: Row(
                 children: [
+                  IconButton(
+                    tooltip: l10n.attachFile,
+                    onPressed:
+                        _isSendingAttachment ? null : _openAttachmentSheet,
+                    icon: _isSendingAttachment
+                        ? const SizedBox(
+                            height: 18,
+                            width: 18,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
+                        : const Icon(Icons.attach_file),
+                  ),
                   Expanded(
                     child: TextField(
                       controller: _messageController,

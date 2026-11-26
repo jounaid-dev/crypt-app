@@ -949,4 +949,28 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get accountSuspendedByAdmin => 'हे खाते प्रशासकाने निलंबित केले आहे.';
+
+  @override
+  String get unlockCrypt => 'ॲप अनलॉक करा';
+
+  @override
+  String get unlockCryptBody =>
+      'या डिव्हाइसवर तुमचे संदेश डिक्रिप्ट करण्यासाठी तुमचा मास्टर पासवर्ड एंटर करा.';
+
+  @override
+  String get unlock => 'आता अनलॉक करा';
+
+  @override
+  String get attachPhoto => 'फोटो';
+
+  @override
+  String get attachFile => 'फाईल';
+
+  @override
+  String attachmentTooLarge(int mb) {
+    return 'ती फाईल खूप मोठी आहे. मर्यादा $mb MB आहे.';
+  }
+
+  @override
+  String get attachmentSendFailed => 'ते संलग्नक पाठवू शकलो नाही.';
 }

@@ -407,5 +407,19 @@
     "couldNotGenerateQrImage": "QR छवि उत्पन्न नहीं कर सका",
     "conversationUpdateFailed": "वार्तालाप अद्यतन विफल रहा. पुनः प्रयास करें।",
     "conversationCreationFailed": "वार्तालाप निर्माण विफल रहा. पुनः प्रयास करें।",
-    "accountSuspendedByAdmin": "यह खाता एक व्यवस्थापक द्वारा निलंबित कर दिया गया है."
+    "accountSuspendedByAdmin": "यह खाता एक व्यवस्थापक द्वारा निलंबित कर दिया गया है.",
+    "unlockCrypt": "ऐप अनलॉक करें",
+    "unlockCryptBody": "इस डिवाइस पर अपने संदेशों को डिक्रिप्ट करने के लिए अपना मास्टर पासवर्ड दर्ज करें।",
+    "unlock": "अभी अनलॉक करें",
+    "attachPhoto": "तस्वीर",
+    "attachFile": "फ़ाइल",
+    "attachmentTooLarge": "वह फ़ाइल बहुत बड़ी है. सीमा {mb} MB है.",
+    "@attachmentTooLarge": {
+        "placeholders": {
+            "mb": {
+                "type": "int"
+            }
+        }
+    },
+    "attachmentSendFailed": "वह अनुलग्नक नहीं भेजा जा सका."
 }

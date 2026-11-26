@@ -958,4 +958,28 @@ class AppLocalizationsSw extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'Akaunti hii imesimamishwa na msimamizi.';
+
+  @override
+  String get unlockCrypt => 'Fungua programu';
+
+  @override
+  String get unlockCryptBody =>
+      'Weka nenosiri lako kuu ili kusimbua ujumbe wako kwenye kifaa hiki.';
+
+  @override
+  String get unlock => 'Fungua sasa';
+
+  @override
+  String get attachPhoto => 'Picha';
+
+  @override
+  String get attachFile => 'Faili';
+
+  @override
+  String attachmentTooLarge(int mb) {
+    return 'Faili hiyo ni kubwa sana. Kikomo ni $mb MB.';
+  }
+
+  @override
+  String get attachmentSendFailed => 'Haikuweza kutuma kiambatisho hicho.';
 }

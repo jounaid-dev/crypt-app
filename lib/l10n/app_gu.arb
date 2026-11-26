@@ -407,5 +407,19 @@
     "couldNotGenerateQrImage": "QR છબી જનરેટ કરી શકાઈ નથી",
     "conversationUpdateFailed": "વાતચીત અપડેટ નિષ્ફળ. ફરી પ્રયાસ કરો.",
     "conversationCreationFailed": "વાર્તાલાપ બનાવટ નિષ્ફળ. ફરી પ્રયાસ કરો.",
-    "accountSuspendedByAdmin": "આ એકાઉન્ટ એડમિનિસ્ટ્રેટર દ્વારા સસ્પેન્ડ કરવામાં આવ્યું છે."
+    "accountSuspendedByAdmin": "આ એકાઉન્ટ એડમિનિસ્ટ્રેટર દ્વારા સસ્પેન્ડ કરવામાં આવ્યું છે.",
+    "unlockCrypt": "એપ્લિકેશનને અનલૉક કરો",
+    "unlockCryptBody": "આ ઉપકરણ પર તમારા સંદેશાઓને ડિક્રિપ્ટ કરવા માટે તમારો મુખ્ય પાસવર્ડ દાખલ કરો.",
+    "unlock": "હવે અનલૉક કરો",
+    "attachPhoto": "ફોટો",
+    "attachFile": "ફાઈલ",
+    "attachmentTooLarge": "તે ફાઇલ ખૂબ મોટી છે. મર્યાદા {mb} MB છે.",
+    "@attachmentTooLarge": {
+        "placeholders": {
+            "mb": {
+                "type": "int"
+            }
+        }
+    },
+    "attachmentSendFailed": "તે જોડાણ મોકલી શકાયું નથી."
 }

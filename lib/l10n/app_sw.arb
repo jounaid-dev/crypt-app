@@ -407,5 +407,19 @@
     "couldNotGenerateQrImage": "Haikuweza kuzalisha picha ya QR",
     "conversationUpdateFailed": "Usasishaji wa mazungumzo haukufaulu. Jaribu tena.",
     "conversationCreationFailed": "Imeshindwa kuunda mazungumzo. Jaribu tena.",
-    "accountSuspendedByAdmin": "Akaunti hii imesimamishwa na msimamizi."
+    "accountSuspendedByAdmin": "Akaunti hii imesimamishwa na msimamizi.",
+    "unlockCrypt": "Fungua programu",
+    "unlockCryptBody": "Weka nenosiri lako kuu ili kusimbua ujumbe wako kwenye kifaa hiki.",
+    "unlock": "Fungua sasa",
+    "attachPhoto": "Picha",
+    "attachFile": "Faili",
+    "attachmentTooLarge": "Faili hiyo ni kubwa sana. Kikomo ni {mb} MB.",
+    "@attachmentTooLarge": {
+        "placeholders": {
+            "mb": {
+                "type": "int"
+            }
+        }
+    },
+    "attachmentSendFailed": "Haikuweza kutuma kiambatisho hicho."
 }

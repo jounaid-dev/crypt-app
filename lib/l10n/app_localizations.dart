@@ -1791,6 +1791,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This account has been suspended by an administrator.'**
   String get accountSuspendedByAdmin;
+
+  /// No description provided for @unlockCrypt.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock CRYPT'**
+  String get unlockCrypt;
+
+  /// No description provided for @unlockCryptBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your master password to decrypt your messages on this device.'**
+  String get unlockCryptBody;
+
+  /// No description provided for @unlock.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock'**
+  String get unlock;
+
+  /// No description provided for @attachPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Photo'**
+  String get attachPhoto;
+
+  /// No description provided for @attachFile.
+  ///
+  /// In en, this message translates to:
+  /// **'File'**
+  String get attachFile;
+
+  /// No description provided for @attachmentTooLarge.
+  ///
+  /// In en, this message translates to:
+  /// **'That file is too large. The limit is {mb} MB.'**
+  String attachmentTooLarge(int mb);
+
+  /// No description provided for @attachmentSendFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not send that attachment.'**
+  String get attachmentSendFailed;
 }
 
 class _AppLocalizationsDelegate

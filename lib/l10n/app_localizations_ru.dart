@@ -962,4 +962,28 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'Эта учетная запись заблокирована администратором.';
+
+  @override
+  String get unlockCrypt => 'Разблокировать приложение';
+
+  @override
+  String get unlockCryptBody =>
+      'Введите свой мастер-пароль, чтобы расшифровать сообщения на этом устройстве.';
+
+  @override
+  String get unlock => 'Разблокировать сейчас';
+
+  @override
+  String get attachPhoto => 'Фото';
+
+  @override
+  String get attachFile => 'Файл';
+
+  @override
+  String attachmentTooLarge(int mb) {
+    return 'Этот файл слишком велик. Ограничение составляет $mb МБ.';
+  }
+
+  @override
+  String get attachmentSendFailed => 'Не удалось отправить это вложение.';
 }

@@ -957,4 +957,28 @@ class AppLocalizationsNl extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'Dit account is opgeschort door een beheerder.';
+
+  @override
+  String get unlockCrypt => 'Ontgrendel app';
+
+  @override
+  String get unlockCryptBody =>
+      'Voer uw hoofdwachtwoord in om uw berichten op dit apparaat te decoderen.';
+
+  @override
+  String get unlock => 'Ontgrendel nu';
+
+  @override
+  String get attachPhoto => 'Foto';
+
+  @override
+  String get attachFile => 'Bestand';
+
+  @override
+  String attachmentTooLarge(int mb) {
+    return 'Dat bestand is te groot. De limiet is $mb MB.';
+  }
+
+  @override
+  String get attachmentSendFailed => 'Kan die bijlage niet verzenden.';
 }

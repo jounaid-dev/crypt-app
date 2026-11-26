@@ -407,5 +407,19 @@
     "couldNotGenerateQrImage": "لا يمكن إنشاء صورة QR",
     "conversationUpdateFailed": "فشل تحديث المحادثة. حاول ثانية.",
     "conversationCreationFailed": "فشل إنشاء المحادثة. حاول ثانية.",
-    "accountSuspendedByAdmin": "لقد تم تعليق هذا الحساب من قبل المسؤول."
+    "accountSuspendedByAdmin": "لقد تم تعليق هذا الحساب من قبل المسؤول.",
+    "unlockCrypt": "فتح التطبيق",
+    "unlockCryptBody": "أدخل كلمة المرور الرئيسية لفك تشفير رسائلك على هذا الجهاز.",
+    "unlock": "افتح الآن",
+    "attachPhoto": "صورة",
+    "attachFile": "ملف",
+    "attachmentTooLarge": "هذا الملف كبير جدًا. الحد هو {mb} ميغابايت.",
+    "@attachmentTooLarge": {
+        "placeholders": {
+            "mb": {
+                "type": "int"
+            }
+        }
+    },
+    "attachmentSendFailed": "تعذر إرسال هذا المرفق."
 }

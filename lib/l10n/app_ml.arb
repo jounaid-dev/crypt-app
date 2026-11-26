@@ -407,5 +407,19 @@
     "couldNotGenerateQrImage": "QR ഇമേജ് സൃഷ്ടിക്കാൻ കഴിഞ്ഞില്ല",
     "conversationUpdateFailed": "സംഭാഷണ അപ്‌ഡേറ്റ് പരാജയപ്പെട്ടു. വീണ്ടും ശ്രമിക്കുക.",
     "conversationCreationFailed": "സംഭാഷണം സൃഷ്‌ടിക്കാനായില്ല. വീണ്ടും ശ്രമിക്കുക.",
-    "accountSuspendedByAdmin": "ഈ അക്കൗണ്ട് ഒരു അഡ്‌മിനിസ്‌ട്രേറ്റർ സസ്പെൻഡ് ചെയ്‌തിരിക്കുന്നു."
+    "accountSuspendedByAdmin": "ഈ അക്കൗണ്ട് ഒരു അഡ്‌മിനിസ്‌ട്രേറ്റർ സസ്പെൻഡ് ചെയ്‌തിരിക്കുന്നു.",
+    "unlockCrypt": "ആപ്പ് അൺലോക്ക് ചെയ്യുക",
+    "unlockCryptBody": "ഈ ഉപകരണത്തിൽ നിങ്ങളുടെ സന്ദേശങ്ങൾ ഡീക്രിപ്റ്റ് ചെയ്യാൻ നിങ്ങളുടെ മാസ്റ്റർ പാസ്‌വേഡ് നൽകുക.",
+    "unlock": "ഇപ്പോൾ അൺലോക്ക് ചെയ്യുക",
+    "attachPhoto": "ഫോട്ടോ",
+    "attachFile": "ഫയൽ",
+    "attachmentTooLarge": "ആ ഫയൽ വളരെ വലുതാണ്. പരിധി {mb} MB ആണ്.",
+    "@attachmentTooLarge": {
+        "placeholders": {
+            "mb": {
+                "type": "int"
+            }
+        }
+    },
+    "attachmentSendFailed": "ആ അറ്റാച്ച്‌മെൻ്റ് അയയ്ക്കാൻ കഴിഞ്ഞില്ല."
 }

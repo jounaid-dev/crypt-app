@@ -407,5 +407,19 @@
     "couldNotGenerateQrImage": "Không thể tạo hình ảnh QR",
     "conversationUpdateFailed": "Cập nhật cuộc trò chuyện không thành công. Hãy thử lại.",
     "conversationCreationFailed": "Tạo cuộc trò chuyện không thành công. Hãy thử lại.",
-    "accountSuspendedByAdmin": "Tài khoản này đã bị quản trị viên đình chỉ."
+    "accountSuspendedByAdmin": "Tài khoản này đã bị quản trị viên đình chỉ.",
+    "unlockCrypt": "Mở khóa ứng dụng",
+    "unlockCryptBody": "Nhập mật khẩu chính của bạn để giải mã tin nhắn của bạn trên thiết bị này.",
+    "unlock": "Mở khóa ngay bây giờ",
+    "attachPhoto": "Ảnh",
+    "attachFile": "Tệp",
+    "attachmentTooLarge": "Tệp đó quá lớn. Giới hạn là {mb} MB.",
+    "@attachmentTooLarge": {
+        "placeholders": {
+            "mb": {
+                "type": "int"
+            }
+        }
+    },
+    "attachmentSendFailed": "Không thể gửi tệp đính kèm đó."
 }

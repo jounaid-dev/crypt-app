@@ -963,4 +963,28 @@ class AppLocalizationsMl extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'ഈ അക്കൗണ്ട് ഒരു അഡ്‌മിനിസ്‌ട്രേറ്റർ സസ്പെൻഡ് ചെയ്‌തിരിക്കുന്നു.';
+
+  @override
+  String get unlockCrypt => 'ആപ്പ് അൺലോക്ക് ചെയ്യുക';
+
+  @override
+  String get unlockCryptBody =>
+      'ഈ ഉപകരണത്തിൽ നിങ്ങളുടെ സന്ദേശങ്ങൾ ഡീക്രിപ്റ്റ് ചെയ്യാൻ നിങ്ങളുടെ മാസ്റ്റർ പാസ്‌വേഡ് നൽകുക.';
+
+  @override
+  String get unlock => 'ഇപ്പോൾ അൺലോക്ക് ചെയ്യുക';
+
+  @override
+  String get attachPhoto => 'ഫോട്ടോ';
+
+  @override
+  String get attachFile => 'ഫയൽ';
+
+  @override
+  String attachmentTooLarge(int mb) {
+    return 'ആ ഫയൽ വളരെ വലുതാണ്. പരിധി $mb MB ആണ്.';
+  }
+
+  @override
+  String get attachmentSendFailed => 'ആ അറ്റാച്ച്‌മെൻ്റ് അയയ്ക്കാൻ കഴിഞ്ഞില്ല.';
 }

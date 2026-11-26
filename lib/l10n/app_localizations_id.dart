@@ -959,4 +959,28 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'Akun ini telah ditangguhkan oleh administrator.';
+
+  @override
+  String get unlockCrypt => 'Buka kunci aplikasi';
+
+  @override
+  String get unlockCryptBody =>
+      'Masukkan kata sandi utama Anda untuk mendekripsi pesan Anda di perangkat ini.';
+
+  @override
+  String get unlock => 'Buka kunci sekarang';
+
+  @override
+  String get attachPhoto => 'Foto';
+
+  @override
+  String get attachFile => 'File';
+
+  @override
+  String attachmentTooLarge(int mb) {
+    return 'File itu terlalu besar. Batasnya adalah $mb MB.';
+  }
+
+  @override
+  String get attachmentSendFailed => 'Tidak dapat mengirimkan lampiran itu.';
 }

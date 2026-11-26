@@ -964,4 +964,28 @@ class AppLocalizationsTa extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'இந்தக் கணக்கு நிர்வாகியால் இடைநிறுத்தப்பட்டுள்ளது.';
+
+  @override
+  String get unlockCrypt => 'பயன்பாட்டைத் திறக்கவும்';
+
+  @override
+  String get unlockCryptBody =>
+      'இந்தச் சாதனத்தில் உங்கள் செய்திகளை மறைகுறியாக்க உங்கள் முதன்மை கடவுச்சொல்லை உள்ளிடவும்.';
+
+  @override
+  String get unlock => 'இப்போது திறக்கவும்';
+
+  @override
+  String get attachPhoto => 'புகைப்படம்';
+
+  @override
+  String get attachFile => 'கோப்பு';
+
+  @override
+  String attachmentTooLarge(int mb) {
+    return 'அந்தக் கோப்பு மிகப் பெரியது. வரம்பு $mb MB.';
+  }
+
+  @override
+  String get attachmentSendFailed => 'அந்த இணைப்பை அனுப்ப முடியவில்லை.';
 }

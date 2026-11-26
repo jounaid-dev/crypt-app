@@ -960,4 +960,28 @@ class AppLocalizationsTe extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'ఈ ఖాతాను అడ్మినిస్ట్రేటర్ సస్పెండ్ చేసారు.';
+
+  @override
+  String get unlockCrypt => 'యాప్‌ను అన్‌లాక్ చేయండి';
+
+  @override
+  String get unlockCryptBody =>
+      'ఈ పరికరంలో మీ సందేశాలను డీక్రిప్ట్ చేయడానికి మీ మాస్టర్ పాస్‌వర్డ్‌ను నమోదు చేయండి.';
+
+  @override
+  String get unlock => 'ఇప్పుడే అన్‌లాక్ చేయండి';
+
+  @override
+  String get attachPhoto => 'ఫోటో';
+
+  @override
+  String get attachFile => 'ఫైల్';
+
+  @override
+  String attachmentTooLarge(int mb) {
+    return 'ఆ ఫైల్ చాలా పెద్దది. పరిమితి $mb MB.';
+  }
+
+  @override
+  String get attachmentSendFailed => 'ఆ జోడింపును పంపడం సాధ్యపడలేదు.';
 }

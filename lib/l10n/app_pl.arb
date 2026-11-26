@@ -407,5 +407,19 @@
     "couldNotGenerateQrImage": "Nie można wygenerować obrazu QR",
     "conversationUpdateFailed": "Aktualizacja rozmowy nie powiodła się. Spróbuj ponownie.",
     "conversationCreationFailed": "Utworzenie rozmowy nie powiodło się. Spróbuj ponownie.",
-    "accountSuspendedByAdmin": "To konto zostało zawieszone przez administratora."
+    "accountSuspendedByAdmin": "To konto zostało zawieszone przez administratora.",
+    "unlockCrypt": "Odblokuj aplikację",
+    "unlockCryptBody": "Wprowadź swoje hasło główne, aby odszyfrować wiadomości na tym urządzeniu.",
+    "unlock": "Odblokuj teraz",
+    "attachPhoto": "Zdjęcie",
+    "attachFile": "Plik",
+    "attachmentTooLarge": "Ten plik jest za duży. Limit wynosi {mb} MB.",
+    "@attachmentTooLarge": {
+        "placeholders": {
+            "mb": {
+                "type": "int"
+            }
+        }
+    },
+    "attachmentSendFailed": "Nie można wysłać tego załącznika."
 }

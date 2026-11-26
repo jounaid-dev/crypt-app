@@ -939,4 +939,28 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'This account has been suspended by an administrator.';
+
+  @override
+  String get unlockCrypt => 'Unlock CRYPT';
+
+  @override
+  String get unlockCryptBody =>
+      'Enter your master password to decrypt your messages on this device.';
+
+  @override
+  String get unlock => 'Unlock';
+
+  @override
+  String get attachPhoto => 'Photo';
+
+  @override
+  String get attachFile => 'File';
+
+  @override
+  String attachmentTooLarge(int mb) {
+    return 'That file is too large. The limit is $mb MB.';
+  }
+
+  @override
+  String get attachmentSendFailed => 'Could not send that attachment.';
 }

@@ -953,4 +953,28 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'Tài khoản này đã bị quản trị viên đình chỉ.';
+
+  @override
+  String get unlockCrypt => 'Mở khóa ứng dụng';
+
+  @override
+  String get unlockCryptBody =>
+      'Nhập mật khẩu chính của bạn để giải mã tin nhắn của bạn trên thiết bị này.';
+
+  @override
+  String get unlock => 'Mở khóa ngay bây giờ';
+
+  @override
+  String get attachPhoto => 'Ảnh';
+
+  @override
+  String get attachFile => 'Tệp';
+
+  @override
+  String attachmentTooLarge(int mb) {
+    return 'Tệp đó quá lớn. Giới hạn là $mb MB.';
+  }
+
+  @override
+  String get attachmentSendFailed => 'Không thể gửi tệp đính kèm đó.';
 }

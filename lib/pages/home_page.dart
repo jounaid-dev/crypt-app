@@ -1241,9 +1241,14 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 const Icon(Icons.verified_user, size: 16, color: Colors.green),
             ],
           ),
+          // An empty preview used to be drawn as "Decrypting...", which never
+          // changed: the preview was written once when the contact was created
+          // and never updated, so every chat looked like it was stuck loading
+          // after a restart. A chat with no messages now says so, and a chat
+          // with messages gets its real last line saved by ChatPage.
           subtitle: Text(
             conversation.lastMessage.isEmpty
-                ? l10n.processingDecryption
+                ? l10n.noMessagesYet
                 : conversation.lastMessage,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,

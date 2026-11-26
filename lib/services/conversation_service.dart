@@ -99,9 +99,16 @@ class ConversationService {
     return true;
   }
 
+  /// Saves the preview line for a conversation.
+  ///
+  /// [touch] moves the conversation to the top of the list by stamping the
+  /// current time. It is true for a message that was just sent or received, and
+  /// false when the preview is only being filled in from stored messages on
+  /// open: opening an old chat must not make it look like the newest one.
   Future<void> updateLastMessage({
     required String conversationId,
     required String lastMessage,
+    bool touch = true,
   }) async {
     final conversations = await getConversations();
 
@@ -115,7 +122,7 @@ class ConversationService {
 
     conversations[index] = current.copyWith(
       lastMessage: lastMessage,
-      lastMessageAt: DateTime.now(),
+      lastMessageAt: touch ? DateTime.now() : current.lastMessageAt,
     );
 
     await saveConversations(conversations);

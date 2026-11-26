@@ -970,4 +970,28 @@ class AppLocalizationsTl extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'Ang account na ito ay sinuspinde ng isang administrator.';
+
+  @override
+  String get unlockCrypt => 'I-unlock ang app';
+
+  @override
+  String get unlockCryptBody =>
+      'Ilagay ang iyong master password para i-decrypt ang iyong mga mensahe sa device na ito.';
+
+  @override
+  String get unlock => 'I-unlock ngayon';
+
+  @override
+  String get attachPhoto => 'Larawan';
+
+  @override
+  String get attachFile => 'file';
+
+  @override
+  String attachmentTooLarge(int mb) {
+    return 'Masyadong malaki ang file na iyon. Ang limitasyon ay $mb MB.';
+  }
+
+  @override
+  String get attachmentSendFailed => 'Hindi maipadala ang attachment na iyon.';
 }

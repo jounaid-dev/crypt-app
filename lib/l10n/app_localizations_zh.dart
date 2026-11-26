@@ -905,4 +905,27 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get accountSuspendedByAdmin => '该帐户已被管理员暂停。';
+
+  @override
+  String get unlockCrypt => '解锁应用程序';
+
+  @override
+  String get unlockCryptBody => '输入您的主密码以解密您在此设备上的消息。';
+
+  @override
+  String get unlock => '立即解锁';
+
+  @override
+  String get attachPhoto => '照片';
+
+  @override
+  String get attachFile => '文件';
+
+  @override
+  String attachmentTooLarge(int mb) {
+    return '该文件太大了。限制为 $mb MB。';
+  }
+
+  @override
+  String get attachmentSendFailed => '无法发送该附件。';
 }

@@ -957,4 +957,28 @@ class AppLocalizationsUr extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'اس اکاؤنٹ کو ایک منتظم نے معطل کر دیا ہے۔';
+
+  @override
+  String get unlockCrypt => 'ایپ کو غیر مقفل کریں۔';
+
+  @override
+  String get unlockCryptBody =>
+      'اس ڈیوائس پر اپنے پیغامات کو ڈکرپٹ کرنے کے لیے اپنا ماسٹر پاس ورڈ درج کریں۔';
+
+  @override
+  String get unlock => 'ابھی غیر مقفل کریں۔';
+
+  @override
+  String get attachPhoto => 'تصویر';
+
+  @override
+  String get attachFile => 'فائل';
+
+  @override
+  String attachmentTooLarge(int mb) {
+    return 'وہ فائل بہت بڑی ہے۔ حد $mb MB ہے۔';
+  }
+
+  @override
+  String get attachmentSendFailed => 'وہ منسلکہ نہیں بھیج سکا۔';
 }

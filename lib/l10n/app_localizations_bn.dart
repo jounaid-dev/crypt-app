@@ -944,4 +944,28 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'এই অ্যাকাউন্টটি একজন প্রশাসক দ্বারা স্থগিত করা হয়েছে৷';
+
+  @override
+  String get unlockCrypt => 'অ্যাপ আনলক করুন';
+
+  @override
+  String get unlockCryptBody =>
+      'এই ডিভাইসে আপনার বার্তাগুলিকে ডিক্রিপ্ট করতে আপনার মাস্টার পাসওয়ার্ড লিখুন৷';
+
+  @override
+  String get unlock => 'এখনই আনলক করুন';
+
+  @override
+  String get attachPhoto => 'ছবি';
+
+  @override
+  String get attachFile => 'ফাইল';
+
+  @override
+  String attachmentTooLarge(int mb) {
+    return 'ফাইলটি অনেক বড়। সীমা হল $mb MB।';
+  }
+
+  @override
+  String get attachmentSendFailed => 'সংযুক্তি পাঠাতে পারেনি.';
 }

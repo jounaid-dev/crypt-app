@@ -407,5 +407,19 @@
     "couldNotGenerateQrImage": "Das QR-Bild konnte nicht generiert werden",
     "conversationUpdateFailed": "Konversationsaktualisierung fehlgeschlagen. Versuchen Sie es erneut.",
     "conversationCreationFailed": "Die Konversationserstellung ist fehlgeschlagen. Versuchen Sie es erneut.",
-    "accountSuspendedByAdmin": "Dieses Konto wurde von einem Administrator gesperrt."
+    "accountSuspendedByAdmin": "Dieses Konto wurde von einem Administrator gesperrt.",
+    "unlockCrypt": "App entsperren",
+    "unlockCryptBody": "Geben Sie Ihr Master-Passwort ein, um Ihre Nachrichten auf diesem Gerät zu entschlüsseln.",
+    "unlock": "Jetzt freischalten",
+    "attachPhoto": "Foto",
+    "attachFile": "Datei",
+    "attachmentTooLarge": "Diese Datei ist zu groß. Das Limit beträgt {mb} MB.",
+    "@attachmentTooLarge": {
+        "placeholders": {
+            "mb": {
+                "type": "int"
+            }
+        }
+    },
+    "attachmentSendFailed": "Dieser Anhang konnte nicht gesendet werden."
 }
