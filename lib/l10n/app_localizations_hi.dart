@@ -976,4 +976,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get attachmentSendFailed => 'वह अनुलग्नक नहीं भेजा जा सका.';
+
+  @override
+  String get attachmentOpenFailed => 'वह अनुलग्नक नहीं खुल सका.';
 }

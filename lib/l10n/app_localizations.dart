@@ -1833,6 +1833,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not send that attachment.'**
   String get attachmentSendFailed;
+
+  /// No description provided for @attachmentOpenFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not open that attachment.'**
+  String get attachmentOpenFailed;
 }
 
 class _AppLocalizationsDelegate

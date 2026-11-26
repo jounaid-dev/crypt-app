@@ -973,4 +973,7 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get attachmentSendFailed => 'ते संलग्नक पाठवू शकलो नाही.';
+
+  @override
+  String get attachmentOpenFailed => 'ते संलग्नक उघडू शकलो नाही.';
 }

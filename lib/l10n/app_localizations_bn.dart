@@ -968,4 +968,7 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get attachmentSendFailed => 'সংযুক্তি পাঠাতে পারেনি.';
+
+  @override
+  String get attachmentOpenFailed => 'সেই সংযুক্তিটি খুলতে পারেনি৷';
 }

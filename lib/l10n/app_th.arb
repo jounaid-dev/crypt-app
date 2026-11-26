@@ -421,5 +421,6 @@
             }
         }
     },
-    "attachmentSendFailed": "ไม่สามารถส่งไฟล์แนบนั้นได้"
+    "attachmentSendFailed": "ไม่สามารถส่งไฟล์แนบนั้นได้",
+    "attachmentOpenFailed": "ไม่สามารถเปิดเอกสารแนบนั้นได้"
 }

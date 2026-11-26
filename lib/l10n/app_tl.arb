@@ -421,5 +421,6 @@
             }
         }
     },
-    "attachmentSendFailed": "Hindi maipadala ang attachment na iyon."
+    "attachmentSendFailed": "Hindi maipadala ang attachment na iyon.",
+    "attachmentOpenFailed": "Hindi mabuksan ang attachment na iyon."
 }

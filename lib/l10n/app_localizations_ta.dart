@@ -988,4 +988,7 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get attachmentSendFailed => 'அந்த இணைப்பை அனுப்ப முடியவில்லை.';
+
+  @override
+  String get attachmentOpenFailed => 'அந்த இணைப்பை திறக்க முடியவில்லை.';
 }

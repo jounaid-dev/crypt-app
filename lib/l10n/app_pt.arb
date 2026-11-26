@@ -421,5 +421,6 @@
             }
         }
     },
-    "attachmentSendFailed": "Não foi possível enviar esse anexo."
+    "attachmentSendFailed": "Não foi possível enviar esse anexo.",
+    "attachmentOpenFailed": "Não foi possível abrir esse anexo."
 }

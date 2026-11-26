@@ -970,4 +970,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get attachmentSendFailed => 'Bu ek gönderilemedi.';
+
+  @override
+  String get attachmentOpenFailed => 'Bu ek açılamadı.';
 }

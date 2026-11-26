@@ -980,4 +980,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get attachmentSendFailed => 'Impossibile inviare l\'allegato.';
+
+  @override
+  String get attachmentOpenFailed => 'Impossibile aprire l\'allegato.';
 }

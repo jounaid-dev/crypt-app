@@ -421,5 +421,6 @@
             }
         }
     },
-    "attachmentSendFailed": "Tidak dapat mengirimkan lampiran itu."
+    "attachmentSendFailed": "Tidak dapat mengirimkan lampiran itu.",
+    "attachmentOpenFailed": "Tidak dapat membuka lampiran itu."
 }

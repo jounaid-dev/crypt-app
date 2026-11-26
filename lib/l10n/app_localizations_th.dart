@@ -968,4 +968,7 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get attachmentSendFailed => 'ไม่สามารถส่งไฟล์แนบนั้นได้';
+
+  @override
+  String get attachmentOpenFailed => 'ไม่สามารถเปิดเอกสารแนบนั้นได้';
 }

@@ -421,5 +421,6 @@
             }
         }
     },
-    "attachmentSendFailed": "Не удалось отправить это вложение."
+    "attachmentSendFailed": "Не удалось отправить это вложение.",
+    "attachmentOpenFailed": "Не удалось открыть это вложение."
 }

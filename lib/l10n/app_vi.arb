@@ -421,5 +421,6 @@
             }
         }
     },
-    "attachmentSendFailed": "Không thể gửi tệp đính kèm đó."
+    "attachmentSendFailed": "Không thể gửi tệp đính kèm đó.",
+    "attachmentOpenFailed": "Không thể mở tệp đính kèm đó."
 }

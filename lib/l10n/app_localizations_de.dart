@@ -984,4 +984,8 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get attachmentSendFailed =>
       'Dieser Anhang konnte nicht gesendet werden.';
+
+  @override
+  String get attachmentOpenFailed =>
+      'Dieser Anhang konnte nicht geöffnet werden.';
 }

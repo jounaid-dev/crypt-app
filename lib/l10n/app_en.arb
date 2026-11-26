@@ -829,5 +829,6 @@
             }
         }
     },
-    "attachmentSendFailed": "Could not send that attachment."
+    "attachmentSendFailed": "Could not send that attachment.",
+    "attachmentOpenFailed": "Could not open that attachment."
 }

@@ -982,4 +982,7 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get attachmentSendFailed => 'Haikuweza kutuma kiambatisho hicho.';
+
+  @override
+  String get attachmentOpenFailed => 'Haikuweza kufungua kiambatisho hicho.';
 }

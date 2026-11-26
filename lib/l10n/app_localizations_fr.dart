@@ -986,4 +986,7 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get attachmentSendFailed =>
       'Impossible d\'envoyer cette pièce jointe.';
+
+  @override
+  String get attachmentOpenFailed => 'Impossible d\'ouvrir cette pièce jointe.';
 }

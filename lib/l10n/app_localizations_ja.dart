@@ -937,4 +937,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get attachmentSendFailed => 'その添付ファイルを送信できませんでした。';
+
+  @override
+  String get attachmentOpenFailed => 'その添付ファイルを開けませんでした。';
 }

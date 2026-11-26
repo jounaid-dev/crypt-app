@@ -994,4 +994,7 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get attachmentSendFailed => 'Hindi maipadala ang attachment na iyon.';
+
+  @override
+  String get attachmentOpenFailed => 'Hindi mabuksan ang attachment na iyon.';
 }

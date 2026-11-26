@@ -421,5 +421,6 @@
             }
         }
     },
-    "attachmentSendFailed": "첨부파일을 보낼 수 없습니다."
+    "attachmentSendFailed": "첨부파일을 보낼 수 없습니다.",
+    "attachmentOpenFailed": "첨부파일을 열 수 없습니다."
 }

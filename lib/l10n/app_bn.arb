@@ -421,5 +421,6 @@
             }
         }
     },
-    "attachmentSendFailed": "সংযুক্তি পাঠাতে পারেনি."
+    "attachmentSendFailed": "সংযুক্তি পাঠাতে পারেনি.",
+    "attachmentOpenFailed": "সেই সংযুক্তিটি খুলতে পারেনি৷"
 }

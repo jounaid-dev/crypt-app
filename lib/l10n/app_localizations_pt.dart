@@ -985,4 +985,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get attachmentSendFailed => 'Não foi possível enviar esse anexo.';
+
+  @override
+  String get attachmentOpenFailed => 'Não foi possível abrir esse anexo.';
 }

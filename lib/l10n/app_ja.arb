@@ -421,5 +421,6 @@
             }
         }
     },
-    "attachmentSendFailed": "その添付ファイルを送信できませんでした。"
+    "attachmentSendFailed": "その添付ファイルを送信できませんでした。",
+    "attachmentOpenFailed": "その添付ファイルを開けませんでした。"
 }

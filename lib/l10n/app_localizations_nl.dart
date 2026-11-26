@@ -981,4 +981,7 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get attachmentSendFailed => 'Kan die bijlage niet verzenden.';
+
+  @override
+  String get attachmentOpenFailed => 'Kan die bijlage niet openen.';
 }

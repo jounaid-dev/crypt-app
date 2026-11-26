@@ -421,5 +421,6 @@
             }
         }
     },
-    "attachmentSendFailed": "وہ منسلکہ نہیں بھیج سکا۔"
+    "attachmentSendFailed": "وہ منسلکہ نہیں بھیج سکا۔",
+    "attachmentOpenFailed": "وہ منسلکہ نہیں کھول سکا۔"
 }

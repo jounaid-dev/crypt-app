@@ -976,4 +976,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get attachmentSendFailed => 'No se pudo enviar ese archivo adjunto.';
+
+  @override
+  String get attachmentOpenFailed => 'No se pudo abrir ese archivo adjunto.';
 }

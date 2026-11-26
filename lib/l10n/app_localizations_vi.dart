@@ -977,4 +977,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get attachmentSendFailed => 'Không thể gửi tệp đính kèm đó.';
+
+  @override
+  String get attachmentOpenFailed => 'Không thể mở tệp đính kèm đó.';
 }

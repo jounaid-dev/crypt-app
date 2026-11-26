@@ -973,4 +973,7 @@ class AppLocalizationsGu extends AppLocalizations {
 
   @override
   String get attachmentSendFailed => 'તે જોડાણ મોકલી શકાયું નથી.';
+
+  @override
+  String get attachmentOpenFailed => 'તે જોડાણ ખોલી શકાયું નથી.';
 }

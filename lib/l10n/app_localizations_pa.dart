@@ -976,4 +976,7 @@ class AppLocalizationsPa extends AppLocalizations {
 
   @override
   String get attachmentSendFailed => 'ਉਹ ਅਟੈਚਮੈਂਟ ਨਹੀਂ ਭੇਜੀ ਜਾ ਸਕੀ।';
+
+  @override
+  String get attachmentOpenFailed => 'ਉਸ ਅਟੈਚਮੈਂਟ ਨੂੰ ਖੋਲ੍ਹਿਆ ਨਹੀਂ ਜਾ ਸਕਿਆ।';
 }

@@ -421,5 +421,6 @@
             }
         }
     },
-    "attachmentSendFailed": "Haikuweza kutuma kiambatisho hicho."
+    "attachmentSendFailed": "Haikuweza kutuma kiambatisho hicho.",
+    "attachmentOpenFailed": "Haikuweza kufungua kiambatisho hicho."
 }

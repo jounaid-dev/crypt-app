@@ -984,4 +984,7 @@ class AppLocalizationsTe extends AppLocalizations {
 
   @override
   String get attachmentSendFailed => 'ఆ జోడింపును పంపడం సాధ్యపడలేదు.';
+
+  @override
+  String get attachmentOpenFailed => 'ఆ జోడింపును తెరవడం సాధ్యపడలేదు.';
 }

@@ -986,4 +986,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get attachmentSendFailed => 'Не удалось отправить это вложение.';
+
+  @override
+  String get attachmentOpenFailed => 'Не удалось открыть это вложение.';
 }

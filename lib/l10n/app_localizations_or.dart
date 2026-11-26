@@ -986,4 +986,7 @@ class AppLocalizationsOr extends AppLocalizations {
 
   @override
   String get attachmentSendFailed => 'ସେହି ସଂଲଗ୍ନକ ପଠାଇ ପାରିଲା ନାହିଁ |';
+
+  @override
+  String get attachmentOpenFailed => 'ସେହି ସଂଲଗ୍ନକୁ ଖୋଲି ପାରିଲା ନାହିଁ |';
 }

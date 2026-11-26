@@ -421,5 +421,6 @@
             }
         }
     },
-    "attachmentSendFailed": "آن پیوست ارسال نشد."
+    "attachmentSendFailed": "آن پیوست ارسال نشد.",
+    "attachmentOpenFailed": "آن پیوست باز نشد."
 }

@@ -421,5 +421,6 @@
             }
         }
     },
-    "attachmentSendFailed": "Bu ek gönderilemedi."
+    "attachmentSendFailed": "Bu ek gönderilemedi.",
+    "attachmentOpenFailed": "Bu ek açılamadı."
 }

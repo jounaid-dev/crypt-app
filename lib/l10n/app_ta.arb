@@ -421,5 +421,6 @@
             }
         }
     },
-    "attachmentSendFailed": "அந்த இணைப்பை அனுப்ப முடியவில்லை."
+    "attachmentSendFailed": "அந்த இணைப்பை அனுப்ப முடியவில்லை.",
+    "attachmentOpenFailed": "அந்த இணைப்பை திறக்க முடியவில்லை."
 }

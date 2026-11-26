@@ -421,5 +421,6 @@
             }
         }
     },
-    "attachmentSendFailed": "ਉਹ ਅਟੈਚਮੈਂਟ ਨਹੀਂ ਭੇਜੀ ਜਾ ਸਕੀ।"
+    "attachmentSendFailed": "ਉਹ ਅਟੈਚਮੈਂਟ ਨਹੀਂ ਭੇਜੀ ਜਾ ਸਕੀ।",
+    "attachmentOpenFailed": "ਉਸ ਅਟੈਚਮੈਂਟ ਨੂੰ ਖੋਲ੍ਹਿਆ ਨਹੀਂ ਜਾ ਸਕਿਆ।"
 }

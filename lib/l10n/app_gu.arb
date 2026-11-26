@@ -421,5 +421,6 @@
             }
         }
     },
-    "attachmentSendFailed": "તે જોડાણ મોકલી શકાયું નથી."
+    "attachmentSendFailed": "તે જોડાણ મોકલી શકાયું નથી.",
+    "attachmentOpenFailed": "તે જોડાણ ખોલી શકાયું નથી."
 }

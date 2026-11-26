@@ -421,5 +421,6 @@
             }
         }
     },
-    "attachmentSendFailed": "Impossible d'envoyer cette pièce jointe."
+    "attachmentSendFailed": "Impossible d'envoyer cette pièce jointe.",
+    "attachmentOpenFailed": "Impossible d'ouvrir cette pièce jointe."
 }

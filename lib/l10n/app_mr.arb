@@ -421,5 +421,6 @@
             }
         }
     },
-    "attachmentSendFailed": "ते संलग्नक पाठवू शकलो नाही."
+    "attachmentSendFailed": "ते संलग्नक पाठवू शकलो नाही.",
+    "attachmentOpenFailed": "ते संलग्नक उघडू शकलो नाही."
 }

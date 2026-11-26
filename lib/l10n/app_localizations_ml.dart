@@ -987,4 +987,7 @@ class AppLocalizationsMl extends AppLocalizations {
 
   @override
   String get attachmentSendFailed => 'ആ അറ്റാച്ച്‌മെൻ്റ് അയയ്ക്കാൻ കഴിഞ്ഞില്ല.';
+
+  @override
+  String get attachmentOpenFailed => 'ആ അറ്റാച്ച്മെൻ്റ് തുറക്കാൻ കഴിഞ്ഞില്ല.';
 }

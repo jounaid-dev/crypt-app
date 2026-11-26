@@ -421,5 +421,6 @@
             }
         }
     },
-    "attachmentSendFailed": "ఆ జోడింపును పంపడం సాధ్యపడలేదు."
+    "attachmentSendFailed": "ఆ జోడింపును పంపడం సాధ్యపడలేదు.",
+    "attachmentOpenFailed": "ఆ జోడింపును తెరవడం సాధ్యపడలేదు."
 }

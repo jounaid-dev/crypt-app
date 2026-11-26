@@ -421,5 +421,6 @@
             }
         }
     },
-    "attachmentSendFailed": "Impossibile inviare l'allegato."
+    "attachmentSendFailed": "Impossibile inviare l'allegato.",
+    "attachmentOpenFailed": "Impossibile aprire l'allegato."
 }

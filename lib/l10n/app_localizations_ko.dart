@@ -934,4 +934,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get attachmentSendFailed => '첨부파일을 보낼 수 없습니다.';
+
+  @override
+  String get attachmentOpenFailed => '첨부파일을 열 수 없습니다.';
 }

@@ -421,5 +421,6 @@
             }
         }
     },
-    "attachmentSendFailed": "Ba za a iya aika abin da aka makala ba."
+    "attachmentSendFailed": "Ba za a iya aika abin da aka makala ba.",
+    "attachmentOpenFailed": "An kasa buɗe abin da aka makala."
 }

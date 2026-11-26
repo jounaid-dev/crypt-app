@@ -421,5 +421,6 @@
             }
         }
     },
-    "attachmentSendFailed": "تعذر إرسال هذا المرفق."
+    "attachmentSendFailed": "تعذر إرسال هذا المرفق.",
+    "attachmentOpenFailed": "تعذر فتح هذا المرفق."
 }

@@ -963,4 +963,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get attachmentSendFailed => 'تعذر إرسال هذا المرفق.';
+
+  @override
+  String get attachmentOpenFailed => 'تعذر فتح هذا المرفق.';
 }

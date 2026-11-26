@@ -981,4 +981,7 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get attachmentSendFailed => 'وہ منسلکہ نہیں بھیج سکا۔';
+
+  @override
+  String get attachmentOpenFailed => 'وہ منسلکہ نہیں کھول سکا۔';
 }

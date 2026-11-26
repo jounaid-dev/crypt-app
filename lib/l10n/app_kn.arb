@@ -421,5 +421,6 @@
             }
         }
     },
-    "attachmentSendFailed": "ಆ ಲಗತ್ತನ್ನು ಕಳುಹಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ."
+    "attachmentSendFailed": "ಆ ಲಗತ್ತನ್ನು ಕಳುಹಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.",
+    "attachmentOpenFailed": "ಆ ಲಗತ್ತನ್ನು ತೆರೆಯಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ."
 }

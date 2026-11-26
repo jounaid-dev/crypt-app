@@ -2195,7 +2195,7 @@ class _ChatPageState extends State<ChatPage> {
 
       if (!mounted) return;
 
-      _showAttachmentProblem(AppLocalizations.of(context)!.attachmentSendFailed);
+      _showAttachmentProblem(AppLocalizations.of(context)!.attachmentOpenFailed);
     }
   }
 

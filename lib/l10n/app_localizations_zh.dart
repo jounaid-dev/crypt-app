@@ -928,4 +928,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get attachmentSendFailed => '无法发送该附件。';
+
+  @override
+  String get attachmentOpenFailed => '无法打开该附件。';
 }

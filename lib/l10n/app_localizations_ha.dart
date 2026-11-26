@@ -973,4 +973,7 @@ class AppLocalizationsHa extends AppLocalizations {
 
   @override
   String get attachmentSendFailed => 'Ba za a iya aika abin da aka makala ba.';
+
+  @override
+  String get attachmentOpenFailed => 'An kasa buɗe abin da aka makala.';
 }

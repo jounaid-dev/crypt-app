@@ -421,5 +421,6 @@
             }
         }
     },
-    "attachmentSendFailed": "Kan die bijlage niet verzenden."
+    "attachmentSendFailed": "Kan die bijlage niet verzenden.",
+    "attachmentOpenFailed": "Kan die bijlage niet openen."
 }

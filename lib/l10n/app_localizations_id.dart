@@ -983,4 +983,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get attachmentSendFailed => 'Tidak dapat mengirimkan lampiran itu.';
+
+  @override
+  String get attachmentOpenFailed => 'Tidak dapat membuka lampiran itu.';
 }

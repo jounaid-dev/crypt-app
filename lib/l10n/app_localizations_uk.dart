@@ -985,4 +985,7 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get attachmentSendFailed => 'Не вдалося надіслати цей вкладений файл.';
+
+  @override
+  String get attachmentOpenFailed => 'Не вдалося відкрити цей вкладений файл.';
 }

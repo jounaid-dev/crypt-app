@@ -421,5 +421,6 @@
             }
         }
     },
-    "attachmentSendFailed": "वह अनुलग्नक नहीं भेजा जा सका."
+    "attachmentSendFailed": "वह अनुलग्नक नहीं भेजा जा सका.",
+    "attachmentOpenFailed": "वह अनुलग्नक नहीं खुल सका."
 }

@@ -980,4 +980,7 @@ class AppLocalizationsKn extends AppLocalizations {
 
   @override
   String get attachmentSendFailed => 'ಆ ಲಗತ್ತನ್ನು ಕಳುಹಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.';
+
+  @override
+  String get attachmentOpenFailed => 'ಆ ಲಗತ್ತನ್ನು ತೆರೆಯಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.';
 }

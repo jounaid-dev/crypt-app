@@ -969,4 +969,7 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get attachmentSendFailed => 'آن پیوست ارسال نشد.';
+
+  @override
+  String get attachmentOpenFailed => 'آن پیوست باز نشد.';
 }

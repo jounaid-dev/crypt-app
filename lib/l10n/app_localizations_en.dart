@@ -963,4 +963,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get attachmentSendFailed => 'Could not send that attachment.';
+
+  @override
+  String get attachmentOpenFailed => 'Could not open that attachment.';
 }
