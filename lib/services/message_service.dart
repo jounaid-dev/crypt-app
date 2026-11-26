@@ -256,6 +256,59 @@ class MessageService {
   }
 
   // ============================================================
+  // GET THE PAGE OLDER THAN A MESSAGE
+  //
+  // Returned order: newest -> oldest.
+  //
+  // Anchored to a message that is already on screen rather than to a count
+  // from the newest end. An offset shifts by one every time a message arrives,
+  // so paging with it could skip a row or show one twice depending on when the
+  // chat was opened. A cursor gives the same page for the first open and the
+  // billionth.
+  // ============================================================
+
+  Future<List<Message>> getMessagesBefore(
+    String conversationId,
+    Message before, {
+    int limit = 20,
+  }) async {
+    if (limit <= 0) {
+      return <Message>[];
+    }
+
+    final messages = await _readMessages(
+      conversationId,
+    );
+
+    if (messages.isEmpty) {
+      return <Message>[];
+    }
+
+    // Storage is oldest -> newest, so the cursor's position is the end of the
+    // page being asked for.
+    int end = messages.indexWhere(
+      (message) => message.id == before.id,
+    );
+
+    if (end == -1) {
+      // The cursor message is gone; fall back to its timestamp so the page
+      // still follows the same place in history.
+      end = messages.lastIndexWhere(
+            (message) => message.timestamp.isBefore(before.timestamp),
+          ) +
+          1;
+    }
+
+    if (end <= 0) {
+      return <Message>[];
+    }
+
+    final int start = end - limit < 0 ? 0 : end - limit;
+
+    return messages.sublist(start, end).reversed.toList();
+  }
+
+  // ============================================================
   // GET TOTAL MESSAGE COUNT
   // ============================================================
 

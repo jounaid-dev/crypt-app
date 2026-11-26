@@ -35,7 +35,7 @@ class ChatPage extends StatefulWidget {
   State<ChatPage> createState() => _ChatPageState();
 }
 
-class _ChatPageState extends State<ChatPage> {
+class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
   final MessageService _messageService = MessageService();
 
   final TextEditingController _messageController = TextEditingController();
@@ -109,10 +109,22 @@ class _ChatPageState extends State<ChatPage> {
 
   static const int _attachmentCacheLimit = 4;
 
-  /// A key derivation that hangs (a locked identity, a stalled platform read)
-  /// must not leave every bubble spinning. After this long the message is
-  /// reported as undecryptable instead, with a retry action.
+  /// Upper bound on one key derivation or decrypt pass.
+  ///
+  /// Passing it is slow, not final: the pass is retried until every message
+  /// has decrypted.
   static const Duration _decryptionTimeout = Duration(seconds: 45);
+
+  /// Retries decryption until it succeeds.
+  Timer? _decryptionRetryTimer;
+
+  /// Consecutive retry rounds that have not resolved everything yet. It only
+  /// spaces the retries out and is reset as soon as a round succeeds.
+  int _decryptionRetryAttempt = 0;
+
+  /// The first-page load currently running, so two starts cannot race and
+  /// draw the conversation twice.
+  Future<void>? _loadInFlight;
 
   bool _isSendingAttachment = false;
 
@@ -123,14 +135,6 @@ class _ChatPageState extends State<ChatPage> {
   // without this the retry timer would start a second full transfer while the
   // first one was still running.
   final Set<String> _inFlightSends = {};
-
-  // Message IDs whose ciphertext could not be decrypted.
-  //
-  // Without this the bubble had no way to tell "still decrypting" apart from
-  // "decryption failed", so a failed message kept a spinner forever and
-  // looked like infinite loading. A failed message now shows an explicit
-  // "unable to decrypt" state instead.
-  final Set<String> _failedDecryptions = {};
 
   /*
    * Messages that have been sent but have NOT yet received
@@ -179,8 +183,6 @@ class _ChatPageState extends State<ChatPage> {
 
   static const int _pageSize = 20;
 
-  int _loadedMessageCount = 0;
-
   bool _isLoadingOlderMessages = false;
 
   bool _hasMoreMessages = true;
@@ -201,6 +203,8 @@ class _ChatPageState extends State<ChatPage> {
   void initState() {
     super.initState();
 
+    WidgetsBinding.instance.addObserver(this);
+
     _scrollController.addListener(_handleScroll);
 
     _loadMessages();
@@ -212,7 +216,31 @@ class _ChatPageState extends State<ChatPage> {
   // LOCAL MESSAGES
   // ============================================================
 
-  Future<void> _loadMessages() async {
+  /// Loads the newest page of this conversation once, however many times an
+  /// open is requested.
+  ///
+  /// Repeated opens used to start overlapping reads and each one replaced the
+  /// list when it finished. A single in-flight load makes the first open and
+  /// the billionth produce exactly the same result.
+  Future<void> _loadMessages() {
+    final inFlight = _loadInFlight;
+
+    if (inFlight != null) {
+      return inFlight;
+    }
+
+    final future = _performLoadMessages();
+
+    _loadInFlight = future;
+
+    return future.whenComplete(() {
+      if (identical(_loadInFlight, future)) {
+        _loadInFlight = null;
+      }
+    });
+  }
+
+  Future<void> _performLoadMessages() async {
     try {
       final allMessages = await _messageService.getMessages(
         widget.conversation.id,
@@ -241,10 +269,10 @@ class _ChatPageState extends State<ChatPage> {
         _pendingMessages[message.id] = message;
       }
 
-      /*
-       * Newest -> oldest.
-       */
-      messages.sort((a, b) => b.timestamp.compareTo(a.timestamp));
+      // The store is kept oldest -> newest, so reversing it already yields
+      // newest -> oldest. Re-sorting by timestamp reordered messages that
+      // share a timestamp on every open, which made a reopened chat look like
+      // it had shuffled.
 
       // Every message that is about to be drawn starts as pending. Nothing is
       // left in an undefined state, so a bubble is either decrypting because
@@ -262,12 +290,10 @@ class _ChatPageState extends State<ChatPage> {
               .where((id) => !_decryptedTexts.containsKey(id)),
         );
 
-      _failedDecryptions.clear();
       _decryptingMessageIds.clear();
 
       setState(() {
         _messages = messages;
-        _loadedMessageCount = messages.length;
         _hasMoreMessages = messages.length == _pageSize;
         _isLoading = false;
       });
@@ -345,9 +371,6 @@ class _ChatPageState extends State<ChatPage> {
 
         if (text != null) {
           _registerDecrypted(messages[i], text);
-        } else {
-          // Stop showing a spinner for a message that will never decrypt.
-          _markDecryptionFailed(messages[i].id);
         }
       }
 
@@ -358,19 +381,15 @@ class _ChatPageState extends State<ChatPage> {
         "${messages.length} messages decrypted.",
       );
     } catch (e, stack) {
+      // A slow or temporarily unavailable key is not a failure: the pass is
+      // retried in the background until the messages open.
       debugPrint(
-        "[Messages] Initial batch decryption failed: "
+        "[Messages] Initial decryption pass deferred: "
         "$e\n$stack",
       );
-
-      // The whole batch failed (for example the identity is locked). Mark
-      // these messages so the UI shows an error instead of spinning forever.
-      for (final message in messages) {
-        _markDecryptionFailed(message.id);
-      }
-
-      if (mounted && !_disposed) {
-        setState(() {});
+    } finally {
+      if (_pendingDecryption.isNotEmpty) {
+        _scheduleDecryptionRetry();
       }
     }
   }
@@ -429,16 +448,13 @@ class _ChatPageState extends State<ChatPage> {
             _registerDecrypted(message, text);
 
             decryptedInBatch++;
-          } else if (!_disposed && mounted) {
-            _markDecryptionFailed(message.id);
           }
         } catch (e) {
+          // Deferred, not given up on: _retryPendingDecryptions picks it up.
           debugPrint(
-            "[Crypto] Background decryption failed "
+            "[Crypto] Background decryption deferred "
             "for ${message.id}: $e",
           );
-
-          _markDecryptionFailed(message.id);
         } finally {
           _decryptingMessageIds.remove(message.id);
         }
@@ -463,16 +479,12 @@ class _ChatPageState extends State<ChatPage> {
       debugPrint("[Messages] Background decryption finished.");
     } catch (e, stack) {
       debugPrint(
-        "[Messages] Background decryption error: "
+        "[Messages] Background decryption deferred: "
         "$e\n$stack",
       );
-
-      for (final message in messages) {
-        _markDecryptionFailed(message.id);
-      }
-
-      if (!_disposed && mounted) {
-        setState(() {});
+    } finally {
+      if (_pendingDecryption.isNotEmpty) {
+        _scheduleDecryptionRetry();
       }
     }
   }
@@ -509,16 +521,18 @@ class _ChatPageState extends State<ChatPage> {
   void _registerDecrypted(Message message, String plaintext) {
     _pendingDecryption.remove(message.id);
     _decryptingMessageIds.remove(message.id);
-    _failedDecryptions.remove(message.id);
+    _decryptionRetryAttempt = 0;
 
     if (plaintext.length > 32 &&
         AttachmentService.looksLikeAttachment(plaintext)) {
       final ChatAttachment? attachment = AttachmentService.tryParse(plaintext);
 
       if (attachment == null) {
-        // The envelope was tampered with or truncated. Show the same honest
-        // error a failed decryption shows rather than a wall of base64.
-        _failedDecryptions.add(message.id);
+        // The envelope cannot be drawn as an attachment. The message itself
+        // did decrypt, so show what it decrypted to instead of an error.
+        _attachmentEnvelopes.remove(message.id);
+        _attachmentCache.remove(message.id);
+        _decryptedTexts[message.id] = plaintext;
         return;
       }
 
@@ -531,16 +545,6 @@ class _ChatPageState extends State<ChatPage> {
     _attachmentEnvelopes.remove(message.id);
     _attachmentCache.remove(message.id);
     _decryptedTexts[message.id] = plaintext;
-  }
-
-  /// Ends the pending state for a message that cannot be decrypted.
-  ///
-  /// Every path that starts a decryption ends in either this or
-  /// [_registerDecrypted], so no message is left in limbo.
-  void _markDecryptionFailed(String messageId) {
-    _pendingDecryption.remove(messageId);
-    _decryptingMessageIds.remove(messageId);
-    _failedDecryptions.add(messageId);
   }
 
   /// Decoded attachment bytes for a message, re-read from its envelope when
@@ -573,48 +577,113 @@ class _ChatPageState extends State<ChatPage> {
     return parsed;
   }
 
-  /// Tries one message again after a failure, for example once the identity
-  /// has been unlocked. Lets the user recover in place instead of reopening
-  /// the chat.
-  Future<void> _retryDecryption(Message message) async {
-    if (_disabledForDecryption(message.id)) {
+  // ============================================================
+  // DECRYPTION RETRY
+  //
+  // A stored message always decrypts on this device: the key is derived from
+  // the master password, which the unlock screen has already verified, and the
+  // payload is authenticated against the same key that produced it. What can
+  // still happen is a pass that is slow or blocked for a moment (a platform
+  // key read, an unlock still in flight). That is retried here instead of
+  // being reported as a failure, so there is no state in which a message is
+  // left unreadable: it either shows its plaintext or is waiting for the next
+  // attempt, and the next attempt always comes.
+  // ============================================================
+
+  void _scheduleDecryptionRetry() {
+    if (_disposed || !mounted) return;
+
+    if (_decryptionRetryTimer?.isActive ?? false) return;
+
+    final int attempt = _decryptionRetryAttempt.clamp(0, 5);
+
+    _decryptionRetryAttempt = attempt + 1;
+
+    final int seconds = 1 << attempt;
+
+    _decryptionRetryTimer = Timer(Duration(seconds: seconds), () {
+      _decryptionRetryTimer = null;
+
+      unawaited(_retryPendingDecryptions());
+    });
+  }
+
+  Future<void> _retryPendingDecryptions() async {
+    if (_disposed || !mounted) return;
+
+    // Drop anything that is no longer on screen so the retry loop always
+    // terminates: only messages this page is showing can keep it alive.
+    final Set<String> loadedIds = _messages.map((message) => message.id).toSet();
+
+    _pendingDecryption.removeWhere((id) => !loadedIds.contains(id));
+
+    final List<Message> pending = _messages
+        .where(
+          (message) =>
+              _pendingDecryption.contains(message.id) ||
+              !_decryptedTexts.containsKey(message.id),
+        )
+        .toList();
+
+    if (pending.isEmpty) {
+      _decryptionRetryAttempt = 0;
       return;
     }
 
-    if (mounted) {
-      setState(() {
-        _failedDecryptions.remove(message.id);
-        _pendingDecryption.add(message.id);
-        _decryptingMessageIds.add(message.id);
-      });
+    for (final Message message in pending) {
+      _pendingDecryption.add(message.id);
     }
 
     try {
       final sharedKey =
           await _getOrDeriveSharedKey().timeout(_decryptionTimeout);
 
-      final text = await _decryptWithKey(message, sharedKey);
+      int resolved = 0;
 
-      if (text != null) {
-        _registerDecrypted(message, text);
-      } else {
-        _markDecryptionFailed(message.id);
+      bool unresolved = false;
+
+      for (final Message message in pending) {
+        if (_disposed || !mounted) return;
+
+        if (_decryptingMessageIds.contains(message.id)) continue;
+
+        _decryptingMessageIds.add(message.id);
+
+        try {
+          final String? text = await _decryptWithKey(message, sharedKey);
+
+          if (text != null) {
+            _registerDecrypted(message, text);
+
+            resolved++;
+          } else {
+            unresolved = true;
+          }
+        } finally {
+          _decryptingMessageIds.remove(message.id);
+        }
       }
-    } catch (e) {
-      debugPrint("[Crypto] Retry failed for ${message.id}: $e");
 
-      _markDecryptionFailed(message.id);
-    } finally {
-      _decryptingMessageIds.remove(message.id);
+      if (unresolved) {
+        // The key in hand did not open one of the messages, so derive it again
+        // from the master password on the next round. A key derived while the
+        // identity was still warming up is the one case a retry can fix, and
+        // this makes the retry fix it.
+        _cachedSharedKey = null;
+      }
 
-      if (mounted && !_disposed) {
+      if (resolved > 0 && mounted && !_disposed) {
         setState(() {});
       }
+    } catch (e) {
+      debugPrint("[Crypto] Decryption retry deferred: $e");
     }
-  }
 
-  bool _disabledForDecryption(String messageId) {
-    return _disposed || !mounted || _decryptingMessageIds.contains(messageId);
+    if (_pendingDecryption.isNotEmpty) {
+      _scheduleDecryptionRetry();
+    } else {
+      _decryptionRetryAttempt = 0;
+    }
   }
 
   // ============================================================
@@ -761,22 +830,52 @@ class _ChatPageState extends State<ChatPage> {
 
     _isConnectionAttemptRunning = true;
 
-    await _resetConnectionResources();
-    _hasConnectedOnce = false;
-
-    if (mounted && !_disposed) {
-      setState(() {
-        // Keep a failure banner that is already showing: the automatic retry
-        // must not make it flicker on and off every few seconds.
-        _isConnecting = !_connectionFailed;
-      });
-    }
-
     try {
       _currentUsername = await _accountService.getUsername();
 
       if (_currentUsername == null || !mounted || _disposed) {
         return;
+      }
+
+      // --------------------------------------------------------
+      // REUSE A CONNECTION THAT IS STILL THERE
+      //
+      // The signaling socket and the data channel both outlive a single build
+      // of this page. Rebuilding a channel that is still open is what put a
+      // chat back on "Connecting..." for seconds even though it was already
+      // connected. A live channel for this peer is kept as-is and only its
+      // handlers are re-attached.
+      // --------------------------------------------------------
+
+      if (_canReuseConnection) {
+        if (!_signaling.isConnected) {
+          await _signaling.connect(_currentUsername!);
+        }
+
+        _bindTransportListeners();
+
+        if (!mounted || _disposed) return;
+
+        _markChannelOpen();
+
+        debugPrint(
+          "[WebRTC] Reusing the open channel for "
+          "${widget.conversation.username}.",
+        );
+
+        return;
+      }
+
+      await _resetConnectionResources();
+
+      _hasConnectedOnce = false;
+
+      if (mounted && !_disposed) {
+        setState(() {
+          // Keep a failure banner that is already showing: the automatic retry
+          // must not make it flicker on and off every few seconds.
+          _isConnecting = !_connectionFailed;
+        });
       }
 
       // --------------------------------------------------------
@@ -799,10 +898,7 @@ class _ChatPageState extends State<ChatPage> {
       // out.
       // --------------------------------------------------------
 
-      await _signalingSubscription?.cancel();
-      _signalingSubscription = _signaling.stream.listen((event) async {
-        await _handleSignalingEvent(event);
-      });
+      await _ensureSignalingListener();
 
       // --------------------------------------------------------
       // WEBRTC
@@ -815,90 +911,11 @@ class _ChatPageState extends State<ChatPage> {
         await _webrtc.initialize();
       }
 
-      _webrtc.onConnectionFailed = () {
-        debugPrint("=== ChatPage: WebRTC connection failed ===");
+      _webrtc.activePeer = widget.conversation.username;
 
-        _markConnectionFailed(force: true);
-      };
+      _bindTransportListeners();
 
       if (!mounted || _disposed) return;
-
-      // --------------------------------------------------------
-      // DATA CHANNEL STATE
-      // --------------------------------------------------------
-
-      _webrtc.onDataChannelState = (state) {
-        debugPrint("[WebRTC] DataChannel state: $state");
-
-        if (!mounted || _disposed) return;
-
-        setState(() {
-          _channelState = state;
-
-          _isConnecting =
-              !_connectionFailed &&
-              state != RTCDataChannelState.RTCDataChannelOpen;
-
-          if (state == RTCDataChannelState.RTCDataChannelOpen) {
-            _connectionFailed = false;
-            _hasConnectedOnce = true;
-          }
-        });
-
-        if (state == RTCDataChannelState.RTCDataChannelOpen) {
-          _connectionTimeoutTimer?.cancel();
-          _connectionTimeoutTimer = null;
-          debugPrint("======================================");
-
-          debugPrint("       P2P CONNECTION ESTABLISHED");
-
-          debugPrint("======================================");
-
-          // ----------------------------------------------------
-          // BLACKLIST
-          // ----------------------------------------------------
-
-          unawaited(_syncGossipBlacklist());
-
-          // ----------------------------------------------------
-          // OUTBOX
-          // ----------------------------------------------------
-
-          /*
-           * Start the continuous retry timer.
-           *
-           * It remains active until this ChatPage is disposed.
-           * Each cycle only sends when the P2P channel is open.
-           */
-          _startPendingRetryTimer();
-
-          // Immediately retry instead of waiting 5 seconds.
-          unawaited(_retryPendingMessages());
-        } else if (_hasConnectedOnce &&
-            (state == RTCDataChannelState.RTCDataChannelClosed ||
-                state == RTCDataChannelState.RTCDataChannelClosing)) {
-          unawaited(_handleConnectionDrop());
-        }
-      };
-
-      // --------------------------------------------------------
-      // RECEIVE P2P
-      // --------------------------------------------------------
-
-      _webrtc.onMessage = (packet) async {
-        await _handleP2PPacket(packet);
-      };
-
-      // --------------------------------------------------------
-      // ICE
-      // --------------------------------------------------------
-
-      _webrtc.onIceCandidate = (candidate) {
-        _signaling.sendCandidate(
-          target: widget.conversation.username,
-          candidate: candidate,
-        );
-      };
 
       // --------------------------------------------------------
       // OFFERER SELECTION
@@ -923,6 +940,139 @@ class _ChatPageState extends State<ChatPage> {
     } finally {
       _isConnectionAttemptRunning = false;
     }
+  }
+
+  /// True when the transport already carries this peer's conversation.
+  ///
+  /// The data channel is owned by a singleton, so it can outlive the page that
+  /// created it. Reusing it is only safe when it is still open and belongs to
+  /// the peer this chat is with.
+  bool get _canReuseConnection {
+    return _webrtc.isDataChannelOpen &&
+        _webrtc.activePeer == widget.conversation.username;
+  }
+
+  /// Attaches this page to the transport callbacks.
+  ///
+  /// Safe to call on a fresh connection, a reused one and a retry: assigning
+  /// the same handlers twice has no effect beyond rebinding them.
+  void _bindTransportListeners() {
+    _webrtc.onConnectionFailed = () {
+      debugPrint("=== ChatPage: WebRTC connection failed ===");
+
+      _markConnectionFailed(force: true);
+    };
+
+    // --------------------------------------------------------
+    // DATA CHANNEL STATE
+    // --------------------------------------------------------
+
+    _webrtc.onDataChannelState = (state) {
+      debugPrint("[WebRTC] DataChannel state: $state");
+
+      if (!mounted || _disposed) return;
+
+      setState(() {
+        _channelState = state;
+
+        _isConnecting =
+            !_connectionFailed &&
+            state != RTCDataChannelState.RTCDataChannelOpen;
+
+        if (state == RTCDataChannelState.RTCDataChannelOpen) {
+          _connectionFailed = false;
+          _hasConnectedOnce = true;
+        }
+      });
+
+      if (state == RTCDataChannelState.RTCDataChannelOpen) {
+        _connectionTimeoutTimer?.cancel();
+        _connectionTimeoutTimer = null;
+        debugPrint("======================================");
+
+        debugPrint("       P2P CONNECTION ESTABLISHED");
+
+        debugPrint("======================================");
+
+        // ----------------------------------------------------
+        // BLACKLIST
+        // ----------------------------------------------------
+
+        unawaited(_syncGossipBlacklist());
+
+        // ----------------------------------------------------
+        // OUTBOX
+        // ----------------------------------------------------
+
+        /*
+         * Start the continuous retry timer.
+         *
+         * It remains active until this ChatPage is disposed.
+         * Each cycle only sends when the P2P channel is open.
+         */
+        _startPendingRetryTimer();
+
+        // Immediately retry instead of waiting 5 seconds.
+        unawaited(_retryPendingMessages());
+      } else if (_hasConnectedOnce &&
+          (state == RTCDataChannelState.RTCDataChannelClosed ||
+              state == RTCDataChannelState.RTCDataChannelClosing)) {
+        unawaited(_handleConnectionDrop());
+      }
+    };
+
+    // --------------------------------------------------------
+    // RECEIVE P2P
+    // --------------------------------------------------------
+
+    _webrtc.onMessage = (packet) async {
+      await _handleP2PPacket(packet);
+    };
+
+    // --------------------------------------------------------
+    // ICE
+    // --------------------------------------------------------
+
+    _webrtc.onIceCandidate = (candidate) {
+      _signaling.sendCandidate(
+        target: widget.conversation.username,
+        candidate: candidate,
+      );
+    };
+  }
+
+  /// Reflects an already-open channel in the UI without renegotiating it.
+  void _markChannelOpen() {
+    if (!mounted || _disposed) return;
+
+    _connectionTimeoutTimer?.cancel();
+    _connectionTimeoutTimer = null;
+
+    setState(() {
+      _channelState = RTCDataChannelState.RTCDataChannelOpen;
+      _isConnecting = false;
+      _connectionFailed = false;
+      _hasConnectedOnce = true;
+    });
+
+    _startPendingRetryTimer();
+
+    unawaited(_retryPendingMessages());
+  }
+
+  /// Attaches this page to the signaling stream once.
+  ///
+  /// The stream survives a socket reconnect, so a listener that is already
+  /// attached keeps receiving every event. Re-subscribing on each attempt used
+  /// to drop whatever arrived between the cancel and the new listen.
+  Future<void> _ensureSignalingListener() async {
+    if (_signalingSubscription != null) {
+      return;
+    }
+
+    _signalingSubscription = _signaling.stream.listen((event) async {
+      await _handleSignalingEvent(event);
+    });
   }
 
   /// Sends a fresh offer to the other device.
@@ -1732,14 +1882,12 @@ class _ChatPageState extends State<ChatPage> {
 
         if (text != null && mounted && !_disposed) {
           _registerDecrypted(message, text);
-        } else if (mounted && !_disposed) {
-          _markDecryptionFailed(message.id);
         }
       } catch (e) {
-        debugPrint("[Crypto] Incoming decryption failed: $e");
-
-        if (mounted && !_disposed) {
-          _markDecryptionFailed(message.id);
+        debugPrint("[Crypto] Incoming decryption deferred: $e");
+      } finally {
+        if (_pendingDecryption.isNotEmpty) {
+          _scheduleDecryptionRetry();
         }
       }
 
@@ -2520,7 +2668,6 @@ class _ChatPageState extends State<ChatPage> {
     _attachmentCache.clear();
     _attachmentEnvelopes.clear();
     _pendingDecryption.clear();
-    _failedDecryptions.clear();
 
     if (mounted && !_disposed) {
       setState(() {
@@ -2569,17 +2716,26 @@ class _ChatPageState extends State<ChatPage> {
     _isLoadingOlderMessages = true;
 
     try {
-      final olderMessages = await _messageService.getMessagesPage(
+      // Anchor the page to the message that is currently the oldest on
+      // screen. Counting from the newest end meant every message that arrived
+      // shifted the offset by one, so a page could skip a row or show it
+      // twice. A cursor stays correct however many times the chat is opened.
+      final Message? oldestLoaded = _messages.isEmpty ? null : _messages.last;
+
+      if (oldestLoaded == null) {
+        _hasMoreMessages = false;
+        return;
+      }
+
+      final olderMessages = await _messageService.getMessagesBefore(
         widget.conversation.id,
+        oldestLoaded,
         limit: _pageSize,
-        offset: _loadedMessageCount,
       );
 
       if (_disposed || !mounted) {
         return;
       }
-
-      olderMessages.sort((a, b) => b.timestamp.compareTo(a.timestamp));
 
       if (olderMessages.isEmpty) {
         _hasMoreMessages = false;
@@ -2610,8 +2766,6 @@ class _ChatPageState extends State<ChatPage> {
 
       setState(() {
         _messages.addAll(newMessages);
-
-        _loadedMessageCount += olderMessages.length;
 
         _hasMoreMessages = olderMessages.length == _pageSize;
       });
@@ -2649,8 +2803,36 @@ class _ChatPageState extends State<ChatPage> {
   // ============================================================
 
   @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state != AppLifecycleState.resumed) return;
+
+    if (_disposed || !mounted) return;
+
+    // A socket that sat in the background can be half-open: it still looks
+    // connected, but nothing reaches the server any more. fastReconnect
+    // rebuilds it only when it is really gone, and the blacklist request is
+    // the next liveness probe, so a dead socket is found without waiting.
+    _signaling.fastReconnect();
+
+    _signaling.requestBlacklist();
+
+    if (_pendingDecryption.isNotEmpty) {
+      unawaited(_retryPendingDecryptions());
+    }
+
+    if (!_isP2PActive) {
+      unawaited(_connect());
+    }
+  }
+
+  @override
   void dispose() {
     _disposed = true;
+
+    WidgetsBinding.instance.removeObserver(this);
+
+    _decryptionRetryTimer?.cancel();
+    _decryptionRetryTimer = null;
 
     _signalingSubscription?.cancel();
 
@@ -2680,6 +2862,8 @@ class _ChatPageState extends State<ChatPage> {
     _decryptingMessageIds.clear();
 
     _pendingDecryption.clear();
+
+    _decryptionRetryAttempt = 0;
 
     _attachmentCache.clear();
 
@@ -2804,14 +2988,6 @@ class _ChatPageState extends State<ChatPage> {
 
                       final attachment = _attachmentFor(message.id);
 
-                      // A spinner is only ever drawn for a message that is
-                      // actually waiting on decryption right now. A message
-                      // that has fallen out of both sets has a final state, so
-                      // it can never spin forever.
-                      final bool isResolving =
-                          _pendingDecryption.contains(message.id) ||
-                          _decryptingMessageIds.contains(message.id);
-
                       return Align(
                         alignment: message.outgoing
                             ? Alignment.centerRight
@@ -2843,48 +3019,17 @@ class _ChatPageState extends State<ChatPage> {
                                   decryptedText,
                                   style: const TextStyle(color: Colors.white),
                                 )
-                              else if (isResolving)
+                              else
+                                // Every stored message decrypts on this
+                                // device, so a message with no text is one
+                                // that has not finished decrypting yet. It is
+                                // retried until it does.
                                 const SizedBox(
                                   width: 16,
                                   height: 16,
                                   child: CircularProgressIndicator(
                                     strokeWidth: 2,
                                     color: Colors.white,
-                                  ),
-                                )
-                              else
-                                GestureDetector(
-                                  onTap: () =>
-                                      unawaited(_retryDecryption(message)),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      const Icon(
-                                        Icons.lock_outline,
-                                        size: 14,
-                                        color: Colors.white70,
-                                      ),
-                                      const SizedBox(width: 4),
-                                      Flexible(
-                                        child: Text(
-                                          l10n.decryptionError,
-                                          style: const TextStyle(
-                                            color: Colors.white70,
-                                            fontSize: 12,
-                                          ),
-                                        ),
-                                      ),
-                                      const SizedBox(width: 6),
-                                      Text(
-                                        l10n.retry,
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 11,
-                                          decoration:
-                                              TextDecoration.underline,
-                                        ),
-                                      ),
-                                    ],
                                   ),
                                 ),
 

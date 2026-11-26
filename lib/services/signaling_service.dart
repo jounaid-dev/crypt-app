@@ -102,6 +102,13 @@ class SignalingService {
   Future<void>? _connectInFlight;
 
   Future<void> connect(String username) {
+    // A socket that is already up for this account is kept. Tearing it down to
+    // rebuild an identical connection dropped any offer or candidate in flight
+    // and made a reopen look like a fresh sign-in.
+    if (_connected && _currentUsername == username) {
+      return Future<void>.value();
+    }
+
     final inFlight = _connectInFlight;
 
     if (inFlight != null) {
@@ -120,6 +127,11 @@ class SignalingService {
   }
 
   Future<void> _openSocket(String username) async {
+    // A reconnect that is still scheduled must not fire over the socket this
+    // attempt is about to open. A failure schedules its own retry.
+    _reconnectTimer?.cancel();
+    _reconnectTimer = null;
+
     // The event stream deliberately survives: listeners subscribed to it must
     // keep receiving events across a reconnect.
     await _teardown(closeStream: false);

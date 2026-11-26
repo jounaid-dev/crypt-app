@@ -11,6 +11,14 @@ class WebRTCService {
   RTCPeerConnection? peerConnection;
   RTCDataChannel? dataChannel;
 
+  /// The peer this connection was opened for.
+  ///
+  /// The service is a singleton, so the connection can outlive the page that
+  /// created it. Recording the peer lets a chat reuse a channel that is still
+  /// open for that same person instead of tearing it down and negotiating
+  /// again.
+  String? activePeer;
+
   void Function(RTCIceCandidate candidate)? onIceCandidate;
   void Function(String message)? onMessage;
   void Function(RTCDataChannelState state)? onDataChannelState;
@@ -398,6 +406,7 @@ class WebRTCService {
     } finally {
       dataChannel = null;
       peerConnection = null;
+      activePeer = null;
 
       _remoteCandidateQueue.clear();
       _assembler.reset();
