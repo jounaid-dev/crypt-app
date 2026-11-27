@@ -21,7 +21,16 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await HiveStorageService.initialize();
+  // Last resort: local storage failing must not leave the app on a blank
+  // screen before runApp. Without the box the app still opens, it just cannot
+  // read or keep anything locally.
+  try {
+    await HiveStorageService.initialize();
+  } catch (error, stack) {
+    debugPrint(
+      '[Startup] Local storage is unavailable ($error).\n$stack',
+    );
+  }
 
   await QrValidationCodeService().removeExpiredUsedCodes();
 

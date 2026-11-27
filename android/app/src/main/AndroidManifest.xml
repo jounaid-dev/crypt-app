@@ -14,10 +14,16 @@
         android:name="android.hardware.camera.autofocus"
         android:required="false" />
 
+    <!-- Backup is disabled on purpose. Android would restore the encrypted Hive
+         box and the chat database onto a device whose Keystore does not hold
+         the key that encrypted them, which cannot be decrypted; the app would
+         then have to throw that data away on first launch. Nothing here is
+         worth restoring without the keystore that produced it. -->
     <application
         android:name="${applicationName}"
         android:label="CRYPT"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:allowBackup="false">
 
         <activity
             android:name=".MainActivity"

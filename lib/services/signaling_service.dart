@@ -554,7 +554,15 @@ class SignalingService {
     }
 
     if (_pendingFrames.length >= _maxPendingFrames) {
-      _pendingFrames.removeAt(0);
+      // An ICE candidate belongs to a handshake that is already stale, while a
+      // conversation request is the only thing that makes the other side aware
+      // of the new chat. Drop the oldest candidate rather than the oldest
+      // frame, so a busy reconnect cannot silently swallow the request.
+      final int candidateIndex = _pendingFrames.indexWhere(
+        (frame) => frame["type"] == "candidate",
+      );
+
+      _pendingFrames.removeAt(candidateIndex >= 0 ? candidateIndex : 0);
     }
 
     _pendingFrames.add(data);

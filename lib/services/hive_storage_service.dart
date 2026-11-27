@@ -12,16 +12,78 @@ class HiveStorageService {
   static Box<dynamic>? _box;
 
   /// Call this inside main() before runApp()
+  ///
+  /// This runs before the first frame, so a throw here means the app never
+  /// starts: a blank screen with no way out short of clearing app data. The
+  /// encrypted box can fail to open through no fault in the code:
+  ///
+  ///  * the Keystore key is gone (backup restored onto another device,
+  ///    keystore reset, "clear data"), so the stored bytes are undecryptable
+  ///  * the box files were restored without the key that produced them
+  ///
+  /// Either way the data is already unreadable, so the box is reset and the
+  /// app starts instead of hanging. A second attempt first, because a
+  /// transient keystore failure must not cost the user their history.
   static Future<void> initialize() async {
     await Hive.initFlutter();
+
+    // Already open (a second call or a hot restart): never reset it.
+    if (Hive.isBoxOpen(_boxName)) {
+      _box = Hive.box<dynamic>(_boxName);
+
+      return;
+    }
+
+    try {
+      await _openBox();
+    } catch (firstError) {
+      debugPrint(
+        '[HiveStorage] Opening the encrypted box failed '
+        '($firstError). Retrying once.',
+      );
+
+      try {
+        await _openBox();
+      } catch (error) {
+        debugPrint(
+          '[HiveStorage] Still unreadable ($error). Resetting local storage '
+          'so the app can start; the old data cannot be decrypted anyway.',
+        );
+
+        await _resetBox();
+        await _openBox();
+      }
+    }
+
+    await _migrateSharedPreferencesData();
+  }
+
+  static Future<void> _openBox() async {
     final encryptionKey = await _getOrCreateEncryptionKey();
 
     _box = await Hive.openBox<dynamic>(
       _boxName,
       encryptionCipher: HiveAesCipher(encryptionKey),
     );
+  }
 
-    await _migrateSharedPreferencesData();
+  /// Throws away an unreadable box together with the key that came with it.
+  static Future<void> _resetBox() async {
+    const secureStorage = FlutterSecureStorage();
+
+    try {
+      await _box?.close();
+    } catch (_) {}
+
+    _box = null;
+
+    try {
+      await Hive.deleteBoxFromDisk(_boxName);
+    } catch (_) {}
+
+    try {
+      await secureStorage.delete(key: _secureKeyName);
+    } catch (_) {}
   }
 
   /// One-time automatic transfer of existing SharedPreferences into Hive
