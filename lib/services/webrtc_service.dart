@@ -24,7 +24,37 @@ class WebRTCService {
 
   bool _isRemoteDescriptionSet = false;
 
-  Future<void> initialize() async {
+  /// The initialization currently running, if any.
+  ///
+  /// ChatPage's connect() and an offer that arrives while it is starting can
+  /// both reach initialize() at the same moment. Each call used to run the
+  /// whole setup on its own, so one of them disposed the connection the other
+  /// had just built, and the answer could end up created on a peer connection
+  /// that was already replaced. The answer was then valid for a connection
+  /// nobody was using, so the two devices exchanged an offer, an answer and
+  /// candidates and still never connected. A second caller now waits for the
+  /// attempt that is already running.
+  Future<void>? _initializing;
+
+  Future<void> initialize() {
+    final inFlight = _initializing;
+
+    if (inFlight != null) {
+      return inFlight;
+    }
+
+    final future = _initializeOnce();
+
+    _initializing = future;
+
+    return future.whenComplete(() {
+      if (identical(_initializing, future)) {
+        _initializing = null;
+      }
+    });
+  }
+
+  Future<void> _initializeOnce() async {
     // Candidates for the offer that is about to be applied can arrive before
     // this connection exists. dispose() clears the queue, so carry them over
     // instead of throwing them away: the other device only gathers each
