@@ -358,6 +358,10 @@ class _ChatPageState extends State<ChatPage> {
             "[Crypto] Background decryption failed "
             "for ${message.id}: $e",
           );
+
+          // An unexpected throw here used to leave the bubble spinning
+          // forever: it was neither decrypted nor marked as failed.
+          _failedDecryptions.add(message.id);
         } finally {
           _decryptingMessageIds.remove(message.id);
         }
