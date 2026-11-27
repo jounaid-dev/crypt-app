@@ -71,6 +71,34 @@ class SignalingService {
 
   static const Duration _livenessTimeout = Duration(seconds: 10);
 
+  /// How many probes may go unanswered before the socket is rebuilt.
+  ///
+  /// The probe is a blacklist_request, and the server deliberately sends
+  /// nothing back while its blacklist is empty (`sendBlacklistToUser` returns
+  /// early when the version is 0). Treating one silent probe as a dead socket
+  /// rebuilt a perfectly healthy connection every ten seconds. The server
+  /// forwards WebRTC signaling only to clients that are connected at that
+  /// instant and keeps no queue for it, so every one of those rebuilds threw
+  /// away offers, answers and ICE candidates: scanning still worked (those
+  /// conversation requests are queued and delivered later) while the chat sat
+  /// on "Connecting to P2P..." indefinitely. Silence is now only treated as a
+  /// stale socket after several consecutive probes, and any inbound frame
+  /// resets the count.
+  static const int _maxSilentProbes = 3;
+
+  /// The larger limit used while this server has never sent a blacklist.
+  ///
+  /// A blacklist that has never had an entry is the normal state of a fresh
+  /// server, and then no probe is ever answered at all, so silence says
+  /// nothing about the socket. It is still worth recovering from a half-open
+  /// connection, just far less eagerly.
+  static const int _maxSilentProbesWithoutBlacklist = 9;
+
+  int _silentProbes = 0;
+
+  /// Whether this server has ever answered with a blacklist.
+  bool _hasSeenBlacklistUpdate = false;
+
   /// Backoff schedule for an unexpected drop, in milliseconds.
   /// Optimized: faster reconnection, max 5s instead of 15s.
   static const List<int> _reconnectDelaysMs = <int>[
@@ -153,10 +181,16 @@ class SignalingService {
           _livenessTimer?.cancel();
           _livenessTimer = null;
 
+          _silentProbes = 0;
+
           try {
             final decoded = jsonDecode(data.toString());
 
             if (decoded is Map<String, dynamic>) {
+              if (decoded["type"]?.toString() == "blacklist_update") {
+                _hasSeenBlacklistUpdate = true;
+              }
+
               _checkBlacklistForBan(decoded);
             }
 
@@ -432,6 +466,28 @@ class SignalingService {
 
       if (!_connected || _closedDeliberately) return;
 
+      _silentProbes++;
+
+      final int limit = _hasSeenBlacklistUpdate
+          ? _maxSilentProbes
+          : _maxSilentProbesWithoutBlacklist;
+
+      // An empty blacklist means the server has nothing to answer with, so a
+      // single miss proves nothing. Keep the socket and wait for the next
+      // probe instead of dropping a handshake that is still in flight.
+      if (_silentProbes < limit) {
+        debugPrint(
+          "[Signaling] No reply to probe "
+          "($_silentProbes/$limit); keeping the socket.",
+        );
+
+        _armLivenessCheck();
+
+        return;
+      }
+
+      _silentProbes = 0;
+
       debugPrint(
         "[Signaling] Server stopped answering; rebuilding the socket.",
       );
@@ -651,6 +707,8 @@ class SignalingService {
   Future<void> _teardown({required bool closeStream}) async {
     _connected = false;
     _connecting = false;
+
+    _silentProbes = 0;
 
     _stabilityTimer?.cancel();
     _stabilityTimer = null;
