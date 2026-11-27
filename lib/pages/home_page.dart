@@ -229,6 +229,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           final reason =
               await AccountFlagsService.instance.banReason();
 
+          // The poll outlives any single frame, so the page may already be
+          // gone by the time the reason comes back.
+          if (!mounted) return;
+
           await _handleForceDisconnect({
             "reason": reason ??
                 AppLocalizations.of(context)!.accountSuspendedByAdmin,

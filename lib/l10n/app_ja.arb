@@ -407,5 +407,10 @@
     "couldNotGenerateQrImage": "QR画像を生成できませんでした",
     "conversationUpdateFailed": "会話の更新に失敗しました。もう一度やり直してください。",
     "conversationCreationFailed": "会話の作成に失敗しました。もう一度やり直してください。",
-    "accountSuspendedByAdmin": "このアカウントは管理者によって停止されました。"
+    "accountSuspendedByAdmin": "このアカウントは管理者によって停止されました。",
+    "conversationRequestFailedTitle": "接続できませんでした",
+    "conversationRequestFailedOwnUsernameMissing": "アカウントにユーザー名がありません。サインアウトしてから再度サインインし、もう一度お試しください。",
+    "conversationRequestFailedOwnIdentityMissing": "あなたの暗号化キーが見つかりません。サインアウトしてから再度サインインし、もう一度お試しください。",
+    "conversationRequestFailedIdMismatch": "このコードはこの接続と一致しません。相手のIDページからコードをもう一度スキャンしてください。",
+    "conversationRequestFailedSignaling": "このリクエストを承認するためにサーバーへ接続できませんでした。接続を確認してもう一度お試しください。"
 }

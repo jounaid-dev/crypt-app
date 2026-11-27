@@ -407,5 +407,10 @@
     "couldNotGenerateQrImage": "QR छवि उत्पन्न नहीं कर सका",
     "conversationUpdateFailed": "वार्तालाप अद्यतन विफल रहा. पुनः प्रयास करें।",
     "conversationCreationFailed": "वार्तालाप निर्माण विफल रहा. पुनः प्रयास करें।",
-    "accountSuspendedByAdmin": "यह खाता एक व्यवस्थापक द्वारा निलंबित कर दिया गया है."
+    "accountSuspendedByAdmin": "यह खाता एक व्यवस्थापक द्वारा निलंबित कर दिया गया है.",
+    "conversationRequestFailedTitle": "कनेक्ट नहीं हो सका",
+    "conversationRequestFailedOwnUsernameMissing": "आपके खाते में उपयोगकर्ता नाम नहीं है। साइन आउट करके फिर से साइन इन करें, फिर दोबारा प्रयास करें।",
+    "conversationRequestFailedOwnIdentityMissing": "आपकी अपनी एन्क्रिप्शन कुंजी अनुपस्थित है। साइन आउट करके फिर से साइन इन करें, फिर दोबारा प्रयास करें।",
+    "conversationRequestFailedIdMismatch": "यह कोड इस कनेक्शन से मेल नहीं खाता। उनकी पहचान पृष्ठ से कोड फिर से स्कैन करें।",
+    "conversationRequestFailedSignaling": "यह अनुरोध स्वीकार करने के लिए सर्वर तक नहीं पहुँचा जा सका। अपना कनेक्शन जाँचें और दोबारा प्रयास करें।"
 }

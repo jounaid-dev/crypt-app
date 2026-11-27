@@ -961,4 +961,23 @@ class AppLocalizationsUk extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'Цей обліковий запис призупинено адміністратором.';
+
+  @override
+  String get conversationRequestFailedTitle => 'Не вдалося підключитися';
+
+  @override
+  String get conversationRequestFailedOwnUsernameMissing =>
+      'У вашому обліковому записі немає імені користувача. Вийдіть і знову увійдіть, потім повторіть спробу.';
+
+  @override
+  String get conversationRequestFailedOwnIdentityMissing =>
+      'Відсутній ваш власний ключ шифрування. Вийдіть і знову увійдіть, потім повторіть спробу.';
+
+  @override
+  String get conversationRequestFailedIdMismatch =>
+      'Цей код не відповідає цьому з\'єднанню. Відскануйте код ще раз зі сторінки ідентичності співрозмовника.';
+
+  @override
+  String get conversationRequestFailedSignaling =>
+      'Не вдалося зв\'язатися із сервером, щоб прийняти цей запит. Перевірте з\'єднання й повторіть спробу.';
 }

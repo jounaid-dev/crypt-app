@@ -961,4 +961,23 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'Esta conta foi suspensa por um administrador.';
+
+  @override
+  String get conversationRequestFailedTitle => 'Não foi possível ligar';
+
+  @override
+  String get conversationRequestFailedOwnUsernameMissing =>
+      'A sua conta não tem um nome de utilizador. Termine a sessão e volte a entrar, depois tente novamente.';
+
+  @override
+  String get conversationRequestFailedOwnIdentityMissing =>
+      'Falta a sua própria chave de encriptação. Termine a sessão e volte a entrar, depois tente novamente.';
+
+  @override
+  String get conversationRequestFailedIdMismatch =>
+      'Esse código não corresponde a esta ligação. Volte a ler o código na página de identidade da outra pessoa.';
+
+  @override
+  String get conversationRequestFailedSignaling =>
+      'Não foi possível contactar o servidor para aceitar este pedido. Verifique a sua ligação e tente novamente.';
 }

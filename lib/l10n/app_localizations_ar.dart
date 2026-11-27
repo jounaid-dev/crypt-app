@@ -939,4 +939,23 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'لقد تم تعليق هذا الحساب من قبل المسؤول.';
+
+  @override
+  String get conversationRequestFailedTitle => 'تعذّر الاتصال';
+
+  @override
+  String get conversationRequestFailedOwnUsernameMissing =>
+      'حسابك لا يحتوي على اسم مستخدم. سجّل الخروج ثم الدخول مرة أخرى، ثم حاول مجددًا.';
+
+  @override
+  String get conversationRequestFailedOwnIdentityMissing =>
+      'مفتاح التشفير الخاص بك مفقود. سجّل الخروج ثم الدخول مرة أخرى، ثم حاول مجددًا.';
+
+  @override
+  String get conversationRequestFailedIdMismatch =>
+      'هذا الرمز لا يطابق هذه المحادثة. امسح الرمز من صفحة هوية الطرف الآخر مرة أخرى.';
+
+  @override
+  String get conversationRequestFailedSignaling =>
+      'تعذّر الوصول إلى الخادم لقبول هذا الطلب. تحقّق من اتصالك وحاول مجددًا.';
 }

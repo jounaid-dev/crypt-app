@@ -407,5 +407,10 @@
     "couldNotGenerateQrImage": "Impossible de générer l'image QR",
     "conversationUpdateFailed": "La mise à jour de la conversation a échoué. Essayer à nouveau.",
     "conversationCreationFailed": "La création de la conversation a échoué. Essayer à nouveau.",
-    "accountSuspendedByAdmin": "Ce compte a été suspendu par un administrateur."
+    "accountSuspendedByAdmin": "Ce compte a été suspendu par un administrateur.",
+    "conversationRequestFailedTitle": "Connexion impossible",
+    "conversationRequestFailedOwnUsernameMissing": "Votre compte n'a pas de nom d'utilisateur. Déconnectez-vous puis reconnectez-vous, et réessayez.",
+    "conversationRequestFailedOwnIdentityMissing": "Votre propre clé de chiffrement est manquante. Déconnectez-vous puis reconnectez-vous, et réessayez.",
+    "conversationRequestFailedIdMismatch": "Ce code ne correspond pas à cette connexion. Scannez à nouveau le code depuis leur page d'identité.",
+    "conversationRequestFailedSignaling": "Impossible de joindre le serveur pour accepter cette demande. Vérifiez votre connexion et réessayez."
 }

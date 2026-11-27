@@ -949,4 +949,23 @@ class AppLocalizationsGu extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'આ એકાઉન્ટ એડમિનિસ્ટ્રેટર દ્વારા સસ્પેન્ડ કરવામાં આવ્યું છે.';
+
+  @override
+  String get conversationRequestFailedTitle => 'કનેક્ટ થઈ શક્યું નથી';
+
+  @override
+  String get conversationRequestFailedOwnUsernameMissing =>
+      'તમારા ખાતામાં વપરાશકર્તાનામ નથી. સાઇન આઉટ કરીને ફરી સાઇન ઇન કરો, પછી ફરી પ્રયાસ કરો.';
+
+  @override
+  String get conversationRequestFailedOwnIdentityMissing =>
+      'તમારી પોતાની એન્ક્રિપ્શન કી ગુમ છે. સાઇન આઉટ કરીને ફરી સાઇન ઇન કરો, પછી ફરી પ્રયાસ કરો.';
+
+  @override
+  String get conversationRequestFailedIdMismatch =>
+      'આ કોડ આ કનેક્શન સાથે મેળ ખાતો નથી. તેમના ઓળખ પૃષ્ઠ પરથી કોડ ફરી સ્કેન કરો.';
+
+  @override
+  String get conversationRequestFailedSignaling =>
+      'આ વિનંતી સ્વીકારવા સર્વર સુધી પહોંચી શકાયું નથી. તમારું કનેક્શન તપાસો અને ફરી પ્રયાસ કરો.';
 }

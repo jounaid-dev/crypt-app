@@ -958,4 +958,23 @@ class AppLocalizationsSw extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'Akaunti hii imesimamishwa na msimamizi.';
+
+  @override
+  String get conversationRequestFailedTitle => 'Imeshindwa kuunganisha';
+
+  @override
+  String get conversationRequestFailedOwnUsernameMissing =>
+      'Akaunti yako haina jina la mtumiaji. Toka kisha uingie tena, kisha ujaribu tena.';
+
+  @override
+  String get conversationRequestFailedOwnIdentityMissing =>
+      'Ufunguo wako wa usimbaji fiche haupo. Toka kisha uingie tena, kisha ujaribu tena.';
+
+  @override
+  String get conversationRequestFailedIdMismatch =>
+      'Msimbo huo hauwiani na muunganisho huu. Skani msimbo tena kutoka ukurasa wa utambulisho wao.';
+
+  @override
+  String get conversationRequestFailedSignaling =>
+      'Imeshindwa kufikia seva ili kukubali ombi hili. Angalia muunganisho wako na ujaribu tena.';
 }

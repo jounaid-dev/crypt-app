@@ -407,5 +407,10 @@
     "couldNotGenerateQrImage": "لا يمكن إنشاء صورة QR",
     "conversationUpdateFailed": "فشل تحديث المحادثة. حاول ثانية.",
     "conversationCreationFailed": "فشل إنشاء المحادثة. حاول ثانية.",
-    "accountSuspendedByAdmin": "لقد تم تعليق هذا الحساب من قبل المسؤول."
+    "accountSuspendedByAdmin": "لقد تم تعليق هذا الحساب من قبل المسؤول.",
+    "conversationRequestFailedTitle": "تعذّر الاتصال",
+    "conversationRequestFailedOwnUsernameMissing": "حسابك لا يحتوي على اسم مستخدم. سجّل الخروج ثم الدخول مرة أخرى، ثم حاول مجددًا.",
+    "conversationRequestFailedOwnIdentityMissing": "مفتاح التشفير الخاص بك مفقود. سجّل الخروج ثم الدخول مرة أخرى، ثم حاول مجددًا.",
+    "conversationRequestFailedIdMismatch": "هذا الرمز لا يطابق هذه المحادثة. امسح الرمز من صفحة هوية الطرف الآخر مرة أخرى.",
+    "conversationRequestFailedSignaling": "تعذّر الوصول إلى الخادم لقبول هذا الطلب. تحقّق من اتصالك وحاول مجددًا."
 }

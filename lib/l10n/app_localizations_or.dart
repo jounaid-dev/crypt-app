@@ -962,4 +962,23 @@ class AppLocalizationsOr extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'ଏହି ଆକାଉଣ୍ଟକୁ ଜଣେ ପ୍ରଶାସକ ସ୍ଥଗିତ ରଖିଛନ୍ତି |';
+
+  @override
+  String get conversationRequestFailedTitle => 'ସଂଯୋଗ କରାଯାଇପାରିଲା ନାହିଁ';
+
+  @override
+  String get conversationRequestFailedOwnUsernameMissing =>
+      'ଆପଣଙ୍କ ଖାତାରେ ବ୍ୟବହାରକାରୀ ନାମ ନାହିଁ। ସାଇନ୍ ଆଉଟ୍ କରି ପୁଣି ସାଇନ୍ ଇନ୍ କରନ୍ତୁ, ତାପରେ ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।';
+
+  @override
+  String get conversationRequestFailedOwnIdentityMissing =>
+      'ଆପଣଙ୍କ ନିଜର ଏନକ୍ରିପ୍ସନ୍ କୀ ନାହିଁ। ସାଇନ୍ ଆଉଟ୍ କରି ପୁଣି ସାଇନ୍ ଇନ୍ କରନ୍ତୁ, ତାପରେ ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।';
+
+  @override
+  String get conversationRequestFailedIdMismatch =>
+      'ଏହି କୋଡ୍ ଏହି ସଂଯୋଗ ସହିତ ମେଳ ଖାଉନାହିଁ। ସେମାନଙ୍କ ପରିଚୟ ପୃଷ୍ଠାରୁ କୋଡ୍ ପୁଣି ସ୍କାନ୍ କରନ୍ତୁ।';
+
+  @override
+  String get conversationRequestFailedSignaling =>
+      'ଏହି ଅନୁରୋଧ ଗ୍ରହଣ କରିବା ପାଇଁ ସର୍ଭରକୁ ପହଞ୍ଚାଯାଇପାରିଲା ନାହିଁ। ଆପଣଙ୍କ ସଂଯୋଗ ଯାଞ୍ଚ କରି ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।';
 }

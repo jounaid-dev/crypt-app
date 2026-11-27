@@ -946,4 +946,23 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'Bu hesap bir yönetici tarafından askıya alındı.';
+
+  @override
+  String get conversationRequestFailedTitle => 'Bağlanılamadı';
+
+  @override
+  String get conversationRequestFailedOwnUsernameMissing =>
+      'Hesabında kullanıcı adı yok. Çıkış yapıp tekrar giriş yap, sonra yeniden dene.';
+
+  @override
+  String get conversationRequestFailedOwnIdentityMissing =>
+      'Kendi şifreleme anahtarın eksik. Çıkış yapıp tekrar giriş yap, sonra yeniden dene.';
+
+  @override
+  String get conversationRequestFailedIdMismatch =>
+      'Bu kod bu bağlantıyla eşleşmiyor. Kodu karşı tarafın kimlik sayfasından yeniden tarat.';
+
+  @override
+  String get conversationRequestFailedSignaling =>
+      'Bu isteği kabul etmek için sunucuya ulaşılamadı. Bağlantını kontrol edip yeniden dene.';
 }

@@ -914,4 +914,23 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get accountSuspendedByAdmin => 'このアカウントは管理者によって停止されました。';
+
+  @override
+  String get conversationRequestFailedTitle => '接続できませんでした';
+
+  @override
+  String get conversationRequestFailedOwnUsernameMissing =>
+      'アカウントにユーザー名がありません。サインアウトしてから再度サインインし、もう一度お試しください。';
+
+  @override
+  String get conversationRequestFailedOwnIdentityMissing =>
+      'あなたの暗号化キーが見つかりません。サインアウトしてから再度サインインし、もう一度お試しください。';
+
+  @override
+  String get conversationRequestFailedIdMismatch =>
+      'このコードはこの接続と一致しません。相手のIDページからコードをもう一度スキャンしてください。';
+
+  @override
+  String get conversationRequestFailedSignaling =>
+      'このリクエストを承認するためにサーバーへ接続できませんでした。接続を確認してもう一度お試しください。';
 }

@@ -959,4 +959,23 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'Akun ini telah ditangguhkan oleh administrator.';
+
+  @override
+  String get conversationRequestFailedTitle => 'Tidak dapat terhubung';
+
+  @override
+  String get conversationRequestFailedOwnUsernameMissing =>
+      'Akun Anda tidak memiliki nama pengguna. Keluar lalu masuk lagi, kemudian coba lagi.';
+
+  @override
+  String get conversationRequestFailedOwnIdentityMissing =>
+      'Kunci enkripsi Anda sendiri tidak ada. Keluar lalu masuk lagi, kemudian coba lagi.';
+
+  @override
+  String get conversationRequestFailedIdMismatch =>
+      'Kode itu tidak cocok dengan koneksi ini. Pindai ulang kode dari halaman identitas mereka.';
+
+  @override
+  String get conversationRequestFailedSignaling =>
+      'Tidak dapat menghubungi server untuk menerima permintaan ini. Periksa koneksi Anda dan coba lagi.';
 }

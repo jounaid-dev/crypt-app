@@ -407,5 +407,10 @@
     "couldNotGenerateQrImage": "QR ਚਿੱਤਰ ਤਿਆਰ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ",
     "conversationUpdateFailed": "ਗੱਲਬਾਤ ਅੱਪਡੇਟ ਅਸਫਲ ਰਿਹਾ। ਫਿਰ ਕੋਸ਼ਿਸ਼ ਕਰੋ.",
     "conversationCreationFailed": "ਗੱਲਬਾਤ ਬਣਾਉਣਾ ਅਸਫਲ ਰਿਹਾ। ਫਿਰ ਕੋਸ਼ਿਸ਼ ਕਰੋ.",
-    "accountSuspendedByAdmin": "ਇਸ ਖਾਤੇ ਨੂੰ ਇੱਕ ਪ੍ਰਸ਼ਾਸਕ ਦੁਆਰਾ ਮੁਅੱਤਲ ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ।"
+    "accountSuspendedByAdmin": "ਇਸ ਖਾਤੇ ਨੂੰ ਇੱਕ ਪ੍ਰਸ਼ਾਸਕ ਦੁਆਰਾ ਮੁਅੱਤਲ ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ।",
+    "conversationRequestFailedTitle": "ਕਨੈਕਟ ਨਹੀਂ ਹੋ ਸਕਿਆ",
+    "conversationRequestFailedOwnUsernameMissing": "ਤੁਹਾਡੇ ਖਾਤੇ ਵਿੱਚ ਵਰਤੋਂਕਾਰ ਨਾਮ ਨਹੀਂ ਹੈ। ਸਾਈਨ ਆਉਟ ਕਰਕੇ ਦੁਬਾਰਾ ਸਾਈਨ ਇਨ ਕਰੋ, ਫਿਰ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।",
+    "conversationRequestFailedOwnIdentityMissing": "ਤੁਹਾਡੀ ਆਪਣੀ ਐਨਕ੍ਰਿਪਸ਼ਨ ਕੁੰਜੀ ਗੁੰਮ ਹੈ। ਸਾਈਨ ਆਉਟ ਕਰਕੇ ਦੁਬਾਰਾ ਸਾਈਨ ਇਨ ਕਰੋ, ਫਿਰ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।",
+    "conversationRequestFailedIdMismatch": "ਇਹ ਕੋਡ ਇਸ ਕਨੈਕਸ਼ਨ ਨਾਲ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ। ਉਨ੍ਹਾਂ ਦੇ ਪਛਾਣ ਪੰਨੇ ਤੋਂ ਕੋਡ ਦੁਬਾਰਾ ਸਕੈਨ ਕਰੋ।",
+    "conversationRequestFailedSignaling": "ਇਹ ਬੇਨਤੀ ਸਵੀਕਾਰ ਕਰਨ ਲਈ ਸਰਵਰ ਤੱਕ ਨਹੀਂ ਪਹੁੰਚ ਸਕੇ। ਆਪਣਾ ਕਨੈਕਸ਼ਨ ਜਾਂਚੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
 }

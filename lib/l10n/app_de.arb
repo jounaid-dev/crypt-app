@@ -407,5 +407,10 @@
     "couldNotGenerateQrImage": "Das QR-Bild konnte nicht generiert werden",
     "conversationUpdateFailed": "Konversationsaktualisierung fehlgeschlagen. Versuchen Sie es erneut.",
     "conversationCreationFailed": "Die Konversationserstellung ist fehlgeschlagen. Versuchen Sie es erneut.",
-    "accountSuspendedByAdmin": "Dieses Konto wurde von einem Administrator gesperrt."
+    "accountSuspendedByAdmin": "Dieses Konto wurde von einem Administrator gesperrt.",
+    "conversationRequestFailedTitle": "Verbindung nicht möglich",
+    "conversationRequestFailedOwnUsernameMissing": "Deinem Konto fehlt ein Benutzername. Melde dich ab und wieder an und versuche es erneut.",
+    "conversationRequestFailedOwnIdentityMissing": "Dein eigener Verschlüsselungsschlüssel fehlt. Melde dich ab und wieder an und versuche es erneut.",
+    "conversationRequestFailedIdMismatch": "Dieser Code gehört nicht zu dieser Verbindung. Scanne den Code erneut auf der Identitätsseite der anderen Person.",
+    "conversationRequestFailedSignaling": "Der Server war nicht erreichbar, um diese Anfrage anzunehmen. Prüfe deine Verbindung und versuche es erneut."
 }

@@ -949,4 +949,23 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get accountSuspendedByAdmin => 'हे खाते प्रशासकाने निलंबित केले आहे.';
+
+  @override
+  String get conversationRequestFailedTitle => 'कनेक्ट होऊ शकले नाही';
+
+  @override
+  String get conversationRequestFailedOwnUsernameMissing =>
+      'तुमच्या खात्यात वापरकर्तानाव नाही. साइन आउट करून पुन्हा साइन इन करा, नंतर पुन्हा प्रयत्न करा.';
+
+  @override
+  String get conversationRequestFailedOwnIdentityMissing =>
+      'तुमची स्वतःची एन्क्रिप्शन की अनुपलब्ध आहे. साइन आउट करून पुन्हा साइन इन करा, नंतर पुन्हा प्रयत्न करा.';
+
+  @override
+  String get conversationRequestFailedIdMismatch =>
+      'हा कोड या कनेक्शनशी जुळत नाही. त्यांच्या ओळख पृष्ठावरून कोड पुन्हा स्कॅन करा.';
+
+  @override
+  String get conversationRequestFailedSignaling =>
+      'ही विनंती स्वीकारण्यासाठी सर्व्हरपर्यंत पोहोचता आले नाही. तुमचे कनेक्शन तपासा आणि पुन्हा प्रयत्न करा.';
 }

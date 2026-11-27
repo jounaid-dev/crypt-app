@@ -945,4 +945,23 @@ class AppLocalizationsFa extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'این حساب توسط یک سرپرست به حالت تعلیق درآمده است.';
+
+  @override
+  String get conversationRequestFailedTitle => 'اتصال برقرار نشد';
+
+  @override
+  String get conversationRequestFailedOwnUsernameMissing =>
+      'حساب شما نام کاربری ندارد. خارج شوید و دوباره وارد شوید، سپس دوباره تلاش کنید.';
+
+  @override
+  String get conversationRequestFailedOwnIdentityMissing =>
+      'کلید رمزنگاری خود شما موجود نیست. خارج شوید و دوباره وارد شوید، سپس دوباره تلاش کنید.';
+
+  @override
+  String get conversationRequestFailedIdMismatch =>
+      'این کد با این ارتباط مطابقت ندارد. کد را دوباره از صفحهٔ هویت آن‌ها اسکن کنید.';
+
+  @override
+  String get conversationRequestFailedSignaling =>
+      'برای پذیرش این درخواست به سرور دسترسی پیدا نشد. اتصال خود را بررسی کنید و دوباره تلاش کنید.';
 }

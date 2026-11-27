@@ -957,4 +957,23 @@ class AppLocalizationsUr extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'اس اکاؤنٹ کو ایک منتظم نے معطل کر دیا ہے۔';
+
+  @override
+  String get conversationRequestFailedTitle => 'رابطہ نہیں ہو سکا';
+
+  @override
+  String get conversationRequestFailedOwnUsernameMissing =>
+      'آپ کے اکاؤنٹ میں صارف نام موجود نہیں۔ سائن آؤٹ کر کے دوبارہ سائن ان کریں، پھر دوبارہ کوشش کریں۔';
+
+  @override
+  String get conversationRequestFailedOwnIdentityMissing =>
+      'آپ کی اپنی انکرپشن کلید موجود نہیں۔ سائن آؤٹ کر کے دوبارہ سائن ان کریں، پھر دوبارہ کوشش کریں۔';
+
+  @override
+  String get conversationRequestFailedIdMismatch =>
+      'یہ کوڈ اس رابطے سے مطابقت نہیں رکھتا۔ ان کے شناختی صفحے سے کوڈ دوبارہ اسکین کریں۔';
+
+  @override
+  String get conversationRequestFailedSignaling =>
+      'یہ درخواست قبول کرنے کے لیے سرور تک رسائی نہیں ہو سکی۔ اپنا رابطہ چیک کریں اور دوبارہ کوشش کریں۔';
 }

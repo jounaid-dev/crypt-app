@@ -1791,6 +1791,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This account has been suspended by an administrator.'**
   String get accountSuspendedByAdmin;
+
+  /// Dialog title shown when an incoming conversation request cannot be accepted
+  ///
+  /// In en, this message translates to:
+  /// **'Could not connect'**
+  String get conversationRequestFailedTitle;
+
+  /// Reason shown when our own username is missing
+  ///
+  /// In en, this message translates to:
+  /// **'Your account is missing a username. Sign out and back in, then try again.'**
+  String get conversationRequestFailedOwnUsernameMissing;
+
+  /// Reason shown when our own public key is missing
+  ///
+  /// In en, this message translates to:
+  /// **'Your own encryption key is missing. Sign out and back in, then try again.'**
+  String get conversationRequestFailedOwnIdentityMissing;
+
+  /// Reason shown when the conversation ID does not match
+  ///
+  /// In en, this message translates to:
+  /// **'That code does not match this connection. Scan the code from their identity page again.'**
+  String get conversationRequestFailedIdMismatch;
+
+  /// Reason shown when signaling is disconnected
+  ///
+  /// In en, this message translates to:
+  /// **'Could not reach the server to accept this request. Check your connection and try again.'**
+  String get conversationRequestFailedSignaling;
 }
 
 class _AppLocalizationsDelegate

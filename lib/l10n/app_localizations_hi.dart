@@ -952,4 +952,23 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'यह खाता एक व्यवस्थापक द्वारा निलंबित कर दिया गया है.';
+
+  @override
+  String get conversationRequestFailedTitle => 'कनेक्ट नहीं हो सका';
+
+  @override
+  String get conversationRequestFailedOwnUsernameMissing =>
+      'आपके खाते में उपयोगकर्ता नाम नहीं है। साइन आउट करके फिर से साइन इन करें, फिर दोबारा प्रयास करें।';
+
+  @override
+  String get conversationRequestFailedOwnIdentityMissing =>
+      'आपकी अपनी एन्क्रिप्शन कुंजी अनुपस्थित है। साइन आउट करके फिर से साइन इन करें, फिर दोबारा प्रयास करें।';
+
+  @override
+  String get conversationRequestFailedIdMismatch =>
+      'यह कोड इस कनेक्शन से मेल नहीं खाता। उनकी पहचान पृष्ठ से कोड फिर से स्कैन करें।';
+
+  @override
+  String get conversationRequestFailedSignaling =>
+      'यह अनुरोध स्वीकार करने के लिए सर्वर तक नहीं पहुँचा जा सका। अपना कनेक्शन जाँचें और दोबारा प्रयास करें।';
 }

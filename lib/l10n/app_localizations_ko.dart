@@ -911,4 +911,23 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get accountSuspendedByAdmin => '이 계정은 관리자에 의해 정지되었습니다.';
+
+  @override
+  String get conversationRequestFailedTitle => '연결할 수 없습니다';
+
+  @override
+  String get conversationRequestFailedOwnUsernameMissing =>
+      '계정에 사용자 이름이 없습니다. 로그아웃한 뒤 다시 로그인하고 다시 시도하세요.';
+
+  @override
+  String get conversationRequestFailedOwnIdentityMissing =>
+      '본인의 암호화 키가 없습니다. 로그아웃한 뒤 다시 로그인하고 다시 시도하세요.';
+
+  @override
+  String get conversationRequestFailedIdMismatch =>
+      '이 코드는 이 연결과 일치하지 않습니다. 상대방의 신원 페이지에서 코드를 다시 스캔하세요.';
+
+  @override
+  String get conversationRequestFailedSignaling =>
+      '이 요청을 수락하기 위해 서버에 연결할 수 없습니다. 연결을 확인하고 다시 시도하세요.';
 }

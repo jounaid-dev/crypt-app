@@ -959,4 +959,23 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'Dieses Konto wurde von einem Administrator gesperrt.';
+
+  @override
+  String get conversationRequestFailedTitle => 'Verbindung nicht möglich';
+
+  @override
+  String get conversationRequestFailedOwnUsernameMissing =>
+      'Deinem Konto fehlt ein Benutzername. Melde dich ab und wieder an und versuche es erneut.';
+
+  @override
+  String get conversationRequestFailedOwnIdentityMissing =>
+      'Dein eigener Verschlüsselungsschlüssel fehlt. Melde dich ab und wieder an und versuche es erneut.';
+
+  @override
+  String get conversationRequestFailedIdMismatch =>
+      'Dieser Code gehört nicht zu dieser Verbindung. Scanne den Code erneut auf der Identitätsseite der anderen Person.';
+
+  @override
+  String get conversationRequestFailedSignaling =>
+      'Der Server war nicht erreichbar, um diese Anfrage anzunehmen. Prüfe deine Verbindung und versuche es erneut.';
 }

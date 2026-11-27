@@ -407,5 +407,10 @@
     "couldNotGenerateQrImage": "Hindi makabuo ng QR na larawan",
     "conversationUpdateFailed": "Nabigo ang pag-update ng pag-uusap. Subukan muli.",
     "conversationCreationFailed": "Nabigo ang paggawa ng pag-uusap. Subukan muli.",
-    "accountSuspendedByAdmin": "Ang account na ito ay sinuspinde ng isang administrator."
+    "accountSuspendedByAdmin": "Ang account na ito ay sinuspinde ng isang administrator.",
+    "conversationRequestFailedTitle": "Hindi makakonekta",
+    "conversationRequestFailedOwnUsernameMissing": "Walang username ang account mo. Mag-sign out at mag-sign in muli, pagkatapos ay subukan ulit.",
+    "conversationRequestFailedOwnIdentityMissing": "Nawawala ang sarili mong encryption key. Mag-sign out at mag-sign in muli, pagkatapos ay subukan ulit.",
+    "conversationRequestFailedIdMismatch": "Hindi tugma ang code na iyon sa koneksyong ito. I-scan muli ang code mula sa page ng pagkakakilanlan nila.",
+    "conversationRequestFailedSignaling": "Hindi maabot ang server para tanggapin ang kahilingang ito. Suriin ang iyong koneksyon at subukan ulit."
 }

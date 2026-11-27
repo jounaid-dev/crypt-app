@@ -407,5 +407,10 @@
     "couldNotGenerateQrImage": "Tidak dapat membuat gambar QR",
     "conversationUpdateFailed": "Pembaruan percakapan gagal. Coba lagi.",
     "conversationCreationFailed": "Pembuatan percakapan gagal. Coba lagi.",
-    "accountSuspendedByAdmin": "Akun ini telah ditangguhkan oleh administrator."
+    "accountSuspendedByAdmin": "Akun ini telah ditangguhkan oleh administrator.",
+    "conversationRequestFailedTitle": "Tidak dapat terhubung",
+    "conversationRequestFailedOwnUsernameMissing": "Akun Anda tidak memiliki nama pengguna. Keluar lalu masuk lagi, kemudian coba lagi.",
+    "conversationRequestFailedOwnIdentityMissing": "Kunci enkripsi Anda sendiri tidak ada. Keluar lalu masuk lagi, kemudian coba lagi.",
+    "conversationRequestFailedIdMismatch": "Kode itu tidak cocok dengan koneksi ini. Pindai ulang kode dari halaman identitas mereka.",
+    "conversationRequestFailedSignaling": "Tidak dapat menghubungi server untuk menerima permintaan ini. Periksa koneksi Anda dan coba lagi."
 }

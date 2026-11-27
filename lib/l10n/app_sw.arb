@@ -407,5 +407,10 @@
     "couldNotGenerateQrImage": "Haikuweza kuzalisha picha ya QR",
     "conversationUpdateFailed": "Usasishaji wa mazungumzo haukufaulu. Jaribu tena.",
     "conversationCreationFailed": "Imeshindwa kuunda mazungumzo. Jaribu tena.",
-    "accountSuspendedByAdmin": "Akaunti hii imesimamishwa na msimamizi."
+    "accountSuspendedByAdmin": "Akaunti hii imesimamishwa na msimamizi.",
+    "conversationRequestFailedTitle": "Imeshindwa kuunganisha",
+    "conversationRequestFailedOwnUsernameMissing": "Akaunti yako haina jina la mtumiaji. Toka kisha uingie tena, kisha ujaribu tena.",
+    "conversationRequestFailedOwnIdentityMissing": "Ufunguo wako wa usimbaji fiche haupo. Toka kisha uingie tena, kisha ujaribu tena.",
+    "conversationRequestFailedIdMismatch": "Msimbo huo hauwiani na muunganisho huu. Skani msimbo tena kutoka ukurasa wa utambulisho wao.",
+    "conversationRequestFailedSignaling": "Imeshindwa kufikia seva ili kukubali ombi hili. Angalia muunganisho wako na ujaribu tena."
 }

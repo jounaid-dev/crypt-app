@@ -905,4 +905,22 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get accountSuspendedByAdmin => '该帐户已被管理员暂停。';
+
+  @override
+  String get conversationRequestFailedTitle => '无法连接';
+
+  @override
+  String get conversationRequestFailedOwnUsernameMissing =>
+      '你的账号缺少用户名。请退出后重新登录，然后再试一次。';
+
+  @override
+  String get conversationRequestFailedOwnIdentityMissing =>
+      '缺少你自己的加密密钥。请退出后重新登录，然后再试一次。';
+
+  @override
+  String get conversationRequestFailedIdMismatch =>
+      '该代码与此连接不匹配。请重新扫描对方身份页面上的代码。';
+
+  @override
+  String get conversationRequestFailedSignaling => '无法连接服务器以接受此请求。请检查网络连接后重试。';
 }

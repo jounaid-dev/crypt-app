@@ -952,4 +952,23 @@ class AppLocalizationsPa extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'ਇਸ ਖਾਤੇ ਨੂੰ ਇੱਕ ਪ੍ਰਸ਼ਾਸਕ ਦੁਆਰਾ ਮੁਅੱਤਲ ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ।';
+
+  @override
+  String get conversationRequestFailedTitle => 'ਕਨੈਕਟ ਨਹੀਂ ਹੋ ਸਕਿਆ';
+
+  @override
+  String get conversationRequestFailedOwnUsernameMissing =>
+      'ਤੁਹਾਡੇ ਖਾਤੇ ਵਿੱਚ ਵਰਤੋਂਕਾਰ ਨਾਮ ਨਹੀਂ ਹੈ। ਸਾਈਨ ਆਉਟ ਕਰਕੇ ਦੁਬਾਰਾ ਸਾਈਨ ਇਨ ਕਰੋ, ਫਿਰ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।';
+
+  @override
+  String get conversationRequestFailedOwnIdentityMissing =>
+      'ਤੁਹਾਡੀ ਆਪਣੀ ਐਨਕ੍ਰਿਪਸ਼ਨ ਕੁੰਜੀ ਗੁੰਮ ਹੈ। ਸਾਈਨ ਆਉਟ ਕਰਕੇ ਦੁਬਾਰਾ ਸਾਈਨ ਇਨ ਕਰੋ, ਫਿਰ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।';
+
+  @override
+  String get conversationRequestFailedIdMismatch =>
+      'ਇਹ ਕੋਡ ਇਸ ਕਨੈਕਸ਼ਨ ਨਾਲ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ। ਉਨ੍ਹਾਂ ਦੇ ਪਛਾਣ ਪੰਨੇ ਤੋਂ ਕੋਡ ਦੁਬਾਰਾ ਸਕੈਨ ਕਰੋ।';
+
+  @override
+  String get conversationRequestFailedSignaling =>
+      'ਇਹ ਬੇਨਤੀ ਸਵੀਕਾਰ ਕਰਨ ਲਈ ਸਰਵਰ ਤੱਕ ਨਹੀਂ ਪਹੁੰਚ ਸਕੇ। ਆਪਣਾ ਕਨੈਕਸ਼ਨ ਜਾਂਚੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।';
 }

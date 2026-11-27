@@ -963,4 +963,23 @@ class AppLocalizationsMl extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'ഈ അക്കൗണ്ട് ഒരു അഡ്‌മിനിസ്‌ട്രേറ്റർ സസ്പെൻഡ് ചെയ്‌തിരിക്കുന്നു.';
+
+  @override
+  String get conversationRequestFailedTitle => 'കണക്ട് ചെയ്യാനായില്ല';
+
+  @override
+  String get conversationRequestFailedOwnUsernameMissing =>
+      'നിങ്ങളുടെ അക്കൗണ്ടിൽ ഉപയോക്തൃനാമം ഇല്ല. സൈൻ ഔട്ട് ചെയ്ത് വീണ്ടും സൈൻ ഇൻ ചെയ്ത ശേഷം വീണ്ടും ശ്രമിക്കുക.';
+
+  @override
+  String get conversationRequestFailedOwnIdentityMissing =>
+      'നിങ്ങളുടെ സ്വന്തം എൻക്രിപ്ഷൻ കീ ഇല്ല. സൈൻ ഔട്ട് ചെയ്ത് വീണ്ടും സൈൻ ഇൻ ചെയ്ത ശേഷം വീണ്ടും ശ്രമിക്കുക.';
+
+  @override
+  String get conversationRequestFailedIdMismatch =>
+      'ഈ കോഡ് ഈ കണക്ഷനുമായി പൊരുത്തപ്പെടുന്നില്ല. അവരുടെ ഐഡന്റിറ്റി പേജിൽ നിന്ന് കോഡ് വീണ്ടും സ്കാൻ ചെയ്യുക.';
+
+  @override
+  String get conversationRequestFailedSignaling =>
+      'ഈ അഭ്യർത്ഥന സ്വീകരിക്കാൻ സെർവറിൽ എത്താനായില്ല. നിങ്ങളുടെ കണക്ഷൻ പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക.';
 }

@@ -949,4 +949,23 @@ class AppLocalizationsHa extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'Wani mai gudanarwa ya dakatar da wannan asusun.';
+
+  @override
+  String get conversationRequestFailedTitle => 'Ba a iya haɗawa';
+
+  @override
+  String get conversationRequestFailedOwnUsernameMissing =>
+      'Asusunka ba shi da sunan mai amfani. Fita sannan ka sake shiga, sannan ka sake gwadawa.';
+
+  @override
+  String get conversationRequestFailedOwnIdentityMissing =>
+      'Maɓallin ɓoyewar naka ya ɓace. Fita sannan ka sake shiga, sannan ka sake gwadawa.';
+
+  @override
+  String get conversationRequestFailedIdMismatch =>
+      'Wannan lambar ba ta dace da wannan haɗin ba. Sake duba lambar daga shafin shaidarsu.';
+
+  @override
+  String get conversationRequestFailedSignaling =>
+      'Ba a iya isa uwar garken don karɓar wannan buƙatar ba. Duba haɗinka sannan ka sake gwadawa.';
 }

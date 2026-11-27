@@ -407,5 +407,10 @@
     "couldNotGenerateQrImage": "QR تصویر نہیں بن سکی",
     "conversationUpdateFailed": "بات چیت کی تازہ کاری ناکام ہو گئی۔ دوبارہ کوشش کریں۔",
     "conversationCreationFailed": "بات چیت کی تخلیق ناکام ہو گئی۔ دوبارہ کوشش کریں۔",
-    "accountSuspendedByAdmin": "اس اکاؤنٹ کو ایک منتظم نے معطل کر دیا ہے۔"
+    "accountSuspendedByAdmin": "اس اکاؤنٹ کو ایک منتظم نے معطل کر دیا ہے۔",
+    "conversationRequestFailedTitle": "رابطہ نہیں ہو سکا",
+    "conversationRequestFailedOwnUsernameMissing": "آپ کے اکاؤنٹ میں صارف نام موجود نہیں۔ سائن آؤٹ کر کے دوبارہ سائن ان کریں، پھر دوبارہ کوشش کریں۔",
+    "conversationRequestFailedOwnIdentityMissing": "آپ کی اپنی انکرپشن کلید موجود نہیں۔ سائن آؤٹ کر کے دوبارہ سائن ان کریں، پھر دوبارہ کوشش کریں۔",
+    "conversationRequestFailedIdMismatch": "یہ کوڈ اس رابطے سے مطابقت نہیں رکھتا۔ ان کے شناختی صفحے سے کوڈ دوبارہ اسکین کریں۔",
+    "conversationRequestFailedSignaling": "یہ درخواست قبول کرنے کے لیے سرور تک رسائی نہیں ہو سکی۔ اپنا رابطہ چیک کریں اور دوبارہ کوشش کریں۔"
 }

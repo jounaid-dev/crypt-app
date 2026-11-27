@@ -438,6 +438,10 @@ class ChatLockService {
             lockTypePin;
 
     if (lockType == lockTypeBiometric) {
+      if (!context.mounted) {
+        return false;
+      }
+
       if (await _authenticateBiometric(
             context: context,
             chatUsername: chatUsername,
@@ -665,6 +669,12 @@ class ChatLockService {
 
       final controller =
           TextEditingController();
+
+      // The lockout dialog above is an async gap, so the host page may have
+      // been popped while it was open.
+      if (!context.mounted) {
+        return false;
+      }
 
       final l10n =
           AppLocalizations.of(context)!;

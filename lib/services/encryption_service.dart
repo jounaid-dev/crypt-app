@@ -23,10 +23,9 @@ class EncryptionService {
       nonce: nonce,
     );
 
-    final ciphertext = secretBox.concatenation(
-      nonceLength: algorithm.nonceLength,
-      macLength: algorithm.macAlgorithm.macLength,
-    );
+    // Base layout: nonce || ciphertext || mac, which is exactly what
+    // SecretBox.fromConcatenation rebuilds in [decryptMessage].
+    final ciphertext = secretBox.concatenation();
 
     return base64Encode(ciphertext);
   }

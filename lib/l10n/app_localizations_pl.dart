@@ -958,4 +958,23 @@ class AppLocalizationsPl extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'To konto zostało zawieszone przez administratora.';
+
+  @override
+  String get conversationRequestFailedTitle => 'Nie można się połączyć';
+
+  @override
+  String get conversationRequestFailedOwnUsernameMissing =>
+      'Twoje konto nie ma nazwy użytkownika. Wyloguj się i zaloguj ponownie, a potem spróbuj jeszcze raz.';
+
+  @override
+  String get conversationRequestFailedOwnIdentityMissing =>
+      'Brakuje Twojego własnego klucza szyfrowania. Wyloguj się i zaloguj ponownie, a potem spróbuj jeszcze raz.';
+
+  @override
+  String get conversationRequestFailedIdMismatch =>
+      'Ten kod nie pasuje do tego połączenia. Zeskanuj ponownie kod ze strony tożsamości drugiej osoby.';
+
+  @override
+  String get conversationRequestFailedSignaling =>
+      'Nie udało się połączyć z serwerem, aby przyjąć tę prośbę. Sprawdź połączenie i spróbuj jeszcze raz.';
 }

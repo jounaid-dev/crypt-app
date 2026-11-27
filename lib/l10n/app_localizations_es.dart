@@ -952,4 +952,23 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'Esta cuenta ha sido suspendida por un administrador.';
+
+  @override
+  String get conversationRequestFailedTitle => 'No se pudo conectar';
+
+  @override
+  String get conversationRequestFailedOwnUsernameMissing =>
+      'Tu cuenta no tiene un nombre de usuario. Cierra sesión y vuelve a entrar, y luego inténtalo de nuevo.';
+
+  @override
+  String get conversationRequestFailedOwnIdentityMissing =>
+      'Falta tu propia clave de cifrado. Cierra sesión y vuelve a entrar, y luego inténtalo de nuevo.';
+
+  @override
+  String get conversationRequestFailedIdMismatch =>
+      'Ese código no corresponde a esta conexión. Vuelve a escanear el código de su página de identidad.';
+
+  @override
+  String get conversationRequestFailedSignaling =>
+      'No se pudo contactar con el servidor para aceptar esta solicitud. Comprueba tu conexión e inténtalo de nuevo.';
 }

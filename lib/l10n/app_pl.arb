@@ -407,5 +407,10 @@
     "couldNotGenerateQrImage": "Nie można wygenerować obrazu QR",
     "conversationUpdateFailed": "Aktualizacja rozmowy nie powiodła się. Spróbuj ponownie.",
     "conversationCreationFailed": "Utworzenie rozmowy nie powiodło się. Spróbuj ponownie.",
-    "accountSuspendedByAdmin": "To konto zostało zawieszone przez administratora."
+    "accountSuspendedByAdmin": "To konto zostało zawieszone przez administratora.",
+    "conversationRequestFailedTitle": "Nie można się połączyć",
+    "conversationRequestFailedOwnUsernameMissing": "Twoje konto nie ma nazwy użytkownika. Wyloguj się i zaloguj ponownie, a potem spróbuj jeszcze raz.",
+    "conversationRequestFailedOwnIdentityMissing": "Brakuje Twojego własnego klucza szyfrowania. Wyloguj się i zaloguj ponownie, a potem spróbuj jeszcze raz.",
+    "conversationRequestFailedIdMismatch": "Ten kod nie pasuje do tego połączenia. Zeskanuj ponownie kod ze strony tożsamości drugiej osoby.",
+    "conversationRequestFailedSignaling": "Nie udało się połączyć z serwerem, aby przyjąć tę prośbę. Sprawdź połączenie i spróbuj jeszcze raz."
 }

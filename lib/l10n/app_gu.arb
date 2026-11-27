@@ -407,5 +407,10 @@
     "couldNotGenerateQrImage": "QR છબી જનરેટ કરી શકાઈ નથી",
     "conversationUpdateFailed": "વાતચીત અપડેટ નિષ્ફળ. ફરી પ્રયાસ કરો.",
     "conversationCreationFailed": "વાર્તાલાપ બનાવટ નિષ્ફળ. ફરી પ્રયાસ કરો.",
-    "accountSuspendedByAdmin": "આ એકાઉન્ટ એડમિનિસ્ટ્રેટર દ્વારા સસ્પેન્ડ કરવામાં આવ્યું છે."
+    "accountSuspendedByAdmin": "આ એકાઉન્ટ એડમિનિસ્ટ્રેટર દ્વારા સસ્પેન્ડ કરવામાં આવ્યું છે.",
+    "conversationRequestFailedTitle": "કનેક્ટ થઈ શક્યું નથી",
+    "conversationRequestFailedOwnUsernameMissing": "તમારા ખાતામાં વપરાશકર્તાનામ નથી. સાઇન આઉટ કરીને ફરી સાઇન ઇન કરો, પછી ફરી પ્રયાસ કરો.",
+    "conversationRequestFailedOwnIdentityMissing": "તમારી પોતાની એન્ક્રિપ્શન કી ગુમ છે. સાઇન આઉટ કરીને ફરી સાઇન ઇન કરો, પછી ફરી પ્રયાસ કરો.",
+    "conversationRequestFailedIdMismatch": "આ કોડ આ કનેક્શન સાથે મેળ ખાતો નથી. તેમના ઓળખ પૃષ્ઠ પરથી કોડ ફરી સ્કેન કરો.",
+    "conversationRequestFailedSignaling": "આ વિનંતી સ્વીકારવા સર્વર સુધી પહોંચી શકાયું નથી. તમારું કનેક્શન તપાસો અને ફરી પ્રયાસ કરો."
 }

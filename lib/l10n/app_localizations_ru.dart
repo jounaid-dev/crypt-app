@@ -962,4 +962,23 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'Эта учетная запись заблокирована администратором.';
+
+  @override
+  String get conversationRequestFailedTitle => 'Не удалось подключиться';
+
+  @override
+  String get conversationRequestFailedOwnUsernameMissing =>
+      'В вашей учётной записи нет имени пользователя. Выйдите и снова войдите, затем повторите попытку.';
+
+  @override
+  String get conversationRequestFailedOwnIdentityMissing =>
+      'Отсутствует ваш собственный ключ шифрования. Выйдите и снова войдите, затем повторите попытку.';
+
+  @override
+  String get conversationRequestFailedIdMismatch =>
+      'Этот код не соответствует этому соединению. Отсканируйте код заново на странице идентичности собеседника.';
+
+  @override
+  String get conversationRequestFailedSignaling =>
+      'Не удалось связаться с сервером, чтобы принять этот запрос. Проверьте соединение и повторите попытку.';
 }

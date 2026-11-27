@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -213,7 +214,7 @@ class SignalingService {
         _reconnectAttempt = 0;
       });
     } catch (error) {
-      print("[Signaling] Connection to $server failed: $error");
+      debugPrint("[Signaling] Connection to $server failed: $error");
       _connected = false;
       _connecting = false;
 
@@ -272,7 +273,7 @@ class SignalingService {
     for (final entry in entries) {
       if (entry is Map &&
           entry["username"]?.toString() == username) {
-        print("[Signaling] Account banned on server: $username");
+        debugPrint("[Signaling] Account banned on server: $username");
 
         if (!_events.isClosed) {
           _events.add({
@@ -431,7 +432,7 @@ class SignalingService {
 
       if (!_connected || _closedDeliberately) return;
 
-      print(
+      debugPrint(
         "[Signaling] Server stopped answering; rebuilding the socket.",
       );
 

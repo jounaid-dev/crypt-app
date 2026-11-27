@@ -960,4 +960,23 @@ class AppLocalizationsTe extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'ఈ ఖాతాను అడ్మినిస్ట్రేటర్ సస్పెండ్ చేసారు.';
+
+  @override
+  String get conversationRequestFailedTitle => 'కనెక్ట్ చేయలేకపోయాం';
+
+  @override
+  String get conversationRequestFailedOwnUsernameMissing =>
+      'మీ ఖాతాలో వినియోగదారు పేరు లేదు. సైన్ అవుట్ చేసి మళ్లీ సైన్ ఇన్ చేయండి, ఆపై మళ్లీ ప్రయత్నించండి.';
+
+  @override
+  String get conversationRequestFailedOwnIdentityMissing =>
+      'మీ స్వంత ఎన్‌క్రిప్షన్ కీ లేదు. సైన్ అవుట్ చేసి మళ్లీ సైన్ ఇన్ చేయండి, ఆపై మళ్లీ ప్రయత్నించండి.';
+
+  @override
+  String get conversationRequestFailedIdMismatch =>
+      'ఈ కోడ్ ఈ కనెక్షన్‌కు సరిపోలడం లేదు. వారి గుర్తింపు పేజీ నుండి కోడ్‌ను మళ్లీ స్కాన్ చేయండి.';
+
+  @override
+  String get conversationRequestFailedSignaling =>
+      'ఈ అభ్యర్థనను అంగీకరించడానికి సర్వర్‌ను చేరుకోలేకపోయాం. మీ కనెక్షన్‌ను తనిఖీ చేసి మళ్లీ ప్రయత్నించండి.';
 }

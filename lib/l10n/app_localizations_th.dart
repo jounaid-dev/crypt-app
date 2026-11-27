@@ -944,4 +944,23 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get accountSuspendedByAdmin => 'บัญชีนี้ถูกระงับโดยผู้ดูแลระบบ';
+
+  @override
+  String get conversationRequestFailedTitle => 'เชื่อมต่อไม่ได้';
+
+  @override
+  String get conversationRequestFailedOwnUsernameMissing =>
+      'บัญชีของคุณไม่มีชื่อผู้ใช้ ออกจากระบบแล้วเข้าสู่ระบบอีกครั้ง จากนั้นลองใหม่อีกครั้ง';
+
+  @override
+  String get conversationRequestFailedOwnIdentityMissing =>
+      'คีย์เข้ารหัสของคุณหายไป ออกจากระบบแล้วเข้าสู่ระบบอีกครั้ง จากนั้นลองใหม่อีกครั้ง';
+
+  @override
+  String get conversationRequestFailedIdMismatch =>
+      'รหัสนี้ไม่ตรงกับการเชื่อมต่อนี้ สแกนรหัสจากหน้าตัวตนของอีกฝ่ายอีกครั้ง';
+
+  @override
+  String get conversationRequestFailedSignaling =>
+      'ไม่สามารถเข้าถึงเซิร์ฟเวอร์เพื่อรับคำขอนี้ได้ ตรวจสอบการเชื่อมต่อแล้วลองใหม่อีกครั้ง';
 }

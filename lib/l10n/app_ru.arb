@@ -407,5 +407,10 @@
     "couldNotGenerateQrImage": "Не удалось создать QR-изображение",
     "conversationUpdateFailed": "Не удалось обновить беседу. Попробуйте еще раз.",
     "conversationCreationFailed": "Не удалось создать беседу. Попробуйте еще раз.",
-    "accountSuspendedByAdmin": "Эта учетная запись заблокирована администратором."
+    "accountSuspendedByAdmin": "Эта учетная запись заблокирована администратором.",
+    "conversationRequestFailedTitle": "Не удалось подключиться",
+    "conversationRequestFailedOwnUsernameMissing": "В вашей учётной записи нет имени пользователя. Выйдите и снова войдите, затем повторите попытку.",
+    "conversationRequestFailedOwnIdentityMissing": "Отсутствует ваш собственный ключ шифрования. Выйдите и снова войдите, затем повторите попытку.",
+    "conversationRequestFailedIdMismatch": "Этот код не соответствует этому соединению. Отсканируйте код заново на странице идентичности собеседника.",
+    "conversationRequestFailedSignaling": "Не удалось связаться с сервером, чтобы принять этот запрос. Проверьте соединение и повторите попытку."
 }

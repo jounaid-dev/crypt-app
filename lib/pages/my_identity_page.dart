@@ -231,6 +231,10 @@ class _MyIdentityPageState extends State<MyIdentityPage> {
     const int edge = 1200;
     const double quietZoneRatio = 0.08;
 
+    // Resolved before the awaits below so the error path never touches the
+    // BuildContext after the page may have been disposed.
+    final l10n = AppLocalizations.of(context)!;
+
     final ui.PictureRecorder recorder = ui.PictureRecorder();
 
     final Canvas canvas = Canvas(recorder);
@@ -266,7 +270,7 @@ class _MyIdentityPageState extends State<MyIdentityPage> {
     );
 
     if (byteData == null) {
-      throw Exception(AppLocalizations.of(context)!.couldNotGenerateQrImage);
+      throw Exception(l10n.couldNotGenerateQrImage);
     }
 
     return byteData.buffer.asUint8List();

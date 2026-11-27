@@ -956,4 +956,23 @@ class AppLocalizationsKn extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'ಈ ಖಾತೆಯನ್ನು ನಿರ್ವಾಹಕರು ಅಮಾನತುಗೊಳಿಸಿದ್ದಾರೆ.';
+
+  @override
+  String get conversationRequestFailedTitle => 'ಸಂಪರ್ಕಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ';
+
+  @override
+  String get conversationRequestFailedOwnUsernameMissing =>
+      'ನಿಮ್ಮ ಖಾತೆಯಲ್ಲಿ ಬಳಕೆದಾರಹೆಸರಿಲ್ಲ. ಸೈನ್ ಔಟ್ ಮಾಡಿ ಮತ್ತೆ ಸೈನ್ ಇನ್ ಮಾಡಿ, ನಂತರ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.';
+
+  @override
+  String get conversationRequestFailedOwnIdentityMissing =>
+      'ನಿಮ್ಮ ಸ್ವಂತ ಎನ್‌ಕ್ರಿಪ್ಶನ್ ಕೀ ಇಲ್ಲ. ಸೈನ್ ಔಟ್ ಮಾಡಿ ಮತ್ತೆ ಸೈನ್ ಇನ್ ಮಾಡಿ, ನಂತರ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.';
+
+  @override
+  String get conversationRequestFailedIdMismatch =>
+      'ಈ ಕೋಡ್ ಈ ಸಂಪರ್ಕಕ್ಕೆ ಹೊಂದಿಕೆಯಾಗುವುದಿಲ್ಲ. ಅವರ ಗುರುತಿನ ಪುಟದಿಂದ ಕೋಡ್ ಅನ್ನು ಮತ್ತೆ ಸ್ಕ್ಯಾನ್ ಮಾಡಿ.';
+
+  @override
+  String get conversationRequestFailedSignaling =>
+      'ಈ ವಿನಂತಿಯನ್ನು ಸ್ವೀಕರಿಸಲು ಸರ್ವರ್‌ನ್ನು ತಲುಪಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ನಿಮ್ಮ ಸಂಪರ್ಕವನ್ನು ಪರಿಶೀಲಿಸಿ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.';
 }

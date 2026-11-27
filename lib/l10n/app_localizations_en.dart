@@ -939,4 +939,23 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'This account has been suspended by an administrator.';
+
+  @override
+  String get conversationRequestFailedTitle => 'Could not connect';
+
+  @override
+  String get conversationRequestFailedOwnUsernameMissing =>
+      'Your account is missing a username. Sign out and back in, then try again.';
+
+  @override
+  String get conversationRequestFailedOwnIdentityMissing =>
+      'Your own encryption key is missing. Sign out and back in, then try again.';
+
+  @override
+  String get conversationRequestFailedIdMismatch =>
+      'That code does not match this connection. Scan the code from their identity page again.';
+
+  @override
+  String get conversationRequestFailedSignaling =>
+      'Could not reach the server to accept this request. Check your connection and try again.';
 }

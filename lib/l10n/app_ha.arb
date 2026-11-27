@@ -407,5 +407,10 @@
     "couldNotGenerateQrImage": "An kasa samar da hoton QR",
     "conversationUpdateFailed": "An gaza sabunta taɗi Gwada kuma.",
     "conversationCreationFailed": "Ƙirƙirar tattaunawa ta kasa. Gwada kuma.",
-    "accountSuspendedByAdmin": "Wani mai gudanarwa ya dakatar da wannan asusun."
+    "accountSuspendedByAdmin": "Wani mai gudanarwa ya dakatar da wannan asusun.",
+    "conversationRequestFailedTitle": "Ba a iya haɗawa",
+    "conversationRequestFailedOwnUsernameMissing": "Asusunka ba shi da sunan mai amfani. Fita sannan ka sake shiga, sannan ka sake gwadawa.",
+    "conversationRequestFailedOwnIdentityMissing": "Maɓallin ɓoyewar naka ya ɓace. Fita sannan ka sake shiga, sannan ka sake gwadawa.",
+    "conversationRequestFailedIdMismatch": "Wannan lambar ba ta dace da wannan haɗin ba. Sake duba lambar daga shafin shaidarsu.",
+    "conversationRequestFailedSignaling": "Ba a iya isa uwar garken don karɓar wannan buƙatar ba. Duba haɗinka sannan ka sake gwadawa."
 }

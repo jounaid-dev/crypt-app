@@ -407,5 +407,10 @@
     "couldNotGenerateQrImage": "ไม่สามารถสร้างอิมเมจ QR ได้",
     "conversationUpdateFailed": "การอัปเดตการสนทนาล้มเหลว ลองอีกครั้ง",
     "conversationCreationFailed": "การสร้างการสนทนาล้มเหลว ลองอีกครั้ง",
-    "accountSuspendedByAdmin": "บัญชีนี้ถูกระงับโดยผู้ดูแลระบบ"
+    "accountSuspendedByAdmin": "บัญชีนี้ถูกระงับโดยผู้ดูแลระบบ",
+    "conversationRequestFailedTitle": "เชื่อมต่อไม่ได้",
+    "conversationRequestFailedOwnUsernameMissing": "บัญชีของคุณไม่มีชื่อผู้ใช้ ออกจากระบบแล้วเข้าสู่ระบบอีกครั้ง จากนั้นลองใหม่อีกครั้ง",
+    "conversationRequestFailedOwnIdentityMissing": "คีย์เข้ารหัสของคุณหายไป ออกจากระบบแล้วเข้าสู่ระบบอีกครั้ง จากนั้นลองใหม่อีกครั้ง",
+    "conversationRequestFailedIdMismatch": "รหัสนี้ไม่ตรงกับการเชื่อมต่อนี้ สแกนรหัสจากหน้าตัวตนของอีกฝ่ายอีกครั้ง",
+    "conversationRequestFailedSignaling": "ไม่สามารถเข้าถึงเซิร์ฟเวอร์เพื่อรับคำขอนี้ได้ ตรวจสอบการเชื่อมต่อแล้วลองใหม่อีกครั้ง"
 }

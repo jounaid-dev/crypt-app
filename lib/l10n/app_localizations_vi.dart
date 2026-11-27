@@ -953,4 +953,23 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'Tài khoản này đã bị quản trị viên đình chỉ.';
+
+  @override
+  String get conversationRequestFailedTitle => 'Không thể kết nối';
+
+  @override
+  String get conversationRequestFailedOwnUsernameMissing =>
+      'Tài khoản của bạn thiếu tên người dùng. Hãy đăng xuất rồi đăng nhập lại, sau đó thử lại.';
+
+  @override
+  String get conversationRequestFailedOwnIdentityMissing =>
+      'Thiếu khóa mã hóa của chính bạn. Hãy đăng xuất rồi đăng nhập lại, sau đó thử lại.';
+
+  @override
+  String get conversationRequestFailedIdMismatch =>
+      'Mã đó không khớp với kết nối này. Hãy quét lại mã từ trang danh tính của họ.';
+
+  @override
+  String get conversationRequestFailedSignaling =>
+      'Không thể kết nối tới máy chủ để chấp nhận yêu cầu này. Hãy kiểm tra kết nối và thử lại.';
 }

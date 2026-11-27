@@ -407,5 +407,10 @@
     "couldNotGenerateQrImage": "Kon geen QR-afbeelding genereren",
     "conversationUpdateFailed": "Gespreksupdate mislukt. Probeer het opnieuw.",
     "conversationCreationFailed": "Het maken van een gesprek is mislukt. Probeer het opnieuw.",
-    "accountSuspendedByAdmin": "Dit account is opgeschort door een beheerder."
+    "accountSuspendedByAdmin": "Dit account is opgeschort door een beheerder.",
+    "conversationRequestFailedTitle": "Kan geen verbinding maken",
+    "conversationRequestFailedOwnUsernameMissing": "Je account heeft geen gebruikersnaam. Log uit en weer in en probeer het opnieuw.",
+    "conversationRequestFailedOwnIdentityMissing": "Je eigen versleutelingssleutel ontbreekt. Log uit en weer in en probeer het opnieuw.",
+    "conversationRequestFailedIdMismatch": "Die code hoort niet bij deze verbinding. Scan de code opnieuw vanaf hun identiteitspagina.",
+    "conversationRequestFailedSignaling": "De server was niet bereikbaar om dit verzoek te accepteren. Controleer je verbinding en probeer het opnieuw."
 }

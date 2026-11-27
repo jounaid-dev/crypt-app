@@ -944,4 +944,23 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'এই অ্যাকাউন্টটি একজন প্রশাসক দ্বারা স্থগিত করা হয়েছে৷';
+
+  @override
+  String get conversationRequestFailedTitle => 'সংযোগ করা যায়নি';
+
+  @override
+  String get conversationRequestFailedOwnUsernameMissing =>
+      'আপনার অ্যাকাউন্টে কোনো ব্যবহারকারীর নাম নেই। সাইন আউট করে আবার সাইন ইন করুন, তারপর আবার চেষ্টা করুন।';
+
+  @override
+  String get conversationRequestFailedOwnIdentityMissing =>
+      'আপনার নিজের এনক্রিপশন কী অনুপস্থিত। সাইন আউট করে আবার সাইন ইন করুন, তারপর আবার চেষ্টা করুন।';
+
+  @override
+  String get conversationRequestFailedIdMismatch =>
+      'এই কোডটি এই সংযোগের সাথে মেলে না। তাদের পরিচয় পৃষ্ঠা থেকে কোডটি আবার স্ক্যান করুন।';
+
+  @override
+  String get conversationRequestFailedSignaling =>
+      'এই অনুরোধ গ্রহণ করতে সার্ভারে পৌঁছানো যায়নি। আপনার সংযোগ পরীক্ষা করে আবার চেষ্টা করুন।';
 }

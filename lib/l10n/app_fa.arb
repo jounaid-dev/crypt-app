@@ -407,5 +407,10 @@
     "couldNotGenerateQrImage": "تصویر QR ایجاد نشد",
     "conversationUpdateFailed": "به‌روزرسانی مکالمه انجام نشد. دوباره امتحان کنید.",
     "conversationCreationFailed": "مکالمه ایجاد نشد. دوباره امتحان کنید.",
-    "accountSuspendedByAdmin": "این حساب توسط یک سرپرست به حالت تعلیق درآمده است."
+    "accountSuspendedByAdmin": "این حساب توسط یک سرپرست به حالت تعلیق درآمده است.",
+    "conversationRequestFailedTitle": "اتصال برقرار نشد",
+    "conversationRequestFailedOwnUsernameMissing": "حساب شما نام کاربری ندارد. خارج شوید و دوباره وارد شوید، سپس دوباره تلاش کنید.",
+    "conversationRequestFailedOwnIdentityMissing": "کلید رمزنگاری خود شما موجود نیست. خارج شوید و دوباره وارد شوید، سپس دوباره تلاش کنید.",
+    "conversationRequestFailedIdMismatch": "این کد با این ارتباط مطابقت ندارد. کد را دوباره از صفحهٔ هویت آن‌ها اسکن کنید.",
+    "conversationRequestFailedSignaling": "برای پذیرش این درخواست به سرور دسترسی پیدا نشد. اتصال خود را بررسی کنید و دوباره تلاش کنید."
 }

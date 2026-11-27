@@ -407,5 +407,10 @@
     "couldNotGenerateQrImage": "Не вдалося створити QR-зображення",
     "conversationUpdateFailed": "Не вдалося оновити розмову. Спробуйте знову.",
     "conversationCreationFailed": "Не вдалося створити розмову. Спробуйте знову.",
-    "accountSuspendedByAdmin": "Цей обліковий запис призупинено адміністратором."
+    "accountSuspendedByAdmin": "Цей обліковий запис призупинено адміністратором.",
+    "conversationRequestFailedTitle": "Не вдалося підключитися",
+    "conversationRequestFailedOwnUsernameMissing": "У вашому обліковому записі немає імені користувача. Вийдіть і знову увійдіть, потім повторіть спробу.",
+    "conversationRequestFailedOwnIdentityMissing": "Відсутній ваш власний ключ шифрування. Вийдіть і знову увійдіть, потім повторіть спробу.",
+    "conversationRequestFailedIdMismatch": "Цей код не відповідає цьому з'єднанню. Відскануйте код ще раз зі сторінки ідентичності співрозмовника.",
+    "conversationRequestFailedSignaling": "Не вдалося зв'язатися із сервером, щоб прийняти цей запит. Перевірте з'єднання й повторіть спробу."
 }

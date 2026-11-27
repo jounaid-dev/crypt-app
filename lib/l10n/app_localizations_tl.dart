@@ -970,4 +970,23 @@ class AppLocalizationsTl extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'Ang account na ito ay sinuspinde ng isang administrator.';
+
+  @override
+  String get conversationRequestFailedTitle => 'Hindi makakonekta';
+
+  @override
+  String get conversationRequestFailedOwnUsernameMissing =>
+      'Walang username ang account mo. Mag-sign out at mag-sign in muli, pagkatapos ay subukan ulit.';
+
+  @override
+  String get conversationRequestFailedOwnIdentityMissing =>
+      'Nawawala ang sarili mong encryption key. Mag-sign out at mag-sign in muli, pagkatapos ay subukan ulit.';
+
+  @override
+  String get conversationRequestFailedIdMismatch =>
+      'Hindi tugma ang code na iyon sa koneksyong ito. I-scan muli ang code mula sa page ng pagkakakilanlan nila.';
+
+  @override
+  String get conversationRequestFailedSignaling =>
+      'Hindi maabot ang server para tanggapin ang kahilingang ito. Suriin ang iyong koneksyon at subukan ulit.';
 }

@@ -407,5 +407,10 @@
     "couldNotGenerateQrImage": "Không thể tạo hình ảnh QR",
     "conversationUpdateFailed": "Cập nhật cuộc trò chuyện không thành công. Hãy thử lại.",
     "conversationCreationFailed": "Tạo cuộc trò chuyện không thành công. Hãy thử lại.",
-    "accountSuspendedByAdmin": "Tài khoản này đã bị quản trị viên đình chỉ."
+    "accountSuspendedByAdmin": "Tài khoản này đã bị quản trị viên đình chỉ.",
+    "conversationRequestFailedTitle": "Không thể kết nối",
+    "conversationRequestFailedOwnUsernameMissing": "Tài khoản của bạn thiếu tên người dùng. Hãy đăng xuất rồi đăng nhập lại, sau đó thử lại.",
+    "conversationRequestFailedOwnIdentityMissing": "Thiếu khóa mã hóa của chính bạn. Hãy đăng xuất rồi đăng nhập lại, sau đó thử lại.",
+    "conversationRequestFailedIdMismatch": "Mã đó không khớp với kết nối này. Hãy quét lại mã từ trang danh tính của họ.",
+    "conversationRequestFailedSignaling": "Không thể kết nối tới máy chủ để chấp nhận yêu cầu này. Hãy kiểm tra kết nối và thử lại."
 }

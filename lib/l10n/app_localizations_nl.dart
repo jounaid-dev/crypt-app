@@ -957,4 +957,23 @@ class AppLocalizationsNl extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'Dit account is opgeschort door een beheerder.';
+
+  @override
+  String get conversationRequestFailedTitle => 'Kan geen verbinding maken';
+
+  @override
+  String get conversationRequestFailedOwnUsernameMissing =>
+      'Je account heeft geen gebruikersnaam. Log uit en weer in en probeer het opnieuw.';
+
+  @override
+  String get conversationRequestFailedOwnIdentityMissing =>
+      'Je eigen versleutelingssleutel ontbreekt. Log uit en weer in en probeer het opnieuw.';
+
+  @override
+  String get conversationRequestFailedIdMismatch =>
+      'Die code hoort niet bij deze verbinding. Scan de code opnieuw vanaf hun identiteitspagina.';
+
+  @override
+  String get conversationRequestFailedSignaling =>
+      'De server was niet bereikbaar om dit verzoek te accepteren. Controleer je verbinding en probeer het opnieuw.';
 }

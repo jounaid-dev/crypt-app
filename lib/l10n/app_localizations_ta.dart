@@ -964,4 +964,23 @@ class AppLocalizationsTa extends AppLocalizations {
   @override
   String get accountSuspendedByAdmin =>
       'இந்தக் கணக்கு நிர்வாகியால் இடைநிறுத்தப்பட்டுள்ளது.';
+
+  @override
+  String get conversationRequestFailedTitle => 'இணைக்க முடியவில்லை';
+
+  @override
+  String get conversationRequestFailedOwnUsernameMissing =>
+      'உங்கள் கணக்கில் பயனர்பெயர் இல்லை. வெளியேறி மீண்டும் உள்நுழைந்து, பிறகு மீண்டும் முயற்சிக்கவும்.';
+
+  @override
+  String get conversationRequestFailedOwnIdentityMissing =>
+      'உங்கள் சொந்த என்க்ரிப்ஷன் விசை இல்லை. வெளியேறி மீண்டும் உள்நுழைந்து, பிறகு மீண்டும் முயற்சிக்கவும்.';
+
+  @override
+  String get conversationRequestFailedIdMismatch =>
+      'இந்தக் குறியீடு இந்த இணைப்புடன் பொருந்தவில்லை. அவர்களின் அடையாளப் பக்கத்திலிருந்து குறியீட்டை மீண்டும் ஸ்கேன் செய்யவும்.';
+
+  @override
+  String get conversationRequestFailedSignaling =>
+      'இந்தக் கோரிக்கையை ஏற்க சேவையகத்தை அணுக முடியவில்லை. உங்கள் இணைப்பைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்.';
 }

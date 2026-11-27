@@ -407,5 +407,10 @@
     "couldNotGenerateQrImage": "Impossibile generare l'immagine QR",
     "conversationUpdateFailed": "Aggiornamento della conversazione non riuscito. Riprova.",
     "conversationCreationFailed": "Creazione della conversazione non riuscita. Riprova.",
-    "accountSuspendedByAdmin": "Questo account è stato sospeso da un amministratore."
+    "accountSuspendedByAdmin": "Questo account è stato sospeso da un amministratore.",
+    "conversationRequestFailedTitle": "Impossibile connettersi",
+    "conversationRequestFailedOwnUsernameMissing": "Al tuo account manca un nome utente. Esci e rientra, poi riprova.",
+    "conversationRequestFailedOwnIdentityMissing": "Manca la tua chiave di cifratura. Esci e rientra, poi riprova.",
+    "conversationRequestFailedIdMismatch": "Quel codice non corrisponde a questa connessione. Scansiona di nuovo il codice dalla loro pagina identità.",
+    "conversationRequestFailedSignaling": "Impossibile raggiungere il server per accettare questa richiesta. Controlla la connessione e riprova."
 }
