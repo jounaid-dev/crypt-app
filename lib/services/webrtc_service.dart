@@ -17,15 +17,30 @@ class WebRTCService {
   void Function()? onConnectionFailed;
 
   final List<RTCIceCandidate> _remoteCandidateQueue = [];
+
+  /// Bound on the queue, so a long series of failed attempts cannot grow it
+  /// without limit.
+  static const int _maxRemoteCandidates = 128;
+
   bool _isRemoteDescriptionSet = false;
 
   Future<void> initialize() async {
+    // Candidates for the offer that is about to be applied can arrive before
+    // this connection exists. dispose() clears the queue, so carry them over
+    // instead of throwing them away: the other device only gathers each
+    // candidate once, and a missing route can make the handshake fail.
+    final List<RTCIceCandidate> pendingCandidates =
+        List<RTCIceCandidate>.of(_remoteCandidateQueue);
+
     if (peerConnection != null) {
       await dispose();
     }
 
+    for (final candidate in pendingCandidates) {
+      _enqueueRemoteCandidate(candidate);
+    }
+
     _isRemoteDescriptionSet = false;
-    _remoteCandidateQueue.clear();
 
     peerConnection = await createPeerConnection({
       // Several independent STUN servers, including one on port 443, so a
@@ -245,14 +260,25 @@ class WebRTCService {
   Future<void> addCandidate(
     RTCIceCandidate candidate,
   ) async {
-    if (peerConnection == null) return;
+    // A candidate can arrive before the offer that creates the connection.
+    // Dropping it here was permanent: the sender never repeats a candidate,
+    // so the missing route could make the handshake fail for good. Hold it
+    // until there is a connection and a remote description to apply it to.
+    if (peerConnection == null) {
+      debugPrint(
+        "=== Queuing Remote ICE Candidate (no connection yet) ===",
+      );
+
+      _enqueueRemoteCandidate(candidate);
+      return;
+    }
 
     if (!_isRemoteDescriptionSet) {
       debugPrint(
         "=== Queuing Remote ICE Candidate ===",
       );
 
-      _remoteCandidateQueue.add(candidate);
+      _enqueueRemoteCandidate(candidate);
       return;
     }
 
@@ -269,6 +295,14 @@ class WebRTCService {
         "=== Error Adding ICE Candidate: $e ===",
       );
     }
+  }
+
+  void _enqueueRemoteCandidate(RTCIceCandidate candidate) {
+    if (_remoteCandidateQueue.length >= _maxRemoteCandidates) {
+      _remoteCandidateQueue.removeAt(0);
+    }
+
+    _remoteCandidateQueue.add(candidate);
   }
 
   Future<void> _drainCandidateQueue() async {

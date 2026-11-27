@@ -133,6 +133,14 @@ class _ChatPageState extends State<ChatPage> {
   /// The SDP of the answer applied to the current connection.
   String? _appliedAnswerSdp;
 
+  /// Identifies the current handshake attempt.
+  ///
+  /// Frames belonging to an attempt that was already replaced must not touch
+  /// the current connection: a stale answer failed on a peer connection that
+  /// had moved on, and a stale candidate went to a connection that no longer
+  /// existed.
+  String _handshakeId = const Uuid().v4();
+
   /// Rebuilds the handshake after a real ICE failure or a timeout.
   Timer? _rebuildTimer;
 
@@ -524,6 +532,10 @@ class _ChatPageState extends State<ChatPage> {
     await _resetConnectionResources();
     _hasConnectedOnce = false;
 
+    // Every rebuild is a new handshake, and anything still in flight for the
+    // previous one has to be recognisable as stale.
+    _handshakeId = _uuid.v4();
+
     if (mounted && !_disposed) {
       setState(() {
         // Keep a failure banner that is already showing: the automatic retry
@@ -535,7 +547,16 @@ class _ChatPageState extends State<ChatPage> {
     try {
       _currentUsername = await _accountService.getUsername();
 
-      if (_currentUsername == null || !mounted || _disposed) {
+      if (!mounted || _disposed) return;
+
+      if (_currentUsername == null) {
+        // Without an identity there is nothing to signal with. The spinner
+        // used to stay up forever because no step ever finished the attempt.
+        setState(() {
+          _isConnecting = false;
+          _connectionFailed = true;
+        });
+
         return;
       }
 
@@ -657,6 +678,7 @@ class _ChatPageState extends State<ChatPage> {
         _signaling.sendCandidate(
           target: widget.conversation.username,
           candidate: candidate,
+          handshakeId: _handshakeId,
         );
       };
 
@@ -711,6 +733,7 @@ class _ChatPageState extends State<ChatPage> {
     _signaling.sendOffer(
       target: widget.conversation.username,
       offer: offer,
+      handshakeId: _handshakeId,
     );
 
     debugPrint("[WebRTC] Offer sent.");
@@ -1109,6 +1132,18 @@ class _ChatPageState extends State<ChatPage> {
       return;
     }
 
+    final incomingHandshakeId = payload["sid"]?.toString();
+
+    if (incomingHandshakeId != null &&
+        incomingHandshakeId.isNotEmpty &&
+        incomingHandshakeId != _handshakeId) {
+      // The other device started a new attempt: adopt its identifier and drop
+      // the answer that was cached for the previous one.
+      _handshakeId = incomingHandshakeId;
+      _answeredOfferSdp = null;
+      _cachedAnswer = null;
+    }
+
     // A late duplicate offer must not tear down a channel that is already up.
     if (_isP2PActive) {
       return;
@@ -1125,6 +1160,7 @@ class _ChatPageState extends State<ChatPage> {
       _signaling.sendAnswer(
         target: widget.conversation.username,
         answer: cachedAnswer,
+        handshakeId: _handshakeId,
       );
 
       debugPrint("[WebRTC] Re-sent cached answer.");
@@ -1150,7 +1186,11 @@ class _ChatPageState extends State<ChatPage> {
     _answeredOfferSdp = sdp;
     _cachedAnswer = answer;
 
-    _signaling.sendAnswer(target: widget.conversation.username, answer: answer);
+    _signaling.sendAnswer(
+      target: widget.conversation.username,
+      answer: answer,
+      handshakeId: _handshakeId,
+    );
 
     debugPrint("[WebRTC] Answer sent.");
   }
@@ -1161,6 +1201,16 @@ class _ChatPageState extends State<ChatPage> {
     final answerType = payload["type"] as String?;
 
     if (sdp == null || sdp.isEmpty || answerType == null) {
+      return;
+    }
+
+    final answerHandshakeId = payload["sid"]?.toString();
+
+    if (answerHandshakeId != null &&
+        answerHandshakeId.isNotEmpty &&
+        answerHandshakeId != _handshakeId) {
+      debugPrint("[WebRTC] Ignoring an answer from an older handshake.");
+
       return;
     }
 
@@ -1182,6 +1232,15 @@ class _ChatPageState extends State<ChatPage> {
     final candidate = payload["candidate"];
 
     if (candidate == null) {
+      return;
+    }
+
+    final candidateHandshakeId = payload["sid"]?.toString();
+
+    if (candidateHandshakeId != null &&
+        candidateHandshakeId.isNotEmpty &&
+        candidateHandshakeId != _handshakeId) {
+      // Belongs to a connection that has already been replaced.
       return;
     }
 

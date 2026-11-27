@@ -472,12 +472,17 @@ class SignalingService {
   void sendOffer({
     required String target,
     required RTCSessionDescription offer,
+    required String handshakeId,
   }) {
     _send({
       "type": "offer",
       "sender": _currentUsername,
       "target": target,
-      "payload": {"sdp": offer.sdp, "type": offer.type},
+      "payload": {
+        "sdp": offer.sdp,
+        "type": offer.type,
+        "sid": handshakeId,
+      },
     });
   }
 
@@ -488,12 +493,17 @@ class SignalingService {
   void sendAnswer({
     required String target,
     required RTCSessionDescription answer,
+    required String handshakeId,
   }) {
     _send({
       "type": "answer",
       "sender": _currentUsername,
       "target": target,
-      "payload": {"sdp": answer.sdp, "type": answer.type},
+      "payload": {
+        "sdp": answer.sdp,
+        "type": answer.type,
+        "sid": handshakeId,
+      },
     });
   }
 
@@ -504,6 +514,7 @@ class SignalingService {
   void sendCandidate({
     required String target,
     required RTCIceCandidate candidate,
+    required String handshakeId,
   }) {
     _send({
       "type": "candidate",
@@ -513,6 +524,7 @@ class SignalingService {
         "candidate": candidate.candidate,
         "sdpMid": candidate.sdpMid,
         "sdpMLineIndex": candidate.sdpMLineIndex,
+        "sid": handshakeId,
       },
     });
   }
@@ -545,6 +557,13 @@ class SignalingService {
 
     if (type == "register" || type == "blacklist_request") {
       return;
+    }
+
+    // An offer or answer that could not be sent is superseded by the next
+    // one. Flushing a backlog of seven identical offers after a reconnect
+    // made the other device rebuild its connection seven times in a row.
+    if (type == "offer" || type == "answer") {
+      _pendingFrames.removeWhere((frame) => frame["type"] == type);
     }
 
     // An ICE candidate for a peer connection that no longer exists is noise by
