@@ -113,11 +113,28 @@ class _ChatPageState extends State<ChatPage> {
   /// Retries the P2P handshake for as long as this chat is open.
   Timer? _autoReconnectTimer;
 
-  /// When the last offer, answer or ICE candidate was sent or received.
+  /// The offer this device sent and is still waiting on.
   ///
-  /// The automatic retry uses it to stay out of the way of a negotiation
-  /// that is already in flight.
-  DateTime? _lastNegotiationAt;
+  /// It is re-sent every few seconds instead of being thrown away, so the
+  /// other device can still answer it once it opens the chat.
+  RTCSessionDescription? _pendingOffer;
+
+  /// Whether an answer for [_pendingOffer] has been applied.
+  bool _remoteAnswerApplied = false;
+
+  /// The offer SDP this device answered, with the answer it produced.
+  ///
+  /// A re-sent offer is identical, so it is answered from this cache instead
+  /// of rebuilding the peer connection and losing the candidates that were
+  /// already exchanged.
+  String? _answeredOfferSdp;
+  RTCSessionDescription? _cachedAnswer;
+
+  /// The SDP of the answer applied to the current connection.
+  String? _appliedAnswerSdp;
+
+  /// Rebuilds the handshake after a real ICE failure or a timeout.
+  Timer? _rebuildTimer;
 
   /*
    * Periodic outbox retry timer.
@@ -678,14 +695,38 @@ class _ChatPageState extends State<ChatPage> {
 
     if (!mounted || _disposed) return;
 
+    _pendingOffer = offer;
+    _remoteAnswerApplied = false;
+    _appliedAnswerSdp = null;
+
+    _sendPendingOffer();
+  }
+
+  /// Sends the offer that is still waiting for an answer.
+  void _sendPendingOffer() {
+    final offer = _pendingOffer;
+
+    if (offer == null) return;
+
     _signaling.sendOffer(
       target: widget.conversation.username,
       offer: offer,
     );
 
-    _lastNegotiationAt = DateTime.now();
-
     debugPrint("[WebRTC] Offer sent.");
+  }
+
+  /// Repeats the pending offer without touching the peer connection.
+  ///
+  /// The offer used to be sent exactly once, and the server drops a frame
+  /// addressed to a device whose chat is not open yet. The only retry tore
+  /// the connection down, so both devices kept missing each other.
+  void _resendPendingOffer() {
+    if (_disposed || !mounted || _isP2PActive) return;
+    if (!_isOfferer) return;
+    if (_remoteAnswerApplied) return;
+
+    _sendPendingOffer();
   }
 
   /// Keeps retrying the P2P handshake while this chat is open.
@@ -704,18 +745,14 @@ class _ChatPageState extends State<ChatPage> {
         if (_isP2PActive) return;
         if (_isConnectionAttemptRunning) return;
 
-        // Let a negotiation that is already in flight finish. Tearing the
-        // peer connection down while an answer is on its way would only make
-        // the two devices miss each other.
-        final last = _lastNegotiationAt;
-
-        if (last != null &&
-            DateTime.now().difference(last) <
-                const Duration(seconds: 6)) {
-          return;
-        }
-
-        unawaited(_connect());
+        // Keep the negotiation alive and re-send the offer it is waiting on.
+        //
+        // This timer used to tear the whole peer connection down every few
+        // seconds, so a handshake that was still gathering candidates was
+        // thrown away before it could finish, and a device that opened the
+        // chat a moment later could never answer the offer that had already
+        // been sent. A real failure or the timeout rebuilds below.
+        _resendPendingOffer();
       },
     );
   }
@@ -892,6 +929,27 @@ class _ChatPageState extends State<ChatPage> {
       _isConnecting = false;
       _connectionFailed = true;
     });
+
+    // Rebuild without waiting for the user to press "Retry". The other
+    // device may only have opened the chat after this attempt started, and
+    // making them tap a button is not a connection.
+    _scheduleRebuild();
+  }
+
+  /// Rebuilds the handshake shortly after a failure, without piling retries
+  /// on top of each other.
+  void _scheduleRebuild() {
+    if (_disposed || !mounted || _isP2PActive) return;
+    if (_rebuildTimer?.isActive ?? false) return;
+
+    _rebuildTimer = Timer(const Duration(seconds: 2), () {
+      _rebuildTimer = null;
+
+      if (_disposed || !mounted || _isP2PActive) return;
+      if (_isConnectionAttemptRunning) return;
+
+      unawaited(_connect());
+    });
   }
 
   void _retryConnection() {
@@ -899,6 +957,9 @@ class _ChatPageState extends State<ChatPage> {
 
     _connectionTimeoutTimer?.cancel();
     _connectionTimeoutTimer = null;
+
+    _rebuildTimer?.cancel();
+    _rebuildTimer = null;
 
     if (_connectionFailed) {
       setState(() {
@@ -913,6 +974,12 @@ class _ChatPageState extends State<ChatPage> {
   Future<void> _resetConnectionResources() async {
     _connectionTimeoutTimer?.cancel();
     _connectionTimeoutTimer = null;
+
+    _pendingOffer = null;
+    _remoteAnswerApplied = false;
+    _answeredOfferSdp = null;
+    _cachedAnswer = null;
+    _appliedAnswerSdp = null;
 
     await _signalingSubscription?.cancel();
     _signalingSubscription = null;
@@ -1042,17 +1109,33 @@ class _ChatPageState extends State<ChatPage> {
       return;
     }
 
-    _lastNegotiationAt = DateTime.now();
-
     // A late duplicate offer must not tear down a channel that is already up.
     if (_isP2PActive) {
       return;
     }
 
+    // The offerer re-sends the offer it is waiting on. Rebuilding here would
+    // throw away an answer that was already produced, so a byte-identical
+    // offer is answered from the cache.
+    final cachedAnswer = _cachedAnswer;
+
+    if (cachedAnswer != null &&
+        _answeredOfferSdp == sdp &&
+        _webrtc.peerConnection != null) {
+      _signaling.sendAnswer(
+        target: widget.conversation.username,
+        answer: cachedAnswer,
+      );
+
+      debugPrint("[WebRTC] Re-sent cached answer.");
+
+      return;
+    }
+
     debugPrint("[WebRTC] Received offer.");
 
-    // Every offer starts a fresh negotiation. Applying a repeated offer to
-    // the previous connection fails, because that connection already holds a
+    // Every different offer starts a fresh negotiation. Applying it to the
+    // previous connection fails, because that connection already holds a
     // local answer.
     await _webrtc.initialize();
 
@@ -1063,6 +1146,9 @@ class _ChatPageState extends State<ChatPage> {
     final answer = await _webrtc.createAnswer();
 
     if (!mounted || _disposed) return;
+
+    _answeredOfferSdp = sdp;
+    _cachedAnswer = answer;
 
     _signaling.sendAnswer(target: widget.conversation.username, answer: answer);
 
@@ -1078,11 +1164,18 @@ class _ChatPageState extends State<ChatPage> {
       return;
     }
 
+    // A duplicate answer is left over from a re-sent offer; applying it to a
+    // connection that already has one fails.
+    if (_remoteAnswerApplied && _appliedAnswerSdp == sdp) {
+      return;
+    }
+
     debugPrint("[WebRTC] Received answer.");
 
-    _lastNegotiationAt = DateTime.now();
-
     await _webrtc.setRemoteAnswer(RTCSessionDescription(sdp, answerType));
+
+    _remoteAnswerApplied = true;
+    _appliedAnswerSdp = sdp;
   }
 
   Future<void> _handleCandidate(Map<String, dynamic> payload) async {
@@ -1091,8 +1184,6 @@ class _ChatPageState extends State<ChatPage> {
     if (candidate == null) {
       return;
     }
-
-    _lastNegotiationAt = DateTime.now();
 
     await _webrtc.addCandidate(
       RTCIceCandidate(candidate, payload["sdpMid"], payload["sdpMLineIndex"]),
@@ -2102,6 +2193,9 @@ class _ChatPageState extends State<ChatPage> {
 
     _autoReconnectTimer?.cancel();
     _autoReconnectTimer = null;
+
+    _rebuildTimer?.cancel();
+    _rebuildTimer = null;
 
     _pendingRetryTimer?.cancel();
     _pendingRetryTimer = null;

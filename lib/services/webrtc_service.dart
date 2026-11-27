@@ -47,6 +47,21 @@ class WebRTCService {
             "stun:stun.nextcloud.com:443",
           ],
         },
+        // A relay for the networks where STUN alone can never succeed: most
+        // mobile carriers put both phones behind the same carrier-grade NAT
+        // and block the direct UDP path, so the handshake failed every time
+        // no matter how long the app waited. TURN is only used as a fallback
+        // when a direct path cannot be found, and it still only relays the
+        // encrypted DTLS traffic.
+        {
+          "urls": [
+            "turn:openrelay.metered.ca:80",
+            "turn:openrelay.metered.ca:443",
+            "turn:openrelay.metered.ca:443?transport=tcp",
+          ],
+          "username": "openrelayproject",
+          "credential": "openrelayproject",
+        },
       ],
       "iceTransportPolicy": "all",
       "bundlePolicy": "balanced",
