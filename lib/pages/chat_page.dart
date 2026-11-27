@@ -1527,6 +1527,10 @@ class _ChatPageState extends State<ChatPage> {
 
     _messageController.clear();
 
+    // Set once the message has been persisted and shown. Until then a failure
+    // means nothing was sent, and the typed text must not be lost.
+    bool messageStored = false;
+
     try {
       // --------------------------------------------------------
       // SHARED KEY
@@ -1623,6 +1627,8 @@ class _ChatPageState extends State<ChatPage> {
 
       await _messageService.addMessage(newMessage);
 
+      messageStored = true;
+
       // --------------------------------------------------------
       // SHOW MESSAGE IMMEDIATELY
       // --------------------------------------------------------
@@ -1687,6 +1693,20 @@ class _ChatPageState extends State<ChatPage> {
         "[ChatPage] Send message failed: "
         "$e\n$stack",
       );
+
+      // The input was cleared as soon as Send was tapped, so a failure before
+      // the message was stored threw the user's text away with no trace. Put
+      // it back instead, so they can retry without retyping it.
+      if (!messageStored &&
+          mounted &&
+          !_disposed &&
+          _messageController.text.isEmpty) {
+        _messageController.text = text;
+
+        _messageController.selection = TextSelection.collapsed(
+          offset: text.length,
+        );
+      }
     }
   }
 

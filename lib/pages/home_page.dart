@@ -550,13 +550,11 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       // SEND ACCEPTANCE
       // ========================================================
 
-      if (!_signaling.isConnected) {
-        await _showRequestFailedDialog(
-          l10n: l10n,
-          reason: l10n.conversationRequestFailedSignaling,
-        );
-        return;
-      }
+      // The acceptance is handed to the signaling service even when the
+      // socket is momentarily down: it holds the frame and sends it as soon
+      // as the connection is back. Refusing here used to leave the sender
+      // waiting forever while the QR code had already been consumed, so a
+      // short network blip permanently broke the connection setup.
 
       _signaling.sendConversationAccept(
         target: peerUsername,
@@ -875,7 +873,18 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
     final Stopwatch sinceStart = Stopwatch()..start();
 
-    final list = await conversationService.getConversations();
+    List<Conversation> list;
+
+    try {
+      list = await conversationService.getConversations();
+    } catch (e, stack) {
+      // Reading the list failed. The page still has to leave its loading
+      // state, otherwise the app sits on the spinner forever with no way to
+      // reach the chats or the scanner.
+      debugPrint("[Home] Could not load conversations: $e\n$stack");
+
+      list = <Conversation>[];
+    }
 
     if (firstLoad) {
       final int remaining =
@@ -1281,8 +1290,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     BuildContext context,
     Conversation conversation,
   ) {
-    final l10n = AppLocalizations.of(context)!;
-
     return FutureBuilder<bool>(
       future: chatLockService.isLocked(conversation.id),
       builder: (context, lockSnapshot) {
@@ -1318,10 +1325,12 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 const Icon(Icons.verified_user, size: 16, color: Colors.green),
             ],
           ),
+          // No preview is stored for a conversation, and the tile used to
+          // claim "Decrypting..." whenever the preview was empty. Nothing
+          // ever fills that field, so every chat showed that false, forever
+          // spinning label. An empty subtitle is the honest state.
           subtitle: Text(
-            conversation.lastMessage.isEmpty
-                ? l10n.processingDecryption
-                : conversation.lastMessage,
+            conversation.lastMessage,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(

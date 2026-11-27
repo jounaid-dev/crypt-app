@@ -13,6 +13,7 @@ import 'services/hive_storage_service.dart';
 import 'services/qr_validation_code_service.dart';
 
 import 'pages/home_page.dart';
+import 'pages/unlock_page.dart';
 import 'pages/welcome_page.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -393,21 +394,34 @@ class _CryptAppState extends State<CryptApp> with WidgetsBindingObserver {
   /// A returning user goes straight to HomePage, so the password has to be
   /// back in memory before any chat is opened: without it every message fails
   /// to decrypt and sending throws "Identity locked."
-  Future<bool> _accountExistsRestoringSession(
+  ///
+  /// [unlocked] is false when the account exists but the remembered password
+  /// could not be read back, which happens when the keystore copy is gone.
+  /// The caller then asks for the password instead of opening a chat list
+  /// that cannot decrypt anything.
+  Future<_StartupSession> _resolveStartupSession(
     AccountService accountService,
   ) async {
     final bool exists = await accountService.accountExists();
 
-    if (exists) {
-      await SessionService.instance.restore();
+    if (!exists) {
+      return const _StartupSession(
+        accountExists: false,
+        unlocked: false,
+      );
     }
 
-    return exists;
+    final bool unlocked = await SessionService.instance.restore();
+
+    return _StartupSession(
+      accountExists: true,
+      unlocked: unlocked,
+    );
   }
 
   Widget _buildStartupPage(AccountService accountService) {
-    return FutureBuilder<bool>(
-      future: _accountExistsRestoringSession(accountService),
+    return FutureBuilder<_StartupSession>(
+      future: _resolveStartupSession(accountService),
 
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -416,36 +430,42 @@ class _CryptAppState extends State<CryptApp> with WidgetsBindingObserver {
           );
         }
 
-        if (snapshot.hasData && snapshot.data == true) {
-          return FutureBuilder<String?>(
-            future: accountService.getPublicEncryptionKey(),
+        final session = snapshot.data;
 
-            builder: (context, keySnapshot) {
-              if (keySnapshot.connectionState == ConnectionState.waiting) {
-                return const Scaffold(
-                  body: Center(child: CircularProgressIndicator()),
-                );
-              }
-
-              return HomePage(
-                uid: keySnapshot.data ?? "",
-
-                isDarkMode: _isDarkMode,
-
-                onThemeChanged: _onThemeChanged,
-
-                // IMPORTANT:
-                // This allows language changes
-                // to update MaterialApp immediately.
-                onLanguageChanged: setLocale,
-                showSplashScreen: _showSplashScreen,
-                onSplashScreenChanged: _onSplashScreenChanged,
-              );
-            },
-          );
+        if (session == null || !session.accountExists) {
+          return const WelcomePage();
         }
 
-        return const WelcomePage();
+        if (!session.unlocked) {
+          return const UnlockPage();
+        }
+
+        return FutureBuilder<String?>(
+          future: accountService.getPublicEncryptionKey(),
+
+          builder: (context, keySnapshot) {
+            if (keySnapshot.connectionState == ConnectionState.waiting) {
+              return const Scaffold(
+                body: Center(child: CircularProgressIndicator()),
+              );
+            }
+
+            return HomePage(
+              uid: keySnapshot.data ?? "",
+
+              isDarkMode: _isDarkMode,
+
+              onThemeChanged: _onThemeChanged,
+
+              // IMPORTANT:
+              // This allows language changes
+              // to update MaterialApp immediately.
+              onLanguageChanged: setLocale,
+              showSplashScreen: _showSplashScreen,
+              onSplashScreenChanged: _onSplashScreenChanged,
+            );
+          },
+        );
       },
     );
   }
@@ -496,6 +516,23 @@ class _CryptAppState extends State<CryptApp> with WidgetsBindingObserver {
 
     super.dispose();
   }
+}
+
+// ============================================================
+// STARTUP SESSION
+// ============================================================
+
+/// The two things startup has to know: is there an account, and could its
+/// unlock password be brought back from the keystore.
+class _StartupSession {
+  const _StartupSession({
+    required this.accountExists,
+    required this.unlocked,
+  });
+
+  final bool accountExists;
+
+  final bool unlocked;
 }
 
 // ============================================================

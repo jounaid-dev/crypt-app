@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/conversation.dart';
@@ -12,9 +13,32 @@ class ConversationService {
 
     final data = prefs.getStringList(_storageKey) ?? [];
 
-    final conversations = data
-        .map((e) => Conversation.fromJson(jsonDecode(e)))
-        .toList();
+    // Decode defensively, one record at a time.
+    //
+    // A single damaged or older-format entry used to throw out of this method,
+    // and every caller (the home list, contact checks, scan) inherited it. On
+    // the home page that meant the loading spinner never went away and no
+    // chat could be opened again. Skipping the bad record keeps the rest of
+    // the conversations usable.
+    final conversations = <Conversation>[];
+
+    for (final entry in data) {
+      try {
+        final decoded = jsonDecode(entry);
+
+        if (decoded is! Map) {
+          continue;
+        }
+
+        conversations.add(
+          Conversation.fromJson(
+            Map<String, dynamic>.from(decoded),
+          ),
+        );
+      } catch (e) {
+        debugPrint("[Conversations] Skipping unreadable record: $e");
+      }
+    }
 
     conversations.sort((a, b) => b.lastMessageAt.compareTo(a.lastMessageAt));
 
