@@ -6,6 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'l10n/app_localizations.dart';
 
 import 'services/language_service.dart';
+import 'services/session_service.dart';
 import 'services/signaling_service.dart';
 import 'services/account_service.dart';
 import 'services/hive_storage_service.dart';
@@ -378,9 +379,26 @@ class _CryptAppState extends State<CryptApp> with WidgetsBindingObserver {
     );
   }
 
+  /// Whether an account is stored, restoring the session password first.
+  ///
+  /// A returning user goes straight to HomePage, so the password has to be
+  /// back in memory before any chat is opened: without it every message fails
+  /// to decrypt and sending throws "Identity locked."
+  Future<bool> _accountExistsRestoringSession(
+    AccountService accountService,
+  ) async {
+    final bool exists = await accountService.accountExists();
+
+    if (exists) {
+      await SessionService.instance.restore();
+    }
+
+    return exists;
+  }
+
   Widget _buildStartupPage(AccountService accountService) {
     return FutureBuilder<bool>(
-      future: accountService.accountExists(),
+      future: _accountExistsRestoringSession(accountService),
 
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {

@@ -191,7 +191,9 @@ class _SignupPageState extends State<SignupPage> {
         if (acknowledged != true || !mounted) return;
       }
 
-      SessionService.instance.unlock(password);
+      // Keep the password for the next cold start, otherwise the app reopens
+      // with no way to decrypt stored messages or sign new ones.
+      unawaited(SessionService.instance.remember(password));
 
       // Start unlocking the private keys now, so the first chat opens without
       // pausing on a key derivation. Deliberately not awaited.

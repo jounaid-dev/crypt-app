@@ -85,7 +85,9 @@ class _LoginPageState extends State<LoginPage> {
           if (acknowledged != true || !mounted) return;
         }
 
-        SessionService.instance.unlock(cleanPassword);
+        // Keep the password for the next cold start, otherwise the app reopens
+        // with no way to decrypt stored messages or sign new ones.
+        unawaited(SessionService.instance.remember(cleanPassword));
 
         // Start unlocking the private keys now, so the first chat opens
         // without pausing on a key derivation. Deliberately not awaited: the
