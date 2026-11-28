@@ -587,6 +587,30 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           context,
         ).showSnackBar(SnackBar(content: Text(l10n.newContact(peerUsername))));
       }
+
+      // --------------------------------------------------------
+      // OPEN THE CHAT NOW, NOT LATER
+      //
+      // The P2P handshake only runs while the chat is open on BOTH phones.
+      // The scanning phone opens it straight away and keeps re-sending its
+      // offer, but this phone used to stay on the home page after accepting:
+      // it never answered, the signaling server keeps no queue for an offer,
+      // and the other side sat on "Connecting to P2P" forever. Accepting and
+      // joining the chat in the same moment gives the handshake two live ends.
+      //
+      // Deliberately not awaited: awaiting the chat route would keep
+      // `_isHandlingConversationRequest` set until the chat is closed, and
+      // every request that arrives meanwhile would be ignored.
+      if (mounted) {
+        unawaited(
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => ChatPage(conversation: conversation),
+            ),
+          ),
+        );
+      }
     } catch (e, stack) {
       debugPrint(
         "[Home] Failed to handle conversation request: "

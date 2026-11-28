@@ -62,6 +62,15 @@ class _ChatPageState extends State<ChatPage> {
   bool get _isOfferer =>
       (_currentUsername ?? "").compareTo(widget.conversation.username) > 0;
 
+  /// One numbered line per handshake step.
+  ///
+  /// A single logcat capture then shows exactly how far the connection got:
+  /// 1 identity and socket, 2 peer connection, 3 offer, 4 answer, 5 candidate,
+  /// 6 data channel, 7 failure.
+  void _trace(String step, String detail) {
+    debugPrint("[P2P $step] $detail");
+  }
+
   StreamSubscription? _signalingSubscription;
 
   String? _currentUsername;
@@ -579,6 +588,12 @@ class _ChatPageState extends State<ChatPage> {
         return;
       }
 
+      _trace(
+        "1",
+        "identity=$_currentUsername offerer=$_isOfferer "
+            "socket=${_signaling.isConnected}",
+      );
+
       // --------------------------------------------------------
       // SIGNALING SOCKET
       //
@@ -615,6 +630,8 @@ class _ChatPageState extends State<ChatPage> {
         await _webrtc.initialize();
       }
 
+      _trace("2", "peer connection ready");
+
       _webrtc.onConnectionFailed = () {
         debugPrint("=== ChatPage: WebRTC connection failed ===");
 
@@ -648,11 +665,7 @@ class _ChatPageState extends State<ChatPage> {
         if (state == RTCDataChannelState.RTCDataChannelOpen) {
           _connectionTimeoutTimer?.cancel();
           _connectionTimeoutTimer = null;
-          debugPrint("======================================");
-
-          debugPrint("       P2P CONNECTION ESTABLISHED");
-
-          debugPrint("======================================");
+          _trace("6", "DATA CHANNEL OPEN");
 
           // ----------------------------------------------------
           // BLACKLIST
@@ -743,7 +756,7 @@ class _ChatPageState extends State<ChatPage> {
       handshakeId: _handshakeId,
     );
 
-    debugPrint("[WebRTC] Offer sent.");
+    _trace("3", "offer sent to ${widget.conversation.username}");
   }
 
   /// Repeats the pending offer without touching the peer connection.
@@ -769,7 +782,7 @@ class _ChatPageState extends State<ChatPage> {
     _autoReconnectTimer?.cancel();
 
     _autoReconnectTimer = Timer.periodic(
-      const Duration(seconds: 3),
+      const Duration(seconds: 2),
       (_) {
         if (_disposed || !mounted) return;
         if (_isP2PActive) return;
@@ -960,6 +973,8 @@ class _ChatPageState extends State<ChatPage> {
 
     _connectionTimeoutTimer?.cancel();
     _connectionTimeoutTimer = null;
+
+    _trace("7", "handshake failed, rebuilding");
 
     setState(() {
       _isConnecting = false;
@@ -1186,7 +1201,7 @@ class _ChatPageState extends State<ChatPage> {
       return;
     }
 
-    debugPrint("[WebRTC] Received offer.");
+    _trace("3", "offer received");
 
     // Every different offer starts a fresh negotiation. Applying it to the
     // previous connection fails, because that connection already holds a
@@ -1210,7 +1225,7 @@ class _ChatPageState extends State<ChatPage> {
       handshakeId: _handshakeId,
     );
 
-    debugPrint("[WebRTC] Answer sent.");
+    _trace("4", "answer sent");
   }
 
   Future<void> _handleAnswer(Map<String, dynamic> payload) async {
@@ -1238,9 +1253,11 @@ class _ChatPageState extends State<ChatPage> {
       return;
     }
 
-    debugPrint("[WebRTC] Received answer.");
+    _trace("4", "answer received and being applied");
 
     await _webrtc.setRemoteAnswer(RTCSessionDescription(sdp, answerType));
+
+    _trace("4", "answer applied");
 
     _remoteAnswerApplied = true;
     _appliedAnswerSdp = sdp;
@@ -1258,6 +1275,8 @@ class _ChatPageState extends State<ChatPage> {
     // happens to hold at that instant can leave the connection without the
     // route it needed. A candidate from a replaced negotiation is ignored by
     // the peer connection itself.
+    _trace("5", "candidate received");
+
     await _webrtc.addCandidate(
       RTCIceCandidate(candidate, payload["sdpMid"], payload["sdpMLineIndex"]),
     );
