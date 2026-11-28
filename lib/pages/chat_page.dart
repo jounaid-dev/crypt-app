@@ -62,13 +62,34 @@ class _ChatPageState extends State<ChatPage> {
   bool get _isOfferer =>
       (_currentUsername ?? "").compareTo(widget.conversation.username) > 0;
 
+  /// The handshake steps this device has reached, with their detail.
+  ///
+  /// They are shown in the chat itself, so the connection can be followed on
+  /// the phone without a logcat. 1 identity and socket, 2 peer connection,
+  /// 3 offer, 4 answer, 5 candidate, 6 data channel, 7 failure.
+  final Map<int, String> _traceDetails = {};
+
+  /// Highest handshake step reached in the current attempt (1..6).
+  int _highestStep = 0;
+
   /// One numbered line per handshake step.
   ///
-  /// A single logcat capture then shows exactly how far the connection got:
-  /// 1 identity and socket, 2 peer connection, 3 offer, 4 answer, 5 candidate,
-  /// 6 data channel, 7 failure.
+  /// The same numbered line also appears in the chat header, so the user can
+  /// see how far the direct connection got and where it stopped.
   void _trace(String step, String detail) {
     debugPrint("[P2P $step] $detail");
+
+    final number = int.tryParse(step);
+
+    if (number == null || !mounted || _disposed) return;
+
+    setState(() {
+      _traceDetails[number] = detail;
+
+      if (number <= 6 && number > _highestStep) {
+        _highestStep = number;
+      }
+    });
   }
 
   StreamSubscription? _signalingSubscription;
@@ -114,7 +135,6 @@ class _ChatPageState extends State<ChatPage> {
   // manually back to the bottom.
   bool _showScrollToBottom = false;
 
-  bool _isConnecting = true;
   bool _connectionFailed = false;
 
   Timer? _connectionTimeoutTimer;
@@ -551,6 +571,15 @@ class _ChatPageState extends State<ChatPage> {
     // previous one has to be recognisable as stale.
     _handshakeId = _uuid.v4();
 
+    // A rebuilt handshake starts over: the panel must not keep showing the
+    // progress of the attempt that just failed.
+    if (mounted) {
+      setState(() {
+        _traceDetails.clear();
+        _highestStep = 0;
+      });
+    }
+
     // The ICE handler is attached before anything starts gathering. Host
     // candidates, the ones that actually matter when both phones are on the
     // same Wi-Fi, are emitted within milliseconds of the offer being created;
@@ -565,11 +594,8 @@ class _ChatPageState extends State<ChatPage> {
     };
 
     if (mounted && !_disposed) {
-      setState(() {
-        // Keep a failure banner that is already showing: the automatic retry
-        // must not make it flicker on and off every few seconds.
-        _isConnecting = !_connectionFailed;
-      });
+      // Keep a failure banner that is already showing: the automatic retry
+      // must not make it flicker on and off every few seconds.
     }
 
     try {
@@ -581,7 +607,6 @@ class _ChatPageState extends State<ChatPage> {
         // Without an identity there is nothing to signal with. The spinner
         // used to stay up forever because no step ever finished the attempt.
         setState(() {
-          _isConnecting = false;
           _connectionFailed = true;
         });
 
@@ -651,10 +676,6 @@ class _ChatPageState extends State<ChatPage> {
 
         setState(() {
           _channelState = state;
-
-          _isConnecting =
-              !_connectionFailed &&
-              state != RTCDataChannelState.RTCDataChannelOpen;
 
           if (state == RTCDataChannelState.RTCDataChannelOpen) {
             _connectionFailed = false;
@@ -977,7 +998,6 @@ class _ChatPageState extends State<ChatPage> {
     _trace("7", "handshake failed, rebuilding");
 
     setState(() {
-      _isConnecting = false;
       _connectionFailed = true;
     });
 
@@ -1020,7 +1040,6 @@ class _ChatPageState extends State<ChatPage> {
     if (_connectionFailed) {
       setState(() {
         _connectionFailed = false;
-        _isConnecting = true;
       });
     }
 
@@ -1051,7 +1070,6 @@ class _ChatPageState extends State<ChatPage> {
 
     setState(() {
       _channelState = RTCDataChannelState.RTCDataChannelClosed;
-      _isConnecting = !_connectionFailed;
     });
   }
 
@@ -2330,6 +2348,149 @@ class _ChatPageState extends State<ChatPage> {
   // UI
   // ============================================================
 
+  /// The six handshake steps, as labelled on screen.
+  static const List<String> _handshakeStepLabels = [
+    "Identity",
+    "Peer",
+    "Offer",
+    "Answer",
+    "ICE",
+    "Secure",
+  ];
+
+  /// Draws the direct-connection progress that [_trace] records.
+  ///
+  /// Six numbered steps stand in for the whole handshake, so a glance at the
+  /// chat says both how private the transport is (direct, no relay) and which
+  /// step the two devices have reached.
+  Widget _buildHandshakePanel(AppLocalizations l10n) {
+    final connected = _isP2PActive;
+    final failed = _connectionFailed && !connected;
+
+    final accent = connected
+        ? Colors.green
+        : failed
+        ? Colors.red
+        : Colors.orange;
+
+    final detail = failed
+        ? l10n.connectionFailedDetails
+        : (_traceDetails[_highestStep] ?? l10n.connectingP2p);
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.fromLTRB(12, 8, 12, 10),
+      color: accent.withValues(alpha: 0.10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(
+                connected ? Icons.verified_user : Icons.shield_outlined,
+                size: 14,
+                color: accent,
+              ),
+              const SizedBox(width: 6),
+              Expanded(
+                child: Text(
+                  connected
+                      ? "Direct P2P · end-to-end encrypted"
+                      : failed
+                      ? "Direct P2P · stopped at step $_highestStep"
+                      : "Direct P2P · step $_highestStep of 6",
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
+                    color: accent,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Row(
+            children: List.generate(_handshakeStepLabels.length, (index) {
+              final number = index + 1;
+              final reached = number <= _highestStep;
+              final isStop = failed && number == _highestStep;
+
+              final color = isStop
+                  ? Colors.red
+                  : reached
+                  ? Colors.green
+                  : Colors.grey.shade600;
+
+              return Expanded(
+                child: Column(
+                  children: [
+                    Container(
+                      width: 22,
+                      height: 22,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: reached || isStop
+                            ? color.withValues(alpha: 0.20)
+                            : Colors.transparent,
+                        border: Border.all(color: color, width: 1.2),
+                      ),
+                      child: Center(
+                        child: reached
+                            ? Icon(
+                                isStop ? Icons.close : Icons.check,
+                                size: 13,
+                                color: color,
+                              )
+                            : Text(
+                                "$number",
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w600,
+                                  color: color,
+                                ),
+                              ),
+                      ),
+                    ),
+                    const SizedBox(height: 3),
+                    Text(
+                      _handshakeStepLabels[index],
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(fontSize: 8, color: color),
+                    ),
+                  ],
+                ),
+              );
+            }),
+          ),
+          const SizedBox(height: 6),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(2),
+            child: LinearProgressIndicator(
+              value: connected ? 1 : _highestStep / 6,
+              minHeight: 2,
+              backgroundColor: Colors.white12,
+              valueColor: AlwaysStoppedAnimation<Color>(accent),
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            detail,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontSize: 9,
+              fontFamily: "monospace",
+              color: Colors.grey.shade400,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -2377,31 +2538,18 @@ class _ChatPageState extends State<ChatPage> {
           // ====================================================
           // CONNECTION STATUS
           // ====================================================
-          if (_isConnecting || _connectionFailed)
+          _buildHandshakePanel(l10n),
+
+          if (_connectionFailed)
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.symmetric(vertical: 6),
-              color: (_connectionFailed ? Colors.red : Colors.orange)
-                  .withValues(alpha: 0.15),
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              color: Colors.red.withValues(alpha: 0.15),
               child: Center(
-                child: _connectionFailed
-                    ? Column(
-                        children: [
-                          Text(
-                            l10n.connectionFailedDetails,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 12),
-                          ),
-                          TextButton(
-                            onPressed: _retryConnection,
-                            child: Text(l10n.retry),
-                          ),
-                        ],
-                      )
-                    : Text(
-                        l10n.connectingP2p,
-                        style: const TextStyle(fontSize: 12),
-                      ),
+                child: TextButton(
+                  onPressed: _retryConnection,
+                  child: Text(l10n.retry),
+                ),
               ),
             ),
 
