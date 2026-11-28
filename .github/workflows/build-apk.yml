@@ -1,0 +1,54 @@
+name: Build Android APK
+
+# Runs on every push to main, and can also be started by hand from the
+# Actions tab (Run workflow) without pushing anything.
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "17"
+
+      # The project was created with a stable Flutter whose Dart is 3.12.2,
+      # and pubspec.yaml requires ^3.12.2, so the SDK has to come from the
+      # stable channel rather than the runner's preinstalled copy.
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: "stable"
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      # Debug is the right build here: it is signed with the debug key, so it
+      # installs on a phone straight from the artifact, with no keystore.
+      - name: Build debug APK
+        run: flutter build apk --debug
+
+      - name: Show APK
+        run: |
+          ls -lh build/app/outputs/flutter-apk/
+          echo "### APK built" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          ls -lh build/app/outputs/flutter-apk/app-debug.apk >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: crypt-debug-apk
+          path: build/app/outputs/flutter-apk/app-debug.apk
+          if-no-files-found: error
+          retention-days: 30
