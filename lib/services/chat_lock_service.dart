@@ -144,7 +144,7 @@ class ChatLockService {
   /// the same code over and over, so an unlock now lasts for a while.
   static final Map<String, DateTime> _sessionUnlocks = <String, DateTime>{};
 
-  static const Duration _sessionUnlockDuration = Duration(minutes: 30);
+  static const Duration _sessionUnlockDuration = Duration(minutes: 20);
 
   bool _isUnlockedThisSession(String conversationId) {
     final unlockedAt = _sessionUnlocks[conversationId];

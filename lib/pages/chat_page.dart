@@ -55,14 +55,6 @@ class _ChatPageState extends State<ChatPage> {
   bool get _isP2PActive =>
       _channelState == RTCDataChannelState.RTCDataChannelOpen;
 
-  /// True when at least one transport can carry a packet right now.
-  ///
-  /// The WebRTC data channel is the fast path. The signaling socket is the
-  /// fallback: it is already open in both apps, and the payload it carries is
-  /// the same end-to-end encrypted, signed packet, so a chat keeps working
-  /// when two phones cannot reach each other directly.
-  bool get _hasTransport => _isP2PActive || _signaling.isConnected;
-
   /// The device with the greater username offers, the other one answers.
   ///
   /// Both sides compute this the same way, so they never offer at the same
@@ -177,9 +169,13 @@ class _ChatPageState extends State<ChatPage> {
 
   static const Duration _pendingRetryInterval = Duration(seconds: 5);
 
-  /// A handshake that has not produced a data channel by now is not going to,
-  /// so the chat says so quickly and rebuilds instead of hanging on a spinner.
-  static const Duration _connectionTimeout = Duration(seconds: 8);
+  /// How long the offering device waits for a data channel before rebuilding.
+  static const Duration _connectionTimeout = Duration(seconds: 15);
+
+  /// The answering device only waits for an offer that the other side has to
+  /// produce, so it must not tear its own connection down on the offerer's
+  /// clock: doing that threw away a negotiation that was about to complete.
+  static const Duration _answererConnectionTimeout = Duration(seconds: 45);
 
   bool _disposed = false;
 
@@ -501,38 +497,31 @@ class _ChatPageState extends State<ChatPage> {
     Map<String, dynamic> payload, {
     bool showConnectionError = true,
   }) async {
-    if (_isP2PActive) {
-      try {
-        _webrtc.sendMessage(jsonEncode(payload));
+    if (!_isP2PActive) {
+      debugPrint("[Transport] P2P channel is not open.");
 
-        return true;
-      } catch (e) {
-        debugPrint("[Transport] P2P send failed: $e");
+      if (showConnectionError && mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(AppLocalizations.of(context)!.p2pConnectionNotReady),
+          ),
+        );
       }
+
+      return false;
     }
 
-    // No data channel yet: keep the message moving over the signaling socket
-    // rather than holding it until a direct path appears.
-    if (_signaling.sendRelay(
-      target: widget.conversation.username,
-      payload: payload,
-    )) {
-      debugPrint("[Transport] Packet relayed through the signaling socket.");
+    try {
+      final encoded = jsonEncode(payload);
+
+      _webrtc.sendMessage(encoded);
 
       return true;
+    } catch (e) {
+      debugPrint("[Transport] P2P send failed: $e");
+
+      return false;
     }
-
-    debugPrint("[Transport] No transport available.");
-
-    if (showConnectionError && mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(AppLocalizations.of(context)!.p2pConnectionNotReady),
-        ),
-      );
-    }
-
-    return false;
   }
 
   // ============================================================
@@ -553,15 +542,26 @@ class _ChatPageState extends State<ChatPage> {
     // previous one has to be recognisable as stale.
     _handshakeId = _uuid.v4();
 
-          if (mounted && !_disposed) {
-        setState(() {
-          // Keep a failure banner that is already showing: the automatic retry
-          // must not make it flicker on and off every few seconds. Once the
-          // signaling socket is up there is a working transport, so there is
-          // nothing to warn about while the direct path is still building.
-          _isConnecting = !_connectionFailed && !_signaling.isConnected;
-        });
-      }
+    // The ICE handler is attached before anything starts gathering. Host
+    // candidates, the ones that actually matter when both phones are on the
+    // same Wi-Fi, are emitted within milliseconds of the offer being created;
+    // attaching this after the connection was set up dropped them for good
+    // and the two devices never found a route to each other.
+    _webrtc.onIceCandidate = (candidate) {
+      _signaling.sendCandidate(
+        target: widget.conversation.username,
+        candidate: candidate,
+        handshakeId: _handshakeId,
+      );
+    };
+
+    if (mounted && !_disposed) {
+      setState(() {
+        // Keep a failure banner that is already showing: the automatic retry
+        // must not make it flicker on and off every few seconds.
+        _isConnecting = !_connectionFailed;
+      });
+    }
 
     try {
       _currentUsername = await _accountService.getUsername();
@@ -587,9 +587,7 @@ class _ChatPageState extends State<ChatPage> {
       // --------------------------------------------------------
 
       if (!_signaling.isConnected) {
-        await _signaling
-            .connect(_currentUsername!)
-            .timeout(const Duration(seconds: 6), onTimeout: () {});
+        await _signaling.connect(_currentUsername!);
       }
 
       // --------------------------------------------------------
@@ -606,19 +604,6 @@ class _ChatPageState extends State<ChatPage> {
         await _handleSignalingEvent(event);
       });
 
-      // The signaling socket can already carry packets, so the outbox starts
-      // draining now instead of waiting for a data channel that may never
-      // open. Anything already pending goes out immediately.
-      _startPendingRetryTimer();
-
-      unawaited(_retryPendingMessages());
-
-      if (_signaling.isConnected && mounted && !_disposed) {
-        setState(() {
-          _isConnecting = false;
-        });
-      }
-
       // --------------------------------------------------------
       // WEBRTC
       //
@@ -627,9 +612,7 @@ class _ChatPageState extends State<ChatPage> {
       // --------------------------------------------------------
 
       if (_webrtc.peerConnection == null) {
-        await _webrtc
-            .initialize()
-            .timeout(const Duration(seconds: 8), onTimeout: () {});
+        await _webrtc.initialize();
       }
 
       _webrtc.onConnectionFailed = () {
@@ -704,18 +687,6 @@ class _ChatPageState extends State<ChatPage> {
 
       _webrtc.onMessage = (packet) async {
         await _handleP2PPacket(packet);
-      };
-
-      // --------------------------------------------------------
-      // ICE
-      // --------------------------------------------------------
-
-      _webrtc.onIceCandidate = (candidate) {
-        _signaling.sendCandidate(
-          target: widget.conversation.username,
-          candidate: candidate,
-          handshakeId: _handshakeId,
-        );
       };
 
       // --------------------------------------------------------
@@ -836,7 +807,7 @@ class _ChatPageState extends State<ChatPage> {
         return;
       }
 
-      if (!_hasTransport) {
+      if (!_isP2PActive) {
         return;
       }
 
@@ -849,7 +820,7 @@ class _ChatPageState extends State<ChatPage> {
   // ============================================================
 
   Future<void> _retryPendingMessages() async {
-    if (_disposed || !mounted || !_hasTransport) {
+    if (_disposed || !mounted || !_isP2PActive) {
       return;
     }
 
@@ -873,7 +844,7 @@ class _ChatPageState extends State<ChatPage> {
         widget.conversation.id,
       );
 
-      if (_disposed || !mounted || !_hasTransport) {
+      if (_disposed || !mounted || !_isP2PActive) {
         return;
       }
 
@@ -901,7 +872,7 @@ class _ChatPageState extends State<ChatPage> {
       final pendingMessages = List<Message>.from(_pendingMessages.values);
 
       for (final message in pendingMessages) {
-        if (_disposed || !mounted || !_hasTransport) {
+        if (_disposed || !mounted || !_isP2PActive) {
           return;
         }
 
@@ -973,9 +944,15 @@ class _ChatPageState extends State<ChatPage> {
 
     _connectionTimeoutTimer?.cancel();
 
-    debugPrint("=== WebRTC connection timeout started ===");
+    final Duration window = _isOfferer
+        ? _connectionTimeout
+        : _answererConnectionTimeout;
 
-    _connectionTimeoutTimer = Timer(_connectionTimeout, _markConnectionFailed);
+    debugPrint(
+      "=== WebRTC connection timeout started (${window.inSeconds}s) ===",
+    );
+
+    _connectionTimeoutTimer = Timer(window, _markConnectionFailed);
   }
 
   void _markConnectionFailed({bool force = false}) {
@@ -984,14 +961,9 @@ class _ChatPageState extends State<ChatPage> {
     _connectionTimeoutTimer?.cancel();
     _connectionTimeoutTimer = null;
 
-    // A failed direct path is not a failed chat: the signaling socket is
-    // usually still up and carries the same encrypted packets. Only report a
-    // connection failure when there is no transport left at all.
-    final relayAvailable = _signaling.isConnected;
-
     setState(() {
       _isConnecting = false;
-      _connectionFailed = !relayAvailable;
+      _connectionFailed = true;
     });
 
     // Rebuild without waiting for the user to press "Retry". The other
@@ -1020,8 +992,8 @@ class _ChatPageState extends State<ChatPage> {
     if (_disposed || !mounted) return;
 
     // A previous attempt can still hold the flag while one of its awaits is
-    // stuck, and that used to make the Retry button do nothing at all. A tap
-    // from the user always wins over a half-finished automatic attempt.
+    // stuck, and that made the Retry button do nothing at all. A tap from the
+    // user always wins over a half-finished automatic attempt.
     _isConnectionAttemptRunning = false;
 
     _connectionTimeoutTimer?.cancel();
@@ -1120,7 +1092,7 @@ class _ChatPageState extends State<ChatPage> {
           break;
 
         case "signal":
-          await _handleRelayedPacket(payload);
+          debugPrint("[Security] Ignoring legacy signal message.");
           break;
       }
     } catch (e, stack) {
@@ -1167,25 +1139,6 @@ class _ChatPageState extends State<ChatPage> {
     if (!mounted) return;
 
     CryptApp.restartStartup(context);
-  }
-
-  /// Handles a packet that reached us through the signaling socket.
-  ///
-  /// The envelope is unwrapped here and the payload goes through exactly the
-  /// same signature, duplicate and decryption checks as a packet received on
-  /// the data channel, so the transport does not change what is trusted.
-  Future<void> _handleRelayedPacket(Map<String, dynamic> payload) async {
-    final packet = payload["relayed"];
-
-    if (packet is! Map) {
-      debugPrint("[Relay] Ignoring a signal without a relayed packet.");
-
-      return;
-    }
-
-    await _handleP2PPacket(
-      jsonEncode(Map<String, dynamic>.from(packet)),
-    );
   }
 
   Future<void> _handleOffer(Map<String, dynamic> payload) async {
@@ -1300,15 +1253,11 @@ class _ChatPageState extends State<ChatPage> {
       return;
     }
 
-    final candidateHandshakeId = payload["sid"]?.toString();
-
-    if (candidateHandshakeId != null &&
-        candidateHandshakeId.isNotEmpty &&
-        candidateHandshakeId != _handshakeId) {
-      // Belongs to a connection that has already been replaced.
-      return;
-    }
-
+    // Candidates are not filtered by handshake id: they are gathered once and
+    // never repeated, so dropping one that does not match the id this device
+    // happens to hold at that instant can leave the connection without the
+    // route it needed. A candidate from a replaced negotiation is ignored by
+    // the peer connection itself.
     await _webrtc.addCandidate(
       RTCIceCandidate(candidate, payload["sdpMid"], payload["sdpMLineIndex"]),
     );
@@ -1862,8 +1811,8 @@ class _ChatPageState extends State<ChatPage> {
       // opens.
       // --------------------------------------------------------
 
-      if (!_hasTransport) {
-        debugPrint("[Message] $messageId queued until a transport is ready.");
+      if (!_isP2PActive) {
+        debugPrint("[Message] $messageId queued until P2P is open.");
 
         return;
       }

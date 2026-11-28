@@ -31,6 +31,10 @@ class _PinEntryDialogState extends State<PinEntryDialog> {
 
   String _errorText = "";
 
+  /// Set once the answer has been handed back, so the automatic submit and a
+  /// tap on OK cannot pop the route twice.
+  bool _submitted = false;
+
   @override
   void dispose() {
     _controller.dispose();
@@ -39,6 +43,8 @@ class _PinEntryDialogState extends State<PinEntryDialog> {
   }
 
   void _submit() {
+    if (_submitted) return;
+
     final String digits = _controller.text;
 
     if (digits.length != 4) {
@@ -48,6 +54,8 @@ class _PinEntryDialogState extends State<PinEntryDialog> {
 
       return;
     }
+
+    _submitted = true;
 
     Navigator.pop(context, digits);
   }
@@ -90,11 +98,21 @@ class _PinEntryDialogState extends State<PinEntryDialog> {
               errorText: _errorText.isEmpty ? null : _errorText,
             ),
             onChanged: (String value) {
-              if (_errorText.isEmpty) return;
+              if (_errorText.isNotEmpty) {
+                setState(() {
+                  _errorText = "";
+                });
+              }
 
-              setState(() {
-                _errorText = "";
-              });
+              // The fourth digit is the whole answer, so the dialog hands it
+              // back on its own instead of making the user reach for OK.
+              if (value.length == 4) {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  if (!mounted) return;
+
+                  _submit();
+                });
+              }
             },
             onSubmitted: (_) => _submit(),
           ),
