@@ -530,6 +530,41 @@ class SignalingService {
   }
 
   // ============================================================
+  // RELAY
+  // ============================================================
+
+  /// Carries an end-to-end encrypted packet over the signaling socket.
+  ///
+  /// A direct WebRTC path cannot always be built: two phones on mobile data
+  /// are usually behind carrier-grade NAT, and the public TURN relay is not
+  /// reachable from every carrier. The signaling server already forwards a
+  /// frame addressed to another connected user, so the very same encrypted,
+  /// signed payload can travel over that socket instead of waiting for a
+  /// data channel that may never open.
+  ///
+  /// Only used while the socket is up: a relayed packet held back for a
+  /// later reconnect would arrive long after it stopped being useful.
+  bool sendRelay({
+    required String target,
+    required Map<String, dynamic> payload,
+  }) {
+    final sender = _currentUsername;
+
+    if (!_connected || _channel == null || sender == null || sender.isEmpty) {
+      return false;
+    }
+
+    _send({
+      "type": "signal",
+      "sender": sender,
+      "target": target,
+      "payload": {"relayed": payload},
+    });
+
+    return true;
+  }
+
+  // ============================================================
   // INTERNAL SEND
   // ============================================================
 

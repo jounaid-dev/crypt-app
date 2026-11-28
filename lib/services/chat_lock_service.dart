@@ -132,6 +132,43 @@ class ChatLockService {
   static const String lockTypeBiometric = 'BIOMETRIC';
 
   // ============================================================
+  // SESSION UNLOCK
+  // ============================================================
+
+  /// Conversations already unlocked during this app run.
+  ///
+  /// Every chat used to ask for its passcode again on every entry, even one
+  /// closed by accident a second earlier. The prompt is about keeping someone
+  /// who picks up the phone out of a chat, not about asking the owner to type
+  /// the same code over and over, so an unlock now lasts for a while.
+  static final Map<String, DateTime> _sessionUnlocks = <String, DateTime>{};
+
+  static const Duration _sessionUnlockDuration = Duration(minutes: 30);
+
+  bool _isUnlockedThisSession(String conversationId) {
+    final unlockedAt = _sessionUnlocks[conversationId];
+
+    if (unlockedAt == null) return false;
+
+    if (DateTime.now().difference(unlockedAt) > _sessionUnlockDuration) {
+      _sessionUnlocks.remove(conversationId);
+
+      return false;
+    }
+
+    return true;
+  }
+
+  void _markUnlocked(String conversationId) {
+    _sessionUnlocks[conversationId] = DateTime.now();
+  }
+
+  /// Forgets every session unlock, for example when the identity is locked.
+  static void clearSessionUnlocks() {
+    _sessionUnlocks.clear();
+  }
+
+  // ============================================================
   // RANDOM SALT
   // ============================================================
 
@@ -308,6 +345,10 @@ class ChatLockService {
       return false;
     }
 
+    if (_isUnlockedThisSession(conversationId)) {
+      return false;
+    }
+
     final expiry =
         prefs.getInt(
       _expiryKey(conversationId),
@@ -422,6 +463,11 @@ class ChatLockService {
       return true;
     }
 
+    // Already unlocked during this run: go straight into the chat.
+    if (_isUnlockedThisSession(conversationId)) {
+      return true;
+    }
+
     // ----------------------------------------------------------
     // BIOMETRIC UNLOCK
     //
@@ -462,6 +508,8 @@ class ChatLockService {
           _lockedKey(conversationId),
           true,
         );
+
+        _markUnlocked(conversationId);
 
         return true;
       }
@@ -710,6 +758,14 @@ class ChatLockService {
                   keyboardType:
                       TextInputType.number,
                   autofocus: true,
+                  textInputAction:
+                      TextInputAction.done,
+                  // Enter submits, so typing the code is enough to get in.
+                  onSubmitted: (value) {
+                    Navigator.of(
+                      dialogContext,
+                    ).pop(value);
+                  },
                   decoration:
                       InputDecoration(
                     labelText:
@@ -837,6 +893,8 @@ class ChatLockService {
           _lockedKey(conversationId),
           true,
         );
+
+        _markUnlocked(conversationId);
 
         return true;
       }

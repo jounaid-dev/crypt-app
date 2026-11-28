@@ -55,6 +55,14 @@ class _ChatPageState extends State<ChatPage> {
   bool get _isP2PActive =>
       _channelState == RTCDataChannelState.RTCDataChannelOpen;
 
+  /// True when at least one transport can carry a packet right now.
+  ///
+  /// The WebRTC data channel is the fast path. The signaling socket is the
+  /// fallback: it is already open in both apps, and the payload it carries is
+  /// the same end-to-end encrypted, signed packet, so a chat keeps working
+  /// when two phones cannot reach each other directly.
+  bool get _hasTransport => _isP2PActive || _signaling.isConnected;
+
   /// The device with the greater username offers, the other one answers.
   ///
   /// Both sides compute this the same way, so they never offer at the same
@@ -169,7 +177,9 @@ class _ChatPageState extends State<ChatPage> {
 
   static const Duration _pendingRetryInterval = Duration(seconds: 5);
 
-  static const Duration _connectionTimeout = Duration(seconds: 20);
+  /// A handshake that has not produced a data channel by now is not going to,
+  /// so the chat says so quickly and rebuilds instead of hanging on a spinner.
+  static const Duration _connectionTimeout = Duration(seconds: 8);
 
   bool _disposed = false;
 
@@ -491,31 +501,38 @@ class _ChatPageState extends State<ChatPage> {
     Map<String, dynamic> payload, {
     bool showConnectionError = true,
   }) async {
-    if (!_isP2PActive) {
-      debugPrint("[Transport] P2P channel is not open.");
+    if (_isP2PActive) {
+      try {
+        _webrtc.sendMessage(jsonEncode(payload));
 
-      if (showConnectionError && mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(AppLocalizations.of(context)!.p2pConnectionNotReady),
-          ),
-        );
+        return true;
+      } catch (e) {
+        debugPrint("[Transport] P2P send failed: $e");
       }
-
-      return false;
     }
 
-    try {
-      final encoded = jsonEncode(payload);
-
-      _webrtc.sendMessage(encoded);
+    // No data channel yet: keep the message moving over the signaling socket
+    // rather than holding it until a direct path appears.
+    if (_signaling.sendRelay(
+      target: widget.conversation.username,
+      payload: payload,
+    )) {
+      debugPrint("[Transport] Packet relayed through the signaling socket.");
 
       return true;
-    } catch (e) {
-      debugPrint("[Transport] P2P send failed: $e");
-
-      return false;
     }
+
+    debugPrint("[Transport] No transport available.");
+
+    if (showConnectionError && mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.p2pConnectionNotReady),
+        ),
+      );
+    }
+
+    return false;
   }
 
   // ============================================================
@@ -536,13 +553,15 @@ class _ChatPageState extends State<ChatPage> {
     // previous one has to be recognisable as stale.
     _handshakeId = _uuid.v4();
 
-    if (mounted && !_disposed) {
-      setState(() {
-        // Keep a failure banner that is already showing: the automatic retry
-        // must not make it flicker on and off every few seconds.
-        _isConnecting = !_connectionFailed;
-      });
-    }
+          if (mounted && !_disposed) {
+        setState(() {
+          // Keep a failure banner that is already showing: the automatic retry
+          // must not make it flicker on and off every few seconds. Once the
+          // signaling socket is up there is a working transport, so there is
+          // nothing to warn about while the direct path is still building.
+          _isConnecting = !_connectionFailed && !_signaling.isConnected;
+        });
+      }
 
     try {
       _currentUsername = await _accountService.getUsername();
@@ -568,7 +587,9 @@ class _ChatPageState extends State<ChatPage> {
       // --------------------------------------------------------
 
       if (!_signaling.isConnected) {
-        await _signaling.connect(_currentUsername!);
+        await _signaling
+            .connect(_currentUsername!)
+            .timeout(const Duration(seconds: 6), onTimeout: () {});
       }
 
       // --------------------------------------------------------
@@ -585,6 +606,19 @@ class _ChatPageState extends State<ChatPage> {
         await _handleSignalingEvent(event);
       });
 
+      // The signaling socket can already carry packets, so the outbox starts
+      // draining now instead of waiting for a data channel that may never
+      // open. Anything already pending goes out immediately.
+      _startPendingRetryTimer();
+
+      unawaited(_retryPendingMessages());
+
+      if (_signaling.isConnected && mounted && !_disposed) {
+        setState(() {
+          _isConnecting = false;
+        });
+      }
+
       // --------------------------------------------------------
       // WEBRTC
       //
@@ -593,7 +627,9 @@ class _ChatPageState extends State<ChatPage> {
       // --------------------------------------------------------
 
       if (_webrtc.peerConnection == null) {
-        await _webrtc.initialize();
+        await _webrtc
+            .initialize()
+            .timeout(const Duration(seconds: 8), onTimeout: () {});
       }
 
       _webrtc.onConnectionFailed = () {
@@ -800,7 +836,7 @@ class _ChatPageState extends State<ChatPage> {
         return;
       }
 
-      if (!_isP2PActive) {
+      if (!_hasTransport) {
         return;
       }
 
@@ -813,7 +849,7 @@ class _ChatPageState extends State<ChatPage> {
   // ============================================================
 
   Future<void> _retryPendingMessages() async {
-    if (_disposed || !mounted || !_isP2PActive) {
+    if (_disposed || !mounted || !_hasTransport) {
       return;
     }
 
@@ -837,7 +873,7 @@ class _ChatPageState extends State<ChatPage> {
         widget.conversation.id,
       );
 
-      if (_disposed || !mounted || !_isP2PActive) {
+      if (_disposed || !mounted || !_hasTransport) {
         return;
       }
 
@@ -865,7 +901,7 @@ class _ChatPageState extends State<ChatPage> {
       final pendingMessages = List<Message>.from(_pendingMessages.values);
 
       for (final message in pendingMessages) {
-        if (_disposed || !mounted || !_isP2PActive) {
+        if (_disposed || !mounted || !_hasTransport) {
           return;
         }
 
@@ -948,9 +984,14 @@ class _ChatPageState extends State<ChatPage> {
     _connectionTimeoutTimer?.cancel();
     _connectionTimeoutTimer = null;
 
+    // A failed direct path is not a failed chat: the signaling socket is
+    // usually still up and carries the same encrypted packets. Only report a
+    // connection failure when there is no transport left at all.
+    final relayAvailable = _signaling.isConnected;
+
     setState(() {
       _isConnecting = false;
-      _connectionFailed = true;
+      _connectionFailed = !relayAvailable;
     });
 
     // Rebuild without waiting for the user to press "Retry". The other
@@ -976,7 +1017,12 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   void _retryConnection() {
-    if (_isConnectionAttemptRunning || _disposed || !mounted) return;
+    if (_disposed || !mounted) return;
+
+    // A previous attempt can still hold the flag while one of its awaits is
+    // stuck, and that used to make the Retry button do nothing at all. A tap
+    // from the user always wins over a half-finished automatic attempt.
+    _isConnectionAttemptRunning = false;
 
     _connectionTimeoutTimer?.cancel();
     _connectionTimeoutTimer = null;
@@ -1074,7 +1120,7 @@ class _ChatPageState extends State<ChatPage> {
           break;
 
         case "signal":
-          debugPrint("[Security] Ignoring legacy signal message.");
+          await _handleRelayedPacket(payload);
           break;
       }
     } catch (e, stack) {
@@ -1121,6 +1167,25 @@ class _ChatPageState extends State<ChatPage> {
     if (!mounted) return;
 
     CryptApp.restartStartup(context);
+  }
+
+  /// Handles a packet that reached us through the signaling socket.
+  ///
+  /// The envelope is unwrapped here and the payload goes through exactly the
+  /// same signature, duplicate and decryption checks as a packet received on
+  /// the data channel, so the transport does not change what is trusted.
+  Future<void> _handleRelayedPacket(Map<String, dynamic> payload) async {
+    final packet = payload["relayed"];
+
+    if (packet is! Map) {
+      debugPrint("[Relay] Ignoring a signal without a relayed packet.");
+
+      return;
+    }
+
+    await _handleP2PPacket(
+      jsonEncode(Map<String, dynamic>.from(packet)),
+    );
   }
 
   Future<void> _handleOffer(Map<String, dynamic> payload) async {
@@ -1797,8 +1862,8 @@ class _ChatPageState extends State<ChatPage> {
       // opens.
       // --------------------------------------------------------
 
-      if (!_isP2PActive) {
-        debugPrint("[Message] $messageId queued until P2P is open.");
+      if (!_hasTransport) {
+        debugPrint("[Message] $messageId queued until a transport is ready.");
 
         return;
       }
