@@ -48,4 +48,3 @@ app.*.map.json
 
 # Release signing
 /android/crypt-release.jks
-/android/gradle.properties
