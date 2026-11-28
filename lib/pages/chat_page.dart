@@ -2364,14 +2364,38 @@ class _ChatPageState extends State<ChatPage> {
   /// chat says both how private the transport is (direct, no relay) and which
   /// step the two devices have reached.
   Widget _buildHandshakePanel(AppLocalizations l10n) {
-    final connected = _isP2PActive;
-    final failed = _connectionFailed && !connected;
+    // With the channel open there is nothing left for the six steps to
+    // report, so the panel folds back into one line and the chat keeps its
+    // space. It only expands again for a new attempt or after a failure.
+    if (_isP2PActive) {
+      return Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        color: Colors.green.withValues(alpha: 0.10),
+        child: const Row(
+          children: [
+            Icon(Icons.verified_user, size: 14, color: Colors.green),
+            SizedBox(width: 6),
+            Expanded(
+              child: Text(
+                "Direct P2P · end-to-end encrypted",
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.green,
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
 
-    final accent = connected
-        ? Colors.green
-        : failed
-        ? Colors.red
-        : Colors.orange;
+    final failed = _connectionFailed;
+
+    final accent = failed ? Colors.red : Colors.orange;
 
     final detail = failed
         ? l10n.connectionFailedDetails
@@ -2386,17 +2410,11 @@ class _ChatPageState extends State<ChatPage> {
         children: [
           Row(
             children: [
-              Icon(
-                connected ? Icons.verified_user : Icons.shield_outlined,
-                size: 14,
-                color: accent,
-              ),
+              Icon(Icons.shield_outlined, size: 14, color: accent),
               const SizedBox(width: 6),
               Expanded(
                 child: Text(
-                  connected
-                      ? "Direct P2P · end-to-end encrypted"
-                      : failed
+                  failed
                       ? "Direct P2P · stopped at step $_highestStep"
                       : "Direct P2P · step $_highestStep of 6",
                   maxLines: 1,
@@ -2469,7 +2487,7 @@ class _ChatPageState extends State<ChatPage> {
           ClipRRect(
             borderRadius: BorderRadius.circular(2),
             child: LinearProgressIndicator(
-              value: connected ? 1 : _highestStep / 6,
+              value: _highestStep / 6,
               minHeight: 2,
               backgroundColor: Colors.white12,
               valueColor: AlwaysStoppedAnimation<Color>(accent),
