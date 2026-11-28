@@ -7,6 +7,7 @@ import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:crypt_messenger/l10n/app_localizations.dart';
+import 'package:crypt_messenger/widgets/pin_entry_dialog.dart';
 
 class ChatLockService {
   // ============================================================
@@ -715,9 +716,6 @@ class ChatLockService {
       // PASSCODE DIALOG
       // --------------------------------------------------------
 
-      final controller =
-          TextEditingController();
-
       // The lockout dialog above is an async gap, so the host page may have
       // been popped while it was open.
       if (!context.mounted) {
@@ -727,99 +725,34 @@ class ChatLockService {
       final l10n =
           AppLocalizations.of(context)!;
 
+      final String remainingText =
+          l10n.verificationMetricsRemaining(remaining);
+
+      // PinEntryDialog owns its controller and disposes it after the route is
+      // gone.
+      //
+      // This prompt used to build the TextField here and dispose the
+      // controller as soon as showDialog returned. That is before the
+      // dismissed dialog has finished animating out, so the still-attached
+      // text field kept listening to a disposed controller, the
+      // `dependents.isEmpty` assertion fired, and unlocking a locked chat
+      // landed on the red error screen instead of opening it. Every other PIN
+      // prompt in the app already goes through this widget.
       final result =
-          await showDialog<String?>(
+          await showDialog<String>(
         context: context,
         barrierDismissible: false,
         builder: (dialogContext) {
-          return AlertDialog(
-            title: Text(
-              l10n.unlockSecureNode(
-                chatUsername,
-              ),
+          return PinEntryDialog(
+            title: l10n.unlockSecureNode(
+              chatUsername,
             ),
-            content: Column(
-              mainAxisSize:
-                  MainAxisSize.min,
-              children: [
-                Text(
-                  l10n
-                      .verificationMetricsRemaining(
-                    remaining,
-                  ),
-                ),
-                const SizedBox(
-                  height: 12,
-                ),
-                TextField(
-                  controller:
-                      controller,
-                  obscureText: true,
-                  keyboardType:
-                      TextInputType.number,
-                  autofocus: true,
-                  textInputAction:
-                      TextInputAction.done,
-                  // Enter submits, so typing the code is enough to get in.
-                  onSubmitted: (value) {
-                    Navigator.of(
-                      dialogContext,
-                    ).pop(value);
-                  },
-                  decoration:
-                      InputDecoration(
-                    labelText:
-                        l10n.secureKeyPasscode,
-                    border:
-                        const OutlineInputBorder(),
-                  ),
-                ),
-                if (remaining == 1) ...[
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Text(
-                    l10n.warningHardwareLockout,
-                    style:
-                        const TextStyle(
-                      color: Colors.red,
-                      fontWeight:
-                          FontWeight.bold,
-                      fontSize: 12,
-                    ),
-                  ),
-                ],
-              ],
-            ),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(
-                    dialogContext,
-                  ).pop(null);
-                },
-                child: Text(
-                  l10n.cancel,
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(
-                    dialogContext,
-                  ).pop(
-                    controller.text,
-                  );
-                },
-                child: Text(
-                  l10n.ok,
-                ),
-              ),
-            ],
+            helper: remaining == 1
+                ? '$remainingText\n${l10n.warningHardwareLockout}'
+                : remainingText,
           );
         },
       );
-
-      controller.dispose();
 
       // User cancelled.
       if (result == null) {
