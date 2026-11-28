@@ -1,0 +1,58 @@
+
+name: Crypt Release APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - master
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Configure release signing
+        env:
+          KEYSTORE_BASE64: ${{ secrets.CRYPT_KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.CRYPT_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.CRYPT_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.CRYPT_KEY_PASSWORD }}
+        run: |
+          set -e
+          printf '%s' "$KEYSTORE_BASE64" | base64 --decode > android/app/crypt-release-new.jks
+
+          printf '\nCRYPT_KEYSTORE_FILE=crypt-release-new.jks\n' >> android/gradle.properties
+          printf 'CRYPT_KEYSTORE_PASSWORD=%s\n' "$KEYSTORE_PASSWORD" >> android/gradle.properties
+          printf 'CRYPT_KEY_ALIAS=%s\n' "$KEY_ALIAS" >> android/gradle.properties
+          printf 'CRYPT_KEY_PASSWORD=%s\n' "$KEY_PASSWORD" >> android/gradle.properties
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Build release APK
+        run: flutter build apk --release
+
+      - name: Upload Crypt APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Crypt-Release-APK
+          path: build/app/outputs/flutter-apk/app-release.apk
